@@ -9,9 +9,9 @@ namespace DAL.Models
 {
 	public class OrderItem: BaseEntity
 	{
-		public int Quantity { get; set; }
+		public int Quantity { get; set; }  //quantity of same book in the order
 
-		public int OrderId { get; set; }
+        public int OrderId { get; set; }
 
 		public int BookId { get; set; }
 

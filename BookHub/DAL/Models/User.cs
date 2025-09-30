@@ -22,5 +22,11 @@ namespace DAL.Models
 		public bool IsBanned { get; set; }
 
 		public virtual IEnumerable<Order> Orders { get; set; }
+
+		public virtual IEnumerable<WishlistItem> Wishlist { get; set; }
+
+		public virtual IEnumerable<CartItem> CartItems { get; set; }
+
+		public virtual IEnumerable<BookReview> Reviews { get; set; }
 	}
 }

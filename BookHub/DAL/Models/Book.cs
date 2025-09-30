@@ -2,12 +2,13 @@
 
 namespace DAL.Models
 {
-    public class Book
+    public class Book : BaseEntity
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public string ISBN { get; set; }
         public decimal Price { get; set; }
+        public virtual IEnumerable<Genre> Genres { get; set; }
         public int PublisherId { get; set; }
         public int AuthorId { get; set; }
 
@@ -16,6 +17,9 @@ namespace DAL.Models
 
         [ForeignKey(nameof(AuthorId))]
         public virtual Author? Author { get; set; }
+
+        public virtual IEnumerable<BookReview> Reviews { get; set; }
+
 
     }
 }
