@@ -15,5 +15,7 @@ namespace DAL.Models
 
 		[ForeignKey(nameof(UserId))]
 		public virtual User? User { get; set; }
+
+		public virtual IEnumerable<OrderItem> Items { get; set; }
 	}
 }

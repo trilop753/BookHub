@@ -17,5 +17,9 @@ namespace DAL.Models
 
 		[ForeignKey(nameof(OrderId))]
 		public virtual Order? Order { get; set; }
-	}
+
+		[ForeignKey(nameof(BookId))]
+        public virtual Book? Book { get; set; }
+
+    }
 }
