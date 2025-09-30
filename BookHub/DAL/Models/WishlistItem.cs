@@ -10,6 +10,7 @@ namespace DAL.Models
     public class WishlistItem : BaseEntity
     {
         public int UserId { get; set; }
+
         public int BookId { get; set; }
 
         [ForeignKey(nameof(UserId))]

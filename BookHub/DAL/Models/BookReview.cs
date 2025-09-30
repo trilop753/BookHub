@@ -10,9 +10,13 @@ namespace DAL.Models
     public class BookReview : BaseEntity
     {
         public int Stars {  get; set; }
+
         public string Body { get; set; }
+
         public int UserId { get; set; }
+
         public int BookId { get; set; }
+
 
         [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
