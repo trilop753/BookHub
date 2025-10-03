@@ -12,8 +12,11 @@ namespace DAL.Data
 	public class BookHubDbContext: DbContext
 	{
 		public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
-		public BookHubDbContext(DbContextOptions options) : base(options)
+        public BookHubDbContext(DbContextOptions options) : base(options)
 		{
 		}
 
@@ -61,7 +64,29 @@ namespace DAL.Data
                 entity.HasMany(b => b.Genres)
                 .WithMany(g => g.Books);
             });
-                
+
+            modelBuilder.Entity<Author>(entity =>
+            {
+                entity.HasMany(a => a.Books)
+                .WithOne(b => b.Author)
+                .HasForeignKey(b => b.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Publisher>(entity =>
+            {
+                entity.HasMany(p => p.Books)
+                .WithOne(b => b.Publisher)
+                .HasForeignKey(b => b.PublisherId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Genre>(entity =>
+            {
+                entity.HasMany(g => g.Books)
+                .WithMany(b => b.Genres);
+            });
+
 
 
             modelBuilder.Seed();
