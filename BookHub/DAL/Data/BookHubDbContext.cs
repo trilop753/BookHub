@@ -5,12 +5,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DAL.Models;
+
 namespace DAL.Data
 {
 	public class BookHubDbContext: DbContext
 	{
+		public DbSet<Book> Books { get; set; }
+
 		public BookHubDbContext(DbContextOptions options) : base(options)
 		{
 		}
-	}
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var dbPath = Path.Join(Environment.GetFolderPath(folder), "bookhub.db"); //TODO add to appsettings
+
+            optionsBuilder
+                .UseSqlite($"Data Source={dbPath}")
+                .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
+                .UseLazyLoadingProxies()
+                ;
+
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // so we can manually edit behavior on deletion
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.SetNull;
+            }
+
+            //TODO add restrictions on properties length?
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.HasOne(b => b.Publisher)
+                .WithMany(p => p.Books)
+                .HasForeignKey(b => b.PublisherId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(b => b.Author)
+                .WithMany(a => a.Books)
+                .HasForeignKey(b => b.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(b => b.Reviews)
+                .WithOne(r => r.Book)
+                .HasForeignKey(r => r.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasMany(b => b.Genres)
+                .WithMany(g => g.Books);
+            });
+                
+
+
+            modelBuilder.Seed();
+            base.OnModelCreating(modelBuilder);
+        }
+    }
 }
