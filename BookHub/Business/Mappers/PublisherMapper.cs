@@ -20,7 +20,7 @@ namespace Business.Mappers
             return dto;
         }
 
-        public static PublisherSummaryDto MapToSummary(this Publisher publisher)
+        public static PublisherSummaryDto MapToSummaryDto(this Publisher publisher)
         {
             PublisherSummaryDto dtoSummary = new PublisherSummaryDto();
             dtoSummary.Id = publisher.Id;

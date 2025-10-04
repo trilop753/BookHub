@@ -21,7 +21,7 @@ namespace Business.Mappers
             return dto;
         }
 
-        public static AuthorSummaryDto MapToSummary(this Author author)
+        public static AuthorSummaryDto MapToSummaryDto(this Author author)
         {
             AuthorSummaryDto dtoSummary = new AuthorSummaryDto();
             dtoSummary.Id = author.Id;

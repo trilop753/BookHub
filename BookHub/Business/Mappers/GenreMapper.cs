@@ -19,7 +19,7 @@ namespace Business.Mappers
             return dto;
         }
 
-        public static GenreSummaryDto MapToSummary(this Genre genre)
+        public static GenreSummaryDto MapToSummaryDto(this Genre genre)
         {
             GenreSummaryDto summaryDto = new GenreSummaryDto();
             summaryDto.Id = genre.Id;
