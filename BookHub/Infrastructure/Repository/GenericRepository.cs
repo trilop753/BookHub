@@ -32,19 +32,21 @@ namespace Infrastructure.Repository
             _dbSet.Remove(entity);
         }
 
-        async public Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync<T>();
         }
 
-        async public Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
+        public async Task<IEnumerable<T>> GetAllByIdsAsync(int[] ids)
+        {
+            return await _dbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
+        }
 
-
-
-        async public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
            await _context.SaveChangesAsync();
         }

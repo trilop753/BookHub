@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Repository.Interfaces;
 
 namespace Infrastructure.Repository
 {
-    public class BookRepository : GenericRepository<Book>
+    public class BookRepository : GenericRepository<Book>, IBookRepository
     {
         public BookRepository(BookHubDbContext context) : base(context)
         {

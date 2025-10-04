@@ -13,6 +13,7 @@ namespace Infrastructure.Repository.Interfaces
         void Delete(T entity);
         Task<T?> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllByIdsAsync(int[] ids);
         Task SaveChangesAsync();
     }
 }
