@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using Business.DTOs.BookDTOs;
+using DAL.Models;
 
 namespace Business.DTOs
 {
@@ -8,6 +9,6 @@ namespace Business.DTOs
 
         public string Name { get; set; }
 
-        public virtual IEnumerable<BookDto> Books { get; set; }
+        public virtual IEnumerable<BookSummaryDto> Books { get; set; }
     }
 }

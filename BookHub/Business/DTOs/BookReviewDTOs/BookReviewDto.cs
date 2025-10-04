@@ -1,7 +1,8 @@
-﻿using DAL.Models;
+﻿using Business.DTOs.BookDTOs;
+using DAL.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Business.DTOs
+namespace Business.DTOs.BookReviewDTOs
 {
     public class BookReviewDto
     {

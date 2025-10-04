@@ -1,4 +1,4 @@
-﻿namespace Business.DTOs
+﻿namespace Business.DTOs.UserDTOs
 {
     public class UserDto
     {
