@@ -11,14 +11,14 @@ namespace Business.Mappers
     //TODO complete
     public static class UserMapper
     {
-        public static UserDto mapToDto(this User user)
+        public static UserDto MapToDto(this User user)
         {
             UserDto dto = new UserDto();
             dto.Id = user.Id;
             return dto;
         }
 
-        public static UserSummaryDto mapToSummaryDto(this User user)
+        public static UserSummaryDto MapToSummaryDto(this User user)
         {
             UserSummaryDto dtoSummary = new UserSummaryDto();
             dtoSummary.Id = user.Id;

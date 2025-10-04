@@ -10,16 +10,16 @@ namespace Business.Mappers
 {
     public static class GenreMapper
     {
-        public static GenreDto mapToDto(this Genre genre)
+        public static GenreDto MapToDto(this Genre genre)
         {
             GenreDto dto = new GenreDto();
             dto.Id = genre.Id;
             dto.Name = genre.Name;
-            dto.Books = genre.Books.Select(b => b.mapToSummaryDto()).ToList();
+            dto.Books = genre.Books.Select(b => b.MapToSummaryDto()).ToList();
             return dto;
         }
 
-        public static GenreSummaryDto mapToSummary(this Genre genre)
+        public static GenreSummaryDto MapToSummary(this Genre genre)
         {
             GenreSummaryDto summaryDto = new GenreSummaryDto();
             summaryDto.Id = genre.Id;

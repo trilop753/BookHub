@@ -11,17 +11,17 @@ namespace Business.Mappers
 {
     public static class AuthorMapper
     {
-        public static AuthorDto mapToDto(this Author author)
+        public static AuthorDto MapToDto(this Author author)
         {
             AuthorDto dto = new AuthorDto();
             dto.Id = author.Id;
             dto.Name = author.Name;
             dto.Surname = author.Surname;
-            dto.Books = author.Books.Select(b => b.mapToSummaryDto()).ToList();
+            dto.Books = author.Books.Select(b => b.MapToSummaryDto()).ToList();
             return dto;
         }
 
-        public static AuthorSummaryDto mapToSummary(this Author author)
+        public static AuthorSummaryDto MapToSummary(this Author author)
         {
             AuthorSummaryDto dtoSummary = new AuthorSummaryDto();
             dtoSummary.Id = author.Id;

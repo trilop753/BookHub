@@ -11,7 +11,7 @@ namespace Business.Mappers
 {
     public static class BookMapper
     {
-        public static BookSummaryDto mapToSummaryDto(this Book book)
+        public static BookSummaryDto MapToSummaryDto(this Book book)
         {
             BookSummaryDto dtoSummary = new BookSummaryDto();
             dtoSummary.Id = book.Id;
@@ -26,7 +26,7 @@ namespace Business.Mappers
             return dtoSummary;
         }
 
-        public static BookDto mapToDto(this Book book)
+        public static BookDto MapToDto(this Book book)
         {
             BookDto dto = new BookDto();
             dto.Id = book.Id;
@@ -34,10 +34,10 @@ namespace Business.Mappers
             dto.Description = book.Description;
             dto.ISBN = book.ISBN;
             dto.Price = book.Price;
-            dto.Publisher = book.Publisher.mapToSummary();
-            dto.Author = book.Author.mapToSummary();
-            dto.Genres = book.Genres.Select(g => g.mapToSummary()).ToList();
-            dto.Reviews = book.Reviews.Select(r => r.mapToSummary()).ToList(); ;
+            dto.Publisher = book.Publisher.MapToSummary();
+            dto.Author = book.Author.MapToSummary();
+            dto.Genres = book.Genres.Select(g => g.MapToSummary()).ToList();
+            dto.Reviews = book.Reviews.Select(r => r.MapToSummary()).ToList(); ;
             return dto;
         }
     }

@@ -11,16 +11,16 @@ namespace Business.Mappers
 {
     public static class PublisherMapper
     {
-        public static PublisherDto mapToDto(this Publisher publisher)
+        public static PublisherDto MapToDto(this Publisher publisher)
         {
             PublisherDto dto = new PublisherDto();
             dto.Id = publisher.Id;
             dto.Name = publisher.Name;
-            dto.Books = publisher.Books.Select(b => b.mapToSummaryDto()).ToList();
+            dto.Books = publisher.Books.Select(b => b.MapToSummaryDto()).ToList();
             return dto;
         }
 
-        public static PublisherSummaryDto mapToSummary(this Publisher publisher)
+        public static PublisherSummaryDto MapToSummary(this Publisher publisher)
         {
             PublisherSummaryDto dtoSummary = new PublisherSummaryDto();
             dtoSummary.Id = publisher.Id;
