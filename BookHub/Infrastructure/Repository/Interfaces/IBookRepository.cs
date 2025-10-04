@@ -9,6 +9,7 @@ namespace Infrastructure.Repository.Interfaces
 {
     public interface IBookRepository : IGenericRepository<Book>
     {
-        public Task<IEnumerable<Book>> getBooksAsync(int[]? bookIds, bool includeAuthor, bool includePublisher, bool includeGenres, bool includeReviews);
+        public Task<IEnumerable<Book>> GetBooksIncludeAsync(int[]? bookIds = null, bool includeAuthor = true, bool includePublisher = true,
+            bool includeGenres = true, bool includeReviews = true);
     }
 }
