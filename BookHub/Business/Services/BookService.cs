@@ -4,7 +4,7 @@ using Business.Services.Interfaces;
 using DAL.Models;
 using Infrastructure.Repository.Interfaces;
 
-public class BookService
+public class BookService : IBookService
 {
     private readonly IBookRepository _bookRepository;
     private readonly IGenreRepository _genreRepository;
@@ -44,6 +44,7 @@ public class BookService
         {
             Title = dto.Title,
             Description = dto.Description,
+            ISBN = dto.ISBN,
             Price = dto.Price,
             Author = author,
             Publisher = publisher,

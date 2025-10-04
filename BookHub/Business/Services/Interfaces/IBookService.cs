@@ -11,8 +11,8 @@ namespace Business.Services.Interfaces
     {
         public Task<BookDto?> GetBookByIdAsync(int id);
         public Task<IEnumerable<BookDto>> GetAllBooksAsync();
-        //public Task<BookDto> CreateBookAsync(BookDto dto);
-        public Task<bool> UpdateBookAsync(BookDto dto);
+        public Task<BookDto> CreateBookAsync(BookCreateDto dto);
+        public Task<bool> UpdateBookAsync(BookUpdateDto dto);
         public Task<bool> DeleteBookAsync(int id);
 
     }
