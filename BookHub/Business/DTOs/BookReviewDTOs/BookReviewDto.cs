@@ -1,4 +1,5 @@
 ﻿using Business.DTOs.BookDTOs;
+using Business.DTOs.UserDTOs;
 using DAL.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,8 +13,8 @@ namespace Business.DTOs.BookReviewDTOs
 
         public string Body { get; set; }
 
-        public UserDto User { get; set; }
+        public UserSummaryDto User { get; set; }
 
-        public BookDto Book { get; set; }
+        public BookSummaryDto Book { get; set; }
     }
 }
