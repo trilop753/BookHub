@@ -27,5 +27,42 @@ namespace Infrastructure.Repository
         //}
 
 
+        public async Task<IEnumerable<Book>> getBooksAsync(int[]? bookIds = null, bool includeAuthor = true, bool includePublisher = true,
+            bool includeGenres = true, bool includeReviews = true)
+        {
+            IQueryable<Book> query = getBasicQuery(includeAuthor, includePublisher, includeGenres, includeReviews);
+
+            if (bookIds != null && bookIds.Length > 0)
+            {
+                query.Where(b => bookIds.Contains(b.Id));
+            }
+
+            return await query.ToListAsync();
+        }
+
+        private IQueryable<Book> getBasicQuery(bool includeAuthor, bool includePublisher, bool includeGenres, bool includeReviews)
+        {
+            IQueryable<Book> bookQuery = _dbSet;
+
+            if (includeAuthor)
+            {
+                bookQuery = bookQuery.Include(b => b.Author);
+            }
+            if (includePublisher)
+            {
+                bookQuery = bookQuery.Include(b => b.Publisher);
+            }
+            if (includeGenres)
+            {
+                bookQuery = bookQuery.Include(b => b.Genres);
+            }
+            if (includeReviews)
+            {
+                bookQuery = bookQuery.Include(b => b.Reviews);
+            }
+
+            return bookQuery;
+        }
+
     }
 }

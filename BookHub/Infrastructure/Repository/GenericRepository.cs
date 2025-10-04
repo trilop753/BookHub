@@ -1,5 +1,6 @@
 ﻿using DAL.Data;
 using DAL.Models;
+using Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,8 @@ namespace Infrastructure.Repository
         {
             return await _dbSet.FindAsync(id);
         }
+
+
 
         async public Task SaveChangesAsync()
         {
