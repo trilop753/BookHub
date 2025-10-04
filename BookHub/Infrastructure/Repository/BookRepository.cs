@@ -27,7 +27,7 @@ namespace Infrastructure.Repository
         //}
 
 
-        public async Task<IEnumerable<Book>> GetBooksIncludeAsync(int[]? bookIds = null, bool includeAuthor = true, bool includePublisher = true,
+        public async Task<IEnumerable<Book>> GetBooksAsync(int[]? bookIds = null, bool includeAuthor = true, bool includePublisher = true,
             bool includeGenres = true, bool includeReviews = true)
         {
             IQueryable<Book> query = GetBasicQuery(includeAuthor, includePublisher, includeGenres, includeReviews);

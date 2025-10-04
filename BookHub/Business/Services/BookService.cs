@@ -20,7 +20,7 @@ public class BookService
 
     public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
     {
-        var books = await _bookRepository.GetBooksIncludeAsync();
+        var books = await _bookRepository.GetBooksAsync();
         return books.Select(b => b.MapToDto());
     }
 
