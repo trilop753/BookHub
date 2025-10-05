@@ -4,6 +4,10 @@
     {
         public int Id { get; set; }
 
-        //TODO complete
-    }
+        public string Username { get; set; }
+
+		public string Email { get; set; }
+
+		public bool IsBanned { get; set; }
+	}
 }
