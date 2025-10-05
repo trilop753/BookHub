@@ -13,16 +13,22 @@ namespace Business.Mappers
     {
         public static UserDto MapToDto(this User user)
         {
-            UserDto dto = new UserDto();
-            dto.Id = user.Id;
-            return dto;
+            return new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                IsBanned = user.IsBanned
+            };
         }
 
         public static UserSummaryDto MapToSummaryDto(this User user)
         {
-            UserSummaryDto dtoSummary = new UserSummaryDto();
-            dtoSummary.Id = user.Id;
-            return dtoSummary;
+            return new UserSummaryDto
+            {
+                Id = user.Id,
+                Username = user.Username
+            };
         }
     }
 }
