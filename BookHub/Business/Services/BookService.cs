@@ -11,7 +11,6 @@ public class BookService : IBookService
     private readonly IAuthorRepository _authorRepository;
     private readonly IPublisherRepository _publisherRepository;
 
-
     public BookService(IBookRepository bookRepository, IGenreRepository genreRepository,
         IAuthorRepository authorRepository, IPublisherRepository publisherRepository)
     {
@@ -46,7 +45,6 @@ public class BookService : IBookService
 	}
 
 	#endregion
-
 
 	public async Task<BookDto> CreateBookAsync(BookCreateDto dto)
     {
