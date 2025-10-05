@@ -57,9 +57,9 @@ namespace Business.Services
 
 			if (user == null) return false;
 
-			user.Username = dto.Username;
-			user.Email = dto.Email;
-			user.IsBanned = dto.IsBanned;
+			user.Username = dto.Username ?? user.Username;
+			user.Email = dto.Email ?? user.Email;
+			user.IsBanned = dto.IsBanned ?? user.IsBanned;
 
 			await _userRepository.SaveChangesAsync();
 			return true;
