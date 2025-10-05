@@ -37,12 +37,6 @@ namespace DAL.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // so we can manually edit behavior on deletion
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.SetNull;
-            }
-
             //TODO add restrictions on properties length?
             modelBuilder.Entity<Book>(entity =>
             {
@@ -61,8 +55,6 @@ namespace DAL.Data
                 .HasForeignKey(r => r.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasMany(b => b.Genres)
-                .WithMany(g => g.Books);
             });
 
             modelBuilder.Entity<Author>(entity =>

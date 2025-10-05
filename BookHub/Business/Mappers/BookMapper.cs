@@ -1,5 +1,6 @@
 ﻿using Business.DTOs.AuthorDTOs;
 using Business.DTOs.BookDTOs;
+using Business.DTOs.BookReviewDTOs;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,14 @@ namespace Business.Mappers
             dto.Publisher = book.Publisher.MapToSummaryDto();
             dto.Author = book.Author.MapToSummaryDto();
             dto.Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList();
-            dto.Reviews = book.Reviews.Select(r => r.MapToSummaryDto()).ToList(); ;
-            return dto;
+            if (book.Reviews != null) //when creating new book reviews are empty, TODO: move somewhere else?
+            {
+                dto.Reviews = book.Reviews.Select(r => r.MapToSummaryDto()).ToList();
+            } else
+            {
+                dto.Reviews = new List<BookReviewSummaryDto>();
+            }
+                return dto;
         }
         public static BookSummaryDto MapToSummaryDto(this Book book)
         {
