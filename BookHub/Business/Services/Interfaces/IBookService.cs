@@ -14,6 +14,6 @@ namespace Business.Services.Interfaces
         public Task<BookDto> CreateBookAsync(BookCreateDto dto);
         public Task<bool> UpdateBookAsync(BookUpdateDto dto);
         public Task<bool> DeleteBookAsync(int id);
-
+        public Task<IEnumerable<BookSummaryDto>> GetFiltered(BookSearchCriteriaDto searchCriteria);
     }
 }

@@ -19,6 +19,8 @@ namespace WebAPI.Controllers
             _bookService = bookService;
         }
 
+		#region Get
+		
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookDto>>> GetAll()
         {
@@ -35,6 +37,16 @@ namespace WebAPI.Controllers
 
             return Ok(book);
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<BookSummaryDto>> GetFiltered([FromQuery] BookSearchCriteriaDto searchCriteria)
+        {
+            var books = await _bookService.GetFiltered(searchCriteria);
+
+            return Ok(books);
+        }
+
+		#endregion
 
         [HttpPost]
         public async Task<ActionResult<BookDto>> Create([FromBody] BookCreateDto dto)
