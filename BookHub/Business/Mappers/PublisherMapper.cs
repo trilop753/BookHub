@@ -13,19 +13,21 @@ namespace Business.Mappers
     {
         public static PublisherDto MapToDto(this Publisher publisher)
         {
-            PublisherDto dto = new PublisherDto();
-            dto.Id = publisher.Id;
-            dto.Name = publisher.Name;
-            dto.Books = publisher.Books.Select(b => b.MapToSummaryDto()).ToList();
-            return dto;
+            return new PublisherDto
+            {
+                Id = publisher.Id,
+                Name = publisher.Name,
+                Books = publisher.Books.Select(b => b.MapToSummaryDto()).ToList()
+            };
         }
 
         public static PublisherSummaryDto MapToSummaryDto(this Publisher publisher)
         {
-            PublisherSummaryDto dtoSummary = new PublisherSummaryDto();
-            dtoSummary.Id = publisher.Id;
-            dtoSummary.Name = publisher.Name;
-            return dtoSummary;
+            return new PublisherSummaryDto
+            {
+                Id = publisher.Id,
+                Name = publisher.Name
+            };
         }
     }
 }

@@ -12,22 +12,24 @@ namespace Business.Mappers
     {
         public static BookReviewDto MapToDto(this BookReview review)
         {
-            BookReviewDto dto = new BookReviewDto();
-            dto.Id = review.Id;
-            dto.Stars = review.Stars;
-            dto.Body = review.Body;
-            dto.User = review.User.MapToSummaryDto();
-            dto.Book = review.Book.MapToSummaryDto();
-            return dto;
+            return new BookReviewDto
+            {
+                Id = review.Id,
+                Stars = review.Stars,
+                Body = review.Body,
+                User = review.User.MapToSummaryDto(),
+                Book = review.Book.MapToSummaryDto()
+            };
         }
 
         public static BookReviewSummaryDto MapToSummaryDto(this BookReview review)
         {
-            BookReviewSummaryDto dtoSummary = new BookReviewSummaryDto();
-            dtoSummary.Id = review.Id;
-            dtoSummary.Stars = review.Stars;
-            dtoSummary.Body = review.Body;
-            return dtoSummary;
+            return new BookReviewSummaryDto
+            {
+                Id = review.Id,
+                Stars = review.Stars,
+                Body = review.Body
+            };
         }
     }
 }
