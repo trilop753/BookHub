@@ -12,19 +12,21 @@ namespace Business.Mappers
     {
         public static GenreDto MapToDto(this Genre genre)
         {
-            GenreDto dto = new GenreDto();
-            dto.Id = genre.Id;
-            dto.Name = genre.Name;
-            dto.Books = genre.Books.Select(b => b.MapToSummaryDto()).ToList();
-            return dto;
+            return new GenreDto
+            {
+                Id = genre.Id,
+                Name = genre.Name,
+                Books = genre.Books.Select(b => b.MapToSummaryDto()).ToList()
+            };
         }
 
         public static GenreSummaryDto MapToSummaryDto(this Genre genre)
         {
-            GenreSummaryDto summaryDto = new GenreSummaryDto();
-            summaryDto.Id = genre.Id;
-            summaryDto.Name = genre.Name;
-            return summaryDto;
+            return new GenreSummaryDto
+            {
+                Id = genre.Id,
+                Name = genre.Name
+            };
         }
 
     }

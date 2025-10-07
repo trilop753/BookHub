@@ -15,37 +15,35 @@ namespace Business.Mappers
 
         public static BookDto MapToDto(this Book book)
         {
-            BookDto dto = new BookDto();
-            dto.Id = book.Id;
-            dto.Title = book.Title;
-            dto.Description = book.Description;
-            dto.ISBN = book.ISBN;
-            dto.Price = book.Price;
-            dto.Publisher = book.Publisher.MapToSummaryDto();
-            dto.Author = book.Author.MapToSummaryDto();
-            dto.Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList();
-            if (book.Reviews != null) //when creating new book reviews are empty, TODO: move somewhere else?
+            return new BookDto
             {
-                dto.Reviews = book.Reviews.Select(r => r.MapToSummaryDto()).ToList();
-            } else
-            {
-                dto.Reviews = new List<BookReviewSummaryDto>();
-            }
-                return dto;
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                ISBN = book.ISBN,
+                Price = book.Price,
+                Publisher = book.Publisher.MapToSummaryDto(),
+                Author = book.Author.MapToSummaryDto(),
+                Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
+                Reviews = book.Reviews != null
+                    ? book.Reviews.Select(r => r.MapToSummaryDto()).ToList()
+                    : new List<BookReviewSummaryDto>()
+            };
         }
         public static BookSummaryDto MapToSummaryDto(this Book book)
         {
-            BookSummaryDto dtoSummary = new BookSummaryDto();
-            dtoSummary.Id = book.Id;
-            dtoSummary.Title = book.Title;
-            dtoSummary.Description = book.Description;
-            dtoSummary.ISBN = book.ISBN;
-            dtoSummary.Price = book.Price;
-            dtoSummary.PublisherName = book.Publisher.Name;
-            dtoSummary.AuthorName = book.Author.Name;
-            dtoSummary.Genres = book.Genres.Select(g => g.Name).ToList();
-            dtoSummary.AverageRating = book.Reviews.Average(r => r.Stars);
-            return dtoSummary;
+            return new BookSummaryDto
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                ISBN = book.ISBN,
+                Price = book.Price,
+                PublisherName = book.Publisher.Name,
+                AuthorName = book.Author.Name,
+                Genres = book.Genres.Select(g => g.Name).ToList(),
+                AverageRating = book.Reviews.Average(r => r.Stars)
+            };
         }
     }
 }
