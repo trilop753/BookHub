@@ -14,11 +14,11 @@ BookHub is a digital platform for online book sales across various genres. It al
 ## Project Information
 
 **Technologies:**
-- C# (.NET 6 / ASP.NET Core Web API)
+- C# (.NET 8 / ASP.NET Core Web API)
 - Entity Framework Core (Code First)
-- MSSQL / SQLite (for development)
+- SQLite (for development)
 - Swagger for API documentation
-- Repository & Unit of Work pattern
+- Repository pattern
 - Middleware for authentication and logging
 
 **Repository:**
