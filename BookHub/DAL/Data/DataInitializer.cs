@@ -145,8 +145,8 @@ namespace DAL.Data
                         Id = 1,
                         Username = "trilop",
                         Email = "example@gmail.com",
-                        PasswordHash = "hash",
-                        PasswordSalt = "salt",
+                        //PasswordHash = "hash",
+                        //PasswordSalt = "salt",
                         IsBanned = false,
                     },
 
@@ -155,8 +155,8 @@ namespace DAL.Data
                         Id = 2,
                         Username = "username123",
                         Email = "example2@gmail.com",
-                        PasswordHash = "hash2",
-                        PasswordSalt = "salt2",
+                        //PasswordHash = "hash2",
+                        //PasswordSalt = "salt2",
                         IsBanned = true,
                     },
                 };

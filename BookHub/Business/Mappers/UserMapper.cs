@@ -15,7 +15,10 @@ namespace Business.Mappers
         {
             return new UserDto
             {
-                Id = user.Id
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                IsBanned = user.IsBanned
             };
         }
 
@@ -23,7 +26,8 @@ namespace Business.Mappers
         {
             return new UserSummaryDto
             {
-                Id = user.Id
+                Id = user.Id,
+                Username = user.Username
             };
         }
     }

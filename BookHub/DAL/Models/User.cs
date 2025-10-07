@@ -15,9 +15,9 @@ namespace DAL.Models
         [MinLength(1), MaxLength(20)]
         public string Email { get; set; }
 
-        public string PasswordHash { get; set; }
+        //public string PasswordHash { get; set; }
 
-		public string PasswordSalt { get; set; }
+		//public string PasswordSalt { get; set; }
 
 		public bool IsBanned { get; set; }
 
