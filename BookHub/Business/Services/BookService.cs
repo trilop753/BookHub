@@ -11,7 +11,6 @@ public class BookService : IBookService
     private readonly IAuthorRepository _authorRepository;
     private readonly IPublisherRepository _publisherRepository;
 
-
     public BookService(IBookRepository bookRepository, IGenreRepository genreRepository,
         IAuthorRepository authorRepository, IPublisherRepository publisherRepository)
     {
@@ -21,7 +20,9 @@ public class BookService : IBookService
         _publisherRepository = publisherRepository;
     }
 
-    public async Task<BookDto?> GetBookByIdAsync(int id)
+	#region Get
+
+	public async Task<BookDto?> GetBookByIdAsync(int id)
     {
         var book = await _bookRepository.GetByIdAsync(id);
         return book?.MapToDto();
@@ -33,7 +34,19 @@ public class BookService : IBookService
         return books.Select(b => b.MapToDto());
     }
 
-    public async Task<BookDto> CreateBookAsync(BookCreateDto dto)
+	public async Task<IEnumerable<BookSummaryDto>> GetFiltered(BookSearchCriteriaDto searchCriteria)
+	{
+        var books = await _bookRepository.GetFiltered(searchCriteria.Title, searchCriteria.Description, 
+            searchCriteria.LowPrice, searchCriteria.HighPrice, searchCriteria.GenreIds, 
+            searchCriteria.AuthorId, searchCriteria.PublisherId
+        );
+
+        return books.Select(b => b.MapToSummaryDto());
+	}
+
+	#endregion
+
+	public async Task<BookDto> CreateBookAsync(BookCreateDto dto)
     {
         var author = await _authorRepository.GetByIdAsync(dto.AuthorId);
         var publisher = await _publisherRepository.GetByIdAsync(dto.PublisherId);
