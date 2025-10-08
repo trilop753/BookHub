@@ -23,8 +23,6 @@ namespace DAL.Data.Seed
                     Id = 1,
                     Username = "admin",
                     Email = "admin@bookhub.com",
-                    PasswordHash = "hash_admin",
-                    PasswordSalt = "salt_admin",
                     IsBanned = false
                 },
                 new User
@@ -32,8 +30,6 @@ namespace DAL.Data.Seed
                     Id = 2,
                     Username = "john",
                     Email = "john.doe@gmail.com",
-                    PasswordHash = "hash_john",
-                    PasswordSalt = "salt_john",
                     IsBanned = false
                 },
                 new User
@@ -41,8 +37,6 @@ namespace DAL.Data.Seed
                     Id = 3,
                     Username = "emma",
                     Email = "emma.reader@gmail.com",
-                    PasswordHash = "hash_emma",
-                    PasswordSalt = "salt_emma",
                     IsBanned = false
                 },
                 new User
@@ -50,8 +44,6 @@ namespace DAL.Data.Seed
                     Id = 4,
                     Username = "mike",
                     Email = "mike.writer@gmail.com",
-                    PasswordHash = "hash_mike",
-                    PasswordSalt = "salt_mike",
                     IsBanned = false
                 }
             };
