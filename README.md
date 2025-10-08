@@ -87,3 +87,8 @@ git clone https://gitlab.fi.muni.cz/xmackov1/pv179_bookhub
 ```bash
 cd pv179_bookhub
 ```
+
+Secret token for authorization:
+```bash
+supersecrettoken123
+```
