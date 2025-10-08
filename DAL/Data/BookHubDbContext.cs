@@ -80,9 +80,12 @@ namespace DAL.Data
             });
 
 
-
-            modelBuilder.Seed();
+            // DataInitializer.cs - delete?
+            //modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);
+
+            // New function in RunSeeder.cs that runs the seeders in correct order
+            modelBuilder.SeedAll();
         }
     }
 }
