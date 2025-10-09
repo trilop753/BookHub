@@ -9,8 +9,20 @@ using WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//TODO: configure here?
-builder.Services.AddDbContext<BookHubDbContext>();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (connectionString == null)
+{
+    Console.Error.WriteLine("DbString not found in appsettings.");
+    return;
+}
+connectionString = Environment.ExpandEnvironmentVariables(connectionString);
+
+builder.Services.AddDbContext<BookHubDbContext>(options =>
+    options.UseSqlite(connectionString)
+        .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
+        .UseLazyLoadingProxies()
+);
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
