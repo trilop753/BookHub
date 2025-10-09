@@ -256,7 +256,10 @@ namespace DAL.Migrations
                 values: new object[,]
                 {
                     { 1, "J.R.R.", "Tolkien" },
-                    { 2, "Robert W.", "Chambers" }
+                    { 2, "Robert W.", "Chambers" },
+                    { 3, "Stephen", "King" },
+                    { 4, "Jane", "Austen" },
+                    { 5, "Isaac", "Asimov" }
                 });
 
             migrationBuilder.InsertData(
@@ -265,7 +268,11 @@ namespace DAL.Migrations
                 values: new object[,]
                 {
                     { 1, "Fantasy" },
-                    { 2, "Horror" }
+                    { 2, "Horror" },
+                    { 3, "Science Fiction" },
+                    { 4, "Romance" },
+                    { 5, "Thriller" },
+                    { 6, "Biography" }
                 });
 
             migrationBuilder.InsertData(
@@ -273,8 +280,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "publisher1" },
-                    { 2, "publisher2" }
+                    { 1, "Penguin Books" },
+                    { 2, "HarperCollins" },
+                    { 3, "Bloomsbury" },
+                    { 4, "Vintage" }
                 });
 
             migrationBuilder.InsertData(
@@ -282,8 +291,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-                    { 1, "example@gmail.com", false, "trilop" },
-                    { 2, "example2@gmail.com", true, "username123" }
+                    { 1, "admin@bookhub.com", false, "admin" },
+                    { 2, "john.doe@gmail.com", false, "john" },
+                    { 3, "emma.reader@gmail.com", false, "emma" },
+                    { 4, "mike.writer@gmail.com", false, "mike" }
                 });
 
             migrationBuilder.InsertData(
@@ -291,8 +302,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "AuthorId", "Description", "ISBN", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 1, "you dont know lotr?", "1231231231231", 10m, 1, "The Lord of the Rings: The Fellowship of the Ring" },
-                    { 2, 2, "test description", "1231231231232", 5m, 1, "The King in Yellow" }
+                    { 1, 1, "Classic high fantasy adventure.", "9780547928210", 10.99m, 1, "The Lord of the Rings: The Fellowship of the Ring" },
+                    { 2, 2, "A collection of weird horror stories.", "9780486226886", 6.99m, 2, "The King in Yellow" },
+                    { 3, 4, "A romantic novel of manners.", "9780141439518", 8.49m, 3, "Pride and Prejudice" },
+                    { 4, 5, "Science fiction classic about the fall of the Galactic Empire.", "9780553293357", 9.99m, 4, "Foundation" }
                 });
 
             migrationBuilder.InsertData(
@@ -301,7 +314,10 @@ namespace DAL.Migrations
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 2, 2 }
+                    { 2, 2 },
+                    { 2, 3 },
+                    { 3, 4 },
+                    { 4, 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -309,8 +325,9 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "best book!", 1, 5, 1 },
-                    { 2, "nice", 2, 4, 1 }
+                    { 1, "Absolutely loved it! A masterpiece of fantasy.", 1, 5, 1 },
+                    { 2, "Creepy, atmospheric, and unique.", 2, 4, 2 },
+                    { 3, "Classic romance with wit and heart.", 3, 5, 3 }
                 });
 
             migrationBuilder.CreateIndex(
