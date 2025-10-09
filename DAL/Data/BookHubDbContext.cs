@@ -79,10 +79,9 @@ namespace DAL.Data
                 .WithMany(b => b.Genres);
             });
 
-
-
-            modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.SeedAll();
         }
     }
 }
