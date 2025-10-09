@@ -20,21 +20,6 @@ namespace DAL.Data
 		{
 		}
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var dbPath = Path.Join(Environment.GetFolderPath(folder), "bookhub.db"); //TODO add to appsettings
-
-            optionsBuilder
-                .UseSqlite($"Data Source={dbPath}")
-                .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
-                .UseLazyLoadingProxies()
-                ;
-
-        }
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //TODO add restrictions on properties length?
