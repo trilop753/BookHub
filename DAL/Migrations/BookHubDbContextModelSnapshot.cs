@@ -45,21 +45,6 @@ namespace DAL.Migrations
                         {
                             BooksId = 2,
                             GenresId = 2
-                        },
-                        new
-                        {
-                            BooksId = 2,
-                            GenresId = 3
-                        },
-                        new
-                        {
-                            BooksId = 3,
-                            GenresId = 4
-                        },
-                        new
-                        {
-                            BooksId = 4,
-                            GenresId = 5
                         });
                 });
 
@@ -93,24 +78,6 @@ namespace DAL.Migrations
                             Id = 2,
                             Name = "Robert W.",
                             Surname = "Chambers"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Stephen",
-                            Surname = "King"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Jane",
-                            Surname = "Austen"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Isaac",
-                            Surname = "Asimov"
                         });
                 });
 
@@ -154,9 +121,9 @@ namespace DAL.Migrations
                         {
                             Id = 1,
                             AuthorId = 1,
-                            Description = "Classic high fantasy adventure.",
-                            ISBN = "9780547928210",
-                            Price = 10.99m,
+                            Description = "you dont know lotr?",
+                            ISBN = "1231231231231",
+                            Price = 10m,
                             PublisherId = 1,
                             Title = "The Lord of the Rings: The Fellowship of the Ring"
                         },
@@ -164,31 +131,11 @@ namespace DAL.Migrations
                         {
                             Id = 2,
                             AuthorId = 2,
-                            Description = "A collection of weird horror stories.",
-                            ISBN = "9780486226886",
-                            Price = 6.99m,
-                            PublisherId = 2,
+                            Description = "test description",
+                            ISBN = "1231231231232",
+                            Price = 5m,
+                            PublisherId = 1,
                             Title = "The King in Yellow"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AuthorId = 4,
-                            Description = "A romantic novel of manners.",
-                            ISBN = "9780141439518",
-                            Price = 8.49m,
-                            PublisherId = 3,
-                            Title = "Pride and Prejudice"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AuthorId = 5,
-                            Description = "Science fiction classic about the fall of the Galactic Empire.",
-                            ISBN = "9780553293357",
-                            Price = 9.99m,
-                            PublisherId = 4,
-                            Title = "Foundation"
                         });
                 });
 
@@ -223,7 +170,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Absolutely loved it! A masterpiece of fantasy.",
+                            Body = "best book!",
                             BookId = 1,
                             Stars = 5,
                             UserId = 1
@@ -231,18 +178,10 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            Body = "Creepy, atmospheric, and unique.",
+                            Body = "nice",
                             BookId = 2,
                             Stars = 4,
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Body = "Classic romance with wit and heart.",
-                            BookId = 3,
-                            Stars = 5,
-                            UserId = 3
+                            UserId = 1
                         });
                 });
 
@@ -294,26 +233,6 @@ namespace DAL.Migrations
                         {
                             Id = 2,
                             Name = "Horror"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Science Fiction"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Romance"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Thriller"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Biography"
                         });
                 });
 
@@ -378,22 +297,12 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Penguin Books"
+                            Name = "publisher1"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "HarperCollins"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Bloomsbury"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Vintage"
+                            Name = "publisher2"
                         });
                 });
 
@@ -424,30 +333,16 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "admin@bookhub.com",
+                            Email = "example@gmail.com",
                             IsBanned = false,
-                            Username = "admin"
+                            Username = "trilop"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "john.doe@gmail.com",
-                            IsBanned = false,
-                            Username = "john"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Email = "emma.reader@gmail.com",
-                            IsBanned = false,
-                            Username = "emma"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Email = "mike.writer@gmail.com",
-                            IsBanned = false,
-                            Username = "mike"
+                            Email = "example2@gmail.com",
+                            IsBanned = true,
+                            Username = "username123"
                         });
                 });
 
