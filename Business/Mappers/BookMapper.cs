@@ -42,7 +42,7 @@ namespace Business.Mappers
                 PublisherName = book.Publisher.Name,
                 AuthorName = book.Author.Name,
                 Genres = book.Genres.Select(g => g.Name).ToList(),
-                AverageRating = book.Reviews.Average(r => r.Stars)
+                AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : 0
             };
         }
     }
