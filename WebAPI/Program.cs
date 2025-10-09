@@ -69,8 +69,13 @@ using (var scope = app.Services.CreateScope())
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseStaticFiles();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
+        c.InjectJavascript("/swagger-ui/show-token.js");
+    });
 }
 
 app.UseMiddleware<LoggingMiddleware>();

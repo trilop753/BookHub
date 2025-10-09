@@ -79,12 +79,8 @@ namespace DAL.Data
                 .WithMany(b => b.Genres);
             });
 
-
-            // DataInitializer.cs - delete?
-            //modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);
 
-            // New function in RunSeeder.cs that runs the seeders in correct order
             modelBuilder.SeedAll();
         }
     }
