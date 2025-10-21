@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Business.DTOs.BookDTOs;
-using Business.DTOs.UserDTOs;
+﻿using Business.DTOs.UserDTOs;
 
 namespace Business.Services.Interfaces
 {

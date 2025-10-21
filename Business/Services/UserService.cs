@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Business.DTOs.UserDTOs;
+﻿using Business.DTOs.UserDTOs;
 using Business.Mappers;
 using Business.Services.Interfaces;
 using Infrastructure.Repository.Interfaces;
