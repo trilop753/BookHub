@@ -1,11 +1,11 @@
-﻿using Business.DTOs;
-using Business.DTOs.AuthorDTOs;
-using DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Business.DTOs;
+using Business.DTOs.AuthorDTOs;
+using DAL.Models;
 
 namespace Business.Mappers
 {
@@ -18,10 +18,9 @@ namespace Business.Mappers
                 Id = author.Id,
                 Name = author.Name,
                 Surname = author.Surname,
-                Books = author.Books.Select(b => b.MapToSummaryDto()).ToList()
+                Books = author.Books.Select(b => b.MapToSummaryDto()).ToList(),
             };
         }
-
 
         public static AuthorSummaryDto MapToSummaryDto(this Author author)
         {
@@ -29,9 +28,8 @@ namespace Business.Mappers
             {
                 Id = author.Id,
                 Name = author.Name,
-                Surname = author.Surname
+                Surname = author.Surname,
             };
         }
-
     }
 }

@@ -1,17 +1,18 @@
-﻿using DAL.Data;
-using DAL.Models;
-using Infrastructure.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Data;
+using DAL.Models;
+using Infrastructure.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T>
+        where T : BaseEntity
     {
         private readonly BookHubDbContext _context;
         protected readonly DbSet<T> _dbSet;
@@ -41,6 +42,7 @@ namespace Infrastructure.Repository
         {
             return await _dbSet.FindAsync(id);
         }
+
         public async Task<IEnumerable<T>> GetAllByIdsAsync(int[] ids)
         {
             return await _dbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
@@ -48,7 +50,7 @@ namespace Infrastructure.Repository
 
         public async Task SaveChangesAsync()
         {
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

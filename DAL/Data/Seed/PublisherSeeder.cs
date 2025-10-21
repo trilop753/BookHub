@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace DAL.Data.Seed
 {
@@ -10,8 +10,7 @@ namespace DAL.Data.Seed
         {
             var publishers = PreparePublisherModels();
 
-            modelBuilder.Entity<Publisher>()
-                .HasData(publishers);
+            modelBuilder.Entity<Publisher>().HasData(publishers);
         }
 
         private static List<Publisher> PreparePublisherModels()
@@ -21,7 +20,7 @@ namespace DAL.Data.Seed
                 new Publisher { Id = 1, Name = "Penguin Books" },
                 new Publisher { Id = 2, Name = "HarperCollins" },
                 new Publisher { Id = 3, Name = "Bloomsbury" },
-                new Publisher { Id = 4, Name = "Vintage" }
+                new Publisher { Id = 4, Name = "Vintage" },
             };
         }
     }

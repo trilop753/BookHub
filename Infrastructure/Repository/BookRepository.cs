@@ -1,27 +1,35 @@
-﻿using DAL.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using DAL.Data;
 using DAL.Models;
-using Microsoft.EntityFrameworkCore;
 using Infrastructure.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Infrastructure.Repository
 {
-	public class BookRepository : GenericRepository<Book>, IBookRepository
+    public class BookRepository : GenericRepository<Book>, IBookRepository
     {
-        public BookRepository(BookHubDbContext context) : base(context)
-        {
-        }
+        public BookRepository(BookHubDbContext context)
+            : base(context) { }
 
-        public async Task<IEnumerable<Book>> GetBooksAsync(int[]? bookIds = null, bool includeAuthor = true, bool includePublisher = true,
-            bool includeGenres = true, bool includeReviews = true)
+        public async Task<IEnumerable<Book>> GetBooksAsync(
+            int[]? bookIds = null,
+            bool includeAuthor = true,
+            bool includePublisher = true,
+            bool includeGenres = true,
+            bool includeReviews = true
+        )
         {
-            IQueryable<Book> query = GetBasicQuery(includeAuthor, includePublisher, includeGenres, includeReviews);
+            IQueryable<Book> query = GetBasicQuery(
+                includeAuthor,
+                includePublisher,
+                includeGenres,
+                includeReviews
+            );
 
             if (bookIds != null && bookIds.Length > 0)
             {
@@ -31,8 +39,16 @@ namespace Infrastructure.Repository
             return await query.ToListAsync();
         }
 
-		public async Task<IEnumerable<Book>> GetFiltered(string? title, string? dsc, decimal? lowPrice, decimal? highPrice, int[]? genreIds, int? authorId, int? publisherId)
-		{
+        public async Task<IEnumerable<Book>> GetFiltered(
+            string? title,
+            string? dsc,
+            decimal? lowPrice,
+            decimal? highPrice,
+            int[]? genreIds,
+            int? authorId,
+            int? publisherId
+        )
+        {
             // Horrific, but I can't send BookSearchCriteriaDTO since
             // that would require linking Business and Infrastructure,
             // which is forbidden since it would create a circular dependancy
@@ -77,9 +93,14 @@ namespace Infrastructure.Repository
             }
 
             return await query.ToListAsync();
-		}
+        }
 
-		private IQueryable<Book> GetBasicQuery(bool includeAuthor, bool includePublisher, bool includeGenres, bool includeReviews)
+        private IQueryable<Book> GetBasicQuery(
+            bool includeAuthor,
+            bool includePublisher,
+            bool includeGenres,
+            bool includeReviews
+        )
         {
             IQueryable<Book> bookQuery = _dbSet;
 
@@ -102,6 +123,5 @@ namespace Infrastructure.Repository
 
             return bookQuery;
         }
-
     }
 }

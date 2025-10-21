@@ -1,10 +1,10 @@
-﻿using Business.DTOs.BookDTOs;
-using Business.Services.Interfaces;
-using Business.DTOs;
-using Business.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Business.DTOs;
+using Business.DTOs.BookDTOs;
+using Business.Services;
+using Business.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
@@ -19,8 +19,8 @@ namespace WebAPI.Controllers
             _bookService = bookService;
         }
 
-		#region Get
-		
+        #region Get
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookDto>>> GetAll()
         {
@@ -39,14 +39,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<BookSummaryDto>> GetFiltered([FromQuery] BookSearchCriteriaDto searchCriteria)
+        public async Task<ActionResult<BookSummaryDto>> GetFiltered(
+            [FromQuery] BookSearchCriteriaDto searchCriteria
+        )
         {
             var books = await _bookService.GetFiltered(searchCriteria);
 
             return Ok(books);
         }
 
-		#endregion
+        #endregion
 
         [HttpPost]
         public async Task<ActionResult<BookDto>> Create([FromBody] BookCreateDto dto)

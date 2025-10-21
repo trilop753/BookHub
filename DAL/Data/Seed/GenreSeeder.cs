@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace DAL.Data.Seed
 {
@@ -10,8 +10,7 @@ namespace DAL.Data.Seed
         {
             var genres = PrepareGenreModels();
 
-            modelBuilder.Entity<Genre>()
-                .HasData(genres);
+            modelBuilder.Entity<Genre>().HasData(genres);
         }
 
         private static List<Genre> PrepareGenreModels()
@@ -23,7 +22,7 @@ namespace DAL.Data.Seed
                 new Genre { Id = 3, Name = "Science Fiction" },
                 new Genre { Id = 4, Name = "Romance" },
                 new Genre { Id = 5, Name = "Thriller" },
-                new Genre { Id = 6, Name = "Biography" }
+                new Genre { Id = 6, Name = "Biography" },
             };
         }
     }

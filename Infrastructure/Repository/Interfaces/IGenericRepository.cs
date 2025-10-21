@@ -1,13 +1,14 @@
-﻿using DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Models;
 
 namespace Infrastructure.Repository.Interfaces
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T>
+        where T : BaseEntity
     {
         Task AddAsync(T entity);
         void Delete(T entity);

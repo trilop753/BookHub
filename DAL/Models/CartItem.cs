@@ -15,7 +15,6 @@ namespace DAL.Models
 
         public int BookId { get; set; }
 
-
         [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
 
