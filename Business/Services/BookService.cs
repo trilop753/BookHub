@@ -72,34 +72,21 @@ public class BookService : IBookService
         return newBook.MapToDto();
     }
 
-    public async Task<Result<bool>> UpdateBookAsync(int bookId, BookUpdateDto dto)
+    public async Task<Result> UpdateBookAsync(int bookId, BookUpdateDto dto)
     {
         if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
         {
-            return new Result<bool>()
-            {
-                Success = false,
-                Error = $"Publisher with id: {dto.PublisherId} does not exist",
-            };
+            return new Result() { Error = $"Publisher with id: {dto.PublisherId} does not exist" };
         }
         if (await _authorRepository.GetByIdAsync(dto.AuthorId) == null)
         {
-            return new Result<bool>()
-            {
-                Success = false,
-                Error = $"Author with id: {dto.AuthorId} does not exist",
-            };
+            return new Result() { Error = $"Author with id: {dto.AuthorId} does not exist" };
         }
 
         var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
         if (book == null)
         {
-            return new Result<bool>()
-            {
-                Success = false,
-                Error = $"Book with id: {bookId} does not exist",
-            };
-            ;
+            return new Result() { Error = $"Book with id: {bookId} does not exist" };
         }
 
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
@@ -107,9 +94,8 @@ public class BookService : IBookService
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
         if (!dto.GenreIds.All(allGenresIds.Contains))
         {
-            return new Result<bool>()
+            return new Result()
             {
-                Success = false,
                 Error =
                     $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist",
             };
@@ -129,7 +115,7 @@ public class BookService : IBookService
         book.Genres = wantedExistingGenres; // this may be a bug
 
         await _bookRepository.SaveChangesAsync();
-        return new Result<bool>() { Success = true };
+        return new Result();
     }
 
     public async Task<bool> DeleteBookAsync(int id)
