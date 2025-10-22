@@ -31,7 +31,10 @@ namespace WebAPI.Controllers
 		{
 			var user = await _userService.GetUserByIdAsync(id);
 
-			if (user == null) return NotFound();
+			if (user == null)
+			{
+				return NotFound();
+			}
 
 			return Ok(user);
 		}
@@ -41,7 +44,10 @@ namespace WebAPI.Controllers
 		{
 			var user = await _userService.GetUserSummaryByIdAsync(id);
 
-			if (user == null) return NotFound();
+			if (user == null)
+			{
+				return NotFound();
+			}
 
 			return Ok(user);
 		}
@@ -53,7 +59,10 @@ namespace WebAPI.Controllers
 		{
 			var res = await _userService.UpdateUserAsync(update);
 
-			if (!res) return NotFound();
+			if (!res)
+			{
+				return NotFound();
+			}
 
 			return NoContent();
 		}
@@ -63,10 +72,12 @@ namespace WebAPI.Controllers
 		{
 			var res = await _userService.DeleteUserAsync(id);
 
-			if (!res) return NotFound();
+			if (!res)
+			{
+				return NotFound();
+			}
 
 			return NoContent();
 		}
-
 	}
 }
