@@ -2,5 +2,5 @@
 
 namespace Infrastructure.Repository.Interfaces
 {
-	public interface IGenreRepository : IGenericRepository<Genre> { }
+    public interface IGenreRepository : IGenericRepository<Genre> { }
 }

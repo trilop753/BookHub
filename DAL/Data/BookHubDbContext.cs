@@ -3,66 +3,66 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Data
 {
-	public class BookHubDbContext : DbContext
-	{
-		public DbSet<Book> Books { get; set; }
-		public DbSet<Author> Authors { get; set; }
-		public DbSet<Publisher> Publishers { get; set; }
-		public DbSet<Genre> Genres { get; set; }
+    public class BookHubDbContext : DbContext
+    {
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
-		public BookHubDbContext(DbContextOptions options)
-			: base(options) { }
+        public BookHubDbContext(DbContextOptions options)
+            : base(options) { }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			//TODO add restrictions on properties length?
-			modelBuilder.Entity<Book>(entity =>
-			{
-				entity
-					.HasOne(b => b.Publisher)
-					.WithMany(p => p.Books)
-					.HasForeignKey(b => b.PublisherId)
-					.OnDelete(DeleteBehavior.Restrict);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //TODO add restrictions on properties length?
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity
+                    .HasOne(b => b.Publisher)
+                    .WithMany(p => p.Books)
+                    .HasForeignKey(b => b.PublisherId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-				entity
-					.HasOne(b => b.Author)
-					.WithMany(a => a.Books)
-					.HasForeignKey(b => b.AuthorId)
-					.OnDelete(DeleteBehavior.Restrict);
+                entity
+                    .HasOne(b => b.Author)
+                    .WithMany(a => a.Books)
+                    .HasForeignKey(b => b.AuthorId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-				entity
-					.HasMany(b => b.Reviews)
-					.WithOne(r => r.Book)
-					.HasForeignKey(r => r.BookId)
-					.OnDelete(DeleteBehavior.Cascade);
-			});
+                entity
+                    .HasMany(b => b.Reviews)
+                    .WithOne(r => r.Book)
+                    .HasForeignKey(r => r.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
-			modelBuilder.Entity<Author>(entity =>
-			{
-				entity
-					.HasMany(a => a.Books)
-					.WithOne(b => b.Author)
-					.HasForeignKey(b => b.AuthorId)
-					.OnDelete(DeleteBehavior.Restrict);
-			});
+            modelBuilder.Entity<Author>(entity =>
+            {
+                entity
+                    .HasMany(a => a.Books)
+                    .WithOne(b => b.Author)
+                    .HasForeignKey(b => b.AuthorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
-			modelBuilder.Entity<Publisher>(entity =>
-			{
-				entity
-					.HasMany(p => p.Books)
-					.WithOne(b => b.Publisher)
-					.HasForeignKey(b => b.PublisherId)
-					.OnDelete(DeleteBehavior.Restrict);
-			});
+            modelBuilder.Entity<Publisher>(entity =>
+            {
+                entity
+                    .HasMany(p => p.Books)
+                    .WithOne(b => b.Publisher)
+                    .HasForeignKey(b => b.PublisherId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
-			modelBuilder.Entity<Genre>(entity =>
-			{
-				entity.HasMany(g => g.Books).WithMany(b => b.Genres);
-			});
+            modelBuilder.Entity<Genre>(entity =>
+            {
+                entity.HasMany(g => g.Books).WithMany(b => b.Genres);
+            });
 
-			base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
-			modelBuilder.SeedAll();
-		}
-	}
+            modelBuilder.SeedAll();
+        }
+    }
 }

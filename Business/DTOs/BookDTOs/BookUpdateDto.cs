@@ -1,21 +1,21 @@
 ﻿namespace Business.DTOs.BookDTOs
 {
-	public class BookUpdateDto
-	{
-		public int Id { get; set; }
+    public class BookUpdateDto
+    {
+        public int Id { get; set; }
 
-		public string Title { get; set; }
+        public string Title { get; set; }
 
-		public string Description { get; set; }
+        public string Description { get; set; }
 
-		public string ISBN { get; set; }
+        public string ISBN { get; set; }
 
-		public decimal Price { get; set; }
+        public decimal Price { get; set; }
 
-		public int PublisherId { get; set; }
+        public int PublisherId { get; set; }
 
-		public int AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
-		public IEnumerable<int> GenreIds { get; set; }
-	}
+        public IEnumerable<int> GenreIds { get; set; }
+    }
 }

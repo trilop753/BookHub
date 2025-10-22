@@ -7,59 +7,59 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Extensions
 {
-	public static class ServiceCollectionExtensions
-	{
-		public static IServiceCollection AddDatabase(
-			this IServiceCollection services,
-			IConfiguration config
-		)
-		{
-			var connectionString =
-				config.GetConnectionString("DefaultConnection")
-				?? throw new Exception("DbString not found in appsettings.");
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection AddDatabase(
+            this IServiceCollection services,
+            IConfiguration config
+        )
+        {
+            var connectionString =
+                config.GetConnectionString("DefaultConnection")
+                ?? throw new Exception("DbString not found in appsettings.");
 
-			connectionString = Environment.ExpandEnvironmentVariables(connectionString);
+            connectionString = Environment.ExpandEnvironmentVariables(connectionString);
 
-			services.AddDbContext<BookHubDbContext>(options =>
-				options
-					.UseSqlite(connectionString)
-					.LogTo(s => System.Diagnostics.Debug.WriteLine(s))
-					.UseLazyLoadingProxies()
-			);
+            services.AddDbContext<BookHubDbContext>(options =>
+                options
+                    .UseSqlite(connectionString)
+                    .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
+                    .UseLazyLoadingProxies()
+            );
 
-			return services;
-		}
+            return services;
+        }
 
-		public static IServiceCollection AddRepositories(this IServiceCollection services)
-		{
-			services.AddScoped<IBookRepository, BookRepository>();
-			services.AddScoped<IGenreRepository, GenreRepository>();
-			services.AddScoped<IAuthorRepository, AuthorRepository>();
-			services.AddScoped<IPublisherRepository, PublisherRepository>();
-			services.AddScoped<IUserRepository, UserRepository>();
-			return services;
-		}
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IPublisherRepository, PublisherRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            return services;
+        }
 
-		public static IServiceCollection AddBusinessServices(this IServiceCollection services)
-		{
-			services.AddScoped<IBookService, BookService>();
-			services.AddScoped<IUserService, UserService>();
-			return services;
-		}
+        public static IServiceCollection AddBusinessServices(this IServiceCollection services)
+        {
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IUserService, UserService>();
+            return services;
+        }
 
-		public static IServiceCollection AddCorsPolicy(this IServiceCollection services)
-		{
-			services.AddCors(options =>
-			{
-				options.AddPolicy(
-					"AllowSwaggerUI",
-					policy =>
-					{
-						policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-					}
-				);
-			});
-			return services;
-		}
-	}
+        public static IServiceCollection AddCorsPolicy(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "AllowSwaggerUI",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    }
+                );
+            });
+            return services;
+        }
+    }
 }
