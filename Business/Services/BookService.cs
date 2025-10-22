@@ -82,6 +82,7 @@ public class BookService : IBookService
         existing.Title = dto.Title;
         existing.Description = dto.Description;
         existing.Price = dto.Price;
+        existing.ISBN = dto.ISBN;
 
         existing.AuthorId = dto.AuthorId;
         existing.PublisherId = dto.PublisherId;
