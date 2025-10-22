@@ -1,7 +1,4 @@
-﻿using Business.DTOs.BookDTOs;
-using Business.DTOs.UserDTOs;
-
-namespace Business.DTOs.BookReviewDTOs
+﻿namespace Business.DTOs.BookReviewDTOs
 {
     public class BookReviewSummaryDto
     {

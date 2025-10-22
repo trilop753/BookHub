@@ -18,7 +18,6 @@ namespace DAL.Models
 
         public int AuthorId { get; set; }
 
-
         [ForeignKey(nameof(PublisherId))]
         public virtual Publisher? Publisher { get; set; }
 
@@ -26,7 +25,5 @@ namespace DAL.Models
         public virtual Author? Author { get; set; }
 
         public virtual IEnumerable<BookReview> Reviews { get; set; }
-
-
     }
 }

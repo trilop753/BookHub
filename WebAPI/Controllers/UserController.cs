@@ -1,72 +1,74 @@
 ﻿using Business.DTOs.UserDTOs;
 using Business.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class UserController : ControllerBase
-	{
-		private readonly IUserService _userService;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserService _userService;
 
-		public UserController(IUserService userService)
-		{
-			_userService = userService;
-		}
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
-		#region Get
+        #region Get
 
-		[HttpGet]
-		public async Task<ActionResult<UserDto>> GetAll()
-		{
-			var users = await _userService.GetAllUsersAsync();
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetAll()
+        {
+            var users = await _userService.GetAllUsersAsync();
 
-			return Ok(users);
-		}
+            return Ok(users);
+        }
 
-		[HttpGet("{id}")]
-		public async Task<ActionResult<UserDto>> GetById(int id)
-		{
-			var user = await _userService.GetUserByIdAsync(id);
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> GetById(int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
 
-			if (user == null) return NotFound();
+            if (user == null)
+                return NotFound();
 
-			return Ok(user);
-		}
+            return Ok(user);
+        }
 
-		[HttpGet("summary/{id}")]
-		public async Task<ActionResult<UserSummaryDto>> GetSummaryById(int id)
-		{
-			var user = await _userService.GetUserSummaryByIdAsync(id);
+        [HttpGet("summary/{id}")]
+        public async Task<ActionResult<UserSummaryDto>> GetSummaryById(int id)
+        {
+            var user = await _userService.GetUserSummaryByIdAsync(id);
 
-			if (user == null) return NotFound();
+            if (user == null)
+                return NotFound();
 
-			return Ok(user);
-		}
+            return Ok(user);
+        }
 
-		#endregion
+        #endregion
 
-		[HttpPut]
-		public async Task<ActionResult> Update([FromBody] UserUpdateDto update)
-		{
-			var res = await _userService.UpdateUserAsync(update);
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UserUpdateDto update)
+        {
+            var res = await _userService.UpdateUserAsync(update);
 
-			if (!res) return NotFound();
+            if (!res)
+                return NotFound();
 
-			return NoContent();
-		}
+            return NoContent();
+        }
 
-		[HttpDelete]
-		public async Task<ActionResult> Delete(int id)
-		{
-			var res = await _userService.DeleteUserAsync(id);
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var res = await _userService.DeleteUserAsync(id);
 
-			if (!res) return NotFound();
+            if (!res)
+                return NotFound();
 
-			return NoContent();
-		}
-
-	}
+            return NoContent();
+        }
+    }
 }
