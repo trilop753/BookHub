@@ -1,6 +1,7 @@
 ﻿using Business.DTOs.BookDTOs;
 using Business.Mappers;
 using Business.Services.Interfaces;
+using Business.UtilClasses;
 using DAL.Models;
 using Infrastructure.Repository.Interfaces;
 
@@ -71,31 +72,66 @@ public class BookService : IBookService
         return newBook.MapToDto();
     }
 
-    public async Task<bool> UpdateBookAsync(BookUpdateDto dto)
+    public async Task<Result> UpdateBookAsync(int bookId, BookUpdateDto dto)
     {
-        var existing = await _bookRepository.GetByIdAsync(dto.Id);
-        if (existing == null)
+        if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
         {
-            return false;
+            return new Result()
+            {
+                Success = false,
+                Error = $"Publisher with id: {dto.PublisherId} does not exist",
+            };
+        }
+        if (await _authorRepository.GetByIdAsync(dto.AuthorId) == null)
+        {
+            return new Result()
+            {
+                Success = false,
+                Error = $"Author with id: {dto.AuthorId} does not exist",
+            };
         }
 
-        existing.Title = dto.Title;
-        existing.Description = dto.Description;
-        existing.Price = dto.Price;
+        var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
+        if (book == null)
+        {
+            return new Result()
+            {
+                Success = false,
+                Error = $"Book with id: {bookId} does not exist",
+            };
+            ;
+        }
 
-        existing.AuthorId = dto.AuthorId;
-        existing.PublisherId = dto.PublisherId;
+        var allGenres = (await _genreRepository.GetAllAsync()).ToList();
 
-        var genres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
-        //TODO check empty?
-        existing.Genres = genres.ToList();
-        // TODO update reviews - in ReviewService?
+        var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
+        if (!dto.GenreIds.All(allGenresIds.Contains))
+        {
+            return new Result()
+            {
+                Success = false,
+                Error =
+                    $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist",
+            };
+        }
+
+        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedExistingGenres = allGenres
+            .Where(genre => wantedGenres.Contains(genre.Id))
+            .ToList();
+
+        book.Title = dto.Title;
+        book.Description = dto.Description;
+        book.ISBN = dto.ISBN;
+        book.Price = dto.Price;
+        book.AuthorId = dto.AuthorId;
+        book.PublisherId = dto.PublisherId;
+        book.Genres = wantedExistingGenres; // this may be a bug
 
         await _bookRepository.SaveChangesAsync();
-        return true;
+        return new Result() { Success = true };
     }
 
-    // DELETE
     public async Task<bool> DeleteBookAsync(int id)
     {
         var existing = await _bookRepository.GetByIdAsync(id);

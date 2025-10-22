@@ -15,7 +15,6 @@ namespace DAL.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //TODO add restrictions on properties length?
             modelBuilder.Entity<Book>(entity =>
             {
                 entity

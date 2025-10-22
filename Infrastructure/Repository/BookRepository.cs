@@ -82,6 +82,14 @@ namespace Infrastructure.Repository
             return await query.ToListAsync();
         }
 
+        public async Task<Book?> GetBookByIdWithGenresIncluded(int bookId)
+        {
+            IQueryable<Book> query = _dbSet
+                .Where(book => book.Id == bookId)
+                .Include(book => book.Genres);
+            return await query.FirstOrDefaultAsync();
+        }
+
         private IQueryable<Book> GetBasicQuery(
             bool includeAuthor,
             bool includePublisher,

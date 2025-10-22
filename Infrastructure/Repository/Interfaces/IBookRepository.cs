@@ -14,5 +14,7 @@ namespace Infrastructure.Repository.Interfaces
         );
 
         public Task<IEnumerable<Book>> GetFiltered(BookSearchCriteria searchCriteria);
+
+        public Task<Book?> GetBookByIdWithGenresIncluded(int bookId);
     }
 }
