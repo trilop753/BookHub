@@ -71,7 +71,7 @@ public class BookService : IBookService
         return newBook.MapToDto();
     }
 
-    public async Task<bool> UpdateBookAsync(BookUpdateDto dto)
+    public async Task<bool> UpdateBookAsync(int bookId, BookUpdateDto dto)
     {
         if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
         {
@@ -82,7 +82,7 @@ public class BookService : IBookService
             return false;
         }
 
-        var book = await _bookRepository.GetBookByIdWithGenresIncluded(dto.Id);
+        var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
         if (book == null)
         {
             return false;

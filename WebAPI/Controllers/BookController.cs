@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Business.DTOs;
-using Business.DTOs.BookDTOs;
-using Business.Services;
+﻿using Business.DTOs.BookDTOs;
 using Business.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,12 +58,7 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
         {
-            if (id != dto.Id)
-            {
-                return BadRequest("ID mismatch.");
-            }
-
-            bool updated = await _bookService.UpdateBookAsync(dto);
+            bool updated = await _bookService.UpdateBookAsync(id, dto);
             if (!updated)
             {
                 return NotFound($"Book with ID {id} was not found.");
