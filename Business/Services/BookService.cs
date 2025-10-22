@@ -1,6 +1,7 @@
 ﻿using Business.DTOs.BookDTOs;
 using Business.Mappers;
 using Business.Services.Interfaces;
+using Business.UtilClasses;
 using DAL.Models;
 using Infrastructure.Repository.Interfaces;
 
@@ -71,21 +72,34 @@ public class BookService : IBookService
         return newBook.MapToDto();
     }
 
-    public async Task<bool> UpdateBookAsync(int bookId, BookUpdateDto dto)
+    public async Task<Result<bool>> UpdateBookAsync(int bookId, BookUpdateDto dto)
     {
         if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
         {
-            return false;
+            return new Result<bool>()
+            {
+                Success = false,
+                Error = $"Publisher with id: {dto.PublisherId} does not exist",
+            };
         }
         if (await _authorRepository.GetByIdAsync(dto.AuthorId) == null)
         {
-            return false;
+            return new Result<bool>()
+            {
+                Success = false,
+                Error = $"Author with id: {dto.AuthorId} does not exist",
+            };
         }
 
         var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
         if (book == null)
         {
-            return false;
+            return new Result<bool>()
+            {
+                Success = false,
+                Error = $"Book with id: {bookId} does not exist",
+            };
+            ;
         }
 
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
@@ -93,7 +107,12 @@ public class BookService : IBookService
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
         if (!dto.GenreIds.All(allGenresIds.Contains))
         {
-            return false;
+            return new Result<bool>()
+            {
+                Success = false,
+                Error =
+                    $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist",
+            };
         }
 
         var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
@@ -110,7 +129,7 @@ public class BookService : IBookService
         book.Genres = wantedExistingGenres; // this may be a bug
 
         await _bookRepository.SaveChangesAsync();
-        return true;
+        return new Result<bool>() { Success = true };
     }
 
     public async Task<bool> DeleteBookAsync(int id)
