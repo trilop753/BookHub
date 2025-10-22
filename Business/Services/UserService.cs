@@ -1,4 +1,9 @@
-﻿using Business.DTOs.UserDTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Business.DTOs.UserDTOs;
 using Business.Mappers;
 using Business.Services.Interfaces;
 using Infrastructure.Repository.Interfaces;
@@ -19,7 +24,9 @@ namespace Business.Services
             var user = await _userRepository.GetByIdAsync(id);
 
             if (user == null)
+            {
                 return false;
+            }
 
             _userRepository.Delete(user);
             await _userRepository.SaveChangesAsync();
@@ -52,7 +59,9 @@ namespace Business.Services
             var user = await _userRepository.GetByIdAsync(dto.Id);
 
             if (user == null)
+            {
                 return false;
+            }
 
             user.Username = dto.Username ?? user.Username;
             user.Email = dto.Email ?? user.Email;

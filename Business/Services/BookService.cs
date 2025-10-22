@@ -40,7 +40,15 @@ public class BookService : IBookService
 
     public async Task<IEnumerable<BookSummaryDto>> GetFiltered(BookSearchCriteriaDto searchCriteria)
     {
-        var books = await _bookRepository.GetFiltered(searchCriteria.MapToBookSearchCriteria());
+        var books = await _bookRepository.GetFiltered(
+            searchCriteria.Title,
+            searchCriteria.Description,
+            searchCriteria.LowPrice,
+            searchCriteria.HighPrice,
+            searchCriteria.GenreIds,
+            searchCriteria.AuthorId,
+            searchCriteria.PublisherId
+        );
 
         return books.Select(b => b.MapToSummaryDto());
     }
@@ -75,7 +83,9 @@ public class BookService : IBookService
     {
         var existing = await _bookRepository.GetByIdAsync(dto.Id);
         if (existing == null)
+        {
             return false;
+        }
 
         existing.Title = dto.Title;
         existing.Description = dto.Description;
@@ -98,7 +108,9 @@ public class BookService : IBookService
     {
         var existing = await _bookRepository.GetByIdAsync(id);
         if (existing == null)
+        {
             return false;
+        }
 
         _bookRepository.Delete(existing);
         await _bookRepository.SaveChangesAsync();
