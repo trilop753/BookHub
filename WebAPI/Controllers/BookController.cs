@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
         {
             var updated = await _bookService.UpdateBookAsync(id, dto);
-            if (!updated.IsSuccess())
+            if (!updated.Success)
             {
                 return NotFound(updated.Error);
             }

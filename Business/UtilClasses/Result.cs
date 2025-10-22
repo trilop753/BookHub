@@ -1,12 +1,9 @@
 ﻿namespace Business.UtilClasses
 {
-    public class Result
+    public class Result<T>
     {
-        public string Error { get; set; } = "";
-
-        public bool IsSuccess()
-        {
-            return Error == "";
-        }
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+        public string? Error { get; set; }
     }
 }
