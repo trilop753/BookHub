@@ -18,6 +18,6 @@
 
         public IEnumerable<string> Genres { get; set; }
 
-        public double AverageRating { get; set; }
+        public double? AverageRating { get; set; }
     }
 }
