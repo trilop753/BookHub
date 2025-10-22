@@ -11,123 +11,123 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Infrastructure.Repository
 {
-    public class BookRepository : GenericRepository<Book>, IBookRepository
-    {
-        public BookRepository(BookHubDbContext context)
-            : base(context) { }
+	public class BookRepository : GenericRepository<Book>, IBookRepository
+	{
+		public BookRepository(BookHubDbContext context)
+			: base(context) { }
 
-        public async Task<IEnumerable<Book>> GetBooksAsync(
-            int[]? bookIds = null,
-            bool includeAuthor = true,
-            bool includePublisher = true,
-            bool includeGenres = true,
-            bool includeReviews = true
-        )
-        {
-            IQueryable<Book> query = GetBasicQuery(
-                includeAuthor,
-                includePublisher,
-                includeGenres,
-                includeReviews
-            );
+		public async Task<IEnumerable<Book>> GetBooksAsync(
+			int[]? bookIds = null,
+			bool includeAuthor = true,
+			bool includePublisher = true,
+			bool includeGenres = true,
+			bool includeReviews = true
+		)
+		{
+			IQueryable<Book> query = GetBasicQuery(
+				includeAuthor,
+				includePublisher,
+				includeGenres,
+				includeReviews
+			);
 
-            if (bookIds != null && bookIds.Length > 0)
-            {
-                query.Where(b => bookIds.Contains(b.Id));
-            }
+			if (bookIds != null && bookIds.Length > 0)
+			{
+				query.Where(b => bookIds.Contains(b.Id));
+			}
 
-            return await query.ToListAsync();
-        }
+			return await query.ToListAsync();
+		}
 
-        public async Task<IEnumerable<Book>> GetFiltered(
-            string? title,
-            string? dsc,
-            decimal? lowPrice,
-            decimal? highPrice,
-            int[]? genreIds,
-            int? authorId,
-            int? publisherId
-        )
-        {
-            // Horrific, but I can't send BookSearchCriteriaDTO since
-            // that would require linking Business and Infrastructure,
-            // which is forbidden since it would create a circular dependancy
+		public async Task<IEnumerable<Book>> GetFiltered(
+			string? title,
+			string? dsc,
+			decimal? lowPrice,
+			decimal? highPrice,
+			int[]? genreIds,
+			int? authorId,
+			int? publisherId
+		)
+		{
+			// Horrific, but I can't send BookSearchCriteriaDTO since
+			// that would require linking Business and Infrastructure,
+			// which is forbidden since it would create a circular dependancy
 
-            // Separate SearchCriteria model for DAL?
+			// Separate SearchCriteria model for DAL?
 
-            IQueryable<Book> query = _dbSet;
+			IQueryable<Book> query = _dbSet;
 
-            if (searchCriteria.Title != null)
-            {
-                query = query.Where(b =>
-                    b.Title.ToLower().Contains(searchCriteria.Title.ToLower())
-                );
-            }
+			if (searchCriteria.Title != null)
+			{
+				query = query.Where(b =>
+					b.Title.ToLower().Contains(searchCriteria.Title.ToLower())
+				);
+			}
 
-            if (searchCriteria.Description != null)
-            {
-                query = query.Where(b =>
-                    b.Description.ToLower().Contains(searchCriteria.Description.ToLower())
-                );
-            }
+			if (searchCriteria.Description != null)
+			{
+				query = query.Where(b =>
+					b.Description.ToLower().Contains(searchCriteria.Description.ToLower())
+				);
+			}
 
-            if (searchCriteria.LowPrice != null)
-            {
-                query = query.Where(b => b.Price > searchCriteria.LowPrice);
-            }
+			if (searchCriteria.LowPrice != null)
+			{
+				query = query.Where(b => b.Price > searchCriteria.LowPrice);
+			}
 
-            if (searchCriteria.HighPrice != null)
-            {
-                query = query.Where(b => b.Price <= searchCriteria.HighPrice);
-            }
+			if (searchCriteria.HighPrice != null)
+			{
+				query = query.Where(b => b.Price <= searchCriteria.HighPrice);
+			}
 
-            if (searchCriteria.GenreIds != null)
-            {
-                query = query.Where(b =>
-                    b.Genres.Select(g => g.Id).Intersect(searchCriteria.GenreIds).Any()
-                );
-            }
+			if (searchCriteria.GenreIds != null)
+			{
+				query = query.Where(b =>
+					b.Genres.Select(g => g.Id).Intersect(searchCriteria.GenreIds).Any()
+				);
+			}
 
-            if (searchCriteria.AuthorId != null)
-            {
-                query = query.Where(b => b.AuthorId == searchCriteria.AuthorId);
-            }
+			if (searchCriteria.AuthorId != null)
+			{
+				query = query.Where(b => b.AuthorId == searchCriteria.AuthorId);
+			}
 
-            if (searchCriteria.PublisherId != null)
-            {
-                query = query.Where(b => b.PublisherId == searchCriteria.PublisherId);
-            }
+			if (searchCriteria.PublisherId != null)
+			{
+				query = query.Where(b => b.PublisherId == searchCriteria.PublisherId);
+			}
 
-            return await query.ToListAsync();
-        }
+			return await query.ToListAsync();
+		}
 
-        private IQueryable<Book> GetBasicQuery(
-            bool includeAuthor,
-            bool includePublisher,
-            bool includeGenres,
-            bool includeReviews
-        )
-        {
-            IQueryable<Book> bookQuery = _dbSet;
+		private IQueryable<Book> GetBasicQuery(
+			bool includeAuthor,
+			bool includePublisher,
+			bool includeGenres,
+			bool includeReviews
+		)
+		{
+			IQueryable<Book> bookQuery = _dbSet;
 
-            if (includeAuthor)
-            {
-                bookQuery = bookQuery.Include(b => b.Author);
-            }
-            if (includePublisher)
-            {
-                bookQuery = bookQuery.Include(b => b.Publisher);
-            }
-            if (includeGenres)
-            {
-                bookQuery = bookQuery.Include(b => b.Genres);
-            }
-            if (includeReviews)
-            {
-                bookQuery = bookQuery.Include(b => b.Reviews);
-            }
+			if (includeAuthor)
+			{
+				bookQuery = bookQuery.Include(b => b.Author);
+			}
+			if (includePublisher)
+			{
+				bookQuery = bookQuery.Include(b => b.Publisher);
+			}
+			if (includeGenres)
+			{
+				bookQuery = bookQuery.Include(b => b.Genres);
+			}
+			if (includeReviews)
+			{
+				bookQuery = bookQuery.Include(b => b.Reviews);
+			}
 
-            return bookQuery;
-        }
-    }
+			return bookQuery;
+		}
+	}
 }

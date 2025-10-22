@@ -4,9 +4,9 @@ using Infrastructure.Repository.Interfaces;
 
 namespace Infrastructure.Repository
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
-    {
-        public UserRepository(BookHubDbContext context)
-            : base(context) { }
-    }
+	public class UserRepository : GenericRepository<User>, IUserRepository
+	{
+		public UserRepository(BookHubDbContext context)
+			: base(context) { }
+	}
 }
