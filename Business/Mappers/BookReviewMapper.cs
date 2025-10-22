@@ -1,10 +1,5 @@
 ﻿using Business.DTOs.BookReviewDTOs;
 using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Mappers
 {
@@ -18,7 +13,7 @@ namespace Business.Mappers
                 Stars = review.Stars,
                 Body = review.Body,
                 User = review.User.MapToSummaryDto(),
-                Book = review.Book.MapToSummaryDto()
+                Book = review.Book.MapToSummaryDto(),
             };
         }
 
@@ -28,7 +23,7 @@ namespace Business.Mappers
             {
                 Id = review.Id,
                 Stars = review.Stars,
-                Body = review.Body
+                Body = review.Body,
             };
         }
     }

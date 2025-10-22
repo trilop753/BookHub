@@ -1,6 +1,5 @@
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace DAL.Data.Seed
 {
@@ -10,16 +9,17 @@ namespace DAL.Data.Seed
         {
             var books = PrepareBookModels();
 
-            modelBuilder.Entity<Book>()
-                .HasData(books);
+            modelBuilder.Entity<Book>().HasData(books);
 
-            modelBuilder.Entity("BookGenre").HasData(
-                new { BooksId = 1, GenresId = 1 }, 
-                new { BooksId = 2, GenresId = 2 }, 
-                new { BooksId = 2, GenresId = 3 }, 
-                new { BooksId = 3, GenresId = 4 }, 
-                new { BooksId = 4, GenresId = 5 }  
-            );
+            modelBuilder
+                .Entity("BookGenre")
+                .HasData(
+                    new { BooksId = 1, GenresId = 1 },
+                    new { BooksId = 2, GenresId = 2 },
+                    new { BooksId = 2, GenresId = 3 },
+                    new { BooksId = 3, GenresId = 4 },
+                    new { BooksId = 4, GenresId = 5 }
+                );
         }
 
         private static List<Book> PrepareBookModels()
@@ -34,7 +34,7 @@ namespace DAL.Data.Seed
                     ISBN = "9780547928210",
                     Price = 10.99m,
                     AuthorId = 1,
-                    PublisherId = 1
+                    PublisherId = 1,
                 },
                 new Book
                 {
@@ -44,7 +44,7 @@ namespace DAL.Data.Seed
                     ISBN = "9780486226886",
                     Price = 6.99m,
                     AuthorId = 2,
-                    PublisherId = 2
+                    PublisherId = 2,
                 },
                 new Book
                 {
@@ -54,7 +54,7 @@ namespace DAL.Data.Seed
                     ISBN = "9780141439518",
                     Price = 8.49m,
                     AuthorId = 4,
-                    PublisherId = 3
+                    PublisherId = 3,
                 },
                 new Book
                 {
@@ -64,8 +64,8 @@ namespace DAL.Data.Seed
                     ISBN = "9780553293357",
                     Price = 9.99m,
                     AuthorId = 5,
-                    PublisherId = 4
-                }
+                    PublisherId = 4,
+                },
             };
         }
     }

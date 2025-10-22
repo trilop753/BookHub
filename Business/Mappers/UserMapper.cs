@@ -1,10 +1,5 @@
 ﻿using Business.DTOs.UserDTOs;
 using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Mappers
 {
@@ -18,17 +13,13 @@ namespace Business.Mappers
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                IsBanned = user.IsBanned
+                IsBanned = user.IsBanned,
             };
         }
 
         public static UserSummaryDto MapToSummaryDto(this User user)
         {
-            return new UserSummaryDto
-            {
-                Id = user.Id,
-                Username = user.Username
-            };
+            return new UserSummaryDto { Id = user.Id, Username = user.Username };
         }
     }
 }

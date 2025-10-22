@@ -1,6 +1,4 @@
-﻿using Business.DTOs.BookDTOs;
-
-namespace Business.DTOs.GenreDTOs
+﻿namespace Business.DTOs.GenreDTOs
 {
     public class GenreSummaryDto
     {
