@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Data;
+﻿using DAL.Data;
 using DAL.Models;
+using DAL.UtilityModels;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Infrastructure.Repository
 {
@@ -39,22 +34,8 @@ namespace Infrastructure.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<Book>> GetFiltered(
-            string? title,
-            string? dsc,
-            decimal? lowPrice,
-            decimal? highPrice,
-            int[]? genreIds,
-            int? authorId,
-            int? publisherId
-        )
+        public async Task<IEnumerable<Book>> GetFiltered(BookSearchCriteria searchCriteria)
         {
-            // Horrific, but I can't send BookSearchCriteriaDTO since
-            // that would require linking Business and Infrastructure,
-            // which is forbidden since it would create a circular dependancy
-
-            // Separate SearchCriteria model for DAL?
-
             IQueryable<Book> query = _dbSet;
 
             if (searchCriteria.Title != null)
