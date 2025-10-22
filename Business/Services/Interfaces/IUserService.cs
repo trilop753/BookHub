@@ -1,25 +1,19 @@
-﻿using Business.DTOs.BookDTOs;
-using Business.DTOs.UserDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Business.DTOs.UserDTOs;
 
 namespace Business.Services.Interfaces
 {
-	public interface IUserService
-	{
-		public Task<UserDto?> GetUserByIdAsync(int id);
-		
-		public Task<UserSummaryDto?> GetUserSummaryByIdAsync(int id);
+    public interface IUserService
+    {
+        public Task<UserDto?> GetUserByIdAsync(int id);
 
-		public Task<IEnumerable<UserDto>> GetAllUsersAsync();
+        public Task<UserSummaryDto?> GetUserSummaryByIdAsync(int id);
 
-		// TODO
-		//public Task<UserDto> CreateUserAsync(UserDto dto);
+        public Task<IEnumerable<UserDto>> GetAllUsersAsync();
 
-		public Task<bool> UpdateUserAsync(UserUpdateDto dto);
-		public Task<bool> DeleteUserAsync(int id);
-	}
+        // TODO
+        //public Task<UserDto> CreateUserAsync(UserDto dto);
+
+        public Task<bool> UpdateUserAsync(UserUpdateDto dto);
+        public Task<bool> DeleteUserAsync(int id);
+    }
 }

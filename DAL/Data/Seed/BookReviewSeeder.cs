@@ -1,6 +1,5 @@
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace DAL.Data.Seed
 {
@@ -10,8 +9,7 @@ namespace DAL.Data.Seed
         {
             var reviews = PrepareBookReviewModels();
 
-            modelBuilder.Entity<BookReview>()
-                .HasData(reviews);
+            modelBuilder.Entity<BookReview>().HasData(reviews);
         }
 
         private static List<BookReview> PrepareBookReviewModels()
@@ -24,7 +22,7 @@ namespace DAL.Data.Seed
                     Stars = 5,
                     Body = "Absolutely loved it! A masterpiece of fantasy.",
                     UserId = 1,
-                    BookId = 1
+                    BookId = 1,
                 },
                 new BookReview
                 {
@@ -32,7 +30,7 @@ namespace DAL.Data.Seed
                     Stars = 4,
                     Body = "Creepy, atmospheric, and unique.",
                     UserId = 2,
-                    BookId = 2
+                    BookId = 2,
                 },
                 new BookReview
                 {
@@ -40,8 +38,8 @@ namespace DAL.Data.Seed
                     Stars = 5,
                     Body = "Classic romance with wit and heart.",
                     UserId = 3,
-                    BookId = 3
-                }
+                    BookId = 3,
+                },
             };
         }
     }

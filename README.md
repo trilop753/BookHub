@@ -54,7 +54,7 @@ All changes are made through separate branches and merged via Merge Requests aft
 ## Architecture and Data Model
 
 ### Data Model
-// TODO: add image after refactor
+![ERD Diagram](/Docs/Images/erd-bookhub.png)
 
 **Main entities:**
 - **User** – contains user data and role (User/Admin)
@@ -69,7 +69,7 @@ Relationships include *1:N* (e.g., User–Order) and *N:M* (e.g., Book–Genre v
 ---
 
 ### Use Case Diagram
-// TODO: add image after refactor
+![Use Case Diagram](/Docs/Images/use-case-bookhub.png)
 
 **Main user actions:**
 - Registered users can purchase, rate, and manage their wishlist.
