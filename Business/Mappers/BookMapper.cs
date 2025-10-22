@@ -1,18 +1,12 @@
-﻿using Business.DTOs.AuthorDTOs;
-using Business.DTOs.BookDTOs;
+﻿using Business.DTOs.BookDTOs;
 using Business.DTOs.BookReviewDTOs;
 using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DAL.UtilityModels;
 
 namespace Business.Mappers
 {
     public static class BookMapper
     {
-
         public static BookDto MapToDto(this Book book)
         {
             return new BookDto
@@ -25,11 +19,13 @@ namespace Business.Mappers
                 Publisher = book.Publisher.MapToSummaryDto(),
                 Author = book.Author.MapToSummaryDto(),
                 Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
-                Reviews = book.Reviews != null
-                    ? book.Reviews.Select(r => r.MapToSummaryDto()).ToList()
-                    : new List<BookReviewSummaryDto>()
+                Reviews =
+                    book.Reviews != null
+                        ? book.Reviews.Select(r => r.MapToSummaryDto()).ToList()
+                        : new List<BookReviewSummaryDto>(),
             };
         }
+
         public static BookSummaryDto MapToSummaryDto(this Book book)
         {
             return new BookSummaryDto
@@ -42,7 +38,21 @@ namespace Business.Mappers
                 PublisherName = book.Publisher.Name,
                 AuthorName = book.Author.Name,
                 Genres = book.Genres.Select(g => g.Name).ToList(),
-                AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : 0
+                AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : 0,
+            };
+        }
+
+        public static BookSearchCriteria MapToBookSearchCriteria(this BookSearchCriteriaDto model)
+        {
+            return new BookSearchCriteria
+            {
+                Title = model.Title,
+                Description = model.Description,
+                LowPrice = model.LowPrice,
+                HighPrice = model.HighPrice,
+                GenreIds = model.GenreIds,
+                AuthorId = model.AuthorId,
+                PublisherId = model.PublisherId,
             };
         }
     }

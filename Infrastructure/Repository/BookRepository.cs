@@ -57,39 +57,45 @@ namespace Infrastructure.Repository
 
             IQueryable<Book> query = _dbSet;
 
-            if (title != null)
+            if (searchCriteria.Title != null)
             {
-                query = query.Where(b => b.Title.ToLower().Contains(title.ToLower()));
+                query = query.Where(b =>
+                    b.Title.ToLower().Contains(searchCriteria.Title.ToLower())
+                );
             }
 
-            if (dsc != null)
+            if (searchCriteria.Description != null)
             {
-                query = query.Where(b => b.Description.ToLower().Contains(dsc.ToLower()));
+                query = query.Where(b =>
+                    b.Description.ToLower().Contains(searchCriteria.Description.ToLower())
+                );
             }
 
-            if (lowPrice != null)
+            if (searchCriteria.LowPrice != null)
             {
-                query = query.Where(b => b.Price > lowPrice);
+                query = query.Where(b => b.Price > searchCriteria.LowPrice);
             }
 
-            if (highPrice != null)
+            if (searchCriteria.HighPrice != null)
             {
-                query = query.Where(b => b.Price <= highPrice);
+                query = query.Where(b => b.Price <= searchCriteria.HighPrice);
             }
 
-            if (genreIds != null)
+            if (searchCriteria.GenreIds != null)
             {
-                query = query.Where(b => b.Genres.Select(g => g.Id).Intersect(genreIds).Any());
+                query = query.Where(b =>
+                    b.Genres.Select(g => g.Id).Intersect(searchCriteria.GenreIds).Any()
+                );
             }
 
-            if (authorId != null)
+            if (searchCriteria.AuthorId != null)
             {
-                query = query.Where(b => b.AuthorId == authorId);
+                query = query.Where(b => b.AuthorId == searchCriteria.AuthorId);
             }
 
-            if (publisherId != null)
+            if (searchCriteria.PublisherId != null)
             {
-                query = query.Where(b => b.PublisherId == publisherId);
+                query = query.Where(b => b.PublisherId == searchCriteria.PublisherId);
             }
 
             return await query.ToListAsync();

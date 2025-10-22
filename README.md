@@ -54,7 +54,7 @@ All changes are made through separate branches and merged via Merge Requests aft
 ## Architecture and Data Model
 
 ### Data Model
-// TODO: add image after refactor
+![ERD Diagram](/Docs/Images/erd-bookhub.png)
 
 **Main entities:**
 - **User** – contains user data and role (User/Admin)
@@ -69,7 +69,7 @@ Relationships include *1:N* (e.g., User–Order) and *N:M* (e.g., Book–Genre v
 ---
 
 ### Use Case Diagram
-// TODO: add image after refactor
+![Use Case Diagram](/Docs/Images/use-case-bookhub.png)
 
 **Main user actions:**
 - Registered users can purchase, rate, and manage their wishlist.
@@ -88,7 +88,46 @@ git clone https://gitlab.fi.muni.cz/xmackov1/pv179_bookhub
 cd pv179_bookhub
 ```
 
+### 2. Configure the database connection
+The project uses a SQLite database.
+By default, the connection string in `appsettings.json` points to a local database stored in your user directory:
+```json
+"ConnectionStrings": {
+    "DefaultConnection": "Data Source=%LocalAppData%\\bookhub.db"
+},
+```
+You can modify the path or file name in the connection string if you want to store the database elsewhere.
+
+### 3. Run the project
+
+#### In Visual Studio
+1. Open the `BookHub.sln` solution.
+2. Set `WebAPI` as the startup project.
+3. Select the `https` profile in the toolbar.
+4. Click Start or F5.
+
+The project will build, apply migrations automatically, and open Swagger UI in your browser:
+```bash
+https://localhost:7004/swagger
+```
+
+## From the command line
+```bash
+cd WebAPI
+dotnet restore
+dotnet build
+dotnet ef database update
+dotnet run --launch-profile "https"
+```
+
+The project will build.
+```bash
+https://localhost:7004/swagger
+```
+
+### 5. Authorization
 Secret token for authorization:
 ```bash
 supersecrettoken123
 ```
+In Swagger, click Authorize, choose Bearer Token, and paste the token there.

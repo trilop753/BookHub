@@ -1,13 +1,4 @@
-﻿using Business.DTOs.AuthorDTOs;
-using Business.DTOs.BookReviewDTOs;
-using Business.DTOs.GenreDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Business.DTOs.BookDTOs
+﻿namespace Business.DTOs.BookDTOs
 {
     public class BookSummaryDto
     {
