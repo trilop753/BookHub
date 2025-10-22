@@ -3,7 +3,6 @@ using DAL.Models;
 
 namespace Business.Mappers
 {
-    //TODO complete
     public static class UserMapper
     {
         public static UserDto MapToDto(this User user)

@@ -71,31 +71,6 @@ public class BookService : IBookService
         return newBook.MapToDto();
     }
 
-    //public async Task<bool> UpdateBookAsync(BookUpdateDto dto)
-    //{
-    //    var existing = await _bookRepository.GetByIdAsync(dto.Id);
-    //    if (existing == null)
-    //    {
-    //        return false;
-    //    }
-
-    //    existing.Title = dto.Title;
-    //    existing.Description = dto.Description;
-    //    existing.Price = dto.Price;
-    //    existing.ISBN = dto.ISBN;
-
-    //    existing.AuthorId = dto.AuthorId;
-    //    existing.PublisherId = dto.PublisherId;
-
-    //    var genres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
-    //    //TODO check empty?
-    //    existing.Genres = genres.ToList();
-    //    // TODO update reviews - in ReviewService?
-
-    //    await _bookRepository.SaveChangesAsync();
-    //    return true;
-    //}
-
     public async Task<bool> UpdateBookAsync(BookUpdateDto dto)
     {
         if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
@@ -138,7 +113,6 @@ public class BookService : IBookService
         return true;
     }
 
-    // DELETE
     public async Task<bool> DeleteBookAsync(int id)
     {
         var existing = await _bookRepository.GetByIdAsync(id);
