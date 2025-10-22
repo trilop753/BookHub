@@ -71,26 +71,61 @@ public class BookService : IBookService
         return newBook.MapToDto();
     }
 
+    //public async Task<bool> UpdateBookAsync(BookUpdateDto dto)
+    //{
+    //    var existing = await _bookRepository.GetByIdAsync(dto.Id);
+    //    if (existing == null)
+    //    {
+    //        return false;
+    //    }
+
+    //    existing.Title = dto.Title;
+    //    existing.Description = dto.Description;
+    //    existing.Price = dto.Price;
+    //    existing.ISBN = dto.ISBN;
+
+    //    existing.AuthorId = dto.AuthorId;
+    //    existing.PublisherId = dto.PublisherId;
+
+    //    var genres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
+    //    //TODO check empty?
+    //    existing.Genres = genres.ToList();
+    //    // TODO update reviews - in ReviewService?
+
+    //    await _bookRepository.SaveChangesAsync();
+    //    return true;
+    //}
+
     public async Task<bool> UpdateBookAsync(BookUpdateDto dto)
     {
-        var existing = await _bookRepository.GetByIdAsync(dto.Id);
-        if (existing == null)
+        if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
+        {
+            return false;
+        }
+        if (await _authorRepository.GetByIdAsync(dto.AuthorId) == null)
         {
             return false;
         }
 
-        existing.Title = dto.Title;
-        existing.Description = dto.Description;
-        existing.Price = dto.Price;
-        existing.ISBN = dto.ISBN;
+        var book = await _bookRepository.GetBookByIdWithGenresIncluded(dto.Id);
+        if (book == null)
+        {
+            return false;
+        }
 
-        existing.AuthorId = dto.AuthorId;
-        existing.PublisherId = dto.PublisherId;
+        book.Title = dto.Title;
+        book.Description = dto.Description;
+        book.ISBN = dto.ISBN;
+        book.Price = dto.Price;
+        book.AuthorId = dto.AuthorId;
+        book.PublisherId = dto.PublisherId;
 
-        var genres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
-        //TODO check empty?
-        existing.Genres = genres.ToList();
-        // TODO update reviews - in ReviewService?
+        //TODO add checking if all genres wanted exist
+        var wantedExistingGenres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
+
+        book.Genres.Clear();
+        foreach (var g in wantedExistingGenres)
+            book.Genres.Add(g);
 
         await _bookRepository.SaveChangesAsync();
         return true;
