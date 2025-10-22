@@ -4,21 +4,21 @@ using DAL.Models;
 
 namespace Business.Mappers
 {
-    public static class PublisherMapper
-    {
-        public static PublisherDto MapToDto(this Publisher publisher)
-        {
-            return new PublisherDto
-            {
-                Id = publisher.Id,
-                Name = publisher.Name,
-                Books = publisher.Books.Select(b => b.MapToSummaryDto()).ToList(),
-            };
-        }
+	public static class PublisherMapper
+	{
+		public static PublisherDto MapToDto(this Publisher publisher)
+		{
+			return new PublisherDto
+			{
+				Id = publisher.Id,
+				Name = publisher.Name,
+				Books = publisher.Books.Select(b => b.MapToSummaryDto()).ToList(),
+			};
+		}
 
-        public static PublisherSummaryDto MapToSummaryDto(this Publisher publisher)
-        {
-            return new PublisherSummaryDto { Id = publisher.Id, Name = publisher.Name };
-        }
-    }
+		public static PublisherSummaryDto MapToSummaryDto(this Publisher publisher)
+		{
+			return new PublisherSummaryDto { Id = publisher.Id, Name = publisher.Name };
+		}
+	}
 }

@@ -3,21 +3,21 @@ using DAL.Models;
 
 namespace Business.Mappers
 {
-    public static class GenreMapper
-    {
-        public static GenreDto MapToDto(this Genre genre)
-        {
-            return new GenreDto
-            {
-                Id = genre.Id,
-                Name = genre.Name,
-                Books = genre.Books.Select(b => b.MapToSummaryDto()).ToList(),
-            };
-        }
+	public static class GenreMapper
+	{
+		public static GenreDto MapToDto(this Genre genre)
+		{
+			return new GenreDto
+			{
+				Id = genre.Id,
+				Name = genre.Name,
+				Books = genre.Books.Select(b => b.MapToSummaryDto()).ToList(),
+			};
+		}
 
-        public static GenreSummaryDto MapToSummaryDto(this Genre genre)
-        {
-            return new GenreSummaryDto { Id = genre.Id, Name = genre.Name };
-        }
-    }
+		public static GenreSummaryDto MapToSummaryDto(this Genre genre)
+		{
+			return new GenreSummaryDto { Id = genre.Id, Name = genre.Name };
+		}
+	}
 }
