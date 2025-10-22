@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
 
             if (!res)
             {
-                return NotFound();
+                return NotFound($"User with ID {update.Id} was not found.");
             }
 
             return NoContent();
@@ -73,7 +73,7 @@ namespace WebAPI.Controllers
 
             if (!res)
             {
-                return NotFound();
+                return NotFound($"User with ID {id} was not found.");
             }
 
             return NoContent();
