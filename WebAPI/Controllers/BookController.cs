@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
             bool updated = await _bookService.UpdateBookAsync(dto);
             if (!updated)
             {
-                return NotFound();
+                return NotFound($"Book with ID {id} was not found.");
             }
 
             return NoContent();
@@ -82,7 +82,7 @@ namespace WebAPI.Controllers
             bool deleted = await _bookService.DeleteBookAsync(id);
             if (!deleted)
             {
-                return NotFound();
+                return NotFound($"Book with ID {id} was not found.");
             }
 
             return NoContent();
