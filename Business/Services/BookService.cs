@@ -113,19 +113,26 @@ public class BookService : IBookService
             return false;
         }
 
+        var allGenres = (await _genreRepository.GetAllAsync()).ToList();
+
+        var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
+        if (!dto.GenreIds.All(allGenresIds.Contains))
+        {
+            return false;
+        }
+
+        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedExistingGenres = allGenres
+            .Where(genre => wantedGenres.Contains(genre.Id))
+            .ToList();
+
         book.Title = dto.Title;
         book.Description = dto.Description;
         book.ISBN = dto.ISBN;
         book.Price = dto.Price;
         book.AuthorId = dto.AuthorId;
         book.PublisherId = dto.PublisherId;
-
-        //TODO add checking if all genres wanted exist
-        var wantedExistingGenres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
-
-        book.Genres.Clear();
-        foreach (var g in wantedExistingGenres)
-            book.Genres.Add(g);
+        book.Genres = wantedExistingGenres; // this may be a bug
 
         await _bookRepository.SaveChangesAsync();
         return true;

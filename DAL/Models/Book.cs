@@ -12,7 +12,7 @@ namespace DAL.Models
 
         public decimal Price { get; set; }
 
-        public virtual ICollection<Genre> Genres { get; set; }
+        public virtual IEnumerable<Genre> Genres { get; set; }
 
         public int PublisherId { get; set; }
 
