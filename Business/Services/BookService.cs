@@ -40,15 +40,7 @@ public class BookService : IBookService
 
     public async Task<IEnumerable<BookSummaryDto>> GetFiltered(BookSearchCriteriaDto searchCriteria)
     {
-        var books = await _bookRepository.GetFiltered(
-            searchCriteria.Title,
-            searchCriteria.Description,
-            searchCriteria.LowPrice,
-            searchCriteria.HighPrice,
-            searchCriteria.GenreIds,
-            searchCriteria.AuthorId,
-            searchCriteria.PublisherId
-        );
+        var books = await _bookRepository.GetFiltered(searchCriteria.MapToBookSearchCriteria());
 
         return books.Select(b => b.MapToSummaryDto());
     }
