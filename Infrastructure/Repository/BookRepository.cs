@@ -1,5 +1,6 @@
 ﻿using DAL.Data;
 using DAL.Models;
+using DAL.UtilityModels;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,57 +34,49 @@ namespace Infrastructure.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<Book>> GetFiltered(
-            string? title,
-            string? dsc,
-            decimal? lowPrice,
-            decimal? highPrice,
-            int[]? genreIds,
-            int? authorId,
-            int? publisherId
-        )
+        public async Task<IEnumerable<Book>> GetFiltered(BookSearchCriteria searchCriteria)
         {
-            // Horrific, but I can't send BookSearchCriteriaDTO since
-            // that would require linking Business and Infrastructure,
-            // which is forbidden since it would create a circular dependancy
-
-            // Separate SearchCriteria model for DAL?
-
             IQueryable<Book> query = _dbSet;
 
-            if (title != null)
+            if (searchCriteria.Title != null)
             {
-                query = query.Where(b => b.Title.ToLower().Contains(title.ToLower()));
+                query = query.Where(b =>
+                    b.Title.ToLower().Contains(searchCriteria.Title.ToLower())
+                );
             }
 
-            if (dsc != null)
+            if (searchCriteria.Description != null)
             {
-                query = query.Where(b => b.Description.ToLower().Contains(dsc.ToLower()));
+                query = query.Where(b =>
+                    b.Description.ToLower().Contains(searchCriteria.Description.ToLower())
+                );
             }
 
-            if (lowPrice != null)
+            if (searchCriteria.LowPrice != null)
             {
-                query = query.Where(b => b.Price > lowPrice);
+                query = query.Where(b => b.Price > searchCriteria.LowPrice);
             }
 
-            if (highPrice != null)
+            if (searchCriteria.HighPrice != null)
             {
-                query = query.Where(b => b.Price <= highPrice);
+                query = query.Where(b => b.Price <= searchCriteria.HighPrice);
             }
 
-            if (genreIds != null)
+            if (searchCriteria.GenreIds != null)
             {
-                query = query.Where(b => b.Genres.Select(g => g.Id).Intersect(genreIds).Any());
+                query = query.Where(b =>
+                    b.Genres.Select(g => g.Id).Intersect(searchCriteria.GenreIds).Any()
+                );
             }
 
-            if (authorId != null)
+            if (searchCriteria.AuthorId != null)
             {
-                query = query.Where(b => b.AuthorId == authorId);
+                query = query.Where(b => b.AuthorId == searchCriteria.AuthorId);
             }
 
-            if (publisherId != null)
+            if (searchCriteria.PublisherId != null)
             {
-                query = query.Where(b => b.PublisherId == publisherId);
+                query = query.Where(b => b.PublisherId == searchCriteria.PublisherId);
             }
 
             return await query.ToListAsync();

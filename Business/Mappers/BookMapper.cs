@@ -1,6 +1,7 @@
 ﻿using Business.DTOs.BookDTOs;
 using Business.DTOs.BookReviewDTOs;
 using DAL.Models;
+using DAL.UtilityModels;
 
 namespace Business.Mappers
 {
@@ -38,6 +39,20 @@ namespace Business.Mappers
                 AuthorName = book.Author.Name,
                 Genres = book.Genres.Select(g => g.Name).ToList(),
                 AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : 0,
+            };
+        }
+
+        public static BookSearchCriteria MapToBookSearchCriteria(this BookSearchCriteriaDto model)
+        {
+            return new BookSearchCriteria
+            {
+                Title = model.Title,
+                Description = model.Description,
+                LowPrice = model.LowPrice,
+                HighPrice = model.HighPrice,
+                GenreIds = model.GenreIds,
+                AuthorId = model.AuthorId,
+                PublisherId = model.PublisherId,
             };
         }
     }
