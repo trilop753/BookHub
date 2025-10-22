@@ -15,13 +15,18 @@ namespace WebAPI.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            _logger.LogInformation(
+                $"Incoming request: {context.Request.Method} {context.Request.Path}"
+            );
+
             var stopwatch = Stopwatch.StartNew();
-            _logger.LogInformation($"Incoming request: {context.Request.Method} {context.Request.Path}");
 
             await _next(context);
 
             stopwatch.Stop();
-            _logger.LogInformation($"Request handled: {context.Request.Method} {context.Request.Path} in {stopwatch.ElapsedMilliseconds} ms");
+            _logger.LogInformation(
+                $"Request handled: {context.Request.Method} {context.Request.Path} in {stopwatch.ElapsedMilliseconds} ms"
+            );
         }
     }
 }
