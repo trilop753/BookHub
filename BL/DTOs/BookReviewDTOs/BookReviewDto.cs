@@ -1,0 +1,18 @@
+﻿using BL.DTOs.BookDTOs;
+using BL.DTOs.UserDTOs;
+
+namespace BL.DTOs.BookReviewDTOs
+{
+    public class BookReviewDto
+    {
+        public int Id { get; set; }
+
+        public int Stars { get; set; }
+
+        public string Body { get; set; }
+
+        public UserSummaryDto User { get; set; }
+
+        public BookSummaryDto Book { get; set; }
+    }
+}

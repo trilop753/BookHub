@@ -13,6 +13,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 </Project>

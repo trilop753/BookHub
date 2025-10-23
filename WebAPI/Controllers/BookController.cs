@@ -1,5 +1,5 @@
-﻿using Business.DTOs.BookDTOs;
-using Business.Services.Interfaces;
+﻿using BL.DTOs.BookDTOs;
+using BL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers

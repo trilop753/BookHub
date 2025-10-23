@@ -1,5 +1,5 @@
-﻿using Business.DTOs.UserDTOs;
-using Business.Services.Interfaces;
+﻿using BL.DTOs.UserDTOs;
+using BL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
