@@ -1,5 +1,4 @@
 ﻿using BL.DTOs.BookDTOs;
-using BL.DTOs.BookReviewDTOs;
 using DAL.Models;
 using DAL.UtilityModels;
 
@@ -19,10 +18,7 @@ namespace BL.Mappers
                 Publisher = book.Publisher.MapToSummaryDto(),
                 Author = book.Author.MapToSummaryDto(),
                 Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
-                Reviews =
-                    book.Reviews != null
-                        ? book.Reviews.Select(r => r.MapToSummaryDto()).ToList()
-                        : new List<BookReviewSummaryDto>(),
+                Reviews = book.Reviews?.Select(r => r.MapToSummaryDto()).ToList() ?? [],
             };
         }
 
