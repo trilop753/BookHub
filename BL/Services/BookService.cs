@@ -54,25 +54,36 @@ public class BookService : IBookService
 
     public async Task<Result<BookDto>> CreateBookAsync(BookCreateDto dto)
     {
+        var result = new Result();
         var author = await _authorRepository.GetByIdAsync(dto.AuthorId);
         if (author == null)
         {
-            return Result.Fail($"Author with id {dto.AuthorId} does not exist.");
+            result.WithError($"Author with id {dto.AuthorId} does not exist.");
         }
 
         var publisher = await _publisherRepository.GetByIdAsync(dto.PublisherId);
         if (publisher == null)
         {
-            return Result.Fail($"Publisher with id {dto.PublisherId} does not exist.");
+            result.WithError($"Publisher with id {dto.PublisherId} does not exist.");
         }
 
-        var genres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
-        if (genres.Count() != dto.GenreIds.Count())
+        var allGenres = (await _genreRepository.GetAllAsync()).ToList();
+        var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
+        if (!dto.GenreIds.All(allGenresIds.Contains))
         {
-            return Result.Fail(
-                $"Genres with ids {string.Join(", ", dto.GenreIds.Except(genres.Select(g => g.Id)))} do not exist."
+            result.WithError(
+                $"Genres with ids {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist."
             );
         }
+        if (result.IsFailed)
+        {
+            return result;
+        }
+
+        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedExistingGenres = allGenres
+            .Where(genre => wantedGenres.Contains(genre.Id))
+            .ToList();
 
         var newBook = new Book
         {
@@ -82,7 +93,7 @@ public class BookService : IBookService
             Price = dto.Price,
             Author = author,
             Publisher = publisher,
-            Genres = genres.ToList(),
+            Genres = wantedExistingGenres,
         };
 
         await _bookRepository.AddAsync(newBook);
@@ -93,19 +104,21 @@ public class BookService : IBookService
 
     public async Task<Result> UpdateBookAsync(int bookId, BookUpdateDto dto)
     {
+        var result = new Result();
+
         if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
         {
-            return Result.Fail($"Publisher with id: {dto.PublisherId} does not exist");
+            result.WithError($"Publisher with id: {dto.PublisherId} does not exist");
         }
         if (await _authorRepository.GetByIdAsync(dto.AuthorId) == null)
         {
-            return Result.Fail($"Author with id: {dto.AuthorId} does not exist");
+            result.WithError($"Author with id: {dto.AuthorId} does not exist");
         }
 
         var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
         if (book == null)
         {
-            return Result.Fail($"Book with id: {bookId} does not exist");
+            result.WithError($"Book with id: {bookId} does not exist");
         }
 
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
@@ -113,9 +126,14 @@ public class BookService : IBookService
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
         if (!dto.GenreIds.All(allGenresIds.Contains))
         {
-            return Result.Fail(
+            result.WithError(
                 $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist"
             );
+        }
+
+        if (result.IsFailed)
+        {
+            return result;
         }
 
         var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
