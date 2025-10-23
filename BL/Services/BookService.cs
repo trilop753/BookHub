@@ -1,8 +1,8 @@
 ﻿using BL.DTOs.BookDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
-using BL.UtilClasses;
 using DAL.Models;
+using FluentResults;
 using Infrastructure.Repository.Interfaces;
 
 public class BookService : IBookService
@@ -27,10 +27,14 @@ public class BookService : IBookService
 
     #region Get
 
-    public async Task<BookDto?> GetBookByIdAsync(int id)
+    public async Task<Result<BookDto>> GetBookByIdAsync(int id)
     {
         var book = await _bookRepository.GetByIdAsync(id);
-        return book?.MapToDto();
+        if (book == null)
+        {
+            return Result.Fail($"Book with id {id} does not exist.");
+        }
+        return Result.Ok(book.MapToDto());
     }
 
     public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
@@ -48,13 +52,39 @@ public class BookService : IBookService
 
     #endregion
 
-    public async Task<BookDto> CreateBookAsync(BookCreateDto dto)
+    public async Task<Result<BookDto>> CreateBookAsync(BookCreateDto dto)
     {
+        var result = new Result();
         var author = await _authorRepository.GetByIdAsync(dto.AuthorId);
-        var publisher = await _publisherRepository.GetByIdAsync(dto.PublisherId);
-        var genres = await _genreRepository.GetAllByIdsAsync(dto.GenreIds.ToArray());
+        if (author == null)
+        {
+            result.WithError($"Author with id {dto.AuthorId} does not exist.");
+        }
 
-        //TODO check null? (ids will be picked from a list?)
+        var publisher = await _publisherRepository.GetByIdAsync(dto.PublisherId);
+        if (publisher == null)
+        {
+            result.WithError($"Publisher with id {dto.PublisherId} does not exist.");
+        }
+
+        var allGenres = (await _genreRepository.GetAllAsync()).ToList();
+        var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
+        if (!dto.GenreIds.All(allGenresIds.Contains))
+        {
+            result.WithError(
+                $"Genres with ids {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist."
+            );
+        }
+        if (result.IsFailed)
+        {
+            return result;
+        }
+
+        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedExistingGenres = allGenres
+            .Where(genre => wantedGenres.Contains(genre.Id))
+            .ToList();
+
         var newBook = new Book
         {
             Title = dto.Title,
@@ -63,43 +93,32 @@ public class BookService : IBookService
             Price = dto.Price,
             Author = author,
             Publisher = publisher,
-            Genres = genres.ToList(),
+            Genres = wantedExistingGenres,
         };
 
         await _bookRepository.AddAsync(newBook);
         await _bookRepository.SaveChangesAsync();
 
-        return newBook.MapToDto();
+        return Result.Ok(newBook.MapToDto());
     }
 
     public async Task<Result> UpdateBookAsync(int bookId, BookUpdateDto dto)
     {
+        var result = new Result();
+
         if (await _publisherRepository.GetByIdAsync(dto.PublisherId) == null)
         {
-            return new Result()
-            {
-                Success = false,
-                Error = $"Publisher with id: {dto.PublisherId} does not exist",
-            };
+            result.WithError($"Publisher with id: {dto.PublisherId} does not exist");
         }
         if (await _authorRepository.GetByIdAsync(dto.AuthorId) == null)
         {
-            return new Result()
-            {
-                Success = false,
-                Error = $"Author with id: {dto.AuthorId} does not exist",
-            };
+            result.WithError($"Author with id: {dto.AuthorId} does not exist");
         }
 
         var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
         if (book == null)
         {
-            return new Result()
-            {
-                Success = false,
-                Error = $"Book with id: {bookId} does not exist",
-            };
-            ;
+            result.WithError($"Book with id: {bookId} does not exist");
         }
 
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
@@ -107,12 +126,14 @@ public class BookService : IBookService
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
         if (!dto.GenreIds.All(allGenresIds.Contains))
         {
-            return new Result()
-            {
-                Success = false,
-                Error =
-                    $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist",
-            };
+            result.WithError(
+                $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist"
+            );
+        }
+
+        if (result.IsFailed)
+        {
+            return result;
         }
 
         var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
@@ -129,19 +150,19 @@ public class BookService : IBookService
         book.Genres = wantedExistingGenres; // this may be a bug
 
         await _bookRepository.SaveChangesAsync();
-        return new Result() { Success = true };
+        return Result.Ok();
     }
 
-    public async Task<bool> DeleteBookAsync(int id)
+    public async Task<Result> DeleteBookAsync(int id)
     {
         var existing = await _bookRepository.GetByIdAsync(id);
         if (existing == null)
         {
-            return false;
+            return Result.Fail($"Book with id {id} does not exist.");
         }
 
         _bookRepository.Delete(existing);
         await _bookRepository.SaveChangesAsync();
-        return true;
+        return Result.Ok();
     }
 }

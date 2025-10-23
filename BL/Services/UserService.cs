@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL.DTOs.UserDTOs;
+﻿using BL.DTOs.UserDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
+using FluentResults;
 using Infrastructure.Repository.Interfaces;
 
 namespace BL.Services
@@ -19,18 +15,18 @@ namespace BL.Services
             _userRepository = userRepository;
         }
 
-        public async Task<bool> DeleteUserAsync(int id)
+        public async Task<Result> DeleteUserAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
 
             if (user == null)
             {
-                return false;
+                return Result.Fail($"User with id {id} does not exist.");
             }
 
             _userRepository.Delete(user);
             await _userRepository.SaveChangesAsync();
-            return true;
+            return Result.Ok();
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
@@ -40,35 +36,42 @@ namespace BL.Services
             return users.Select(u => u.MapToDto());
         }
 
-        public async Task<UserDto?> GetUserByIdAsync(int id)
+        public async Task<Result<UserDto>> GetUserByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
-
-            return user?.MapToDto();
+            if (user == null)
+            {
+                return Result.Fail($"User with id {id} does not exist");
+            }
+            return Result.Ok(user.MapToDto());
         }
 
-        public async Task<UserSummaryDto?> GetUserSummaryByIdAsync(int id)
+        public async Task<Result<UserSummaryDto>> GetUserSummaryByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
+            {
+                return Result.Fail($"User with id {id} does not exist");
+            }
 
-            return user?.MapToSummaryDto();
+            return Result.Ok(user.MapToSummaryDto());
         }
 
-        public async Task<bool> UpdateUserAsync(UserUpdateDto dto)
+        public async Task<Result> UpdateUserAsync(int id, UserUpdateDto dto)
         {
-            var user = await _userRepository.GetByIdAsync(dto.Id);
+            var user = await _userRepository.GetByIdAsync(id);
 
             if (user == null)
             {
-                return false;
+                return Result.Fail($"User with id {id} does not exist");
             }
 
-            user.Username = dto.Username ?? user.Username;
-            user.Email = dto.Email ?? user.Email;
-            user.IsBanned = dto.IsBanned ?? user.IsBanned;
+            user.Username = dto.Username;
+            user.Email = dto.Email;
+            user.IsBanned = dto.IsBanned;
 
             await _userRepository.SaveChangesAsync();
-            return true;
+            return Result.Ok();
         }
     }
 }
