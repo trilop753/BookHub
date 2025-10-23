@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
 
             if (result.IsFailed)
             {
-                return NotFound(result.Errors);
+                return NotFound(result.Errors.Select(e => e.Message));
             }
 
             return Ok(result.Value);
@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
 
             if (result.IsFailed)
             {
-                return NotFound(result.Errors);
+                return NotFound(result.Errors.Select(e => e.Message));
             }
 
             return Ok(result.Value);
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
 
             if (result.IsFailed)
             {
-                return NotFound(result.Errors);
+                return NotFound(result.Errors.Select(e => e.Message));
             }
 
             return NoContent();
@@ -73,7 +73,7 @@ namespace WebAPI.Controllers
 
             if (result.IsFailed)
             {
-                return NotFound(result.Errors);
+                return NotFound(result.Errors.Select(e => e.Message));
             }
 
             return NoContent();

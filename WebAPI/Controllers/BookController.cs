@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
             var result = await _bookService.GetBookByIdAsync(id);
             if (result.IsFailed)
             {
-                return NotFound(result.Errors);
+                return NotFound(result.Errors.Select(e => e.Message));
             }
 
             return Ok(result.Value);
@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
             var result = await _bookService.CreateBookAsync(dto);
             if (result.IsFailed)
             {
-                return BadRequest(result.Errors);
+                return BadRequest(result.Errors.Select(e => e.Message));
             }
 
             return CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value);
@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
             var result = await _bookService.UpdateBookAsync(id, dto);
             if (result.IsFailed)
             {
-                return NotFound(result.Errors);
+                return NotFound(result.Errors.Select(e => e.Message));
             }
 
             return NoContent();
@@ -78,7 +78,7 @@ namespace WebAPI.Controllers
             var result = await _bookService.DeleteBookAsync(id);
             if (result.IsFailed)
             {
-                return NotFound(result.Errors);
+                return NotFound(result.Errors.Select(e => e.Message));
             }
 
             return NoContent();
