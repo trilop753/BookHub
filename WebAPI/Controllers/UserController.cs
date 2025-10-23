@@ -28,39 +28,39 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetById(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var result = await _userService.GetUserByIdAsync(id);
 
-            if (user == null)
+            if (result.IsFailed)
             {
-                return NotFound();
+                return NotFound(result.Errors);
             }
 
-            return Ok(user);
+            return Ok(result.Value);
         }
 
         [HttpGet("summary/{id}")]
         public async Task<ActionResult<UserSummaryDto>> GetSummaryById(int id)
         {
-            var user = await _userService.GetUserSummaryByIdAsync(id);
+            var result = await _userService.GetUserSummaryByIdAsync(id);
 
-            if (user == null)
+            if (result.IsFailed)
             {
-                return NotFound();
+                return NotFound(result.Errors);
             }
 
-            return Ok(user);
+            return Ok(result.Value);
         }
 
         #endregion
 
         [HttpPut]
-        public async Task<ActionResult> Update([FromBody] UserUpdateDto update)
+        public async Task<ActionResult> Update(int id, [FromBody] UserUpdateDto update)
         {
-            var res = await _userService.UpdateUserAsync(update);
+            var result = await _userService.UpdateUserAsync(id, update);
 
-            if (!res)
+            if (result.IsFailed)
             {
-                return NotFound($"User with ID {update.Id} was not found.");
+                return NotFound(result.Errors);
             }
 
             return NoContent();
@@ -69,11 +69,11 @@ namespace WebAPI.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(int id)
         {
-            var res = await _userService.DeleteUserAsync(id);
+            var result = await _userService.DeleteUserAsync(id);
 
-            if (!res)
+            if (result.IsFailed)
             {
-                return NotFound($"User with ID {id} was not found.");
+                return NotFound(result.Errors);
             }
 
             return NoContent();
