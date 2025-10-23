@@ -1,5 +1,5 @@
-﻿using Business.Services;
-using Business.Services.Interfaces;
+﻿using BL.Services;
+using BL.Services.Interfaces;
 using DAL.Data;
 using Infrastructure.Repository;
 using Infrastructure.Repository.Interfaces;
