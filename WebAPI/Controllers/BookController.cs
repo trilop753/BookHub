@@ -27,13 +27,13 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDto>> GetById(int id)
         {
-            var book = await _bookService.GetBookByIdAsync(id);
-            if (book == null)
+            var result = await _bookService.GetBookByIdAsync(id);
+            if (result.IsFailed)
             {
-                return NotFound();
+                return NotFound(result.Errors);
             }
 
-            return Ok(book);
+            return Ok(result.Value);
         }
 
         [HttpGet("search")]
@@ -51,17 +51,22 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<BookDto>> Create([FromBody] BookCreateDto dto)
         {
-            var created = await _bookService.CreateBookAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            var result = await _bookService.CreateBookAsync(dto);
+            if (result.IsFailed)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
         {
-            var updated = await _bookService.UpdateBookAsync(id, dto);
-            if (!updated.Success)
+            var result = await _bookService.UpdateBookAsync(id, dto);
+            if (result.IsFailed)
             {
-                return NotFound(updated.Error);
+                return NotFound(result.Errors);
             }
 
             return NoContent();
@@ -70,10 +75,10 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            bool deleted = await _bookService.DeleteBookAsync(id);
-            if (!deleted)
+            var result = await _bookService.DeleteBookAsync(id);
+            if (result.IsFailed)
             {
-                return NotFound($"Book with ID {id} was not found.");
+                return NotFound(result.Errors);
             }
 
             return NoContent();
