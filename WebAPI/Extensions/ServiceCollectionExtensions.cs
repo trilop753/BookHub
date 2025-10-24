@@ -1,4 +1,6 @@
-﻿using BL.Services;
+﻿using BL.Facades;
+using BL.Facades.Interfaces;
+using BL.Services;
 using BL.Services.Interfaces;
 using DAL.Data;
 using Infrastructure.Repository;
@@ -37,6 +39,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IPublisherRepository, PublisherRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
             return services;
         }
 
@@ -44,6 +47,13 @@ namespace WebAPI.Extensions
         {
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IWishlistItemService, WishlistItemService>();
+            return services;
+        }
+
+        public static IServiceCollection AddFacades(this IServiceCollection services)
+        {
+            services.AddScoped<IWishlistFacade, WishlistFacade>();
             return services;
         }
 

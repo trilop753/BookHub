@@ -3,15 +3,15 @@ using BL.Mappers;
 using BL.Services.Interfaces;
 using DAL.Models;
 using FluentResults;
-using Infrastructure.Repository;
+using Infrastructure.Repository.Interfaces;
 
 namespace BL.Services
 {
     public class WishlistItemService : IWishlistItemService
     {
-        private readonly WishlistItemRepository _repository;
+        private readonly IWishlistItemRepository _repository;
 
-        public WishlistItemService(WishlistItemRepository repository)
+        public WishlistItemService(IWishlistItemRepository repository)
         {
             _repository = repository;
         }

@@ -12,12 +12,12 @@ namespace Infrastructure.Repository
 
         public async Task<IEnumerable<WishlistItem>> GetAllWithBookIdAsync(int id)
         {
-            return await _dbSet.Include(wishlistItem => wishlistItem.BookId == id).ToListAsync();
+            return await _dbSet.Where(wishlistItem => wishlistItem.BookId == id).ToListAsync();
         }
 
         public async Task<IEnumerable<WishlistItem>> GetAllByUserIdAsync(int id)
         {
-            return await _dbSet.Include(wishlistItem => wishlistItem.UserId == id).ToListAsync();
+            return await _dbSet.Where(wishlistItem => wishlistItem.UserId == id).ToListAsync();
         }
     }
 }

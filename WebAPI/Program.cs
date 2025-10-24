@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddBusinessServices();
+builder.Services.AddFacades();
 builder.Services.AddSwaggerDocumentation();
 builder.Services.AddCorsPolicy();
 
