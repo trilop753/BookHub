@@ -59,6 +59,23 @@ namespace DAL.Data
                 entity.HasMany(g => g.Books).WithMany(b => b.Genres);
             });
 
+            // NEW
+            modelBuilder.Entity<WishlistItem>(entity =>
+            {
+                entity
+                    .HasOne(w => w.User)
+                    .WithMany()
+                    .HasForeignKey(w => w.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasOne(w => w.Book)
+                    .WithMany()
+                    .HasForeignKey(w => w.BookId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // NEW
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.SeedAll();
