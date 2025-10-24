@@ -463,16 +463,11 @@ namespace DAL.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("WishlistItem");
                 });
@@ -588,14 +583,10 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DAL.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Wishlist")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("DAL.Models.User", null)
-                        .WithMany("Wishlist")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("Book");
 
