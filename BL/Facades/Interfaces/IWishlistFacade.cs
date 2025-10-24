@@ -8,5 +8,9 @@ namespace BL.Facades.Interfaces
         public Task<Result<WishlistItemDto>> WishlistBook(int userId, int bookId);
 
         public Task<Result<WishlistItemDto>> RemoveFromWishlist(int userId, int bookId);
+
+        public Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByUserId(int userId);
+
+        public Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByBookId(int userId);
     }
 }
