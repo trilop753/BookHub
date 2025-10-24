@@ -64,7 +64,7 @@ namespace DAL.Data
             {
                 entity
                     .HasOne(w => w.User)
-                    .WithMany()
+                    .WithMany(u => u.Wishlist)
                     .HasForeignKey(w => w.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
 
