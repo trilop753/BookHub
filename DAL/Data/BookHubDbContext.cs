@@ -72,7 +72,7 @@ namespace DAL.Data
                     .HasOne(w => w.Book)
                     .WithMany()
                     .HasForeignKey(w => w.BookId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // NEW
