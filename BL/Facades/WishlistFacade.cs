@@ -1,0 +1,94 @@
+﻿using BL.DTOs.WishlistItemDTOs;
+using BL.Facades.Interfaces;
+using BL.Services.Interfaces;
+using FluentResults;
+
+namespace BL.Facades
+{
+    public class WishlistFacade : IWishlistFacade
+    {
+        private readonly IBookService _bookService;
+        private readonly IUserService _userService;
+        private readonly IWishlistItemService _wishlistItemService;
+
+        public WishlistFacade(
+            IBookService bookService,
+            IUserService userService,
+            IWishlistItemService wishlistItemService
+        )
+        {
+            _bookService = bookService;
+            _userService = userService;
+            _wishlistItemService = wishlistItemService;
+        }
+
+        public async Task<Result<WishlistItemDto>> WishlistBook(int userId, int bookId)
+        {
+            var check = await CheckUserAndBookExistAsync(userId, bookId);
+            if (check.IsFailed)
+            {
+                return check;
+            }
+            return await _wishlistItemService.CreateWishlistItemAsync(userId, bookId);
+        }
+
+        public async Task<Result<WishlistItemDto>> RemoveFromWishlist(int userId, int bookId)
+        {
+            var check = await CheckUserAndBookExistAsync(userId, bookId);
+            if (check.IsFailed)
+            {
+                return check;
+            }
+            return await _wishlistItemService.DeleteWishlistItemAsync(userId, bookId);
+        }
+
+        public async Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByUserId(int userId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user.IsFailed)
+            {
+                return Result.Fail(user.Errors);
+            }
+            var wishlisted = await _wishlistItemService.GetAllUserWishlistItemsAsync(userId);
+            return Result.Ok(wishlisted);
+        }
+
+        public async Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByBookId(int bookId)
+        {
+            var book = await _bookService.GetBookByIdAsync(bookId);
+            if (book.IsFailed)
+            {
+                return Result.Fail(book.Errors);
+            }
+            var wishlisted = await _wishlistItemService.GetAllBookWishlistItemsAsync(bookId);
+            return Result.Ok(wishlisted);
+        }
+
+        private async Task<Result<WishlistItemDto>> CheckUserAndBookExistAsync(
+            int userId,
+            int bookId
+        )
+        {
+            var book = await _bookService.GetBookByIdAsync(bookId);
+            var user = await _userService.GetUserByIdAsync(userId);
+
+            var result = Result.Ok();
+
+            if (book.IsFailed)
+            {
+                result.WithErrors(book.Errors);
+            }
+
+            if (user.IsFailed)
+            {
+                result.WithErrors(user.Errors);
+            }
+
+            if (result.IsFailed)
+            {
+                return Result.Fail(result.Errors);
+            }
+            return result;
+        }
+    }
+}
