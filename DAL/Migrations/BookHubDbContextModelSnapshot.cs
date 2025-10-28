@@ -43,18 +43,18 @@ namespace DAL.Migrations
                         },
                         new
                         {
+                            BooksId = 1,
+                            GenresId = 4
+                        },
+                        new
+                        {
                             BooksId = 2,
                             GenresId = 2
                         },
                         new
                         {
-                            BooksId = 2,
-                            GenresId = 3
-                        },
-                        new
-                        {
                             BooksId = 3,
-                            GenresId = 4
+                            GenresId = 3
                         },
                         new
                         {
@@ -85,32 +85,32 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "J.R.R.",
-                            Surname = "Tolkien"
+                            Name = "Rosario",
+                            Surname = "Sporer"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Robert W.",
-                            Surname = "Chambers"
+                            Name = "Damaris",
+                            Surname = "Haag"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Stephen",
-                            Surname = "King"
+                            Name = "Rosalyn",
+                            Surname = "Schulist"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Jane",
-                            Surname = "Austen"
+                            Name = "Shanna",
+                            Surname = "Fadel"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Isaac",
-                            Surname = "Asimov"
+                            Name = "Woodrow",
+                            Surname = "Thompson"
                         });
                 });
 
@@ -153,42 +153,42 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = 1,
-                            Description = "Classic high fantasy adventure.",
-                            ISBN = "9780547928210",
-                            Price = 10.99m,
-                            PublisherId = 1,
-                            Title = "The Lord of the Rings: The Fellowship of the Ring"
+                            AuthorId = 2,
+                            Description = "Voluptas cumque quae et ut vel unde. Dolores impedit non deleniti possimus odit illum molestiae ut. Placeat sequi nam magnam velit. Non fugit reiciendis. Officiis dolor cum doloribus nulla eaque inventore sed voluptate et.",
+                            ISBN = "1686322064044",
+                            Price = 8.32m,
+                            PublisherId = 2,
+                            Title = "Voluptate voluptas debitis sit."
                         },
                         new
                         {
                             Id = 2,
                             AuthorId = 2,
-                            Description = "A collection of weird horror stories.",
-                            ISBN = "9780486226886",
-                            Price = 6.99m,
-                            PublisherId = 2,
-                            Title = "The King in Yellow"
+                            Description = "Illum ea blanditiis possimus voluptatibus rerum corrupti temporibus quis. Doloremque sapiente ullam. Voluptate eveniet placeat minus voluptatem voluptas qui ut. Sapiente dolore non dolore a magnam dolore.",
+                            ISBN = "0582325371671",
+                            Price = 17.15m,
+                            PublisherId = 3,
+                            Title = "Mollitia atque nobis dolor."
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 4,
-                            Description = "A romantic novel of manners.",
-                            ISBN = "9780141439518",
-                            Price = 8.49m,
+                            AuthorId = 5,
+                            Description = "Exercitationem eaque autem laudantium. Consequuntur ipsa voluptates natus illo occaecati perferendis molestias placeat. Fuga eius est sequi similique alias quas voluptas aut ut. Recusandae iste neque ab.",
+                            ISBN = "4861959228251",
+                            Price = 16.26m,
                             PublisherId = 3,
-                            Title = "Pride and Prejudice"
+                            Title = "Asperiores dolorum velit explicabo."
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 5,
-                            Description = "Science fiction classic about the fall of the Galactic Empire.",
-                            ISBN = "9780553293357",
-                            Price = 9.99m,
-                            PublisherId = 4,
-                            Title = "Foundation"
+                            AuthorId = 3,
+                            Description = "Et voluptas asperiores et. Est ut sapiente iure vel perferendis impedit tempore voluptatem. Soluta cupiditate et eos maiores. Quidem optio cum iure dolorem eaque officia quibusdam.",
+                            ISBN = "3895470133207",
+                            Price = 14.74m,
+                            PublisherId = 2,
+                            Title = "Tempore facilis sed optio nam."
                         });
                 });
 
@@ -223,26 +223,50 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Absolutely loved it! A masterpiece of fantasy.",
-                            BookId = 1,
-                            Stars = 5,
-                            UserId = 1
+                            Body = "Omnis corporis pariatur consequuntur autem asperiores eveniet deserunt facilis.",
+                            BookId = 4,
+                            Stars = 3,
+                            UserId = 5
                         },
                         new
                         {
                             Id = 2,
-                            Body = "Creepy, atmospheric, and unique.",
-                            BookId = 2,
-                            Stars = 4,
-                            UserId = 2
+                            Body = "Distinctio vitae voluptates dicta tempora et et mollitia.",
+                            BookId = 1,
+                            Stars = 3,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 3,
-                            Body = "Classic romance with wit and heart.",
+                            Body = "Fugiat dolorum optio maiores sint consequatur commodi quas nostrum velit.",
                             BookId = 3,
-                            Stars = 5,
-                            UserId = 3
+                            Stars = 3,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "Voluptatem iusto eaque beatae commodi excepturi impedit sed.",
+                            BookId = 2,
+                            Stars = 1,
+                            UserId = 7
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "Nam aut veniam odio est quasi est blanditiis quos.",
+                            BookId = 2,
+                            Stars = 2,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Body = "Quia eveniet quia debitis accusantium nulla officia exercitationem.",
+                            BookId = 2,
+                            Stars = 3,
+                            UserId = 5
                         });
                 });
 
@@ -313,7 +337,17 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 6,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 7,
                             Name = "Biography"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Adventure"
                         });
                 });
 
@@ -378,22 +412,22 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Penguin Books"
+                            Name = "Schimmel and Sons"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "HarperCollins"
+                            Name = "Green, Zemlak and Bartoletti"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Bloomsbury"
+                            Name = "Walsh - Ward"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Vintage"
+                            Name = "Auer Inc"
                         });
                 });
 
@@ -424,30 +458,58 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "admin@bookhub.com",
-                            IsBanned = false,
-                            Username = "admin"
+                            Email = "Edyth70@hotmail.com",
+                            IsBanned = true,
+                            Username = "Misael.Kuhic94"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "john.doe@gmail.com",
+                            Email = "Cassandra98@hotmail.com",
                             IsBanned = false,
-                            Username = "john"
+                            Username = "Cordell.Stamm26"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "emma.reader@gmail.com",
+                            Email = "Fermin_Murazik@hotmail.com",
                             IsBanned = false,
-                            Username = "emma"
+                            Username = "Berta_Ernser69"
                         },
                         new
                         {
                             Id = 4,
-                            Email = "mike.writer@gmail.com",
+                            Email = "Michelle38@hotmail.com",
                             IsBanned = false,
-                            Username = "mike"
+                            Username = "Florencio_King35"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "Imani_Smith73@hotmail.com",
+                            IsBanned = false,
+                            Username = "Velma_Kling60"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Email = "Brandyn.Moore@yahoo.com",
+                            IsBanned = false,
+                            Username = "Lacey.King"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Email = "Marcelo52@hotmail.com",
+                            IsBanned = false,
+                            Username = "Henderson_Bradtke10"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Email = "Megane35@yahoo.com",
+                            IsBanned = false,
+                            Username = "Collin60"
                         });
                 });
 
