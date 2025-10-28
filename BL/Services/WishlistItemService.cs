@@ -26,9 +26,7 @@ namespace BL.Services
 
         public async Task<Result> DeleteWishlistItemAsync(int userId, int bookId)
         {
-            var items = await _repository.GetAllByUserIdAsync(userId);
-            var wishlistItem = items.FirstOrDefault(wishlistItem => wishlistItem.BookId == bookId);
-
+            var wishlistItem = await _repository.GetByUserIdAndBookId(userId, bookId);
             if (wishlistItem == null)
             {
                 return Result.Fail(
