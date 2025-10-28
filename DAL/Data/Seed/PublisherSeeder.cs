@@ -1,3 +1,4 @@
+using Bogus;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,19 +9,16 @@ namespace DAL.Data.Seed
         public static void Seed(this ModelBuilder modelBuilder)
         {
             var publishers = PreparePublisherModels();
-
             modelBuilder.Entity<Publisher>().HasData(publishers);
         }
 
         private static List<Publisher> PreparePublisherModels()
         {
-            return new List<Publisher>
-            {
-                new Publisher { Id = 1, Name = "Penguin Books" },
-                new Publisher { Id = 2, Name = "HarperCollins" },
-                new Publisher { Id = 3, Name = "Bloomsbury" },
-                new Publisher { Id = 4, Name = "Vintage" },
-            };
+            var faker = new Faker<Publisher>("en")
+                .RuleFor(p => p.Id, f => f.IndexFaker + 1)
+                .RuleFor(p => p.Name, f => f.Company.CompanyName());
+
+            return faker.Generate(4);
         }
     }
 }
