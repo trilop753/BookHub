@@ -26,9 +26,9 @@ namespace BL.Services
 
         public async Task<Result> DeleteWishlistItemAsync(int userId, int bookId)
         {
-            var wishlistItem = (await _repository.GetAllByUserIdAsync(userId)).FirstOrDefault(
-                wishlistItem => wishlistItem.BookId == bookId
-            );
+            var items = await _repository.GetAllByUserIdAsync(userId);
+            var wishlistItem = items.FirstOrDefault(wishlistItem => wishlistItem.BookId == bookId);
+
             if (wishlistItem == null)
             {
                 return Result.Fail(
@@ -42,16 +42,14 @@ namespace BL.Services
 
         public async Task<IEnumerable<WishlistItemDto>> GetAllBookWishlistItemsAsync(int bookId)
         {
-            return (await _repository.GetAllWithBookIdAsync(bookId)).Select(wishlistItem =>
-                wishlistItem.MapToDto()
-            );
+            var items = await _repository.GetAllWithBookIdAsync(bookId);
+            return items.Select(wishlistItem => wishlistItem.MapToDto());
         }
 
         public async Task<IEnumerable<WishlistItemDto>> GetAllUserWishlistItemsAsync(int userId)
         {
-            return (await _repository.GetAllByUserIdAsync(userId)).Select(wishlistItem =>
-                wishlistItem.MapToDto()
-            );
+            var items = await _repository.GetAllByUserIdAsync(userId);
+            return items.Select(wishlistItem => wishlistItem.MapToDto());
         }
     }
 }

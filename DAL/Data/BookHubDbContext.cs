@@ -59,7 +59,6 @@ namespace DAL.Data
                 entity.HasMany(g => g.Books).WithMany(b => b.Genres);
             });
 
-            // NEW
             modelBuilder.Entity<WishlistItem>(entity =>
             {
                 entity
@@ -75,7 +74,6 @@ namespace DAL.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // NEW
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.SeedAll();

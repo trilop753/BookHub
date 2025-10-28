@@ -75,14 +75,19 @@ namespace BL.Facades
             var result = Result.Ok();
 
             if (book.IsFailed)
+            {
                 result.WithErrors(book.Errors);
+            }
 
             if (user.IsFailed)
+            {
                 result.WithErrors(user.Errors);
+            }
 
             if (result.IsFailed)
+            {
                 return Result.Fail(result.Errors);
-
+            }
             return result;
         }
     }
