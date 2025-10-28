@@ -40,6 +40,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IPublisherRepository, PublisherRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
             return services;
         }
 
@@ -48,12 +49,14 @@ namespace WebAPI.Extensions
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWishlistItemService, WishlistItemService>();
+            services.AddScoped<ICartItemService, CartItemService>();
             return services;
         }
 
         public static IServiceCollection AddFacades(this IServiceCollection services)
         {
             services.AddScoped<IWishlistFacade, WishlistFacade>();
+            services.AddScoped<ICartFacade, CartFacade>();
             return services;
         }
 
