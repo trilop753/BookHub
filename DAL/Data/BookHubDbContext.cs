@@ -5,10 +5,13 @@ namespace DAL.Data
 {
     public class BookHubDbContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Publisher> Publishers { get; set; }
-        public DbSet<Genre> Genres { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Book> Book { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<Author> Author { get; set; }
+        public DbSet<Publisher> Publisher { get; set; }
+        public DbSet<WishlistItem> WishlistItem { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
 
         public BookHubDbContext(DbContextOptions options)
             : base(options) { }

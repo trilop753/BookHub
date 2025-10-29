@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    [Migration("20251028203207_bogus-resync")]
-    partial class bogusresync
+    [Migration("20251029144523_dbcontext_add_sets_resync")]
+    partial class dbcontext_add_sets_resync
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,38 +82,38 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Author");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Name = "Leonard",
-                            Surname = "Koelpin"
+                            Name = "Florine",
+                            Surname = "Keebler"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Erich",
-                            Surname = "Dibbert"
+                            Name = "Robbie",
+                            Surname = "Wintheiser"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Eleanora",
-                            Surname = "Altenwerth"
+                            Name = "Adolph",
+                            Surname = "Renner"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Yasmin",
-                            Surname = "Rutherford"
+                            Name = "Juwan",
+                            Surname = "Stracke"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Layne",
-                            Surname = "Ziemann"
+                            Name = "Albert",
+                            Surname = "Botsford"
                         });
                 });
 
@@ -150,48 +150,48 @@ namespace DAL.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Book");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            AuthorId = 5,
-                            Description = "Ea recusandae esse quod distinctio. Fugit nobis ex est earum quam quidem. Aliquam tempore magnam aut corporis.",
-                            ISBN = "3331547405223",
-                            Price = 15.73m,
-                            PublisherId = 4,
-                            Title = "Non quos minima placeat."
+                            AuthorId = 1,
+                            Description = "Aperiam ipsum incidunt ab sit voluptatem quae similique quasi fugiat. Possimus non consequuntur praesentium ratione ipsa necessitatibus voluptas. Maxime sunt optio et officiis quidem natus illum voluptatibus autem. In facilis ducimus quis sint sint exercitationem. Qui occaecati id et. Et et qui ut voluptas.",
+                            ISBN = "5809274814505",
+                            Price = 18.72m,
+                            PublisherId = 3,
+                            Title = "Neque repudiandae qui et repellendus."
                         },
                         new
                         {
                             Id = 2,
                             AuthorId = 4,
-                            Description = "Velit iusto quam aspernatur animi nisi exercitationem accusantium. Numquam blanditiis adipisci quos recusandae architecto iusto et odit deserunt. Cumque ipsam ut eaque velit. Suscipit molestiae est excepturi ipsam et deleniti voluptatem.",
-                            ISBN = "0957600004610",
-                            Price = 15.78m,
+                            Description = "Nostrum non consequuntur officiis rerum consequatur. Necessitatibus et nisi reprehenderit dolorem consequatur dignissimos nisi. Et praesentium maiores nulla molestias nobis autem.",
+                            ISBN = "5550707506282",
+                            Price = 10.00m,
                             PublisherId = 3,
-                            Title = "Atque ipsum consequatur ut."
+                            Title = "Harum voluptas assumenda doloribus cupiditate cumque."
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 1,
-                            Description = "Suscipit est explicabo et sint. Et earum blanditiis. Molestias et rerum. Deleniti repellat ratione in excepturi quibusdam aut deserunt. Et nulla mollitia rem numquam eius pariatur. Necessitatibus maxime eligendi nihil dolore fugiat non voluptatibus minima ab.",
-                            ISBN = "2363862910251",
-                            Price = 15.04m,
+                            AuthorId = 2,
+                            Description = "Beatae molestiae aliquam dicta nostrum amet. Laboriosam rerum dolorem rem eum perspiciatis. Quis enim aut itaque nisi cumque magni. Voluptatibus et eos doloribus quia doloremque reiciendis nihil et rerum. Blanditiis vel impedit explicabo eius. Eum et nisi cumque et.",
+                            ISBN = "5565260264364",
+                            Price = 17.18m,
                             PublisherId = 2,
-                            Title = "Hic similique eaque repellendus."
+                            Title = "Eum qui porro consequuntur aut et."
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 4,
-                            Description = "Eos vero magnam eaque maiores ullam qui rerum. Culpa ut odio magni. Quisquam velit exercitationem est aut cum ut quam.",
-                            ISBN = "1486397463823",
-                            Price = 18.69m,
+                            AuthorId = 3,
+                            Description = "Reiciendis aut distinctio vitae corporis doloremque velit. Aut qui labore sit voluptatem perspiciatis aut. Autem eos eius quod nisi quisquam. Hic reprehenderit labore omnis et distinctio. Voluptates nobis odio qui illo dolorem. Adipisci laboriosam incidunt repellat dolor et.",
+                            ISBN = "5579070323456",
+                            Price = 6.12m,
                             PublisherId = 2,
-                            Title = "Rerum sunt labore nisi aliquam."
+                            Title = "Maiores ipsam in hic."
                         });
                 });
 
@@ -226,50 +226,50 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Similique ut eveniet dolorem est exercitationem autem dolorum.",
-                            BookId = 3,
-                            Stars = 3,
-                            UserId = 2
+                            Body = "Et odit blanditiis numquam deserunt quos iusto voluptatum quo.",
+                            BookId = 1,
+                            Stars = 1,
+                            UserId = 4
                         },
                         new
                         {
                             Id = 2,
-                            Body = "Perspiciatis id repellendus omnis atque nobis non quia.",
-                            BookId = 3,
-                            Stars = 1,
-                            UserId = 5
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Body = "Quia mollitia nobis non sed laborum sed repellat sunt aut.",
-                            BookId = 3,
+                            Body = "Ut quia pariatur natus ab mollitia sunt vitae repellat omnis.",
+                            BookId = 2,
                             Stars = 1,
                             UserId = 2
                         },
                         new
                         {
-                            Id = 4,
-                            Body = "Fuga eum qui temporibus quis consequatur velit architecto.",
-                            BookId = 2,
-                            Stars = 5,
-                            UserId = 8
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Body = "Minima aperiam modi odit aperiam ratione ducimus quas repudiandae necessitatibus.",
+                            Id = 3,
+                            Body = "Dolor ipsam sed et commodi sint odio ratione repellendus.",
                             BookId = 4,
-                            Stars = 2,
+                            Stars = 1,
                             UserId = 1
                         },
                         new
                         {
-                            Id = 6,
-                            Body = "Vel vitae molestiae quis sunt qui et qui.",
-                            BookId = 2,
-                            Stars = 1,
+                            Id = 4,
+                            Body = "Odio vero nobis non maxime expedita numquam eius.",
+                            BookId = 4,
+                            Stars = 4,
                             UserId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "Cum excepturi nam similique maxime vel mollitia veritatis.",
+                            BookId = 1,
+                            Stars = 5,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Body = "Nam quidem sed natus mollitia quibusdam facere aut.",
+                            BookId = 3,
+                            Stars = 5,
+                            UserId = 8
                         });
                 });
 
@@ -300,30 +300,30 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 4,
-                            Quantity = 1,
-                            UserId = 6
+                            BookId = 3,
+                            Quantity = 5,
+                            UserId = 8
                         },
                         new
                         {
                             Id = 2,
-                            BookId = 4,
-                            Quantity = 4,
-                            UserId = 1
+                            BookId = 1,
+                            Quantity = 2,
+                            UserId = 8
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 3,
+                            BookId = 1,
                             Quantity = 5,
                             UserId = 5
                         },
                         new
                         {
                             Id = 4,
-                            BookId = 4,
-                            Quantity = 1,
-                            UserId = 4
+                            BookId = 2,
+                            Quantity = 5,
+                            UserId = 7
                         });
                 });
 
@@ -339,7 +339,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genre");
 
                     b.HasData(
                         new
@@ -439,28 +439,28 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publisher");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Name = "Bartoletti, Weber and Stoltenberg"
+                            Name = "Waelchi, Hickle and O'Reilly"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Larson, Metz and Herzog"
+                            Name = "Wyman, Luettgen and Ernser"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Hirthe Inc"
+                            Name = "Padberg Inc"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Crooks LLC"
+                            Name = "Buckridge, Padberg and Cummerata"
                         });
                 });
 
@@ -491,58 +491,58 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "Erika.Lesch70@yahoo.com",
+                            Email = "Chance92@gmail.com",
                             IsBanned = false,
-                            Username = "Roslyn.Quitzon76"
+                            Username = "Melany57"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "Kennith.Abbott27@gmail.com",
+                            Email = "Marc_Reinger91@hotmail.com",
                             IsBanned = false,
-                            Username = "Pietro.Stehr"
+                            Username = "Wilfred35"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "Cheyanne.Beier64@yahoo.com",
+                            Email = "Jackson.Lemke@hotmail.com",
                             IsBanned = false,
-                            Username = "Anna70"
+                            Username = "Friedrich_Fahey"
                         },
                         new
                         {
                             Id = 4,
-                            Email = "Santos87@hotmail.com",
+                            Email = "Fletcher85@yahoo.com",
                             IsBanned = false,
-                            Username = "Sonia.Gerlach62"
+                            Username = "Amara1"
                         },
                         new
                         {
                             Id = 5,
-                            Email = "Mekhi.Sporer4@yahoo.com",
+                            Email = "Leopoldo_Gulgowski96@gmail.com",
                             IsBanned = false,
-                            Username = "May_Rutherford"
+                            Username = "Dillon_OKon8"
                         },
                         new
                         {
                             Id = 6,
-                            Email = "Ayana64@hotmail.com",
+                            Email = "Isai.Zulauf@hotmail.com",
                             IsBanned = false,
-                            Username = "General.Fritsch"
+                            Username = "Reyes.Pfannerstill"
                         },
                         new
                         {
                             Id = 7,
-                            Email = "Ryder50@hotmail.com",
+                            Email = "Justice_Erdman20@hotmail.com",
                             IsBanned = false,
-                            Username = "Ilene55"
+                            Username = "Philip_MacGyver74"
                         },
                         new
                         {
                             Id = 8,
-                            Email = "Devante_Larkin@hotmail.com",
+                            Email = "Keegan35@hotmail.com",
                             IsBanned = false,
-                            Username = "Shaun.Nitzsche"
+                            Username = "Patsy_Kshlerin2"
                         });
                 });
 
