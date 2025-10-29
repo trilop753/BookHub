@@ -20,5 +20,10 @@ namespace BL.Mappers
         {
             return new UserSummaryDto { Id = user.Id, Username = user.Username };
         }
+
+        public static UserCartDto MapToUserCartDto(this User user)
+        {
+            return new UserCartDto() { Id = user.Id, Cart = user.Cart.Select(i => i.MapToDto()) };
+        }
     }
 }

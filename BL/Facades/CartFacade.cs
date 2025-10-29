@@ -93,5 +93,24 @@ namespace BL.Facades
             }
             return Result.Ok();
         }
+
+        public async Task<Result> DeleteCartItemsByUserIdAsync(int userId)
+        {
+            var userRes = await _userService.GetUserCartByIdAsync(userId);
+
+            if (userRes.IsFailed)
+            {
+                return Result.Fail(userRes.Errors);
+            }
+
+            var items = userRes.Value.Cart.Select(c => c.Id);
+            var cartRes = await _cartItemService.DeleteCartItemsAsync(items);
+            if (cartRes.IsFailed)
+            {
+                return Result.Fail(cartRes.Errors);
+            }
+
+            return Result.Ok();
+        }
     }
 }
