@@ -41,6 +41,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             return services;
         }
 
@@ -50,6 +51,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWishlistItemService, WishlistItemService>();
             services.AddScoped<ICartItemService, CartItemService>();
+            services.AddScoped<IOrderService, OrderService>();
             return services;
         }
 
@@ -57,6 +59,7 @@ namespace WebAPI.Extensions
         {
             services.AddScoped<IWishlistFacade, WishlistFacade>();
             services.AddScoped<ICartFacade, CartFacade>();
+            services.AddScoped<IOrderFacade, OrderFacade>();
             return services;
         }
 
