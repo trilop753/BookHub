@@ -1,41 +1,56 @@
 ﻿window.addEventListener("load", function () {
-    const token = 'secrettoken123';
+    const token = "secrettoken123";
 
     const observer = new MutationObserver(() => {
-        const authDialog = document.querySelector('.modal-ux-content');
+        const authDialog = document.querySelector(".modal-ux-content");
         const input = authDialog?.querySelector('input[type="text"], input[type="password"], input');
 
-        if (authDialog && input && !authDialog.querySelector('#show-secret-btn')) {
-            const btn = document.createElement('button');
-            btn.id = 'show-secret-btn';
-            btn.textContent = 'Show secret token';
-            btn.style.marginTop = '8px';
-            btn.style.background = '#007bff';
-            btn.style.color = 'white';
-            btn.style.border = 'none';
-            btn.style.borderRadius = '4px';
-            btn.style.padding = '6px 10px';
-            btn.style.cursor = 'pointer';
-            btn.style.display = 'block';
+        if (authDialog && input && !authDialog.querySelector("#show-secret-btn")) {
+            const btn = document.createElement("button");
+            btn.id = "show-secret-btn";
+            btn.textContent = "Show secret token";
+            Object.assign(btn.style, {
+                marginTop: "8px",
+                background: "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                padding: "6px 10px",
+                cursor: "pointer",
+                display: "block",
+            });
 
-            btn.onclick = async () => {
-                await navigator.clipboard.writeText(token);
+            const tokenText = document.createElement("div");
+            tokenText.textContent = token;
+            Object.assign(tokenText.style, {
+                marginTop: "8px",
+                fontFamily: "monospace",
+                fontSize: "14px",
+                background: "#f4f4f4",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                padding: "6px 8px",
+                wordBreak: "break-all",
+                display: "none",
+            });
 
-                const tokenText = document.createElement('div');
-                tokenText.textContent = token;
-                tokenText.style.marginTop = '8px';
-                tokenText.style.fontFamily = 'monospace';
-                tokenText.style.fontSize = '14px';
-                tokenText.style.background = '#f4f4f4';
-                tokenText.style.border = '1px solid #ddd';
-                tokenText.style.borderRadius = '4px';
-                tokenText.style.padding = '6px 8px';
-                tokenText.style.wordBreak = 'break-all';
+            btn.addEventListener("click", async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
 
-                btn.replaceWith(tokenText);
-            };
+                const isHidden = tokenText.style.display === "none";
+                if (isHidden) {
+                    await navigator.clipboard.writeText(token);
+                    tokenText.style.display = "block";
+                    btn.textContent = "Hide secret token";
+                } else {
+                    tokenText.style.display = "none";
+                    btn.textContent = "Show secret token";
+                }
+            });
 
             input.parentElement.appendChild(btn);
+            input.parentElement.appendChild(tokenText);
         }
     });
 
