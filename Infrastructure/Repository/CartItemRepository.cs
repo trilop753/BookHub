@@ -42,5 +42,19 @@ namespace Infrastructure.Repository
 
             return item;
         }
+
+        public async Task DeleteCartItemsAsync(IEnumerable<int> ids)
+        {
+            var cartItems = await _dbSet.Where(i => ids.Contains(i.Id)).ToListAsync();
+
+            _dbSet.RemoveRange(cartItems);
+
+            await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<int>> GetExistingIds(IEnumerable<int> ids)
+        {
+            return await _dbSet.Where(i => ids.Contains(i.Id)).Select(i => i.Id).ToListAsync();
+        }
     }
 }
