@@ -74,6 +74,21 @@ namespace DAL.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+            modelBuilder.Entity<CartItem>(entity =>
+            {
+                entity
+                    .HasOne(c => c.User)
+                    .WithMany(c => c.Cart)
+                    .HasForeignKey(c => c.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasOne(c => c.Book)
+                    .WithMany()
+                    .HasForeignKey(c => c.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.SeedAll();

@@ -6,7 +6,7 @@ namespace DAL.Data.Seed
 {
     public static class BookSeeder
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static List<Book> Seed(this ModelBuilder modelBuilder)
         {
             var books = PrepareBookModels();
             modelBuilder.Entity<Book>().HasData(books);
@@ -20,6 +20,8 @@ namespace DAL.Data.Seed
                     new { BooksId = 3, GenresId = 3 },
                     new { BooksId = 4, GenresId = 5 }
                 );
+
+            return books;
         }
 
         private static List<Book> PrepareBookModels()
