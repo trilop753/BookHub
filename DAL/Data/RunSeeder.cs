@@ -14,6 +14,7 @@ namespace DAL.Data
             var books = BookSeeder.Seed(modelBuilder);
             BookReviewSeeder.Seed(modelBuilder);
             CartItemsSeeder.Seed(modelBuilder, users, books);
+            OrderSeeder.Seed(modelBuilder, users, books);
         }
     }
 }
