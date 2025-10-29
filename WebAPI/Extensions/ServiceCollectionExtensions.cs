@@ -48,6 +48,10 @@ namespace WebAPI.Extensions
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWishlistItemService, WishlistItemService>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IPublisherService, PublisherService>();
+
             return services;
         }
 

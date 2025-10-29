@@ -2,5 +2,10 @@
 
 namespace Infrastructure.Repository.Interfaces
 {
-    public interface IGenreRepository : IGenericRepository<Genre> { }
+    public interface IGenreRepository : IGenericRepository<Genre>
+    {
+        Task<Genre?> GetByNameAsync(string name);
+
+        Task<IEnumerable<Genre>> GetAllWithBooksAsync();
+    }
 }
