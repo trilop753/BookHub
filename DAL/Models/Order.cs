@@ -9,7 +9,7 @@ namespace DAL.Models
         public int UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public virtual User? User { get; set; }
+        public virtual User User { get; set; }
 
         public virtual IEnumerable<OrderItem> Items { get; set; }
     }
