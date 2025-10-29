@@ -30,7 +30,7 @@ namespace BL.Services
             var existing = await _repository.GetByUserIdAndBookId(userId, bookId);
             if (existing != null)
             {
-                return await UpdateItemQuantityAsync(existing.Id, existing.Quantity + 1);
+                return await UpdateItemQuantityAsync(existing.Id, existing.Quantity + quantity);
             }
 
             var item = new CartItem()
