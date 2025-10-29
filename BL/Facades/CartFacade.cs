@@ -76,14 +76,22 @@ namespace BL.Facades
         {
             var userRes = await _userService.GetUserByIdAsync(userId);
 
-            return userRes.IsFailed ? Result.Fail(userRes.Errors) : Result.Ok();
+            if (userRes.IsFailed)
+            {
+                return Result.Fail(userRes.Errors);
+            }
+            return Result.Ok();
         }
 
         private async Task<Result> ValidateBookAsync(int bookId)
         {
             var bookRes = await _bookService.GetBookByIdAsync(bookId);
 
-            return bookRes.IsFailed ? Result.Fail(bookRes.Errors) : Result.Ok();
+            if (bookRes.IsFailed)
+            {
+                return Result.Fail(bookRes.Errors);
+            }
+            return Result.Ok();
         }
     }
 }
