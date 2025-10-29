@@ -85,32 +85,32 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Josh",
-                            Surname = "Reynolds"
+                            Name = "Jermey",
+                            Surname = "Lehner"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Krystina",
-                            Surname = "Thiel"
+                            Name = "Pascale",
+                            Surname = "Spencer"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Bethel",
-                            Surname = "Dietrich"
+                            Name = "Vivianne",
+                            Surname = "O'Reilly"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Jaeden",
-                            Surname = "Balistreri"
+                            Name = "Arvid",
+                            Surname = "Wolff"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Ethan",
-                            Surname = "Hilpert"
+                            Name = "Hermina",
+                            Surname = "Prosacco"
                         });
                 });
 
@@ -153,42 +153,42 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = 2,
-                            Description = "Sed nostrum facere fugit repellat fugit. Libero dolorum et rerum alias velit minus nam tempore. Error vitae voluptatem. Aliquid sed non omnis aut rerum harum nemo explicabo. Ea sed ut excepturi doloribus libero rerum.",
-                            ISBN = "5698671925941",
-                            Price = 5.42m,
-                            PublisherId = 2,
-                            Title = "Pariatur aut dolor rerum."
+                            AuthorId = 5,
+                            Description = "Omnis modi magnam dolores voluptas. Et officiis sed voluptas odit facere quam. Odit doloremque dignissimos et. Omnis et est. Deserunt corporis molestiae quasi consequuntur. Dignissimos ab aspernatur asperiores est.",
+                            ISBN = "6990281470026",
+                            Price = 7.71m,
+                            PublisherId = 3,
+                            Title = "Qui provident saepe quam cum perferendis."
                         },
                         new
                         {
                             Id = 2,
-                            AuthorId = 3,
-                            Description = "Ut modi libero. Quam quam consequatur. Dolores et aut provident. Minima maxime ipsa culpa architecto et deleniti saepe. Accusamus et sit.",
-                            ISBN = "5573080934343",
-                            Price = 6.47m,
-                            PublisherId = 2,
-                            Title = "Rem ducimus sed nisi."
+                            AuthorId = 2,
+                            Description = "Assumenda et quia et et iste. A ea ut vel quod maxime rem dolorem qui. Excepturi et at. Consequatur et autem repudiandae.",
+                            ISBN = "3695979644170",
+                            Price = 19.06m,
+                            PublisherId = 4,
+                            Title = "Ut cupiditate a consectetur repellat eos."
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 3,
-                            Description = "Ab ut provident sed. Minus dolorum laboriosam nulla et. Quasi aperiam magnam qui quia. Minima et saepe. Repudiandae doloremque incidunt in ipsum et. Eos nesciunt qui fugit molestiae ad placeat sit.",
-                            ISBN = "1164740686814",
-                            Price = 16.69m,
-                            PublisherId = 4,
-                            Title = "Voluptatem dolore soluta saepe fuga eos."
+                            AuthorId = 2,
+                            Description = "Vero quidem et. Ad natus qui. Autem qui rerum eos et. Eos sunt quo odit sapiente expedita expedita cumque et. Odit quo tenetur eveniet dolorum. Officiis inventore dolore harum quo rerum corrupti.",
+                            ISBN = "1380438581388",
+                            Price = 13.31m,
+                            PublisherId = 2,
+                            Title = "Mollitia consequatur maiores velit minus cum."
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 1,
-                            Description = "Cum aspernatur iusto beatae odit. Et molestiae fugiat eum aut harum molestias sit ducimus et. Ipsum at omnis. Quasi velit quo maxime quia ad a.",
-                            ISBN = "4442655472454",
-                            Price = 18.17m,
-                            PublisherId = 4,
-                            Title = "Similique voluptas beatae suscipit unde."
+                            AuthorId = 5,
+                            Description = "Aut quasi officiis vel beatae. Ea doloremque itaque voluptatibus officiis nisi omnis. Architecto exercitationem molestiae temporibus. Error quibusdam et quod est non rerum quae et tempora. Dicta dolorum dolorum magni possimus dolore quam dolor et. Veritatis ducimus nemo id autem.",
+                            ISBN = "2239462964584",
+                            Price = 13.80m,
+                            PublisherId = 3,
+                            Title = "Et et et accusantium."
                         });
                 });
 
@@ -223,49 +223,49 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Alias ducimus voluptas qui soluta qui magnam consequatur et.",
+                            Body = "Sed odio consequatur ratione ut velit est totam eum.",
                             BookId = 4,
-                            Stars = 2,
-                            UserId = 7
+                            Stars = 4,
+                            UserId = 8
                         },
                         new
                         {
                             Id = 2,
-                            Body = "Sequi autem corporis facere sunt qui ut quos.",
+                            Body = "Laboriosam rerum iure distinctio ut aliquid reprehenderit suscipit.",
+                            BookId = 4,
+                            Stars = 2,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Body = "Nulla sit modi sit quos quo nisi dolore.",
+                            BookId = 1,
+                            Stars = 3,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "Nihil quis dolor magni est qui eos provident ipsam eum.",
                             BookId = 3,
                             Stars = 4,
                             UserId = 5
                         },
                         new
                         {
-                            Id = 3,
-                            Body = "Ea in repudiandae consequatur recusandae quo quasi enim laborum.",
-                            BookId = 3,
-                            Stars = 4,
+                            Id = 5,
+                            Body = "Qui nihil occaecati sed sit illum incidunt dicta totam dolor.",
+                            BookId = 1,
+                            Stars = 1,
                             UserId = 4
                         },
                         new
                         {
-                            Id = 4,
-                            Body = "Amet aut et magnam et necessitatibus molestias aspernatur quibusdam.",
-                            BookId = 2,
-                            Stars = 4,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Body = "Consequatur error consequatur qui ratione impedit molestiae quia molestias.",
-                            BookId = 2,
-                            Stars = 5,
-                            UserId = 2
-                        },
-                        new
-                        {
                             Id = 6,
-                            Body = "Nobis quaerat aut autem odio saepe aut magnam.",
-                            BookId = 4,
-                            Stars = 5,
+                            Body = "Et est aut fugit ea veniam eum modi possimus.",
+                            BookId = 3,
+                            Stars = 2,
                             UserId = 8
                         });
                 });
@@ -297,30 +297,30 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 1,
-                            Quantity = 2,
-                            UserId = 7
+                            BookId = 3,
+                            Quantity = 1,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            BookId = 2,
-                            Quantity = 4,
-                            UserId = 8
+                            BookId = 3,
+                            Quantity = 3,
+                            UserId = 4
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 4,
+                            BookId = 3,
                             Quantity = 2,
-                            UserId = 4
+                            UserId = 3
                         },
                         new
                         {
                             Id = 4,
                             BookId = 1,
-                            Quantity = 1,
-                            UserId = 7
+                            Quantity = 2,
+                            UserId = 6
                         });
                 });
 
@@ -403,26 +403,26 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2023, 4, 25, 16, 58, 54, 862, DateTimeKind.Unspecified).AddTicks(1508),
-                            UserId = 6
+                            Date = new DateTime(2017, 1, 14, 1, 49, 36, 113, DateTimeKind.Unspecified).AddTicks(3304),
+                            UserId = 5
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2022, 9, 4, 18, 43, 32, 510, DateTimeKind.Unspecified).AddTicks(7550),
-                            UserId = 5
+                            Date = new DateTime(2017, 6, 22, 12, 55, 59, 832, DateTimeKind.Unspecified).AddTicks(5418),
+                            UserId = 6
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2023, 6, 3, 17, 32, 13, 463, DateTimeKind.Unspecified).AddTicks(927),
-                            UserId = 1
+                            Date = new DateTime(2016, 8, 12, 22, 8, 47, 586, DateTimeKind.Unspecified).AddTicks(287),
+                            UserId = 4
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2015, 7, 21, 6, 32, 27, 858, DateTimeKind.Unspecified).AddTicks(6621),
-                            UserId = 5
+                            Date = new DateTime(2024, 6, 7, 9, 11, 10, 671, DateTimeKind.Unspecified).AddTicks(1508),
+                            UserId = 8
                         });
                 });
 
@@ -453,14 +453,14 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 2,
+                            BookId = 1,
                             OrderId = 1,
-                            Quantity = 3
+                            Quantity = 4
                         },
                         new
                         {
                             Id = 2,
-                            BookId = 3,
+                            BookId = 4,
                             OrderId = 1,
                             Quantity = 4
                         },
@@ -469,7 +469,7 @@ namespace DAL.Migrations
                             Id = 3,
                             BookId = 3,
                             OrderId = 1,
-                            Quantity = 1
+                            Quantity = 4
                         },
                         new
                         {
@@ -481,37 +481,37 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 5,
-                            BookId = 2,
-                            OrderId = 3,
+                            BookId = 3,
+                            OrderId = 2,
                             Quantity = 4
                         },
                         new
                         {
                             Id = 6,
-                            BookId = 1,
+                            BookId = 3,
                             OrderId = 3,
-                            Quantity = 3
+                            Quantity = 4
                         },
                         new
                         {
                             Id = 7,
                             BookId = 4,
                             OrderId = 4,
-                            Quantity = 4
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 8,
-                            BookId = 4,
+                            BookId = 2,
                             OrderId = 4,
                             Quantity = 3
                         },
                         new
                         {
                             Id = 9,
-                            BookId = 3,
+                            BookId = 4,
                             OrderId = 4,
-                            Quantity = 4
+                            Quantity = 1
                         });
                 });
 
@@ -533,22 +533,22 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Hoeger, Champlin and Conn"
+                            Name = "Schroeder, Stoltenberg and Shanahan"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Stoltenberg Group"
+                            Name = "Torp - Tromp"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "VonRueden Group"
+                            Name = "Jacobi, Tillman and Jones"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Homenick Group"
+                            Name = "Hudson LLC"
                         });
                 });
 
@@ -579,58 +579,58 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "Zula_Nienow@gmail.com",
+                            Email = "Estrella57@gmail.com",
                             IsBanned = false,
-                            Username = "Dustin_Glover"
+                            Username = "Terrill57"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "Lilly46@yahoo.com",
+                            Email = "Dennis.Kuhn49@yahoo.com",
                             IsBanned = false,
-                            Username = "Malvina.Stehr"
+                            Username = "Myrna_OKon"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "Ross.Bashirian@hotmail.com",
-                            IsBanned = false,
-                            Username = "Tabitha.Cummerata87"
+                            Email = "Filomena.Morar@hotmail.com",
+                            IsBanned = true,
+                            Username = "Emanuel72"
                         },
                         new
                         {
                             Id = 4,
-                            Email = "Keyshawn.Goyette@yahoo.com",
+                            Email = "Godfrey.Jaskolski@gmail.com",
                             IsBanned = false,
-                            Username = "Liam.Wilderman93"
+                            Username = "Neva.Treutel97"
                         },
                         new
                         {
                             Id = 5,
-                            Email = "Lolita.Pouros@yahoo.com",
+                            Email = "Alford.Fisher@yahoo.com",
                             IsBanned = false,
-                            Username = "Cleora_Wintheiser"
+                            Username = "Madaline_Osinski"
                         },
                         new
                         {
                             Id = 6,
-                            Email = "Damien7@yahoo.com",
+                            Email = "Santiago.Kemmer80@yahoo.com",
                             IsBanned = false,
-                            Username = "Jayne_Bauch"
+                            Username = "Lessie.Turcotte24"
                         },
                         new
                         {
                             Id = 7,
-                            Email = "Erich.OConner@gmail.com",
+                            Email = "Manuela_Fay@yahoo.com",
                             IsBanned = false,
-                            Username = "Dewayne_Fay97"
+                            Username = "Rachelle88"
                         },
                         new
                         {
                             Id = 8,
-                            Email = "Franco96@yahoo.com",
+                            Email = "Joany_Corwin1@gmail.com",
                             IsBanned = false,
-                            Username = "Janice81"
+                            Username = "Aaron.Streich24"
                         });
                 });
 
