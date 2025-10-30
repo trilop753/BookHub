@@ -34,7 +34,9 @@ namespace BL.Services
         {
             var review = await _reviewRepository.GetByIdAsync(id);
             if (review == null)
+            {
                 return Result.Fail($"Review with id {id} not found.");
+            }
 
             return Result.Ok(review.MapToDto());
         }
@@ -50,14 +52,23 @@ namespace BL.Services
             var result = new Result();
 
             if (await _bookRepository.GetByIdAsync(dto.BookId) == null)
+            {
                 result.WithError($"Book with id {dto.BookId} not found.");
+            }
+
             if (await _userRepository.GetByIdAsync(dto.UserId) == null)
+            {
                 result.WithError($"User with id {dto.UserId} not found.");
+            }
             if (dto.Stars < 1 || dto.Stars > 5)
+            {
                 result.WithError("Stars must be between 1 and 5.");
+            }
 
             if (result.IsFailed)
+            {
                 return result;
+            }
 
             var review = new BookReview
             {
@@ -77,7 +88,9 @@ namespace BL.Services
         {
             var review = await _reviewRepository.GetByIdAsync(id);
             if (review == null)
+            {
                 return Result.Fail($"Review with id {id} not found.");
+            }
 
             review.Stars = dto.Stars;
             review.Body = dto.Body;
@@ -90,7 +103,9 @@ namespace BL.Services
         {
             var review = await _reviewRepository.GetByIdAsync(id);
             if (review == null)
+            {
                 return Result.Fail($"Review with id {id} not found.");
+            }
 
             _reviewRepository.Delete(review);
             await _reviewRepository.SaveChangesAsync();
