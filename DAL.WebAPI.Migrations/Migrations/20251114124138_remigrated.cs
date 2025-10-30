@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.WebAPI.Migrations.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.cs
     public partial class remigrated : Migration
+========
+    public partial class migrated_migration : Migration
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebAPI.Migrations/Migrations/20251030121702_migrated_migration.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -263,11 +267,19 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.cs
                     { 1, "Jaeden", "Spencer" },
                     { 2, "Heath", "Hagenes" },
                     { 3, "Pietro", "Pollich" },
                     { 4, "Angie", "Gusikowski" },
                     { 5, "Rosina", "Rohan" }
+========
+                    { 1, "Brenda", "Aufderhar" },
+                    { 2, "Terrell", "Braun" },
+                    { 3, "Wilson", "Kassulke" },
+                    { 4, "Lavinia", "Corwin" },
+                    { 5, "Toby", "O'Keefe" }
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebAPI.Migrations/Migrations/20251030121702_migrated_migration.cs
                 });
 
             migrationBuilder.InsertData(
@@ -290,10 +302,17 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.cs
                     { 1, "Lowe and Sons" },
                     { 2, "Prosacco LLC" },
                     { 3, "Connelly and Sons" },
                     { 4, "Gutkowski, Nitzsche and Metz" }
+========
+                    { 1, "Hermann, Jacobs and Hahn" },
+                    { 2, "Hills - Murazik" },
+                    { 3, "Runolfsson, Lueilwitz and Hilll" },
+                    { 4, "Moen - Beatty" }
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebAPI.Migrations/Migrations/20251030121702_migrated_migration.cs
                 });
 
             migrationBuilder.InsertData(
@@ -301,6 +320,7 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.cs
                     { 1, "Piper0@yahoo.com", false, "Deborah_Connelly78" },
                     { 2, "Andres25@gmail.com", false, "Ayana78" },
                     { 3, "Elroy.Littel46@yahoo.com", true, "Bernita36" },
@@ -309,6 +329,16 @@ namespace DAL.WebAPI.Migrations.Migrations
                     { 6, "Joaquin20@hotmail.com", false, "Karelle28" },
                     { 7, "Brisa_OHara89@hotmail.com", false, "Hugh_Gutkowski96" },
                     { 8, "Irma.McCullough@gmail.com", false, "Ebony.Goldner25" }
+========
+                    { 1, "Jakob.Reinger@hotmail.com", false, "Glenna60" },
+                    { 2, "Krista.Ritchie20@hotmail.com", false, "Mohamed.Ebert5" },
+                    { 3, "Bradley77@gmail.com", false, "Pablo.Maggio" },
+                    { 4, "Tavares_Lubowitz@yahoo.com", false, "Fausto.Littel67" },
+                    { 5, "Brendan_Larkin86@hotmail.com", false, "Simeon_Kilback" },
+                    { 6, "Julianne.OHara85@hotmail.com", false, "Raheem_Collins" },
+                    { 7, "Chanelle89@gmail.com", false, "Evalyn_Feeney25" },
+                    { 8, "Isom.Abernathy@hotmail.com", false, "Lora.Kovacek" }
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebAPI.Migrations/Migrations/20251030121702_migrated_migration.cs
                 });
 
             migrationBuilder.InsertData(
@@ -316,6 +346,7 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "AuthorId", "CoverImageUrl", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.cs
                     { 1, 3, null, "Dolore repellat nihil est vitae. Rerum et omnis doloribus natus voluptatem ut nobis sed hic. Voluptates aut consequatur velit.", 9, "0252841398703", 5, 11.41m, 4, "Est vel ea expedita est deleniti." },
                     { 2, 5, null, "Accusamus ipsam quas mollitia harum voluptas dolor nisi. Et necessitatibus qui labore. Quam corporis neque eaque ipsam vel sint debitis ut.", 5, "1798988734374", 3, 7.34m, 4, "Ad quia aliquid deleniti labore." },
                     { 3, 3, null, "Sed id enim eos fuga aut qui voluptas quia iure. Qui excepturi ea nostrum perspiciatis qui. Et qui quas cupiditate est architecto. In veniam et assumenda voluptas consequatur eos quo quia.", 2, "2537844064977", 1, 19.76m, 4, "Sed accusamus odit ut omnis." },
@@ -331,6 +362,12 @@ namespace DAL.WebAPI.Migrations.Migrations
                     { 2, new DateTime(2022, 8, 1, 21, 49, 14, 184, DateTimeKind.Unspecified).AddTicks(6406), 8 },
                     { 3, new DateTime(2018, 11, 13, 4, 15, 35, 945, DateTimeKind.Unspecified).AddTicks(6405), 5 },
                     { 4, new DateTime(2017, 8, 1, 21, 9, 39, 883, DateTimeKind.Unspecified).AddTicks(7815), 1 }
+========
+                    { 1, 1, "Reiciendis iste tenetur rerum fuga. Repudiandae animi molestiae reiciendis non ut aspernatur maiores. Similique et enim omnis dicta minus quo et veniam. Quos aliquid deleniti rem eum autem alias ab molestiae non. Explicabo ut id voluptate non iure ea velit deserunt. Voluptatum non cumque consectetur consequatur ut fugiat illo deleniti.", "0868155859139", 13.18m, 2, "Corporis blanditiis doloremque sequi distinctio dolor." },
+                    { 2, 3, "Blanditiis sint consectetur est. Laboriosam minus maiores cum omnis commodi illo porro cumque voluptatibus. Voluptas sit cupiditate laudantium fugit perspiciatis voluptas hic et ut. Tempore saepe itaque placeat quia ullam vel nemo nostrum.", "0596656735378", 8.19m, 1, "Optio tempore est non quibusdam." },
+                    { 3, 5, "Rerum quo ea velit. Perferendis sed non vel quam libero sunt. Nam et omnis quo sint ea. Qui architecto est.", "9801349351478", 14.90m, 1, "Omnis excepturi molestias at." },
+                    { 4, 5, "Autem assumenda est ducimus voluptates veritatis voluptatem suscipit laudantium eaque. Debitis dolor distinctio debitis perferendis accusamus maxime quidem enim explicabo. Quasi quis ipsam est harum.", "2389728247217", 6.77m, 4, "Repellat beatae ullam ipsum quo." }
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebAPI.Migrations/Migrations/20251030121702_migrated_migration.cs
                 });
 
             migrationBuilder.InsertData(
@@ -350,12 +387,21 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.cs
                     { 1, "Odio alias pariatur dolore est est voluptatum rerum.", 4, 3, 8 },
                     { 2, "Pariatur voluptatem dolorem iusto id incidunt voluptas est distinctio repellendus.", 3, 4, 5 },
                     { 3, "Debitis quae ut qui et pariatur fuga non velit.", 2, 3, 2 },
                     { 4, "Magnam nemo repellendus occaecati ut perspiciatis laudantium possimus qui.", 1, 4, 1 },
                     { 5, "Consequatur blanditiis accusantium vitae quis nihil enim tempore totam.", 3, 4, 7 },
                     { 6, "Eum voluptatum mollitia quibusdam incidunt recusandae voluptatem sunt rerum itaque.", 3, 5, 7 }
+========
+                    { 1, "Voluptatem voluptate inventore repellendus id nobis et repudiandae ut.", 3, 4, 4 },
+                    { 2, "Numquam eligendi accusamus autem est et omnis aut neque laboriosam.", 3, 1, 2 },
+                    { 3, "Et consequuntur similique sunt ad rerum voluptas mollitia.", 2, 5, 7 },
+                    { 4, "Eos totam et sit et distinctio iste tenetur.", 1, 1, 7 },
+                    { 5, "Quisquam occaecati quia temporibus earum voluptatem iusto vel ea repellat.", 4, 1, 3 },
+                    { 6, "Atque dolore saepe autem ut perferendis modi dignissimos consequatur.", 3, 3, 6 }
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebAPI.Migrations/Migrations/20251030121702_migrated_migration.cs
                 });
 
             migrationBuilder.InsertData(
@@ -363,6 +409,7 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.cs
                     { 1, 1, 4, 2 },
                     { 2, 3, 2, 4 },
                     { 3, 2, 2, 2 },
@@ -384,6 +431,12 @@ namespace DAL.WebAPI.Migrations.Migrations
                     { 8, 2, 3, 2 },
                     { 9, 3, 3, 3 },
                     { 10, 3, 4, 5 }
+========
+                    { 1, 3, 4, 3 },
+                    { 2, 1, 2, 5 },
+                    { 3, 1, 4, 8 },
+                    { 4, 4, 4, 2 }
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebAPI.Migrations/Migrations/20251030121702_migrated_migration.cs
                 });
 
             migrationBuilder.CreateIndex(

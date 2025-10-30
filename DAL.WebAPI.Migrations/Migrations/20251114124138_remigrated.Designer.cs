@@ -8,11 +8,19 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
 namespace DAL.WebAPI.Migrations.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
     [Migration("20251114124138_remigrated")]
     partial class remigrated
+========
+namespace DAL.WebMVC.Migrations.Migrations
+{
+    [DbContext(typeof(BookHubDbContext))]
+    [Migration("20251030124614_mvc_init")]
+    partial class mvc_init
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,8 +96,19 @@ namespace DAL.WebAPI.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Jaeden",
                             Surname = "Spencer"
+========
+                            Name = "Loren",
+                            Surname = "Baumbach"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Green",
+                            Surname = "Wisozk"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
@@ -100,20 +119,35 @@ namespace DAL.WebAPI.Migrations.Migrations
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Pietro",
                             Surname = "Pollich"
+========
+                            Name = "John",
+                            Surname = "Bergnaum"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Angie",
                             Surname = "Gusikowski"
+========
+                            Name = "Jalen",
+                            Surname = "Dietrich"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Rosina",
                             Surname = "Rohan"
+========
+                            Name = "Derek",
+                            Surname = "Torphy"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         });
                 });
 
@@ -167,6 +201,7 @@ namespace DAL.WebAPI.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             AuthorId = 3,
                             Description = "Dolore repellat nihil est vitae. Rerum et omnis doloribus natus voluptatem ut nobis sed hic. Voluptates aut consequatur velit.",
                             EditCount = 9,
@@ -175,10 +210,19 @@ namespace DAL.WebAPI.Migrations.Migrations
                             Price = 11.41m,
                             PublisherId = 4,
                             Title = "Est vel ea expedita est deleniti."
+========
+                            AuthorId = 1,
+                            Description = "Occaecati voluptas omnis neque aut. Repellendus sint quo sunt qui. Et error autem corrupti sed. Voluptate vitae omnis voluptas praesentium ratione porro et qui.",
+                            ISBN = "6250995845108",
+                            Price = 18.21m,
+                            PublisherId = 4,
+                            Title = "Dolorem sed explicabo voluptatem."
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             AuthorId = 5,
                             Description = "Accusamus ipsam quas mollitia harum voluptas dolor nisi. Et necessitatibus qui labore. Quam corporis neque eaque ipsam vel sint debitis ut.",
                             EditCount = 5,
@@ -187,10 +231,19 @@ namespace DAL.WebAPI.Migrations.Migrations
                             Price = 7.34m,
                             PublisherId = 4,
                             Title = "Ad quia aliquid deleniti labore."
+========
+                            AuthorId = 3,
+                            Description = "Et dolore aperiam omnis sit est. Consequatur voluptas sunt suscipit dicta neque ut. Pariatur non ut animi.",
+                            ISBN = "6971673232408",
+                            Price = 16.55m,
+                            PublisherId = 2,
+                            Title = "Iste rerum molestiae magnam deserunt."
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             AuthorId = 3,
                             Description = "Sed id enim eos fuga aut qui voluptas quia iure. Qui excepturi ea nostrum perspiciatis qui. Et qui quas cupiditate est architecto. In veniam et assumenda voluptas consequatur eos quo quia.",
                             EditCount = 2,
@@ -199,10 +252,19 @@ namespace DAL.WebAPI.Migrations.Migrations
                             Price = 19.76m,
                             PublisherId = 4,
                             Title = "Sed accusamus odit ut omnis."
+========
+                            AuthorId = 5,
+                            Description = "Aut quia atque autem. Omnis pariatur est facere maxime suscipit et cum. Non dolores quo rerum culpa ducimus labore corrupti et.",
+                            ISBN = "4107919391413",
+                            Price = 8.03m,
+                            PublisherId = 3,
+                            Title = "Esse earum consectetur sed."
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             AuthorId = 5,
                             Description = "Delectus qui sint cumque provident veritatis. Eius possimus pariatur non quas illo vitae id est culpa. At non voluptas. Et inventore doloremque qui et officia id. Perspiciatis qui eos rerum sit. Aut eos sapiente et assumenda voluptatum id aut voluptatem in.",
                             EditCount = 1,
@@ -211,6 +273,14 @@ namespace DAL.WebAPI.Migrations.Migrations
                             Price = 12.32m,
                             PublisherId = 2,
                             Title = "Et perspiciatis odit iste."
+========
+                            AuthorId = 3,
+                            Description = "A voluptatem voluptas beatae. Ut molestiae iste ex voluptatem et amet architecto inventore nesciunt. Culpa cupiditate consequuntur. Laborum sit est sequi.",
+                            ISBN = "1969173267292",
+                            Price = 5.63m,
+                            PublisherId = 2,
+                            Title = "At quis eum quasi omnis iste."
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         });
                 });
 
@@ -245,6 +315,7 @@ namespace DAL.WebAPI.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Body = "Odio alias pariatur dolore est est voluptatum rerum.",
                             BookId = 4,
                             Stars = 3,
@@ -289,6 +360,52 @@ namespace DAL.WebAPI.Migrations.Migrations
                             BookId = 3,
                             Stars = 5,
                             UserId = 7
+========
+                            Body = "Nemo minus ut dicta tenetur voluptatem quos reiciendis sit.",
+                            BookId = 3,
+                            Stars = 4,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Body = "Quia esse est consequatur eius eveniet sint sunt vel.",
+                            BookId = 3,
+                            Stars = 2,
+                            UserId = 7
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Body = "Ea asperiores excepturi aut voluptatum fuga id iste quidem.",
+                            BookId = 3,
+                            Stars = 5,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "Unde amet occaecati non natus qui inventore incidunt deserunt.",
+                            BookId = 1,
+                            Stars = 1,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "Voluptate sequi quo quis repudiandae voluptatem corrupti eos sunt.",
+                            BookId = 3,
+                            Stars = 2,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Body = "Ipsum quia non quas et reprehenderit atque sunt corporis.",
+                            BookId = 4,
+                            Stars = 4,
+                            UserId = 5
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         });
                 });
 
@@ -319,30 +436,52 @@ namespace DAL.WebAPI.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             BookId = 1,
                             Quantity = 4,
                             UserId = 2
+========
+                            BookId = 4,
+                            Quantity = 5,
+                            UserId = 7
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             BookId = 3,
                             Quantity = 2,
                             UserId = 4
+========
+                            BookId = 4,
+                            Quantity = 3,
+                            UserId = 8
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             BookId = 2,
                             Quantity = 2,
                             UserId = 2
+========
+                            BookId = 3,
+                            Quantity = 4,
+                            UserId = 4
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             BookId = 4,
+========
+                            BookId = 3,
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                             Quantity = 2,
-                            UserId = 6
+                            UserId = 4
                         });
                 });
 
@@ -562,22 +701,38 @@ namespace DAL.WebAPI.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Lowe and Sons"
+========
+                            Name = "Kerluke - Lang"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Prosacco LLC"
+========
+                            Name = "Dare Group"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Connelly and Sons"
+========
+                            Name = "Bartell Group"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Name = "Gutkowski, Nitzsche and Metz"
+========
+                            Name = "Klocko, Kerluke and Williamson"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         });
                 });
 
@@ -608,58 +763,106 @@ namespace DAL.WebAPI.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Piper0@yahoo.com",
                             IsBanned = false,
                             Username = "Deborah_Connelly78"
+========
+                            Email = "Clifton.Glover25@hotmail.com",
+                            IsBanned = false,
+                            Username = "Moises54"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Andres25@gmail.com",
                             IsBanned = false,
                             Username = "Ayana78"
+========
+                            Email = "Susanna_Stanton92@yahoo.com",
+                            IsBanned = false,
+                            Username = "Ottis.Olson99"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Elroy.Littel46@yahoo.com",
                             IsBanned = true,
                             Username = "Bernita36"
+========
+                            Email = "Otis69@yahoo.com",
+                            IsBanned = false,
+                            Username = "Velva.Wiza0"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Loyal68@yahoo.com",
                             IsBanned = false,
                             Username = "Earlene_Stanton7"
+========
+                            Email = "Madaline_Glover89@yahoo.com",
+                            IsBanned = false,
+                            Username = "Penelope_Harvey44"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Wiley_Lang5@yahoo.com",
                             IsBanned = false,
                             Username = "Sammie_Gerlach25"
+========
+                            Email = "Skye47@gmail.com",
+                            IsBanned = false,
+                            Username = "Cicero_Kuvalis"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 6,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Joaquin20@hotmail.com",
                             IsBanned = false,
                             Username = "Karelle28"
+========
+                            Email = "Maurine.Kassulke47@yahoo.com",
+                            IsBanned = false,
+                            Username = "Ethan.Schinner"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 7,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Brisa_OHara89@hotmail.com",
                             IsBanned = false,
                             Username = "Hugh_Gutkowski96"
+========
+                            Email = "Rosina_Fadel@gmail.com",
+                            IsBanned = false,
+                            Username = "Mallie.Hamill"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         },
                         new
                         {
                             Id = 8,
+<<<<<<<< HEAD:DAL.WebAPI.Migrations/Migrations/20251114124138_remigrated.Designer.cs
                             Email = "Irma.McCullough@gmail.com",
                             IsBanned = false,
                             Username = "Ebony.Goldner25"
+========
+                            Email = "Pablo.Stoltenberg@gmail.com",
+                            IsBanned = false,
+                            Username = "Shaina.Monahan"
+>>>>>>>> 3a29d09 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/20251030124614_mvc_init.Designer.cs
                         });
                 });
 
