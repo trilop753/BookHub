@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebMVC.Models.Book.BookViewModel>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1 class="display-4 text-center mb-4">Books</h1>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Genres</th>
+            <th>Publisher</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Price.ToString("C")</td>
+                <td>@string.Join(", ", book.Genres)</td>
+                <td>@book.PublisherName</td>
+                <td>@book.AuthorName</td>
+            </tr>
+        }
+    </tbody>
+</table>
