@@ -6,11 +6,13 @@ namespace DAL.Data.Seed
 {
     public static class UserSeeder
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static List<User> Seed(this ModelBuilder modelBuilder)
         {
             var users = PrepareUserModels();
 
             modelBuilder.Entity<User>().HasData(users);
+
+            return users;
         }
 
         private static List<User> PrepareUserModels()

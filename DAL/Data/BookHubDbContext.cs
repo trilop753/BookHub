@@ -5,10 +5,13 @@ namespace DAL.Data
 {
     public class BookHubDbContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Publisher> Publishers { get; set; }
-        public DbSet<Genre> Genres { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Book> Book { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<Author> Author { get; set; }
+        public DbSet<Publisher> Publisher { get; set; }
+        public DbSet<WishlistItem> WishlistItem { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
 
         public BookHubDbContext(DbContextOptions options)
             : base(options) { }
@@ -71,6 +74,45 @@ namespace DAL.Data
                     .HasOne(w => w.Book)
                     .WithMany()
                     .HasForeignKey(w => w.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<CartItem>(entity =>
+            {
+                entity
+                    .HasOne(c => c.User)
+                    .WithMany(c => c.Cart)
+                    .HasForeignKey(c => c.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasOne(c => c.Book)
+                    .WithMany()
+                    .HasForeignKey(c => c.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity
+                    .HasOne(o => o.User)
+                    .WithMany(u => u.Orders)
+                    .HasForeignKey(o => o.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<OrderItem>(entity =>
+            {
+                entity
+                    .HasOne(oi => oi.Order)
+                    .WithMany(o => o.Items)
+                    .HasForeignKey(oi => oi.OrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasOne(oi => oi.Book)
+                    .WithMany()
+                    .HasForeignKey(oi => oi.BookId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
