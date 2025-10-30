@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DAL.Migrations
+namespace DAL.WebMVC.Migrations.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
     partial class BookHubDbContextModelSnapshot : ModelSnapshot
@@ -85,32 +85,32 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Cooper",
-                            Surname = "Stokes"
+                            Name = "Reba",
+                            Surname = "Weber"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Mabel",
-                            Surname = "Abshire"
+                            Name = "Mina",
+                            Surname = "Brown"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Miles",
-                            Surname = "Koelpin"
+                            Name = "Raegan",
+                            Surname = "Cruickshank"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Georgianna",
-                            Surname = "Schneider"
+                            Name = "Destini",
+                            Surname = "Cummings"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "June",
-                            Surname = "Nader"
+                            Name = "Bernhard",
+                            Surname = "Ankunding"
                         });
                 });
 
@@ -164,50 +164,52 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<< HEAD:DAL/Migrations/BookHubDbContextModelSnapshot.cs
                             AuthorId = 4,
                             Description = "In illum aut iste architecto ipsum. Neque quidem est. Quis sunt harum labore quae odit et voluptatem iusto corrupti.",
                             EditCount = 10,
                             ISBN = "1068470320720",
                             LastEditedById = 4,
-                            Price = 16.82m,
-                            PublisherId = 4,
-                            Title = "Molestiae vero dicta minus."
+                            Price = 11.38m,
+                            PublisherId = 3,
+                            Title = "Culpa velit sapiente quisquam."
                         },
                         new
                         {
                             Id = 2,
-                            AuthorId = 4,
-                            Description = "Nostrum quae tempora laboriosam rerum ipsa ea aliquam. Quia similique quo animi quis ab. Ipsum voluptatem enim id earum neque. Voluptas velit voluptatem. Iusto est accusantium et deleniti voluptas ipsam dicta.",
-                            EditCount = 2,
-                            ISBN = "2392916681861",
+                            AuthorId = 1,
+                            Description = "Nisi nobis ut. Voluptate magnam tempore. Repellendus aliquid quod itaque unde adipisci. Officiis repudiandae dolore qui voluptate ad impedit repudiandae atque.",
+                            EditCount = 7,
+                            ISBN = "0795729932984",
                             LastEditedById = 3,
                             Price = 14.90m,
                             PublisherId = 2,
-                            Title = "Fuga quis repudiandae praesentium."
+                            Title = "Cumque impedit blanditiis error."
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 3,
-                            Description = "Corrupti quidem voluptate eveniet aliquam expedita delectus. Itaque optio consequatur tenetur quia hic maxime qui ea. Quae reiciendis architecto fugit ut et velit quia. Sed explicabo atque. Modi a qui et in autem quam nihil nobis animi.",
-                            EditCount = 2,
-                            ISBN = "9265726409150",
-                            LastEditedById = 3,
-                            Price = 18.96m,
-                            PublisherId = 1,
-                            Title = "Molestiae omnis animi quibusdam veniam animi."
+                            AuthorId = 2,
+                            Description = "Veritatis voluptatem magni incidunt quod cumque voluptatem velit distinctio aliquam. Culpa libero sed molestias voluptatem blanditiis ut esse. Perspiciatis earum eos. Nesciunt culpa ut omnis impedit commodi ut. Rerum accusamus ipsum dolorum nisi quibusdam voluptatem hic occaecati ducimus. Porro aspernatur voluptatibus tenetur.",
+                            EditCount = 10,
+                            ISBN = "7887396245146",
+                            LastEditedById = 4,
+                            Price = 14.28m,
+                            PublisherId = 3,
+                            Title = "Laudantium dolor magnam rerum."
                         },
                         new
                         {
                             Id = 4,
+<<<<<<< HEAD:DAL/Migrations/BookHubDbContextModelSnapshot.cs
                             AuthorId = 2,
                             Description = "Ipsum est voluptatem est et. Vero ipsum reprehenderit ex inventore corrupti nostrum mollitia in deleniti. Ipsum perferendis magni.",
                             EditCount = 8,
-                            ISBN = "5343042455397",
-                            LastEditedById = 2,
-                            Price = 15.17m,
-                            PublisherId = 2,
-                            Title = "Rerum dolorem perspiciatis illum ad quasi."
+                            ISBN = "4295003193637",
+                            LastEditedById = 1,
+                            Price = 14.29m,
+                            PublisherId = 1,
+                            Title = "Consequatur dolorum eos possimus."
                         });
                 });
 
@@ -242,7 +244,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Odio a repellendus est distinctio eum laudantium ipsa exercitationem maiores.",
+                            Body = "Dolor aliquid id quidem quas aut dolor cumque aut.",
                             BookId = 4,
                             Stars = 2,
                             UserId = 2
@@ -285,7 +287,7 @@ namespace DAL.Migrations
                             Body = "Qui dolor quasi mollitia ea possimus error nesciunt numquam.",
                             BookId = 1,
                             Stars = 3,
-                            UserId = 2
+                            UserId = 7
                         });
                 });
 
@@ -316,30 +318,32 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 2,
-                            Quantity = 1,
-                            UserId = 6
+                            BookId = 1,
+                            Quantity = 4,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 2,
+<<<<<<< HEAD:DAL/Migrations/BookHubDbContextModelSnapshot.cs
                             BookId = 1,
                             Quantity = 1,
-                            UserId = 7
+                            UserId = 5
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 3,
-                            Quantity = 1,
-                            UserId = 6
+                            BookId = 1,
+                            Quantity = 5,
+                            UserId = 8
                         },
                         new
                         {
                             Id = 4,
                             BookId = 3,
+<<<<<<< HEAD:DAL/Migrations/BookHubDbContextModelSnapshot.cs
                             Quantity = 1,
-                            UserId = 8
+                            UserId = 1
                         });
                 });
 
@@ -545,22 +549,34 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Doyle - Cruickshank"
+                            Name = "Gerhold, Ruecker and Huel"
+=======
+                            Name = "Kerluke - Lang"
+>>>>>>> 8f98ab0 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/BookHubDbContextModelSnapshot.cs
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Romaguera - Weissnat"
+                            Name = "Swaniawski - Collins"
+=======
+                            Name = "Dare Group"
+>>>>>>> 8f98ab0 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/BookHubDbContextModelSnapshot.cs
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Ankunding Group"
+                            Name = "Willms, Windler and Lehner"
+=======
+                            Name = "Bartell Group"
+>>>>>>> 8f98ab0 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/BookHubDbContextModelSnapshot.cs
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Kshlerin, Brakus and Heidenreich"
+                            Name = "Hegmann LLC"
+=======
+                            Name = "Klocko, Kerluke and Williamson"
+>>>>>>> 8f98ab0 (separate API and MVC migrations):DAL.WebMVC.Migrations/Migrations/BookHubDbContextModelSnapshot.cs
                         });
                 });
 
@@ -591,58 +607,58 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "Tomas54@yahoo.com",
+                            Email = "Fanny.Witting@yahoo.com",
                             IsBanned = false,
-                            Username = "Aaron_Schoen68"
+                            Username = "Hilma.Pfeffer38"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "Lucile.VonRueden@yahoo.com",
+                            Email = "Justice.Kunde84@hotmail.com",
                             IsBanned = false,
-                            Username = "Isaac_Block61"
+                            Username = "Tevin_Hackett"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "Olaf_Tillman0@hotmail.com",
-                            IsBanned = true,
-                            Username = "Rosendo_Schultz29"
+                            Email = "Lavada85@yahoo.com",
+                            IsBanned = false,
+                            Username = "Emory90"
                         },
                         new
                         {
                             Id = 4,
-                            Email = "Vance_Gibson27@yahoo.com",
+                            Email = "Murphy85@gmail.com",
                             IsBanned = false,
-                            Username = "Jaida_Kessler21"
+                            Username = "Elisabeth.Powlowski61"
                         },
                         new
                         {
                             Id = 5,
-                            Email = "Skyla.Kirlin84@hotmail.com",
+                            Email = "Raleigh56@gmail.com",
                             IsBanned = false,
-                            Username = "Adelle.Okuneva"
+                            Username = "Alfonso45"
                         },
                         new
                         {
                             Id = 6,
-                            Email = "Alfredo.Maggio@yahoo.com",
+                            Email = "Brant47@hotmail.com",
                             IsBanned = false,
-                            Username = "Leopoldo63"
+                            Username = "Pauline_Roob"
                         },
                         new
                         {
                             Id = 7,
-                            Email = "Jerome5@gmail.com",
+                            Email = "Lera.Bode@yahoo.com",
                             IsBanned = false,
-                            Username = "Adolfo14"
+                            Username = "Jacinto39"
                         },
                         new
                         {
                             Id = 8,
-                            Email = "Easton75@hotmail.com",
+                            Email = "Mitchell44@hotmail.com",
                             IsBanned = false,
-                            Username = "Maverick_Konopelski80"
+                            Username = "Hayley.Walter"
                         });
                 });
 
