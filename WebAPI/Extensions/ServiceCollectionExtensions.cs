@@ -22,9 +22,11 @@ namespace WebAPI.Extensions
 
             connectionString = Environment.ExpandEnvironmentVariables(connectionString);
 
+            var migrationAssembly = config.GetValue<string>("MigrationProject");
+
             services.AddDbContext<BookHubDbContext>(options =>
                 options
-                    .UseSqlite(connectionString)
+                    .UseSqlite(connectionString, x => x.MigrationsAssembly(migrationAssembly))
                     .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
                     .UseLazyLoadingProxies()
             );

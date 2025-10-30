@@ -17,5 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+    <ProjectReference Include="..\DAL.WebAPI.Migrations\DAL.WebAPI.Migrations.csproj" />
   </ItemGroup>
 </Project>
