@@ -1,5 +1,5 @@
 ﻿using BL.DTOs.BookReviewDTOs;
-using BL.Services.Interfaces;
+using BL.Facades.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -8,25 +8,35 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class BookReviewController : ControllerBase
     {
-        private readonly IBookReviewService _service;
+        private readonly IBookReviewFacade _facade;
 
-        public BookReviewController(IBookReviewService service)
+        public BookReviewController(IBookReviewFacade facade)
         {
-            _service = service;
+            _facade = facade;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookReviewDto>>> GetAll()
         {
-            return Ok(await _service.GetAllAsync());
+            var result = await _facade.GetAllAsync();
+
+            if (result.IsFailed)
+            {
+                return NotFound(result.Errors.Select(e => e.Message));
+            }
+
+            return Ok(result.Value);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<BookReviewDto>> GetById(int id)
         {
-            var result = await _service.GetByIdAsync(id);
+            var result = await _facade.GetByIdAsync(id);
+
             if (result.IsFailed)
+            {
                 return NotFound(result.Errors.Select(e => e.Message));
+            }
 
             return Ok(result.Value);
         }
@@ -34,15 +44,25 @@ namespace WebAPI.Controllers
         [HttpGet("book/{bookId}")]
         public async Task<ActionResult<IEnumerable<BookReviewDto>>> GetByBook(int bookId)
         {
-            return Ok(await _service.GetByBookAsync(bookId));
+            var result = await _facade.GetByBookAsync(bookId);
+
+            if (result.IsFailed)
+            {
+                return NotFound(result.Errors.Select(e => e.Message));
+            }
+
+            return Ok(result.Value);
         }
 
         [HttpPost]
         public async Task<ActionResult<BookReviewDto>> Create([FromBody] BookReviewCreateDto dto)
         {
-            var result = await _service.CreateAsync(dto);
+            var result = await _facade.CreateAsync(dto);
+
             if (result.IsFailed)
+            {
                 return BadRequest(result.Errors.Select(e => e.Message));
+            }
 
             return CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value);
         }
@@ -50,9 +70,12 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] BookReviewUpdateDto dto)
         {
-            var result = await _service.UpdateAsync(id, dto);
+            var result = await _facade.UpdateAsync(id, dto);
+
             if (result.IsFailed)
-                return NotFound(result.Errors.Select(e => e.Message));
+            {
+                return BadRequest(result.Errors.Select(e => e.Message));
+            }
 
             return NoContent();
         }
@@ -60,9 +83,12 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _service.DeleteAsync(id);
+            var result = await _facade.DeleteAsync(id);
+
             if (result.IsFailed)
+            {
                 return NotFound(result.Errors.Select(e => e.Message));
+            }
 
             return NoContent();
         }
