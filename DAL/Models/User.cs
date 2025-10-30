@@ -20,7 +20,7 @@ namespace DAL.Models
 
         public virtual IEnumerable<WishlistItem> Wishlist { get; set; }
 
-        public virtual IEnumerable<CartItem> CartItems { get; set; }
+        public virtual IEnumerable<CartItem> Cart { get; set; }
 
         public virtual IEnumerable<BookReview> Reviews { get; set; }
     }

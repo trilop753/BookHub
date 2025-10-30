@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    [Migration("20251009121830_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251029144523_dbcontext_add_sets_resync")]
+    partial class dbcontext_add_sets_resync
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,18 +46,18 @@ namespace DAL.Migrations
                         },
                         new
                         {
+                            BooksId = 1,
+                            GenresId = 4
+                        },
+                        new
+                        {
                             BooksId = 2,
                             GenresId = 2
                         },
                         new
                         {
-                            BooksId = 2,
-                            GenresId = 3
-                        },
-                        new
-                        {
                             BooksId = 3,
-                            GenresId = 4
+                            GenresId = 3
                         },
                         new
                         {
@@ -82,38 +82,38 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Author");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Name = "J.R.R.",
-                            Surname = "Tolkien"
+                            Name = "Florine",
+                            Surname = "Keebler"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Robert W.",
-                            Surname = "Chambers"
+                            Name = "Robbie",
+                            Surname = "Wintheiser"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Stephen",
-                            Surname = "King"
+                            Name = "Adolph",
+                            Surname = "Renner"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Jane",
-                            Surname = "Austen"
+                            Name = "Juwan",
+                            Surname = "Stracke"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Isaac",
-                            Surname = "Asimov"
+                            Name = "Albert",
+                            Surname = "Botsford"
                         });
                 });
 
@@ -150,48 +150,48 @@ namespace DAL.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Book");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AuthorId = 1,
-                            Description = "Classic high fantasy adventure.",
-                            ISBN = "9780547928210",
-                            Price = 10.99m,
-                            PublisherId = 1,
-                            Title = "The Lord of the Rings: The Fellowship of the Ring"
+                            Description = "Aperiam ipsum incidunt ab sit voluptatem quae similique quasi fugiat. Possimus non consequuntur praesentium ratione ipsa necessitatibus voluptas. Maxime sunt optio et officiis quidem natus illum voluptatibus autem. In facilis ducimus quis sint sint exercitationem. Qui occaecati id et. Et et qui ut voluptas.",
+                            ISBN = "5809274814505",
+                            Price = 18.72m,
+                            PublisherId = 3,
+                            Title = "Neque repudiandae qui et repellendus."
                         },
                         new
                         {
                             Id = 2,
-                            AuthorId = 2,
-                            Description = "A collection of weird horror stories.",
-                            ISBN = "9780486226886",
-                            Price = 6.99m,
-                            PublisherId = 2,
-                            Title = "The King in Yellow"
+                            AuthorId = 4,
+                            Description = "Nostrum non consequuntur officiis rerum consequatur. Necessitatibus et nisi reprehenderit dolorem consequatur dignissimos nisi. Et praesentium maiores nulla molestias nobis autem.",
+                            ISBN = "5550707506282",
+                            Price = 10.00m,
+                            PublisherId = 3,
+                            Title = "Harum voluptas assumenda doloribus cupiditate cumque."
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 4,
-                            Description = "A romantic novel of manners.",
-                            ISBN = "9780141439518",
-                            Price = 8.49m,
-                            PublisherId = 3,
-                            Title = "Pride and Prejudice"
+                            AuthorId = 2,
+                            Description = "Beatae molestiae aliquam dicta nostrum amet. Laboriosam rerum dolorem rem eum perspiciatis. Quis enim aut itaque nisi cumque magni. Voluptatibus et eos doloribus quia doloremque reiciendis nihil et rerum. Blanditiis vel impedit explicabo eius. Eum et nisi cumque et.",
+                            ISBN = "5565260264364",
+                            Price = 17.18m,
+                            PublisherId = 2,
+                            Title = "Eum qui porro consequuntur aut et."
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 5,
-                            Description = "Science fiction classic about the fall of the Galactic Empire.",
-                            ISBN = "9780553293357",
-                            Price = 9.99m,
-                            PublisherId = 4,
-                            Title = "Foundation"
+                            AuthorId = 3,
+                            Description = "Reiciendis aut distinctio vitae corporis doloremque velit. Aut qui labore sit voluptatem perspiciatis aut. Autem eos eius quod nisi quisquam. Hic reprehenderit labore omnis et distinctio. Voluptates nobis odio qui illo dolorem. Adipisci laboriosam incidunt repellat dolor et.",
+                            ISBN = "5579070323456",
+                            Price = 6.12m,
+                            PublisherId = 2,
+                            Title = "Maiores ipsam in hic."
                         });
                 });
 
@@ -226,26 +226,50 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Absolutely loved it! A masterpiece of fantasy.",
+                            Body = "Et odit blanditiis numquam deserunt quos iusto voluptatum quo.",
                             BookId = 1,
-                            Stars = 5,
-                            UserId = 1
+                            Stars = 1,
+                            UserId = 4
                         },
                         new
                         {
                             Id = 2,
-                            Body = "Creepy, atmospheric, and unique.",
+                            Body = "Ut quia pariatur natus ab mollitia sunt vitae repellat omnis.",
                             BookId = 2,
-                            Stars = 4,
+                            Stars = 1,
                             UserId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Body = "Classic romance with wit and heart.",
+                            Body = "Dolor ipsam sed et commodi sint odio ratione repellendus.",
+                            BookId = 4,
+                            Stars = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "Odio vero nobis non maxime expedita numquam eius.",
+                            BookId = 4,
+                            Stars = 4,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "Cum excepturi nam similique maxime vel mollitia veritatis.",
+                            BookId = 1,
+                            Stars = 5,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Body = "Nam quidem sed natus mollitia quibusdam facere aut.",
                             BookId = 3,
                             Stars = 5,
-                            UserId = 3
+                            UserId = 8
                         });
                 });
 
@@ -271,6 +295,36 @@ namespace DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CartItem");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookId = 3,
+                            Quantity = 5,
+                            UserId = 8
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BookId = 1,
+                            Quantity = 2,
+                            UserId = 8
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BookId = 1,
+                            Quantity = 5,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BookId = 2,
+                            Quantity = 5,
+                            UserId = 7
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Genre", b =>
@@ -285,7 +339,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genre");
 
                     b.HasData(
                         new
@@ -316,7 +370,17 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 6,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 7,
                             Name = "Biography"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Adventure"
                         });
                 });
 
@@ -375,28 +439,28 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publisher");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Name = "Penguin Books"
+                            Name = "Waelchi, Hickle and O'Reilly"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "HarperCollins"
+                            Name = "Wyman, Luettgen and Ernser"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Bloomsbury"
+                            Name = "Padberg Inc"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Vintage"
+                            Name = "Buckridge, Padberg and Cummerata"
                         });
                 });
 
@@ -427,30 +491,58 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "admin@bookhub.com",
+                            Email = "Chance92@gmail.com",
                             IsBanned = false,
-                            Username = "admin"
+                            Username = "Melany57"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "john.doe@gmail.com",
+                            Email = "Marc_Reinger91@hotmail.com",
                             IsBanned = false,
-                            Username = "john"
+                            Username = "Wilfred35"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "emma.reader@gmail.com",
+                            Email = "Jackson.Lemke@hotmail.com",
                             IsBanned = false,
-                            Username = "emma"
+                            Username = "Friedrich_Fahey"
                         },
                         new
                         {
                             Id = 4,
-                            Email = "mike.writer@gmail.com",
+                            Email = "Fletcher85@yahoo.com",
                             IsBanned = false,
-                            Username = "mike"
+                            Username = "Amara1"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "Leopoldo_Gulgowski96@gmail.com",
+                            IsBanned = false,
+                            Username = "Dillon_OKon8"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Email = "Isai.Zulauf@hotmail.com",
+                            IsBanned = false,
+                            Username = "Reyes.Pfannerstill"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Email = "Justice_Erdman20@hotmail.com",
+                            IsBanned = false,
+                            Username = "Philip_MacGyver74"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Email = "Keegan35@hotmail.com",
+                            IsBanned = false,
+                            Username = "Patsy_Kshlerin2"
                         });
                 });
 
@@ -537,7 +629,7 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DAL.Models.User", "User")
-                        .WithMany("CartItems")
+                        .WithMany("Cart")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -618,7 +710,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.User", b =>
                 {
-                    b.Navigation("CartItems");
+                    b.Navigation("Cart");
 
                     b.Navigation("Orders");
 
