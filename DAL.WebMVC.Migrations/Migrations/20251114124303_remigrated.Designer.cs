@@ -8,11 +8,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DAL.WebMVC.Migrations.Migrations
+namespace DAL.WebAPI.Migrations.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
     [Migration("20251114124303_remigrated")]
     partial class remigrated
+========
+    [Migration("20251030170836_migrated_migration")]
+    partial class migrated_migration
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,32 +93,57 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Earnest",
                             Surname = "Metz"
+========
+                            Name = "Ettie",
+                            Surname = "Ankunding"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Adrian",
                             Surname = "Willms"
+========
+                            Name = "Abdiel",
+                            Surname = "Crist"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Mara",
                             Surname = "Quigley"
+========
+                            Name = "Octavia",
+                            Surname = "Bode"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Ansel",
                             Surname = "Haley"
+========
+                            Name = "Nikko",
+                            Surname = "Lebsack"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Duane",
                             Surname = "Nienow"
+========
+                            Name = "Adalberto",
+                            Surname = "MacGyver"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         });
                 });
 
@@ -167,6 +197,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 5,
                             Description = "Sed suscipit est ea consequuntur ducimus et culpa. Laudantium perspiciatis placeat. Nostrum officiis quia distinctio doloremque modi.",
                             EditCount = 3,
@@ -175,10 +206,19 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Price = 5.20m,
                             PublisherId = 2,
                             Title = "Saepe ut iusto fugit aliquam."
+========
+                            AuthorId = 1,
+                            Description = "Eos eius eligendi natus nemo. Vitae quis possimus incidunt. Vel vel sint. Libero ea nihil eum at eum cumque facilis ut. Totam facere deleniti et.",
+                            ISBN = "9613120562412",
+                            Price = 16.05m,
+                            PublisherId = 3,
+                            Title = "Qui vel nesciunt nam voluptatem."
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 1,
                             Description = "Deserunt doloribus voluptates est deleniti in deserunt maiores. Et autem at ratione. Excepturi pariatur architecto ea. Provident magnam alias ad facilis. Ex dignissimos suscipit voluptatem aut dolor quidem nihil doloribus quos.",
                             EditCount = 10,
@@ -187,10 +227,19 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Price = 11.13m,
                             PublisherId = 1,
                             Title = "Omnis quaerat quaerat labore sit."
+========
+                            AuthorId = 2,
+                            Description = "Quam voluptatibus nostrum rerum ab et aut. Aut libero voluptatem deserunt. Laborum possimus ut aut libero voluptas quisquam totam quis.",
+                            ISBN = "9968367676430",
+                            Price = 12.03m,
+                            PublisherId = 4,
+                            Title = "Assumenda dolorum distinctio et."
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 4,
                             Description = "Incidunt adipisci mollitia delectus. Reprehenderit nobis hic et. Qui exercitationem quae nihil quod porro corporis repellendus. Asperiores itaque iusto velit amet molestiae consequuntur dolores nulla.",
                             EditCount = 4,
@@ -199,10 +248,19 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Price = 18.38m,
                             PublisherId = 1,
                             Title = "Hic et eius iste eos."
+========
+                            AuthorId = 2,
+                            Description = "Totam voluptatem iste. Beatae iusto dolor saepe et enim. Dolor rerum qui minus quia.",
+                            ISBN = "3068705779239",
+                            Price = 17.73m,
+                            PublisherId = 1,
+                            Title = "Voluptatum vel saepe architecto perferendis enim."
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 3,
                             Description = "Voluptate fugiat pariatur neque quis non. Ipsa iste eaque sed reiciendis quibusdam nulla aperiam. Asperiores error quasi doloremque sed dolorem. Mollitia ipsa sunt. Vel consectetur provident aut sunt officia soluta iure.",
                             EditCount = 7,
@@ -211,6 +269,14 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Price = 9.73m,
                             PublisherId = 2,
                             Title = "Dolorem laboriosam tenetur provident et."
+========
+                            AuthorId = 5,
+                            Description = "Consequuntur autem perspiciatis quo et odit iste quisquam ut. Et aspernatur ut enim est delectus sunt. Fugit quo et rerum et ducimus adipisci eveniet. Omnis explicabo pariatur aut magni nihil hic quae maxime quod.",
+                            ISBN = "4333767004315",
+                            Price = 15.14m,
+                            PublisherId = 1,
+                            Title = "Quo nisi deserunt dolorem voluptatibus repellat."
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         });
                 });
 
@@ -245,14 +311,22 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Et consequatur id nisi et ipsum omnis ut.",
                             BookId = 4,
                             Stars = 4,
                             UserId = 2
+========
+                            Body = "Eos atque possimus ipsum enim eius ipsam nostrum pariatur.",
+                            BookId = 3,
+                            Stars = 4,
+                            UserId = 5
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Ex ratione velit consequatur earum optio doloribus sit similique.",
                             BookId = 3,
                             Stars = 1,
@@ -280,15 +354,51 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Body = "Quis quidem ut velit dignissimos maiores inventore consequatur voluptatibus suscipit.",
                             BookId = 1,
                             Stars = 3,
+========
+                            Body = "Quas occaecati qui quod dolor quia magnam doloremque.",
+                            BookId = 3,
+                            Stars = 4,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Body = "Reprehenderit quod doloremque est et quia est natus nobis et.",
+                            BookId = 4,
+                            Stars = 2,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "Illo quia suscipit totam accusantium doloribus qui nam sed ullam.",
+                            BookId = 4,
+                            Stars = 4,
+                            UserId = 7
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "Qui incidunt amet excepturi impedit mollitia repellendus dolores aliquid.",
+                            BookId = 3,
+                            Stars = 1,
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                             UserId = 8
                         },
                         new
                         {
                             Id = 6,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Autem fuga officia eveniet neque perspiciatis maxime consequuntur libero soluta.",
                             BookId = 2,
                             Stars = 2,
                             UserId = 7
+========
+                            Body = "Incidunt neque natus deserunt quae totam minus quibusdam et accusantium.",
+                            BookId = 2,
+                            Stars = 3,
+                            UserId = 2
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         });
                 });
 
@@ -319,30 +429,53 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 2,
                             Quantity = 3,
                             UserId = 3
+========
+                            BookId = 1,
+                            Quantity = 4,
+                            UserId = 1
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 2,
                             BookId = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Quantity = 3,
                             UserId = 7
+========
+                            Quantity = 2,
+                            UserId = 8
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
                             Quantity = 2,
                             UserId = 6
+========
+                            BookId = 1,
+                            Quantity = 1,
+                            UserId = 4
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 2,
                             Quantity = 3,
                             UserId = 6
+========
+                            BookId = 3,
+                            Quantity = 4,
+                            UserId = 4
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         });
                 });
 
@@ -425,26 +558,45 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2016, 6, 30, 11, 6, 21, 639, DateTimeKind.Unspecified).AddTicks(7192),
+========
+                            Date = new DateTime(2023, 7, 4, 22, 36, 55, 849, DateTimeKind.Unspecified).AddTicks(1614),
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2019, 1, 24, 1, 12, 43, 650, DateTimeKind.Unspecified).AddTicks(715),
                             UserId = 3
+========
+                            Date = new DateTime(2019, 10, 28, 13, 44, 52, 242, DateTimeKind.Unspecified).AddTicks(9150),
+                            UserId = 7
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2019, 7, 19, 15, 12, 51, 716, DateTimeKind.Unspecified).AddTicks(4196),
                             UserId = 4
+========
+                            Date = new DateTime(2022, 3, 23, 11, 44, 55, 630, DateTimeKind.Unspecified).AddTicks(1992),
+                            UserId = 5
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2023, 8, 16, 0, 8, 43, 387, DateTimeKind.Unspecified).AddTicks(6816),
                             UserId = 1
+========
+                            Date = new DateTime(2019, 4, 14, 8, 48, 16, 281, DateTimeKind.Unspecified).AddTicks(9041),
+                            UserId = 7
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         });
                 });
 
@@ -477,49 +629,83 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
                             BookId = 2,
                             OrderId = 1,
-                            Quantity = 4
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 2,
                             BookId = 3,
                             OrderId = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Quantity = 2
+========
+                            Quantity = 1
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
                             OrderId = 1,
                             Quantity = 3
+========
+                            BookId = 1,
+                            OrderId = 1,
+                            Quantity = 5
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 4,
-                            BookId = 4,
+                            BookId = 1,
                             OrderId = 2,
                             Quantity = 5
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 1,
                             OrderId = 2,
+========
+                            BookId = 3,
+                            OrderId = 3,
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                             Quantity = 2
                         },
                         new
                         {
                             Id = 6,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
                             OrderId = 3,
                             Quantity = 1
+========
+                            BookId = 2,
+                            OrderId = 3,
+                            Quantity = 2
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 7,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
                             OrderId = 3,
                             Quantity = 3
+========
+                            BookId = 1,
+                            OrderId = 4,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BookId = 2,
+                            OrderId = 4,
+                            Quantity = 5
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
@@ -562,22 +748,38 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Dietrich, Cormier and Pacocha"
+========
+                            Name = "Kuhlman and Sons"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Gibson, Roob and Grady"
+========
+                            Name = "Kutch, Schmeler and Carroll"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Gaylord - Bosco"
+========
+                            Name = "Hammes LLC"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Cummings, Lubowitz and Kulas"
+========
+                            Name = "Daugherty - Considine"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         });
                 });
 
@@ -608,58 +810,106 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Jayde_Yundt91@hotmail.com",
                             IsBanned = false,
                             Username = "Bernhard_Ratke"
+========
+                            Email = "Assunta.Reilly7@hotmail.com",
+                            IsBanned = false,
+                            Username = "Anita61"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Floyd_Moore@yahoo.com",
                             IsBanned = false,
                             Username = "Molly38"
+========
+                            Email = "Emory50@hotmail.com",
+                            IsBanned = false,
+                            Username = "Ruth17"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Jacky_Weissnat20@gmail.com",
                             IsBanned = false,
                             Username = "Eugene_Marquardt75"
+========
+                            Email = "Bria_Douglas2@yahoo.com",
+                            IsBanned = false,
+                            Username = "Darlene.Ruecker20"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Chauncey.Sipes@gmail.com",
                             IsBanned = false,
                             Username = "Laury.Little"
+========
+                            Email = "Khalid.Gaylord46@hotmail.com",
+                            IsBanned = false,
+                            Username = "Fabiola.Robel47"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Antonio33@yahoo.com",
                             IsBanned = false,
                             Username = "Kira.McKenzie"
+========
+                            Email = "Dustin_Gorczany@hotmail.com",
+                            IsBanned = false,
+                            Username = "Jaeden.Grant87"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 6,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Leonor12@gmail.com",
                             IsBanned = false,
                             Username = "Vito_Dicki68"
+========
+                            Email = "Modesto_Friesen@yahoo.com",
+                            IsBanned = false,
+                            Username = "Jermain81"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 7,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Dorian8@hotmail.com",
                             IsBanned = false,
                             Username = "Kiel_Smith"
+========
+                            Email = "Demario.Metz38@gmail.com",
+                            IsBanned = false,
+                            Username = "Eliseo.Hilpert36"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         },
                         new
                         {
                             Id = 8,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Ford90@hotmail.com",
                             IsBanned = false,
                             Username = "Ramiro64"
+========
+                            Email = "Claudia_Kutch90@hotmail.com",
+                            IsBanned = true,
+                            Username = "Gaston1"
+>>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
                         });
                 });
 
