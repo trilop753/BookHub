@@ -7,25 +7,20 @@ namespace Infrastructure.Repository
 {
     public class GenreRepository : GenericRepository<Genre>, IGenreRepository
     {
-        private readonly BookHubDbContext _context;
-
         public GenreRepository(BookHubDbContext context)
-            : base(context)
-        {
-            _context = context;
-        }
+            : base(context) { }
 
         public async Task<Genre?> GetByNameAsync(string name)
         {
-            return await _context
-                .Genres.AsNoTracking()
+            return await _dbSet
+                .AsNoTracking()
                 .FirstOrDefaultAsync(g => g.Name.ToLower() == name.ToLower());
         }
 
         public async Task<IEnumerable<Genre>> GetAllWithBooksAsync()
         {
-            return await _context
-                .Genres.Include(g => g.Books)
+            return await _dbSet
+                .Include(g => g.Books)
                 .ThenInclude(b => b.Author)
                 .Include(g => g.Books)
                 .ThenInclude(b => b.Publisher)

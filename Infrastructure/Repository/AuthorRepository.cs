@@ -7,18 +7,13 @@ namespace Infrastructure.Repository
 {
     public class AuthorRepository : GenericRepository<Author>, IAuthorRepository
     {
-        private readonly BookHubDbContext _context;
-
         public AuthorRepository(BookHubDbContext context)
-            : base(context)
-        {
-            _context = context;
-        }
+            : base(context) { }
 
         public async Task<Author?> GetByFullNameAsync(string name, string surname)
         {
-            return await _context
-                .Authors.AsNoTracking()
+            return await _dbSet
+                .AsNoTracking()
                 .FirstOrDefaultAsync(a =>
                     a.Name.ToLower() == name.ToLower() && a.Surname.ToLower() == surname.ToLower()
                 );
@@ -26,8 +21,8 @@ namespace Infrastructure.Repository
 
         public async Task<IEnumerable<Author>> GetAllWithBooksAsync()
         {
-            return await _context
-                .Authors.Include(a => a.Books)
+            return await _dbSet
+                .Include(a => a.Books)
                 .ThenInclude(b => b.Publisher)
                 .Include(a => a.Books)
                 .ThenInclude(b => b.Genres)
