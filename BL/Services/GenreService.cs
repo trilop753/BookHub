@@ -60,8 +60,6 @@ public class GenreService : IGenreService
 
     public async Task<Result> UpdateGenreAsync(int id, GenreUpdateDto dto)
     {
-        var result = new Result();
-
         var existingGenre = await _genreRepository.GetByIdAsync(id);
         if (existingGenre == null)
         {
@@ -70,20 +68,18 @@ public class GenreService : IGenreService
 
         if (string.IsNullOrWhiteSpace(dto.Name))
         {
-            result.WithError("Genre name cannot be empty.");
-            return result;
+            return Result.Fail("Genre name cannot be empty.");
         }
 
         var duplicate = await _genreRepository.GetByNameAsync(dto.Name);
         if (duplicate != null && duplicate.Id != id)
         {
-            result.WithError($"Genre with name '{dto.Name}' already exists.");
-            return result;
+            return Result.Fail($"Genre with name '{dto.Name}' already exists.");
         }
 
         existingGenre.Name = dto.Name;
-
         await _genreRepository.SaveChangesAsync();
+
         return Result.Ok();
     }
 

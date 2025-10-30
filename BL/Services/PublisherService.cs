@@ -63,8 +63,6 @@ public class PublisherService : IPublisherService
 
     public async Task<Result> UpdatePublisherAsync(int id, PublisherUpdateDto dto)
     {
-        var result = new Result();
-
         var existing = await _publisherRepository.GetByIdAsync(id);
         if (existing == null)
         {
@@ -73,15 +71,13 @@ public class PublisherService : IPublisherService
 
         if (string.IsNullOrWhiteSpace(dto.Name))
         {
-            result.WithError("Publisher name cannot be empty.");
-            return result;
+            return Result.Fail("Publisher name cannot be empty.");
         }
 
         var duplicate = await _publisherRepository.GetByNameAsync(dto.Name);
         if (duplicate != null && duplicate.Id != id)
         {
-            result.WithError($"Publisher '{dto.Name}' already exists.");
-            return result;
+            return Result.Fail($"Publisher '{dto.Name}' already exists.");
         }
 
         existing.Name = dto.Name;

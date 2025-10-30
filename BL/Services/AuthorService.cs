@@ -60,8 +60,6 @@ public class AuthorService : IAuthorService
 
     public async Task<Result> UpdateAuthorAsync(int id, AuthorUpdateDto dto)
     {
-        var result = new Result();
-
         var existing = await _authorRepository.GetByIdAsync(id);
         if (existing == null)
         {
@@ -70,15 +68,13 @@ public class AuthorService : IAuthorService
 
         if (string.IsNullOrWhiteSpace(dto.Name) || string.IsNullOrWhiteSpace(dto.Surname))
         {
-            result.WithError("Author name and surname cannot be empty.");
-            return result;
+            return Result.Fail("Author name and surname cannot be empty.");
         }
 
         var duplicate = await _authorRepository.GetByFullNameAsync(dto.Name, dto.Surname);
         if (duplicate != null && duplicate.Id != id)
         {
-            result.WithError($"Author '{dto.Name} {dto.Surname}' already exists.");
-            return result;
+            return Result.Fail($"Author '{dto.Name} {dto.Surname}' already exists.");
         }
 
         existing.Name = dto.Name;
