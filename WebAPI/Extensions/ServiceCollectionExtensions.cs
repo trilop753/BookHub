@@ -56,6 +56,7 @@ namespace WebAPI.Extensions
         public static IServiceCollection AddFacades(this IServiceCollection services)
         {
             services.AddScoped<IWishlistFacade, WishlistFacade>();
+            services.AddScoped<IBookReviewFacade, BookReviewFacade>();
             return services;
         }
 
