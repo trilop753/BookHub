@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DAL.Migrations
+namespace DAL.WebAPI.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class order_resync : Migration
+    public partial class migrated_migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -255,11 +255,11 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "Jermey", "Lehner" },
-                    { 2, "Pascale", "Spencer" },
-                    { 3, "Vivianne", "O'Reilly" },
-                    { 4, "Arvid", "Wolff" },
-                    { 5, "Hermina", "Prosacco" }
+                    { 1, "Brenda", "Aufderhar" },
+                    { 2, "Terrell", "Braun" },
+                    { 3, "Wilson", "Kassulke" },
+                    { 4, "Lavinia", "Corwin" },
+                    { 5, "Toby", "O'Keefe" }
                 });
 
             migrationBuilder.InsertData(
@@ -282,10 +282,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Schroeder, Stoltenberg and Shanahan" },
-                    { 2, "Torp - Tromp" },
-                    { 3, "Jacobi, Tillman and Jones" },
-                    { 4, "Hudson LLC" }
+                    { 1, "Hermann, Jacobs and Hahn" },
+                    { 2, "Hills - Murazik" },
+                    { 3, "Runolfsson, Lueilwitz and Hilll" },
+                    { 4, "Moen - Beatty" }
                 });
 
             migrationBuilder.InsertData(
@@ -293,14 +293,14 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Estrella57@gmail.com", false, "Terrill57" },
-                    { 2, "Dennis.Kuhn49@yahoo.com", false, "Myrna_OKon" },
-                    { 3, "Filomena.Morar@hotmail.com", true, "Emanuel72" },
-                    { 4, "Godfrey.Jaskolski@gmail.com", false, "Neva.Treutel97" },
-                    { 5, "Alford.Fisher@yahoo.com", false, "Madaline_Osinski" },
-                    { 6, "Santiago.Kemmer80@yahoo.com", false, "Lessie.Turcotte24" },
-                    { 7, "Manuela_Fay@yahoo.com", false, "Rachelle88" },
-                    { 8, "Joany_Corwin1@gmail.com", false, "Aaron.Streich24" }
+                    { 1, "Jakob.Reinger@hotmail.com", false, "Glenna60" },
+                    { 2, "Krista.Ritchie20@hotmail.com", false, "Mohamed.Ebert5" },
+                    { 3, "Bradley77@gmail.com", false, "Pablo.Maggio" },
+                    { 4, "Tavares_Lubowitz@yahoo.com", false, "Fausto.Littel67" },
+                    { 5, "Brendan_Larkin86@hotmail.com", false, "Simeon_Kilback" },
+                    { 6, "Julianne.OHara85@hotmail.com", false, "Raheem_Collins" },
+                    { 7, "Chanelle89@gmail.com", false, "Evalyn_Feeney25" },
+                    { 8, "Isom.Abernathy@hotmail.com", false, "Lora.Kovacek" }
                 });
 
             migrationBuilder.InsertData(
@@ -308,21 +308,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "AuthorId", "Description", "ISBN", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 5, "Omnis modi magnam dolores voluptas. Et officiis sed voluptas odit facere quam. Odit doloremque dignissimos et. Omnis et est. Deserunt corporis molestiae quasi consequuntur. Dignissimos ab aspernatur asperiores est.", "6990281470026", 7.71m, 3, "Qui provident saepe quam cum perferendis." },
-                    { 2, 2, "Assumenda et quia et et iste. A ea ut vel quod maxime rem dolorem qui. Excepturi et at. Consequatur et autem repudiandae.", "3695979644170", 19.06m, 4, "Ut cupiditate a consectetur repellat eos." },
-                    { 3, 2, "Vero quidem et. Ad natus qui. Autem qui rerum eos et. Eos sunt quo odit sapiente expedita expedita cumque et. Odit quo tenetur eveniet dolorum. Officiis inventore dolore harum quo rerum corrupti.", "1380438581388", 13.31m, 2, "Mollitia consequatur maiores velit minus cum." },
-                    { 4, 5, "Aut quasi officiis vel beatae. Ea doloremque itaque voluptatibus officiis nisi omnis. Architecto exercitationem molestiae temporibus. Error quibusdam et quod est non rerum quae et tempora. Dicta dolorum dolorum magni possimus dolore quam dolor et. Veritatis ducimus nemo id autem.", "2239462964584", 13.80m, 3, "Et et et accusantium." }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Order",
-                columns: new[] { "Id", "Date", "UserId" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2017, 1, 14, 1, 49, 36, 113, DateTimeKind.Unspecified).AddTicks(3304), 5 },
-                    { 2, new DateTime(2017, 6, 22, 12, 55, 59, 832, DateTimeKind.Unspecified).AddTicks(5418), 6 },
-                    { 3, new DateTime(2016, 8, 12, 22, 8, 47, 586, DateTimeKind.Unspecified).AddTicks(287), 4 },
-                    { 4, new DateTime(2024, 6, 7, 9, 11, 10, 671, DateTimeKind.Unspecified).AddTicks(1508), 8 }
+                    { 1, 1, "Reiciendis iste tenetur rerum fuga. Repudiandae animi molestiae reiciendis non ut aspernatur maiores. Similique et enim omnis dicta minus quo et veniam. Quos aliquid deleniti rem eum autem alias ab molestiae non. Explicabo ut id voluptate non iure ea velit deserunt. Voluptatum non cumque consectetur consequatur ut fugiat illo deleniti.", "0868155859139", 13.18m, 2, "Corporis blanditiis doloremque sequi distinctio dolor." },
+                    { 2, 3, "Blanditiis sint consectetur est. Laboriosam minus maiores cum omnis commodi illo porro cumque voluptatibus. Voluptas sit cupiditate laudantium fugit perspiciatis voluptas hic et ut. Tempore saepe itaque placeat quia ullam vel nemo nostrum.", "0596656735378", 8.19m, 1, "Optio tempore est non quibusdam." },
+                    { 3, 5, "Rerum quo ea velit. Perferendis sed non vel quam libero sunt. Nam et omnis quo sint ea. Qui architecto est.", "9801349351478", 14.90m, 1, "Omnis excepturi molestias at." },
+                    { 4, 5, "Autem assumenda est ducimus voluptates veritatis voluptatem suscipit laudantium eaque. Debitis dolor distinctio debitis perferendis accusamus maxime quidem enim explicabo. Quasi quis ipsam est harum.", "2389728247217", 6.77m, 4, "Repellat beatae ullam ipsum quo." }
                 });
 
             migrationBuilder.InsertData(
@@ -342,12 +331,12 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Sed odio consequatur ratione ut velit est totam eum.", 4, 4, 8 },
-                    { 2, "Laboriosam rerum iure distinctio ut aliquid reprehenderit suscipit.", 4, 2, 6 },
-                    { 3, "Nulla sit modi sit quos quo nisi dolore.", 1, 3, 6 },
-                    { 4, "Nihil quis dolor magni est qui eos provident ipsam eum.", 3, 4, 5 },
-                    { 5, "Qui nihil occaecati sed sit illum incidunt dicta totam dolor.", 1, 1, 4 },
-                    { 6, "Et est aut fugit ea veniam eum modi possimus.", 3, 2, 8 }
+                    { 1, "Voluptatem voluptate inventore repellendus id nobis et repudiandae ut.", 3, 4, 4 },
+                    { 2, "Numquam eligendi accusamus autem est et omnis aut neque laboriosam.", 3, 1, 2 },
+                    { 3, "Et consequuntur similique sunt ad rerum voluptas mollitia.", 2, 5, 7 },
+                    { 4, "Eos totam et sit et distinctio iste tenetur.", 1, 1, 7 },
+                    { 5, "Quisquam occaecati quia temporibus earum voluptatem iusto vel ea repellat.", 4, 1, 3 },
+                    { 6, "Atque dolore saepe autem ut perferendis modi dignissimos consequatur.", 3, 3, 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -355,26 +344,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 3, 1, 1 },
-                    { 2, 3, 3, 4 },
-                    { 3, 3, 2, 3 },
-                    { 4, 1, 2, 6 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "OrderItem",
-                columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
-                values: new object[,]
-                {
-                    { 1, 1, 1, 4 },
-                    { 2, 4, 1, 4 },
-                    { 3, 3, 1, 4 },
-                    { 4, 4, 2, 4 },
-                    { 5, 3, 2, 4 },
-                    { 6, 3, 3, 4 },
-                    { 7, 4, 4, 1 },
-                    { 8, 2, 4, 3 },
-                    { 9, 4, 4, 1 }
+                    { 1, 3, 4, 3 },
+                    { 2, 1, 2, 5 },
+                    { 3, 1, 4, 8 },
+                    { 4, 4, 4, 2 }
                 });
 
             migrationBuilder.CreateIndex(
