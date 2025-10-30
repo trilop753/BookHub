@@ -92,6 +92,30 @@ namespace DAL.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity
+                    .HasOne(o => o.User)
+                    .WithMany(u => u.Orders)
+                    .HasForeignKey(o => o.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<OrderItem>(entity =>
+            {
+                entity
+                    .HasOne(oi => oi.Order)
+                    .WithMany(o => o.Items)
+                    .HasForeignKey(oi => oi.OrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasOne(oi => oi.Book)
+                    .WithMany()
+                    .HasForeignKey(oi => oi.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.SeedAll();

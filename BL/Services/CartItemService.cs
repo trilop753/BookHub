@@ -59,6 +59,25 @@ namespace BL.Services
             return Result.Ok();
         }
 
+        public async Task<Result> DeleteCartItemsAsync(IEnumerable<int> ids)
+        {
+            var exist = await _repository.GetExistingIds(ids);
+            var notExist = ids.Except(exist);
+            if (notExist.Any())
+            {
+                var result = Result.Ok();
+                foreach (var id in notExist)
+                {
+                    result.WithError($"CartItem with id {id} does not exist.");
+                }
+                return result;
+            }
+
+            await _repository.DeleteCartItemsAsync(ids);
+
+            return Result.Ok();
+        }
+
         public async Task<Result<IEnumerable<CartItemDto>>> GetCartItemsByUserIdAsync(int userId)
         {
             var items = await _repository.GetByUserIdAsync(userId);

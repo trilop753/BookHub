@@ -9,6 +9,8 @@ namespace BL.Facades.Interfaces
 
         Task<Result> DeleteCartItemAsync(int id);
 
+        Task<Result> DeleteCartItemsByUserIdAsync(int userId);
+
         Task<Result<CartItemDto>> UpdateItemQuantityAsync(int id, int quantity);
 
         Task<Result<IEnumerable<CartItemDto>>> GetCartItemsByUserIdAsync(int userId);

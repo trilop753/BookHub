@@ -46,6 +46,16 @@ namespace BL.Services
             return Result.Ok(user.MapToDto());
         }
 
+        public async Task<Result<UserCartDto>> GetUserCartByIdAsync(int id)
+        {
+            var user = await _userRepository.GetUserWithCartAsync(id);
+            if (user == null)
+            {
+                return Result.Fail($"User with id {id} does not exist");
+            }
+            return Result.Ok(user.MapToUserCartDto());
+        }
+
         public async Task<Result<UserSummaryDto>> GetUserSummaryByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
