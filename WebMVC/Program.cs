@@ -14,6 +14,8 @@ namespace WebMVC
             builder.Services.AddFacades();
             builder.Services.AddCorsPolicy();
 
+            builder.Services.AddLocalIdentityProvider();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

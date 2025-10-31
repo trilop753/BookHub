@@ -3,8 +3,10 @@ using BL.Facades.Interfaces;
 using BL.Services;
 using BL.Services.Interfaces;
 using DAL.Data;
+using DAL.Models;
 using Infrastructure.Repository;
 using Infrastructure.Repository.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebMVC.Extensions
@@ -73,6 +75,30 @@ namespace WebMVC.Extensions
                         policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                     }
                 );
+            });
+            return services;
+        }
+
+        public static IServiceCollection AddLocalIdentityProvider(this IServiceCollection services)
+        {
+            services
+                .AddIdentity<LocalIdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<BookHubDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 0;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
             });
             return services;
         }
