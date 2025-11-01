@@ -1,6 +1,6 @@
-﻿using DAL.Data;
+﻿using DAL.Models;
+using LiteDB;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
@@ -8,20 +8,20 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class LogsController : ControllerBase
     {
-        private readonly LogDbContext _context;
-
-        public LogsController(LogDbContext context)
-        {
-            _context = context;
-        }
+        private readonly string _dbPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "logs_litedb.db"
+        );
 
         [HttpGet]
-        public async Task<IActionResult> GetLogs()
+        public IActionResult GetLogs()
         {
-            var logs = await _context
-                .Logs.OrderByDescending(l => l.Timestamp)
-                .Take(100)
-                .ToListAsync();
+            using var db = new LiteDatabase(_dbPath);
+            var logs = db.GetCollection<LogEntry>("logs")
+                .Query()
+                .OrderByDescending(l => l.Timestamp)
+                .Limit(100)
+                .ToList();
 
             return Ok(logs);
         }
