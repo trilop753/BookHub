@@ -1,32 +1,40 @@
 using System.Diagnostics;
+using DAL.Data;
+using DAL.Models;
 
 namespace WebAPI.Middlewares
 {
     public class LoggingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<LoggingMiddleware> _logger;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public LoggingMiddleware(RequestDelegate next, ILogger<LoggingMiddleware> logger)
+        public LoggingMiddleware(RequestDelegate next, IServiceScopeFactory scopeFactory)
         {
             _next = next;
-            _logger = logger;
+            _scopeFactory = scopeFactory;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
-            _logger.LogInformation(
-                $"Incoming request: {context.Request.Method} {context.Request.Path}"
-            );
-
-            var stopwatch = Stopwatch.StartNew();
-
+            var sw = Stopwatch.StartNew();
             await _next(context);
+            sw.Stop();
 
-            stopwatch.Stop();
-            _logger.LogInformation(
-                $"Request handled: {context.Request.Method} {context.Request.Path} in {stopwatch.ElapsedMilliseconds} ms"
-            );
+            using var scope = _scopeFactory.CreateScope();
+            var logDb = scope.ServiceProvider.GetRequiredService<LogDbContext>();
+
+            var entry = new LogEntry
+            {
+                Method = context.Request.Method,
+                Path = context.Request.Path,
+                StatusCode = context.Response.StatusCode,
+                DurationMs = sw.Elapsed.TotalMilliseconds,
+                Timestamp = DateTime.UtcNow,
+            };
+
+            logDb.Logs.Add(entry);
+            await logDb.SaveChangesAsync();
         }
     }
 }
