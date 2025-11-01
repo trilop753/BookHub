@@ -29,10 +29,6 @@ namespace WebAPI.Extensions
                     .UseLazyLoadingProxies()
             );
 
-            services.AddDbContext<LogDbContext>(options =>
-                options.UseSqlite("Data Source=logs.db")
-            );
-
             return services;
         }
 
