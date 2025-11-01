@@ -7,13 +7,15 @@ public class LoggingMiddleware
     private readonly RequestDelegate _next;
     private readonly string _dbPath;
 
-    public LoggingMiddleware(RequestDelegate next)
+    public LoggingMiddleware(RequestDelegate next, IConfiguration config)
     {
         _next = next;
-        _dbPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "logs_litedb.db"
-        );
+
+        var connectionString =
+            config.GetConnectionString("LogDatabase")
+            ?? throw new Exception("LogDatabase DbString not found in appsettings.");
+
+        _dbPath = Environment.ExpandEnvironmentVariables(connectionString);
     }
 
     public async Task InvokeAsync(HttpContext context)

@@ -8,10 +8,16 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class LogsController : ControllerBase
     {
-        private readonly string _dbPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "logs_litedb.db"
-        );
+        private readonly string _dbPath;
+
+        public LogsController(IConfiguration config)
+        {
+            var connectionString =
+                config.GetConnectionString("LogDatabase")
+                ?? throw new Exception("LogDatabase DbString not found in appsettings.");
+
+            _dbPath = Environment.ExpandEnvironmentVariables(connectionString);
+        }
 
         [HttpGet]
         public IActionResult GetLogs()
