@@ -13,7 +13,7 @@ namespace DAL.Data
         public DbSet<WishlistItem> WishlistItem { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
 
-        public BookHubDbContext(DbContextOptions options)
+        public BookHubDbContext(DbContextOptions<BookHubDbContext> options)
             : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
