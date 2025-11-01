@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
         {
             var connectionString =
                 config.GetConnectionString("LogDatabase")
-                ?? throw new Exception("DbString not found in appsettings.");
+                ?? throw new Exception("LogDatabase DbString not found in appsettings.");
 
             _dbPath = Environment.ExpandEnvironmentVariables(connectionString);
         }
