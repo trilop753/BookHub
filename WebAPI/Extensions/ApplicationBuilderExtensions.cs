@@ -12,9 +12,6 @@ namespace WebAPI.Extensions
 
             var mainDb = scope.ServiceProvider.GetRequiredService<BookHubDbContext>();
             mainDb.Database.Migrate();
-
-            var logDb = scope.ServiceProvider.GetRequiredService<LogDbContext>();
-            logDb.Database.Migrate();
         }
 
         public static IApplicationBuilder UseCorsPolicy(this IApplicationBuilder app)
