@@ -1,4 +1,5 @@
 using DAL.Data;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,10 @@ builder.Services.AddFacades();
 builder.Services.AddSwaggerDocumentation();
 builder.Services.AddCorsPolicy();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
+});
 
 var app = builder.Build();
 
