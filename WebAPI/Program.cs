@@ -16,7 +16,7 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Apply pending migrations
-app.ApplyMigrations<BookHubDbContext>();
+app.ApplyMigrations();
 
 // Configure middleware pipeline
 app.UseSwaggerDocumentation();
