@@ -1,0 +1,30 @@
+image: mcr.microsoft.com/dotnet/sdk:8.0
+
+stages:
+    - build
+    - test
+
+variables:
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+before_script:
+    - dotnet restore
+
+build:
+  stage: build
+  tags:
+    - shared-fi
+  only:
+    - merge_requests
+  script:
+    - dotnet build --configuration Release
+
+test:
+   stage: test
+   tags:
+    - shared-fi
+   only:
+    - merge_requests
+   script:
+    - dotnet test --configuration Release
