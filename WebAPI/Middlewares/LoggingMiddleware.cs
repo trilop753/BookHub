@@ -1,40 +1,37 @@
 using System.Diagnostics;
-using DAL.Data;
 using DAL.Models;
+using LiteDB;
 
-namespace WebAPI.Middlewares
+public class LoggingMiddleware
 {
-    public class LoggingMiddleware
+    private readonly RequestDelegate _next;
+    private readonly string _dbPath;
+
+    public LoggingMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-        private readonly IServiceScopeFactory _scopeFactory;
+        _next = next;
+        _dbPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "logs_litedb.db"
+        );
+    }
 
-        public LoggingMiddleware(RequestDelegate next, IServiceScopeFactory scopeFactory)
+    public async Task InvokeAsync(HttpContext context)
+    {
+        var sw = Stopwatch.StartNew();
+        await _next(context);
+        sw.Stop();
+
+        var entry = new LogEntry
         {
-            _next = next;
-            _scopeFactory = scopeFactory;
-        }
+            Method = context.Request.Method,
+            Path = context.Request.Path,
+            StatusCode = context.Response.StatusCode,
+            DurationMs = sw.Elapsed.TotalMilliseconds,
+        };
 
-        public async Task InvokeAsync(HttpContext context)
-        {
-            var sw = Stopwatch.StartNew();
-            await _next(context);
-            sw.Stop();
-
-            using var scope = _scopeFactory.CreateScope();
-            var logDb = scope.ServiceProvider.GetRequiredService<LogDbContext>();
-
-            var entry = new LogEntry
-            {
-                Method = context.Request.Method,
-                Path = context.Request.Path,
-                StatusCode = context.Response.StatusCode,
-                DurationMs = sw.Elapsed.TotalMilliseconds,
-                Timestamp = DateTime.UtcNow,
-            };
-
-            logDb.Logs.Add(entry);
-            await logDb.SaveChangesAsync();
-        }
+        using var db = new LiteDatabase(_dbPath);
+        var col = db.GetCollection<LogEntry>("logs");
+        col.Insert(entry);
     }
 }
