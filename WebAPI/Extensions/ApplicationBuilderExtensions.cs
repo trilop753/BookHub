@@ -1,5 +1,4 @@
-﻿using DAL.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebAPI.Middlewares;
 
 namespace WebAPI.Extensions
@@ -27,6 +26,7 @@ namespace WebAPI.Extensions
 
             app.UseMiddleware<LoggingMiddleware>();
             app.UseMiddleware<AuthenticationMiddleware>();
+            app.UseMiddleware<ResponseFormatMiddleware>();
             return app;
         }
     }
