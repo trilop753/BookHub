@@ -16,7 +16,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CartItemDto>> CreateCartItem(CartItemCreateDto cartItem)
+        public async Task<ActionResult<CartItemDto>> CreateCartItem(
+            [FromBody] CartItemCreateDto cartItem
+        )
         {
             var result = await _cartFacade.CreateCartItemAsync(cartItem);
 
