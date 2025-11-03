@@ -24,6 +24,11 @@ namespace Infrastructure.Repository
 
         public async Task<CartItem?> UpdateItemQuantityAsync(int id, int quantity)
         {
+            if (quantity == 0)
+            {
+                return null;
+            }
+
             var item = await _dbSet.Where(i => i.Id == id).FirstOrDefaultAsync();
 
             if (item == null)
@@ -32,11 +37,6 @@ namespace Infrastructure.Repository
             }
 
             item.Quantity = quantity;
-
-            if (quantity == 0)
-            {
-                Delete(item);
-            }
 
             await SaveChangesAsync();
 

@@ -7,7 +7,9 @@ namespace Infrastructure.Repository.Interfaces
         Task<IEnumerable<CartItem>> GetByUserIdAsync(int userId);
 
         /// <summary>
-        /// If quantity == 0, behaves just as like delete.
+        /// Updates quantity of a CartItem.
+        /// Must be called with quantity != 0,
+        /// for deletion use the delete method instead.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="quantity"></param>
