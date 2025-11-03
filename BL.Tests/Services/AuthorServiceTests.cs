@@ -50,9 +50,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.CreateAuthorAsync(authorCreate);
+                var result = await authorService.CreateAuthorAsync(authorCreate);
 
                 Assert.True(result.IsSuccess);
                 Assert.True(!result.Value.Books.Any());
@@ -90,9 +90,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.CreateAuthorAsync(authorCreate);
+                var result = await authorService.CreateAuthorAsync(authorCreate);
 
                 Assert.True(result.IsFailed);
             }
@@ -128,9 +128,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.CreateAuthorAsync(authorCreate);
+                var result = await authorService.CreateAuthorAsync(authorCreate);
 
                 Assert.True(result.IsFailed);
             }
@@ -168,9 +168,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.UpdateAuthorAsync(authorId, authorUpdate);
+                var result = await authorService.UpdateAuthorAsync(authorId, authorUpdate);
 
                 Assert.True(result.IsSuccess);
             }
@@ -198,9 +198,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.UpdateAuthorAsync(authorId, authorUpdate);
+                var result = await authorService.UpdateAuthorAsync(authorId, authorUpdate);
 
                 Assert.True(result.IsFailed);
             }
@@ -228,9 +228,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.UpdateAuthorAsync(authorId, authorUpdate);
+                var result = await authorService.UpdateAuthorAsync(authorId, authorUpdate);
 
                 Assert.True(result.IsFailed);
             }
@@ -256,9 +256,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.UpdateAuthorAsync(authorId, authorUpdate);
+                var result = await authorService.UpdateAuthorAsync(authorId, authorUpdate);
 
                 Assert.True(result.IsFailed);
             }
@@ -296,9 +296,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.UpdateAuthorAsync(authorId, authorUpdate);
+                var result = await authorService.UpdateAuthorAsync(authorId, authorUpdate);
 
                 Assert.True(result.IsFailed);
             }
@@ -328,9 +328,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.DeleteAuthorAsync(authorId);
+                var result = await authorService.DeleteAuthorAsync(authorId);
 
                 Assert.True(result.IsSuccess);
             }
@@ -353,9 +353,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.DeleteAuthorAsync(authorId);
+                var result = await authorService.DeleteAuthorAsync(authorId);
 
                 Assert.True(result.IsFailed);
             }
@@ -385,9 +385,9 @@ namespace BL.Tests.Services
 
             using (var scope = serviceProvider.CreateScope())
             {
-                var bookReviewService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
+                var authorService = scope.ServiceProvider.GetRequiredService<IAuthorService>();
 
-                var result = await bookReviewService.DeleteAuthorAsync(authorId);
+                var result = await authorService.DeleteAuthorAsync(authorId);
 
                 Assert.True(result.IsFailed);
             }
