@@ -1,7 +1,6 @@
 ﻿using BL.DTOs.BookReviewDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
-using DAL.Models;
 using FluentResults;
 using Infrastructure.Repository.Interfaces;
 
@@ -17,19 +16,10 @@ namespace BL.Services
         }
 
         public async Task<Result<BookReviewDto>> CreateBookReviewAsync(
-            int userId,
-            int bookId,
-            int stars,
-            string body
+            BookReviewCreateDto bookReview
         )
         {
-            var review = new BookReview
-            {
-                UserId = userId,
-                BookId = bookId,
-                Stars = stars,
-                Body = body,
-            };
+            var review = bookReview.MapToModel();
 
             await _repository.AddAsync(review);
             await _repository.SaveChangesAsync();
