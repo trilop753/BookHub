@@ -86,7 +86,7 @@ namespace BL.Services
 
         public async Task<Result<CartItemDto>> UpdateItemQuantityAsync(int id, int quantity)
         {
-            if (quantity <= 0)
+            if (quantity < 0)
             {
                 return Result.Fail("CartItem must have positive quantity.");
             }
