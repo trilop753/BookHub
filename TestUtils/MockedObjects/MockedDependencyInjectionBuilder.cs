@@ -52,7 +52,8 @@ namespace TestUtils.MockedObjects
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IWishlistItemService, WishlistItemService>()
-                .AddScoped<ICartItemService, CartItemService>();
+                .AddScoped<ICartItemService, CartItemService>()
+                .AddScoped<IAuthorService, AuthorService>();
 
             return this;
         }
