@@ -5,7 +5,7 @@ namespace BL.Services.Interfaces
 {
     public interface ICartItemService
     {
-        Task<Result<CartItemDto>> CreateCartItemAsync(int userId, int bookId, int quantity = 1);
+        Task<Result<CartItemDto>> CreateCartItemAsync(CartItemCreateDto cartItem);
 
         Task<Result> DeleteCartItemAsync(int id);
 
