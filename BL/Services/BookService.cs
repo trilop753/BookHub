@@ -43,9 +43,13 @@ public class BookService : IBookService
         return books.Select(b => b.MapToDto());
     }
 
-    public async Task<IEnumerable<BookSummaryDto>> GetFiltered(BookSearchCriteriaDto searchCriteria)
+    public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(
+        BookSearchCriteriaDto searchCriteria
+    )
     {
-        var books = await _bookRepository.GetFiltered(searchCriteria.MapToBookSearchCriteria());
+        var books = await _bookRepository.GetFilteredAsync(
+            searchCriteria.MapToBookSearchCriteria()
+        );
 
         return books.Select(b => b.MapToSummaryDto());
     }
@@ -115,7 +119,7 @@ public class BookService : IBookService
             result.WithError($"Author with id: {dto.AuthorId} does not exist");
         }
 
-        var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
+        var book = await _bookRepository.GetBookByIdWithGenresIncludedAsync(bookId);
         if (book == null)
         {
             result.WithError($"Book with id: {bookId} does not exist");

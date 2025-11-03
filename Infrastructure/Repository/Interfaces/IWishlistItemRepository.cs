@@ -8,6 +8,6 @@ namespace Infrastructure.Repository.Interfaces
 
         Task<IEnumerable<WishlistItem>> GetAllByUserIdAsync(int id);
 
-        Task<WishlistItem?> GetByUserIdAndBookId(int userId, int bookId);
+        Task<WishlistItem?> GetByUserIdAndBookIdAsync(int userId, int bookId);
     }
 }

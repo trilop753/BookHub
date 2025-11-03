@@ -15,7 +15,7 @@ namespace Infrastructure.Repository
             return await _dbSet.Where(i => i.UserId == userId).ToListAsync();
         }
 
-        public async Task<CartItem?> GetByUserIdAndBookId(int userId, int bookId)
+        public async Task<CartItem?> GetByUserIdAndBookIdAsync(int userId, int bookId)
         {
             return await _dbSet
                 .Where(i => i.UserId == userId && i.BookId == bookId)
@@ -52,7 +52,7 @@ namespace Infrastructure.Repository
             await SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<int>> GetExistingIds(IEnumerable<int> ids)
+        public async Task<IEnumerable<int>> GetExistingIdsAsync(IEnumerable<int> ids)
         {
             return await _dbSet.Where(i => ids.Contains(i.Id)).Select(i => i.Id).ToListAsync();
         }

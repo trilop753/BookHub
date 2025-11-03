@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<IEnumerable<OrderDto>>> CreateOrderFromUserCart(int userId)
         {
-            var orderRes = await _orderFacade.CreateOrderFromUserCart(userId);
+            var orderRes = await _orderFacade.CreateOrderFromUserCartAsync(userId);
 
             if (orderRes.IsFailed)
             {

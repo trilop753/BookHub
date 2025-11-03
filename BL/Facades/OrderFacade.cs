@@ -16,7 +16,7 @@ namespace BL.Facades
             _orderService = orderService;
         }
 
-        public async Task<Result<OrderDto>> CreateOrderFromUserCart(int userId)
+        public async Task<Result<OrderDto>> CreateOrderFromUserCartAsync(int userId)
         {
             var userRes = await _userService.GetUserCartByIdAsync(userId);
             if (userRes.IsFailed)

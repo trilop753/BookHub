@@ -22,7 +22,7 @@ namespace BL.Facades
             _wishlistItemService = wishlistItemService;
         }
 
-        public async Task<Result<WishlistItemDto>> WishlistBook(int userId, int bookId)
+        public async Task<Result<WishlistItemDto>> WishlistBookAsync(int userId, int bookId)
         {
             var check = await CheckUserAndBookExistAsync(userId, bookId);
             if (check.IsFailed)
@@ -32,7 +32,7 @@ namespace BL.Facades
             return await _wishlistItemService.CreateWishlistItemAsync(userId, bookId);
         }
 
-        public async Task<Result<WishlistItemDto>> RemoveFromWishlist(int userId, int bookId)
+        public async Task<Result<WishlistItemDto>> RemoveFromWishlistAsync(int userId, int bookId)
         {
             var check = await CheckUserAndBookExistAsync(userId, bookId);
             if (check.IsFailed)
@@ -42,7 +42,9 @@ namespace BL.Facades
             return await _wishlistItemService.DeleteWishlistItemAsync(userId, bookId);
         }
 
-        public async Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByUserId(int userId)
+        public async Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByUserIdAsync(
+            int userId
+        )
         {
             var user = await _userService.GetUserByIdAsync(userId);
             if (user.IsFailed)
@@ -53,7 +55,9 @@ namespace BL.Facades
             return Result.Ok(wishlisted);
         }
 
-        public async Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByBookId(int bookId)
+        public async Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByBookIdAsync(
+            int bookId
+        )
         {
             var book = await _bookService.GetBookByIdAsync(bookId);
             if (book.IsFailed)
