@@ -24,5 +24,14 @@ namespace BL.Mappers
                 BookId = wishlistItem.BookId,
             };
         }
+
+        public static WishlistItem MapToModel(this WishlistItemCreateDto wishlistItem)
+        {
+            return new WishlistItem()
+            {
+                UserId = wishlistItem.UserId,
+                BookId = wishlistItem.BookId,
+            };
+        }
     }
 }

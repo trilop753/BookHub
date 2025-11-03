@@ -22,14 +22,16 @@ namespace BL.Facades
             _wishlistItemService = wishlistItemService;
         }
 
-        public async Task<Result<WishlistItemDto>> WishlistBookAsync(int userId, int bookId)
+        public async Task<Result<WishlistItemDto>> WishlistBookAsync(
+            WishlistItemCreateDto wishlistItem
+        )
         {
-            var check = await CheckUserAndBookExistAsync(userId, bookId);
+            var check = await CheckUserAndBookExistAsync(wishlistItem.UserId, wishlistItem.BookId);
             if (check.IsFailed)
             {
                 return check;
             }
-            return await _wishlistItemService.CreateWishlistItemAsync(userId, bookId);
+            return await _wishlistItemService.CreateWishlistItemAsync(wishlistItem);
         }
 
         public async Task<Result<WishlistItemDto>> RemoveFromWishlistAsync(int userId, int bookId)
