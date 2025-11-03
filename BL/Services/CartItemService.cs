@@ -22,9 +22,9 @@ namespace BL.Services
             int quantity = 1
         )
         {
-            if (quantity < 0)
+            if (quantity <= 0)
             {
-                return Result.Fail("CartItem cannot have negative quantity.");
+                return Result.Fail("CartItem must have positive quantity.");
             }
 
             var existing = await _repository.GetByUserIdAndBookId(userId, bookId);
@@ -86,9 +86,9 @@ namespace BL.Services
 
         public async Task<Result<CartItemDto>> UpdateItemQuantityAsync(int id, int quantity)
         {
-            if (quantity < 0)
+            if (quantity <= 0)
             {
-                return Result.Fail("CartItem cannot have negative quantity.");
+                return Result.Fail("CartItem must have positive quantity.");
             }
 
             var item = await _repository.UpdateItemQuantityAsync(id, quantity);
