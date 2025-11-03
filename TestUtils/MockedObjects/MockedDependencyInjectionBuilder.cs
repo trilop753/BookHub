@@ -41,8 +41,7 @@ namespace TestUtils.MockedObjects
                 .AddScoped<IGenreRepository, GenreRepository>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IWishlistItemRepository, WishlistItemRepository>()
-                .AddScoped<ICartItemRepository, CartItemRepository>()
-                .AddScoped<IBookReviewRepository, BookReviewRepository>();
+                .AddScoped<ICartItemRepository, CartItemRepository>();
 
             return this;
         }
@@ -54,7 +53,7 @@ namespace TestUtils.MockedObjects
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IWishlistItemService, WishlistItemService>()
                 .AddScoped<ICartItemService, CartItemService>()
-                .AddScoped<IBookReviewService, BookReviewService>();
+                .AddScoped<IAuthorService, AuthorService>();
 
             return this;
         }
@@ -63,8 +62,7 @@ namespace TestUtils.MockedObjects
         {
             _serviceCollection = _serviceCollection
                 .AddScoped<IWishlistFacade, WishlistFacade>()
-                .AddScoped<ICartFacade, CartFacade>()
-                .AddScoped<IBookReviewFacade, BookReviewFacade>();
+                .AddScoped<ICartFacade, CartFacade>();
 
             return this;
         }
