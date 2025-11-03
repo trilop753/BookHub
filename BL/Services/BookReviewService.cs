@@ -41,7 +41,7 @@ namespace BL.Services
             return Result.Ok();
         }
 
-        public async Task<Result> UpdateBookReviewAsync(int id, int stars, string body)
+        public async Task<Result> UpdateBookReviewAsync(int id, BookReviewUpdateDto bookReview)
         {
             var review = await _repository.GetByIdAsync(id);
             if (review == null)
@@ -49,8 +49,8 @@ namespace BL.Services
                 return Result.Fail($"Review with id {id} not found.");
             }
 
-            review.Stars = stars;
-            review.Body = body;
+            review.Stars = bookReview.Stars;
+            review.Body = bookReview.Body;
 
             await _repository.SaveChangesAsync();
             return Result.Ok();
