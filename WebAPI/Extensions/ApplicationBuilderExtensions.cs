@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DAL.Data;
+using Microsoft.EntityFrameworkCore;
 using WebAPI.Middlewares;
 
 namespace WebAPI.Extensions
