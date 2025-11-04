@@ -27,7 +27,7 @@ namespace BL.Services
                 return Result.Fail("CartItem cannot have negative quantity.");
             }
 
-            var existing = await _repository.GetByUserIdAndBookId(userId, bookId);
+            var existing = await _repository.GetByUserIdAndBookIdAsync(userId, bookId);
             if (existing != null)
             {
                 return await UpdateItemQuantityAsync(existing.Id, existing.Quantity + quantity);
@@ -61,7 +61,7 @@ namespace BL.Services
 
         public async Task<Result> DeleteCartItemsAsync(IEnumerable<int> ids)
         {
-            var exist = await _repository.GetExistingIds(ids);
+            var exist = await _repository.GetExistingIdsAsync(ids);
             var notExist = ids.Except(exist);
             if (notExist.Any())
             {

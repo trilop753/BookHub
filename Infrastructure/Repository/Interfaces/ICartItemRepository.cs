@@ -14,9 +14,9 @@ namespace Infrastructure.Repository.Interfaces
         /// <returns></returns>
         Task<CartItem?> UpdateItemQuantityAsync(int id, int quantity);
 
-        Task<CartItem?> GetByUserIdAndBookId(int userId, int bookId);
+        Task<CartItem?> GetByUserIdAndBookIdAsync(int userId, int bookId);
 
-        Task<IEnumerable<int>> GetExistingIds(IEnumerable<int> ids);
+        Task<IEnumerable<int>> GetExistingIdsAsync(IEnumerable<int> ids);
 
         Task DeleteCartItemsAsync(IEnumerable<int> ids);
     }
