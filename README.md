@@ -83,6 +83,33 @@ Relationships include *1:N* (e.g., User–Order) and *N:M* (e.g., Book–Genre v
 
 ---
 
+## Middleware
+
+### Authentication Middleware
+
+The `AuthenticationMiddleware` verifies all incoming requests for a valid Bearer Token.
+Requests without the correct token return a `401 Unauthorized` response.
+
+Token used for testing:
+```bash
+secrettoken123
+```
+
+### Response Format Middleware
+
+The `ResponseFormatMiddleware` automatically converts API responses between `JSON` and `XML`.
+- Default format: `JSON`
+- XML can be requested using either:
+    - The Accept header (e.g., application/xml), or
+    - The query parameter ?format=xml
+
+### Logging Middleware
+
+All incoming HTTP requests are logged into a LiteDB database (bookhub-logs-litedb.db).
+Logs include timestamp, request path, and status code.
+
+---
+
 ## Data Seeding
 
 Data seeding is implemented using the Bogus NuGet package to generate sort of realistic fake data for development.
