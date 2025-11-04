@@ -136,3 +136,10 @@ Secret token for authorization:
 supersecrettoken123
 ```
 In Swagger, click Authorize, choose Bearer Token, and paste the token there.
+
+## Testing
+Run tests:
+```bash
+dotnet test
+```
+
