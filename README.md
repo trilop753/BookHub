@@ -81,6 +81,15 @@ Relationships include *1:N* (e.g., User–Order) and *N:M* (e.g., Book–Genre v
 - Unregistered users can only browse books.
 - Administrators have additional permissions to manage books and accounts.
 
+---
+
+## Data Seeding
+
+Data seeding is implemented using the Bogus NuGet package to generate sort of realistic fake data for development.
+This makes it easy to populate all models consistently.
+
+---
+
 ## Continuous Integration / Deployment
 
 ### GitLab Pipeline
