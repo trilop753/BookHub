@@ -1,4 +1,5 @@
-﻿using BL.Services.Interfaces;
+﻿using BL.DTOs.CartItemDTOs;
+using BL.Services.Interfaces;
 using DAL.Models;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,11 +28,18 @@ namespace BL.Tests.Services
             int bookId = 1;
             int quantity = 0;
 
+            var dto = new CartItemCreateDto
+            {
+                Quantity = quantity,
+                BookId = bookId,
+                UserId = userId,
+            };
+
             using (var scope = _serviceProviderBuilder.Create().CreateScope())
             {
                 var cartItemService = scope.ServiceProvider.GetRequiredService<ICartItemService>();
 
-                var result = await cartItemService.CreateCartItemAsync(userId, bookId, quantity);
+                var result = await cartItemService.CreateCartItemAsync(dto);
 
                 Assert.True(result.IsFailed);
             }
@@ -45,6 +53,14 @@ namespace BL.Tests.Services
             int userId = 1;
             int bookId = 1;
             int quantity = 1;
+
+            var dto = new CartItemCreateDto
+            {
+                Quantity = quantity,
+                BookId = bookId,
+                UserId = userId,
+            };
+
             int id = 1;
 
             var fakeBook = TestDataHelper.GetFakeBooks().First(book => book.Id == bookId);
@@ -63,7 +79,7 @@ namespace BL.Tests.Services
             };
 
             repository_mock
-                .GetByUserIdAndBookId(Arg.Any<int>(), Arg.Any<int>())
+                .GetByUserIdAndBookIdAsync(Arg.Any<int>(), Arg.Any<int>())
                 .Returns(Task.FromResult<CartItem?>(null));
 
             repository_mock
@@ -87,7 +103,7 @@ namespace BL.Tests.Services
             {
                 var cartItemService = scope.ServiceProvider.GetRequiredService<ICartItemService>();
 
-                var result = await cartItemService.CreateCartItemAsync(userId, bookId, quantity);
+                var result = await cartItemService.CreateCartItemAsync(dto);
 
                 Assert.True(result.IsSuccess);
                 Assert.NotNull(result.Value);
@@ -157,7 +173,7 @@ namespace BL.Tests.Services
 
             var idsToDelete = new[] { 1, 2, 3 };
             repositoryMock
-                .GetExistingIds(idsToDelete)
+                .GetExistingIdsAsync(idsToDelete)
                 .Returns(Task.FromResult<IEnumerable<int>>(idsToDelete));
 
             repositoryMock
@@ -186,7 +202,7 @@ namespace BL.Tests.Services
             var existingIds = new[] { 1 };
 
             repositoryMock
-                .GetExistingIds(requestedIds)
+                .GetExistingIdsAsync(requestedIds)
                 .Returns(Task.FromResult<IEnumerable<int>>(existingIds));
 
             var serviceProvider = _serviceProviderBuilder.AddScoped(repositoryMock).Create();

@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
             [FromQuery] BookSearchCriteriaDto searchCriteria
         )
         {
-            var books = await _bookService.GetFiltered(searchCriteria);
+            var books = await _bookService.GetFilteredAsync(searchCriteria);
 
             return Ok(books);
         }

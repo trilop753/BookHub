@@ -43,9 +43,13 @@ public class BookService : IBookService
         return books.Select(b => b.MapToDto());
     }
 
-    public async Task<IEnumerable<BookSummaryDto>> GetFiltered(BookSearchCriteriaDto searchCriteria)
+    public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(
+        BookSearchCriteriaDto searchCriteria
+    )
     {
-        var books = await _bookRepository.GetFiltered(searchCriteria.MapToBookSearchCriteria());
+        var books = await _bookRepository.GetFilteredAsync(
+            searchCriteria.MapToBookSearchCriteria()
+        );
 
         return books.Select(b => b.MapToSummaryDto());
     }
@@ -102,7 +106,7 @@ public class BookService : IBookService
         return Result.Ok(newBook.MapToDto());
     }
 
-    public async Task<Result> UpdateBookAsync(int bookId, BookUpdateDto dto)
+    public async Task<Result> UpdateBookAsync(int id, BookUpdateDto dto)
     {
         var result = new Result();
 
@@ -115,10 +119,10 @@ public class BookService : IBookService
             result.WithError($"Author with id: {dto.AuthorId} does not exist");
         }
 
-        var book = await _bookRepository.GetBookByIdWithGenresIncluded(bookId);
+        var book = await _bookRepository.GetBookByIdWithGenresIncludedAsync(id);
         if (book == null)
         {
-            result.WithError($"Book with id: {bookId} does not exist");
+            result.WithError($"Book with id: {id} does not exist");
         }
 
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();

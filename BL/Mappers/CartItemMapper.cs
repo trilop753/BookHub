@@ -15,5 +15,15 @@ namespace BL.Mappers
                 Quantity = item.Quantity,
             };
         }
+
+        public static CartItem MapToModel(this CartItemCreateDto item)
+        {
+            return new CartItem()
+            {
+                Quantity = item.Quantity,
+                BookId = item.BookId,
+                UserId = item.UserId,
+            };
+        }
     }
 }

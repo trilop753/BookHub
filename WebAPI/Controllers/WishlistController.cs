@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             int userId
         )
         {
-            var result = await _facade.GetAllWishlistedByUserId(userId);
+            var result = await _facade.GetAllWishlistedByUserIdAsync(userId);
             if (result.IsFailed)
             {
                 return NotFound(result.Errors.Select(e => e.Message));
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             int bookId
         )
         {
-            var result = await _facade.GetAllWishlistedByBookId(bookId);
+            var result = await _facade.GetAllWishlistedByBookIdAsync(bookId);
             if (result.IsFailed)
             {
                 return NotFound(result.Errors.Select(e => e.Message));
@@ -41,10 +41,10 @@ namespace WebAPI.Controllers
             return Ok(result.Value);
         }
 
-        [HttpPost("add/{userId}/{bookId}")]
-        public async Task<IActionResult> WishlistBook(int userId, int bookId)
+        [HttpPost("add")]
+        public async Task<IActionResult> WishlistBook([FromBody] WishlistItemCreateDto wishlistItem)
         {
-            var result = await _facade.WishlistBook(userId, bookId);
+            var result = await _facade.WishlistBookAsync(wishlistItem);
 
             if (result.IsFailed)
             {
@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
         [HttpDelete("remove/{userId}/{bookId}")]
         public async Task<IActionResult> RemoveFromWishlist(int userId, int bookId)
         {
-            var result = await _facade.RemoveFromWishlist(userId, bookId);
+            var result = await _facade.RemoveFromWishlistAsync(userId, bookId);
 
             if (result.IsFailed)
             {

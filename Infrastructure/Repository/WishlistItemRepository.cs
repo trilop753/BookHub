@@ -20,7 +20,7 @@ namespace Infrastructure.Repository
             return await _dbSet.Where(wishlistItem => wishlistItem.UserId == id).ToListAsync();
         }
 
-        public async Task<WishlistItem?> GetByUserIdAndBookId(int userId, int bookId)
+        public async Task<WishlistItem?> GetByUserIdAndBookIdAsync(int userId, int bookId)
         {
             return await _dbSet.FirstOrDefaultAsync(wishlistItem =>
                 wishlistItem.UserId == userId && wishlistItem.BookId == bookId

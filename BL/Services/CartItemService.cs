@@ -1,7 +1,6 @@
 ﻿using BL.DTOs.CartItemDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
-using DAL.Models;
 using FluentResults;
 using Infrastructure.Repository.Interfaces;
 
@@ -16,29 +15,27 @@ namespace BL.Services
             _repository = repository;
         }
 
-        public async Task<Result<CartItemDto>> CreateCartItemAsync(
-            int userId,
-            int bookId,
-            int quantity = 1
-        )
+        public async Task<Result<CartItemDto>> CreateCartItemAsync(CartItemCreateDto cartItem)
         {
-            if (quantity <= 0)
+            if (cartItem.Quantity <= 0)
             {
                 return Result.Fail("CartItem must have positive quantity.");
             }
 
-            var existing = await _repository.GetByUserIdAndBookId(userId, bookId);
+            var existing = await _repository.GetByUserIdAndBookIdAsync(
+                cartItem.UserId,
+                cartItem.BookId
+            );
             if (existing != null)
             {
-                return await UpdateItemQuantityAsync(existing.Id, existing.Quantity + quantity);
+                return await UpdateItemQuantityAsync(
+                    existing.Id,
+                    existing.Quantity + cartItem.Quantity
+                );
             }
 
-            var item = new CartItem()
-            {
-                UserId = userId,
-                BookId = bookId,
-                Quantity = quantity,
-            };
+            var item = cartItem.MapToModel();
+
             await _repository.AddAsync(item);
             await _repository.SaveChangesAsync();
             return Result.Ok(item.MapToDto());
@@ -61,7 +58,7 @@ namespace BL.Services
 
         public async Task<Result> DeleteCartItemsAsync(IEnumerable<int> ids)
         {
-            var exist = await _repository.GetExistingIds(ids);
+            var exist = await _repository.GetExistingIdsAsync(ids);
             var notExist = ids.Except(exist);
             if (notExist.Any())
             {

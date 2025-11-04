@@ -1,7 +1,6 @@
 ﻿using BL.DTOs.WishlistItemDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
-using DAL.Models;
 using FluentResults;
 using Infrastructure.Repository.Interfaces;
 
@@ -16,17 +15,19 @@ namespace BL.Services
             _repository = repository;
         }
 
-        public async Task<Result<WishlistItemDto>> CreateWishlistItemAsync(int userId, int bookId)
+        public async Task<Result<WishlistItemDto>> CreateWishlistItemAsync(
+            WishlistItemCreateDto wishlistItem
+        )
         {
-            var wishlistItem = new WishlistItem { UserId = userId, BookId = bookId };
-            await _repository.AddAsync(wishlistItem);
+            var model = wishlistItem.MapToModel();
+            await _repository.AddAsync(model);
             await _repository.SaveChangesAsync();
-            return Result.Ok(wishlistItem.MapToDto());
+            return Result.Ok(model.MapToDto());
         }
 
         public async Task<Result> DeleteWishlistItemAsync(int userId, int bookId)
         {
-            var wishlistItem = await _repository.GetByUserIdAndBookId(userId, bookId);
+            var wishlistItem = await _repository.GetByUserIdAndBookIdAsync(userId, bookId);
             if (wishlistItem == null)
             {
                 return Result.Fail(
