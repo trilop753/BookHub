@@ -1,7 +1,6 @@
 ﻿using BL.DTOs.BookReviewDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
-using DAL.Models;
 using FluentResults;
 using Infrastructure.Repository.Interfaces;
 
@@ -17,19 +16,10 @@ namespace BL.Services
         }
 
         public async Task<Result<BookReviewDto>> CreateBookReviewAsync(
-            int userId,
-            int bookId,
-            int stars,
-            string body
+            BookReviewCreateDto bookReview
         )
         {
-            var review = new BookReview
-            {
-                UserId = userId,
-                BookId = bookId,
-                Stars = stars,
-                Body = body,
-            };
+            var review = bookReview.MapToModel();
 
             await _repository.AddAsync(review);
             await _repository.SaveChangesAsync();
@@ -51,7 +41,7 @@ namespace BL.Services
             return Result.Ok();
         }
 
-        public async Task<Result> UpdateBookReviewAsync(int id, int stars, string body)
+        public async Task<Result> UpdateBookReviewAsync(int id, BookReviewUpdateDto bookReview)
         {
             var review = await _repository.GetByIdAsync(id);
             if (review == null)
@@ -59,8 +49,8 @@ namespace BL.Services
                 return Result.Fail($"Review with id {id} not found.");
             }
 
-            review.Stars = stars;
-            review.Body = body;
+            review.Stars = bookReview.Stars;
+            review.Body = bookReview.Body;
 
             await _repository.SaveChangesAsync();
             return Result.Ok();

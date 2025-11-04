@@ -22,14 +22,10 @@ namespace BL.Facades
             _bookService = bookService;
         }
 
-        public async Task<Result<CartItemDto>> CreateCartItemAsync(
-            int userId,
-            int bookId,
-            int quantity = 1
-        )
+        public async Task<Result<CartItemDto>> CreateCartItemAsync(CartItemCreateDto cartItem)
         {
-            var userRes = await ValidateUserAsync(userId);
-            var bookRes = await ValidateBookAsync(bookId);
+            var userRes = await ValidateUserAsync(cartItem.UserId);
+            var bookRes = await ValidateBookAsync(cartItem.BookId);
 
             var result = Result.Ok();
 
@@ -48,7 +44,7 @@ namespace BL.Facades
                 return result;
             }
 
-            return await _cartItemService.CreateCartItemAsync(userId, bookId, quantity);
+            return await _cartItemService.CreateCartItemAsync(cartItem);
         }
 
         public async Task<Result> DeleteCartItemAsync(int id)

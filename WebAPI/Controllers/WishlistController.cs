@@ -41,10 +41,10 @@ namespace WebAPI.Controllers
             return Ok(result.Value);
         }
 
-        [HttpPost("add/{userId}/{bookId}")]
-        public async Task<IActionResult> WishlistBook(int userId, int bookId)
+        [HttpPost("add")]
+        public async Task<IActionResult> WishlistBook([FromBody] WishlistItemCreateDto wishlistItem)
         {
-            var result = await _facade.WishlistBookAsync(userId, bookId);
+            var result = await _facade.WishlistBookAsync(wishlistItem);
 
             if (result.IsFailed)
             {

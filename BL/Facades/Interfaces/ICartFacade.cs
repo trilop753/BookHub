@@ -5,7 +5,7 @@ namespace BL.Facades.Interfaces
 {
     public interface ICartFacade
     {
-        Task<Result<CartItemDto>> CreateCartItemAsync(int userId, int bookId, int quantity = 1);
+        Task<Result<CartItemDto>> CreateCartItemAsync(CartItemCreateDto cartItem);
 
         Task<Result> DeleteCartItemAsync(int id);
 

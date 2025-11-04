@@ -26,5 +26,16 @@ namespace BL.Mappers
                 Body = review.Body,
             };
         }
+
+        public static BookReview MapToModel(this BookReviewCreateDto bookReview)
+        {
+            return new BookReview()
+            {
+                Body = bookReview.Body,
+                Stars = bookReview.Stars,
+                BookId = bookReview.BookId,
+                UserId = bookReview.UserId,
+            };
+        }
     }
 }

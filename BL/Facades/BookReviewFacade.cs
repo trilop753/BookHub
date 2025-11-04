@@ -35,12 +35,7 @@ namespace BL.Facades
                 return Result.Fail("Stars must be between 1 and 5.");
             }
 
-            return await _bookReviewService.CreateBookReviewAsync(
-                dto.UserId,
-                dto.BookId,
-                dto.Stars,
-                dto.Body
-            );
+            return await _bookReviewService.CreateBookReviewAsync(dto);
         }
 
         public async Task<Result> UpdateAsync(int id, BookReviewUpdateDto dto)
@@ -56,7 +51,7 @@ namespace BL.Facades
                 return Result.Fail("Stars must be between 1 and 5.");
             }
 
-            return await _bookReviewService.UpdateBookReviewAsync(id, dto.Stars, dto.Body);
+            return await _bookReviewService.UpdateBookReviewAsync(id, dto);
         }
 
         public async Task<Result> DeleteAsync(int id)
