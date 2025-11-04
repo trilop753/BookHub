@@ -8,8 +8,7 @@ namespace Infrastructure.Repository.Interfaces
 
         /// <summary>
         /// Updates quantity of a CartItem.
-        /// Must be called with quantity != 0,
-        /// for deletion use the delete method instead.
+        /// Must be called with quantity > 0.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="quantity"></param>

@@ -24,7 +24,7 @@ namespace Infrastructure.Repository
 
         public async Task<CartItem?> UpdateItemQuantityAsync(int id, int quantity)
         {
-            if (quantity == 0)
+            if (quantity <= 0)
             {
                 return null;
             }
