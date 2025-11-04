@@ -271,14 +271,10 @@ namespace BL.Tests.Services
 
             var dtos = result.Value.ToList();
             Assert.Equal(fakeCartItems.Count, dtos.Count);
-
-            for (int i = 0; i < dtos.Count; i++)
-            {
-                Assert.Equal(fakeCartItems[i].Id, dtos[i].Id);
-                Assert.Equal(fakeCartItems[i].Quantity, dtos[i].Quantity);
-                Assert.Equal(fakeCartItems[i].Book.Id, dtos[i].Book.Id);
-                Assert.Equal(fakeCartItems[i].User.Id, dtos[i].User.Id);
-            }
+            Assert.Equal(
+                fakeCartItems.Select(x => (x.Id, x.Quantity, x.Book.Id, x.User.Id)),
+                dtos.Select(x => (x.Id, x.Quantity, x.Book.Id, x.User.Id))
+            );
         }
 
         [Fact]
