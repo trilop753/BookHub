@@ -81,7 +81,15 @@ Relationships include *1:N* (e.g., User–Order) and *N:M* (e.g., Book–Genre v
 - Unregistered users can only browse books.
 - Administrators have additional permissions to manage books and accounts.
 
----
+## Continuous Integration / Deployment
+
+### GitLab Pipeline
+GitLab CI/CD runs for each Merge Request and ensures only successful pipelines can be merged.
+This project's pipeline:
+- Restores packages
+- Builds the solution in Release mode
+- Runs all unit tests
+- Allows merge only if the pipeline succeeds
 
 ## Running the Project
 
