@@ -16,13 +16,15 @@ BookHub is a digital platform for online book sales across various genres. It al
 **Technologies:**
 - C# (.NET 8 / ASP.NET Core Web API)
 - Entity Framework Core (Code First)
-- SQLite (for development)
+- SQLite (main application database)
+- LiteDB (log database)
 - Swagger for API documentation
 - Repository pattern
 - Middleware for authentication and logging
+- GitLab CI/CD for merge requests
 
 **Repository:**
-The project is hosted on GitLab with **Internal** visibility.  
+The project is hosted on *GitLab* with **Internal** visibility.  
 All changes are made through separate branches and merged via Merge Requests after approval from another team member.
 
 ---
@@ -47,7 +49,10 @@ All changes are made through separate branches and merged via Merge Requests aft
 - REST API with CRUD operations for all entities
 - Cache mechanism (refreshes every 10 minutes)
 - Logging middleware (records all incoming requests)
+- Unit tests with mocked repositories
 - Simple authentication middleware using a hard-coded token
+- CD/CD pipeline
+- Logging to LiteDB (bookhub-logs-litedb.db)
 
 ---
 
