@@ -19,6 +19,8 @@ namespace BL.Mappers
                 Author = book.Author.MapToSummaryDto(),
                 Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
                 Reviews = book.Reviews?.Select(r => r.MapToSummaryDto()).ToList() ?? [],
+                EditCount = book.EditCount,
+                LastEditedBy = book.LastEditedBy?.MapToSummaryDto(),
             };
         }
 
