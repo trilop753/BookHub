@@ -33,7 +33,9 @@ namespace DAL.Data.Seed
                 .RuleFor(b => b.ISBN, f => f.Commerce.Ean13())
                 .RuleFor(b => b.Price, f => decimal.Parse(f.Commerce.Price(5, 20)))
                 .RuleFor(b => b.AuthorId, f => f.Random.Int(1, 5))
-                .RuleFor(b => b.PublisherId, f => f.Random.Int(1, 4));
+                .RuleFor(b => b.PublisherId, f => f.Random.Int(1, 4))
+                .RuleFor(b => b.EditCount, f => f.Random.Int(0, 10))
+                .RuleFor(b => b.LastEditedById, f => f.Random.Int(1, 5));
 
             return faker.Generate(4);
         }
