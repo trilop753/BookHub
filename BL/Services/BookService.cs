@@ -152,6 +152,9 @@ public class BookService : IBookService
         book.AuthorId = dto.AuthorId;
         book.PublisherId = dto.PublisherId;
         book.Genres = wantedExistingGenres; // this may be a bug
+        book.EditCount += 1;
+        // TODO: Add current logged in user
+        book.LastEditedById = new Random().Next(1, 5);
 
         await _bookRepository.SaveChangesAsync();
         return Result.Ok();
