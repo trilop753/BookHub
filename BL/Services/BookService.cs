@@ -135,6 +135,12 @@ public class BookService : IBookService
             );
         }
 
+        var editor = await _authorRepository.GetByIdAsync(dto.LastEditedById);
+        if (editor == null)
+        {
+            result.WithError($"User with id {dto.LastEditedById} does not exist.");
+        }
+
         if (result.IsFailed)
         {
             return result;
@@ -153,8 +159,7 @@ public class BookService : IBookService
         book.PublisherId = dto.PublisherId;
         book.Genres = wantedExistingGenres; // this may be a bug
         book.EditCount += 1;
-        // TODO: Add current logged in user
-        book.LastEditedById = new Random().Next(1, 5);
+        book.LastEditedById = dto.LastEditedById;
 
         await _bookRepository.SaveChangesAsync();
         return Result.Ok();
