@@ -19,9 +19,5 @@
         public IEnumerable<string> Genres { get; set; }
 
         public double? AverageRating { get; set; }
-
-        // Open for debate - it is necessary in here?
-        public int EditCount { get; set; }
-        public string? LastEditedByName { get; set; }
     }
 }
