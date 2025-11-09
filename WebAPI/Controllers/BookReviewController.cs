@@ -67,10 +67,14 @@ namespace WebAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] BookReviewUpdateDto dto)
+        [HttpPut("{userId}/{id}")]
+        public async Task<IActionResult> Update(
+            int id,
+            int userId,
+            [FromBody] BookReviewUpdateDto dto
+        )
         {
-            var result = await _facade.UpdateAsync(id, dto);
+            var result = await _facade.UpdateAsync(id, userId, dto);
 
             if (result.IsFailed)
             {

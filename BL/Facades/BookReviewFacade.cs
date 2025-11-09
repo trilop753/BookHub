@@ -38,12 +38,17 @@ namespace BL.Facades
             return await _bookReviewService.CreateBookReviewAsync(dto);
         }
 
-        public async Task<Result> UpdateAsync(int id, BookReviewUpdateDto dto)
+        public async Task<Result> UpdateAsync(int id, int userId, BookReviewUpdateDto dto)
         {
             var review = await _bookReviewService.GetByIdAsync(id);
             if (review.IsFailed)
             {
                 return Result.Fail(review.Errors);
+            }
+
+            if (review.Value.User.Id != userId)
+            {
+                return Result.Fail($"User {userId} is not allowed to edit this review");
             }
 
             if (dto.Stars < 1 || dto.Stars > 5)
