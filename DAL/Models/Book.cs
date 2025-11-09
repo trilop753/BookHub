@@ -25,5 +25,12 @@ namespace DAL.Models
         public virtual Author? Author { get; set; }
 
         public virtual IEnumerable<BookReview> Reviews { get; set; }
+
+        public int EditCount { get; set; } = 0;
+
+        public int? LastEditedById { get; set; }
+
+        [ForeignKey(nameof(LastEditedById))]
+        public virtual User? LastEditedBy { get; set; }
     }
 }

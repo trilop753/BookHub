@@ -15,5 +15,7 @@
         public int AuthorId { get; set; }
 
         public IEnumerable<int> GenreIds { get; set; }
+
+        public int LastEditedById { get; set; }
     }
 }
