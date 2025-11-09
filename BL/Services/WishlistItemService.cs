@@ -19,6 +19,16 @@ namespace BL.Services
             WishlistItemCreateDto wishlistItem
         )
         {
+            var existing = await _repository.GetByUserIdAndBookIdAsync(
+                wishlistItem.UserId,
+                wishlistItem.BookId
+            );
+
+            if (existing != null)
+            {
+                return Result.Ok(existing.MapToDto());
+            }
+
             var model = wishlistItem.MapToModel();
             await _repository.AddAsync(model);
             await _repository.SaveChangesAsync();
