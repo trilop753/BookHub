@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DAL.WebMVC.Migrations.Migrations
+namespace DAL.WebAPI.Migrations.Migrations
 {
     /// <inheritdoc />
     public partial class remigrated : Migration
@@ -13,6 +13,20 @@ namespace DAL.WebMVC.Migrations.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Author",
                 columns: table => new
@@ -69,6 +83,59 @@ namespace DAL.WebMVC.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Book",
                 columns: table => new
                 {
@@ -121,6 +188,91 @@ namespace DAL.WebMVC.Migrations.Migrations
                         name: "FK_Order_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Value = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -262,19 +414,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, "Dock", "Greenfelder" },
-                    { 2, "Ezequiel", "Stiedemann" },
-                    { 3, "Orin", "Williamson" },
-                    { 4, "Robin", "Kling" },
-                    { 5, "Johnpaul", "Rau" }
-========
-                    { 1, "Ettie", "Ankunding" },
-                    { 2, "Abdiel", "Crist" },
-                    { 3, "Octavia", "Bode" },
-                    { 4, "Nikko", "Lebsack" },
-                    { 5, "Adalberto", "MacGyver" }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 1, "Kristopher", "Kris" },
+                    { 2, "Tina", "Watsica" },
+                    { 3, "Fredrick", "Homenick" },
+                    { 4, "Curtis", "Wolff" },
+                    { 5, "Hilbert", "Ward" }
                 });
 
             migrationBuilder.InsertData(
@@ -297,17 +441,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, "Ward - Labadie" },
-                    { 2, "Ward - Runte" },
-                    { 3, "Haag, Yundt and Larson" },
-                    { 4, "Pagac, Tromp and Littel" }
-========
-                    { 1, "Kuhlman and Sons" },
-                    { 2, "Kutch, Schmeler and Carroll" },
-                    { 3, "Hammes LLC" },
-                    { 4, "Daugherty - Considine" }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 1, "Maggio Group" },
+                    { 2, "Bashirian - Padberg" },
+                    { 3, "Bosco, Wilkinson and Gerhold" },
+                    { 4, "Moore - Keeling" }
                 });
 
             migrationBuilder.InsertData(
@@ -315,25 +452,14 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, "Watson.Wintheiser60@gmail.com", false, "Annetta76" },
-                    { 2, "Johann70@hotmail.com", false, "Emery_Ebert2" },
-                    { 3, "Billie15@hotmail.com", false, "Shanna.Grady" },
-                    { 4, "Jesus.Wilkinson35@yahoo.com", false, "Catalina_Zulauf10" },
-                    { 5, "Aimee.Tillman15@gmail.com", false, "Angelita.Pouros62" },
-                    { 6, "Novella_Paucek58@yahoo.com", false, "Korbin42" },
-                    { 7, "Angeline_Waters22@yahoo.com", false, "Anthony90" },
-                    { 8, "Carolyne_Hane@hotmail.com", false, "Lera50" }
-========
-                    { 1, "Assunta.Reilly7@hotmail.com", false, "Anita61" },
-                    { 2, "Emory50@hotmail.com", false, "Ruth17" },
-                    { 3, "Bria_Douglas2@yahoo.com", false, "Darlene.Ruecker20" },
-                    { 4, "Khalid.Gaylord46@hotmail.com", false, "Fabiola.Robel47" },
-                    { 5, "Dustin_Gorczany@hotmail.com", false, "Jaeden.Grant87" },
-                    { 6, "Modesto_Friesen@yahoo.com", false, "Jermain81" },
-                    { 7, "Demario.Metz38@gmail.com", false, "Eliseo.Hilpert36" },
-                    { 8, "Claudia_Kutch90@hotmail.com", true, "Gaston1" }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 1, "Rosa_Corkery46@hotmail.com", false, "Koby50" },
+                    { 2, "Hattie55@gmail.com", true, "Shyanne.Schowalter97" },
+                    { 3, "Mario.Ernser65@hotmail.com", false, "Zola.Littel" },
+                    { 4, "Rory82@gmail.com", false, "Syble.Little" },
+                    { 5, "Lyda29@gmail.com", false, "Dolores.Denesik68" },
+                    { 6, "Chaim_Boyle58@gmail.com", false, "Sally80" },
+                    { 7, "Sydni.Bernier72@hotmail.com", false, "Verna2" },
+                    { 8, "Wilfredo.Kuphal@yahoo.com", true, "Trenton5" }
                 });
 
             migrationBuilder.InsertData(
@@ -341,17 +467,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "AuthorId", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, 5, "Sunt incidunt laudantium id libero molestiae. Rem et eius ut est in dignissimos. Voluptate nostrum blanditiis voluptatibus ex similique minus non quo necessitatibus. Voluptas rerum ut. Omnis officiis est. Accusantium ullam exercitationem velit consequatur assumenda ab optio cum.", 5, "1840284546165", 4, 16.57m, 3, "Similique non velit quia." },
-                    { 2, 3, "Nam natus et tempore et nobis illo consequatur. Et aut dolorem saepe quasi numquam. Ducimus ea at. Iusto atque saepe. Dolore fuga qui quibusdam dolorem.", 1, "7753819743882", 3, 17.97m, 1, "Rerum consequatur quia doloribus omnis consequuntur." },
-                    { 3, 5, "Quasi tempora quidem alias et vero debitis rerum laudantium ut. Omnis praesentium assumenda perspiciatis repellat in sapiente veritatis alias. Dolorem temporibus omnis sed aspernatur exercitationem ea fugiat. Consectetur magni illo amet dignissimos. Ab voluptate laboriosam eligendi. Repellendus doloribus quibusdam et.", 1, "7814723012690", 2, 8.43m, 2, "Sequi qui illum optio." },
-                    { 4, 3, "Optio incidunt facilis aliquid voluptas. Consequatur et cupiditate. Est et voluptas harum cumque est est adipisci quibusdam. Occaecati aliquid eos veritatis tenetur sapiente.", 2, "0243824514708", 5, 11.27m, 4, "Iste vel earum nam minima in." }
-========
-                    { 1, 1, "Eos eius eligendi natus nemo. Vitae quis possimus incidunt. Vel vel sint. Libero ea nihil eum at eum cumque facilis ut. Totam facere deleniti et.", "9613120562412", 16.05m, 3, "Qui vel nesciunt nam voluptatem." },
-                    { 2, 2, "Quam voluptatibus nostrum rerum ab et aut. Aut libero voluptatem deserunt. Laborum possimus ut aut libero voluptas quisquam totam quis.", "9968367676430", 12.03m, 4, "Assumenda dolorum distinctio et." },
-                    { 3, 2, "Totam voluptatem iste. Beatae iusto dolor saepe et enim. Dolor rerum qui minus quia.", "3068705779239", 17.73m, 1, "Voluptatum vel saepe architecto perferendis enim." },
-                    { 4, 5, "Consequuntur autem perspiciatis quo et odit iste quisquam ut. Et aspernatur ut enim est delectus sunt. Fugit quo et rerum et ducimus adipisci eveniet. Omnis explicabo pariatur aut magni nihil hic quae maxime quod.", "4333767004315", 15.14m, 1, "Quo nisi deserunt dolorem voluptatibus repellat." }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 1, 2, "Consectetur perferendis et est. In nesciunt est quae deserunt accusamus in. Et qui et. Facere sint et ut libero. Voluptas sed molestiae nostrum nihil vitae nisi incidunt. Saepe nihil eligendi velit iure error et.", 8, "7060934089499", 1, 9.28m, 4, "Provident harum at adipisci." },
+                    { 2, 4, "Sunt est aliquid voluptate quisquam possimus quia omnis non maxime. Assumenda eaque sint magnam repellat quod quod veritatis. Quibusdam est vel a velit sed. Eum aut aut sint expedita ratione est enim aperiam. Quia aut dolore maxime fugit.", 7, "5039132857300", 4, 13.06m, 3, "Hic at beatae voluptate et suscipit." },
+                    { 3, 4, "Praesentium libero veniam sunt nisi eveniet dicta. Qui excepturi esse possimus sunt aut eligendi nesciunt. Magnam laudantium mollitia qui nam consequuntur vel.", 10, "0451697164139", 5, 10.95m, 1, "Error laudantium accusantium suscipit voluptatem." },
+                    { 4, 4, "Quasi commodi harum. Optio eveniet et sint vel et placeat optio tempore id. Maiores suscipit nobis fugiat placeat tempora ut. Velit quo autem consequatur voluptas fuga voluptatibus expedita. Aut repellendus eius dignissimos provident quod eum numquam asperiores. Molestiae officia aspernatur omnis et est voluptatibus voluptatibus sunt vitae.", 10, "2892747715815", 4, 16.04m, 3, "Et nisi laboriosam omnis molestiae ut." }
                 });
 
             migrationBuilder.InsertData(
@@ -359,17 +478,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Date", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, new DateTime(2017, 10, 6, 1, 58, 12, 888, DateTimeKind.Unspecified).AddTicks(4961), 3 },
-                    { 2, new DateTime(2018, 8, 19, 16, 41, 17, 806, DateTimeKind.Unspecified).AddTicks(1426), 8 },
-                    { 3, new DateTime(2023, 5, 13, 21, 8, 44, 756, DateTimeKind.Unspecified).AddTicks(8275), 7 },
-                    { 4, new DateTime(2024, 3, 13, 14, 30, 36, 869, DateTimeKind.Unspecified).AddTicks(4972), 7 }
-========
-                    { 1, new DateTime(2023, 7, 4, 22, 36, 55, 849, DateTimeKind.Unspecified).AddTicks(1614), 1 },
-                    { 2, new DateTime(2019, 10, 28, 13, 44, 52, 242, DateTimeKind.Unspecified).AddTicks(9150), 7 },
-                    { 3, new DateTime(2022, 3, 23, 11, 44, 55, 630, DateTimeKind.Unspecified).AddTicks(1992), 5 },
-                    { 4, new DateTime(2019, 4, 14, 8, 48, 16, 281, DateTimeKind.Unspecified).AddTicks(9041), 7 }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 1, new DateTime(2016, 5, 24, 15, 31, 7, 248, DateTimeKind.Unspecified).AddTicks(449), 7 },
+                    { 2, new DateTime(2018, 1, 25, 22, 32, 49, 395, DateTimeKind.Unspecified).AddTicks(8669), 7 },
+                    { 3, new DateTime(2019, 7, 3, 15, 50, 27, 844, DateTimeKind.Unspecified).AddTicks(1887), 5 },
+                    { 4, new DateTime(2024, 3, 7, 6, 4, 39, 8, DateTimeKind.Unspecified).AddTicks(3314), 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -389,21 +501,12 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, "Pariatur beatae sint corporis odit incidunt labore possimus voluptate.", 3, 1, 2 },
-                    { 2, "Quis minus beatae iusto iusto at aut blanditiis accusamus.", 4, 5, 2 },
-                    { 3, "Laudantium aut nemo odit consequatur qui cum error.", 1, 3, 2 },
-                    { 4, "Enim amet dolor voluptate temporibus illum ex dolor eum.", 2, 3, 4 },
-                    { 5, "Natus rem odit et unde non amet quia.", 3, 1, 8 },
-                    { 6, "Aut assumenda voluptas iure maxime aliquam odio mollitia ut.", 2, 1, 6 }
-========
-                    { 1, "Eos atque possimus ipsum enim eius ipsam nostrum pariatur.", 3, 4, 5 },
-                    { 2, "Quas occaecati qui quod dolor quia magnam doloremque.", 3, 4, 6 },
-                    { 3, "Reprehenderit quod doloremque est et quia est natus nobis et.", 4, 2, 4 },
-                    { 4, "Illo quia suscipit totam accusantium doloribus qui nam sed ullam.", 4, 4, 7 },
-                    { 5, "Qui incidunt amet excepturi impedit mollitia repellendus dolores aliquid.", 3, 1, 8 },
-                    { 6, "Incidunt neque natus deserunt quae totam minus quibusdam et accusantium.", 2, 3, 2 }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 1, "Accusantium voluptatem unde et omnis in eos voluptatem.", 4, 4, 4 },
+                    { 2, "Molestiae qui voluptas qui laborum incidunt consequuntur amet ea.", 1, 4, 5 },
+                    { 3, "Veniam ipsa at modi veritatis cupiditate architecto ut.", 2, 4, 5 },
+                    { 4, "Non culpa minus delectus atque rerum recusandae quos voluptas ut.", 3, 5, 1 },
+                    { 5, "Sequi dolor sed ut corporis non et iure assumenda tenetur.", 4, 3, 8 },
+                    { 6, "Soluta repudiandae sit assumenda et ex placeat sed perspiciatis quaerat.", 4, 2, 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -411,17 +514,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, 2, 2, 1 },
+                    { 1, 2, 3, 2 },
                     { 2, 4, 1, 3 },
-                    { 3, 3, 1, 2 },
-                    { 4, 4, 4, 1 }
-========
-                    { 1, 1, 4, 1 },
-                    { 2, 4, 2, 8 },
-                    { 3, 1, 1, 4 },
-                    { 4, 3, 4, 4 }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 3, 3, 2, 4 },
+                    { 4, 2, 4, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -429,28 +525,59 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.cs
-                    { 1, 2, 1, 5 },
-                    { 2, 1, 1, 2 },
-                    { 3, 2, 2, 1 },
-                    { 4, 4, 2, 4 },
+                    { 1, 1, 1, 2 },
+                    { 2, 1, 1, 5 },
+                    { 3, 2, 1, 2 },
+                    { 4, 2, 2, 1 },
                     { 5, 4, 2, 4 },
-                    { 6, 2, 3, 4 },
-                    { 7, 1, 3, 5 },
-                    { 8, 4, 4, 1 },
-                    { 9, 3, 4, 5 }
-========
-                    { 1, 1, 1, 1 },
-                    { 2, 3, 1, 1 },
-                    { 3, 1, 1, 5 },
-                    { 4, 1, 2, 5 },
-                    { 5, 3, 3, 2 },
-                    { 6, 2, 3, 2 },
-                    { 7, 1, 4, 1 },
-                    { 8, 2, 4, 5 },
-                    { 9, 4, 4, 1 }
->>>>>>>> 8d5e6ff (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.cs
+                    { 6, 3, 2, 4 },
+                    { 7, 4, 3, 1 },
+                    { 8, 2, 3, 5 },
+                    { 9, 1, 4, 2 },
+                    { 10, 1, 4, 4 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_UserId",
+                table: "AspNetUsers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Book_AuthorId",
@@ -522,6 +649,21 @@ namespace DAL.WebMVC.Migrations.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
                 name: "BookGenre");
 
             migrationBuilder.DropTable(
@@ -535,6 +677,12 @@ namespace DAL.WebMVC.Migrations.Migrations
 
             migrationBuilder.DropTable(
                 name: "WishlistItem");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Genre");

@@ -13,6 +13,7 @@ namespace DAL.WebMVC.Migrations.Migrations
     [DbContext(typeof(BookHubDbContext))]
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
     [Migration("20251114124303_remigrated")]
     partial class remigrated
 ========
@@ -23,6 +24,10 @@ namespace DAL.WebMVC.Migrations.Migrations
     [Migration("20251111212417_remigrated")]
     partial class remigrated
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+    [Migration("20251111213356_remigrated")]
+    partial class remigrated
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,6 +105,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Earnest",
                             Surname = "Metz"
 ========
@@ -110,10 +116,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Name = "Dock",
                             Surname = "Greenfelder"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Kristopher",
+                            Surname = "Kris"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Adrian",
@@ -126,10 +137,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Name = "Ezequiel",
                             Surname = "Stiedemann"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Tina",
+                            Surname = "Watsica"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Mara",
@@ -142,10 +158,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Name = "Orin",
                             Surname = "Williamson"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Fredrick",
+                            Surname = "Homenick"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Ansel",
@@ -158,10 +179,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Name = "Robin",
                             Surname = "Kling"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Curtis",
+                            Surname = "Wolff"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Duane",
@@ -174,6 +200,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Name = "Johnpaul",
                             Surname = "Rau"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Hilbert",
+                            Surname = "Ward"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         });
                 });
 
@@ -229,6 +259,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 5,
                             Description = "Sed suscipit est ea consequuntur ducimus et culpa. Laudantium perspiciatis placeat. Nostrum officiis quia distinctio doloremque modi.",
                             EditCount = 3,
@@ -255,10 +286,21 @@ namespace DAL.WebMVC.Migrations.Migrations
                             PublisherId = 3,
                             Title = "Similique non velit quia."
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            AuthorId = 2,
+                            Description = "Consectetur perferendis et est. In nesciunt est quae deserunt accusamus in. Et qui et. Facere sint et ut libero. Voluptas sed molestiae nostrum nihil vitae nisi incidunt. Saepe nihil eligendi velit iure error et.",
+                            EditCount = 8,
+                            ISBN = "7060934089499",
+                            LastEditedById = 1,
+                            Price = 9.28m,
+                            PublisherId = 4,
+                            Title = "Provident harum at adipisci."
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 1,
@@ -287,10 +329,21 @@ namespace DAL.WebMVC.Migrations.Migrations
                             PublisherId = 1,
                             Title = "Rerum consequatur quia doloribus omnis consequuntur."
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            AuthorId = 4,
+                            Description = "Sunt est aliquid voluptate quisquam possimus quia omnis non maxime. Assumenda eaque sint magnam repellat quod quod veritatis. Quibusdam est vel a velit sed. Eum aut aut sint expedita ratione est enim aperiam. Quia aut dolore maxime fugit.",
+                            EditCount = 7,
+                            ISBN = "5039132857300",
+                            LastEditedById = 4,
+                            Price = 13.06m,
+                            PublisherId = 3,
+                            Title = "Hic at beatae voluptate et suscipit."
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 4,
@@ -319,10 +372,21 @@ namespace DAL.WebMVC.Migrations.Migrations
                             PublisherId = 2,
                             Title = "Sequi qui illum optio."
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            AuthorId = 4,
+                            Description = "Praesentium libero veniam sunt nisi eveniet dicta. Qui excepturi esse possimus sunt aut eligendi nesciunt. Magnam laudantium mollitia qui nam consequuntur vel.",
+                            EditCount = 10,
+                            ISBN = "0451697164139",
+                            LastEditedById = 5,
+                            Price = 10.95m,
+                            PublisherId = 1,
+                            Title = "Error laudantium accusantium suscipit voluptatem."
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             AuthorId = 3,
@@ -351,6 +415,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             PublisherId = 4,
                             Title = "Iste vel earum nam minima in."
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            AuthorId = 4,
+                            Description = "Quasi commodi harum. Optio eveniet et sint vel et placeat optio tempore id. Maiores suscipit nobis fugiat placeat tempora ut. Velit quo autem consequatur voluptas fuga voluptatibus expedita. Aut repellendus eius dignissimos provident quod eum numquam asperiores. Molestiae officia aspernatur omnis et est voluptatibus voluptatibus sunt vitae.",
+                            EditCount = 10,
+                            ISBN = "2892747715815",
+                            LastEditedById = 4,
+                            Price = 16.04m,
+                            PublisherId = 3,
+                            Title = "Et nisi laboriosam omnis molestiae ut."
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         });
                 });
 
@@ -385,6 +459,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Et consequatur id nisi et ipsum omnis ut.",
@@ -439,10 +514,17 @@ namespace DAL.WebMVC.Migrations.Migrations
                             BookId = 3,
                             Stars = 1,
                             UserId = 2
+========
+                            Body = "Accusantium voluptatem unde et omnis in eos voluptatem.",
+                            BookId = 4,
+                            Stars = 4,
+                            UserId = 4
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Quis minus beatae iusto iusto at aut blanditiis accusamus.",
                             BookId = 4,
                             Stars = 5,
@@ -456,27 +538,55 @@ namespace DAL.WebMVC.Migrations.Migrations
                             BookId = 1,
                             Stars = 3,
                             UserId = 2
+========
+                            Body = "Molestiae qui voluptas qui laborum incidunt consequuntur amet ea.",
+                            BookId = 1,
+                            Stars = 4,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Body = "Veniam ipsa at modi veritatis cupiditate architecto ut.",
+                            BookId = 2,
+                            Stars = 4,
+                            UserId = 5
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Enim amet dolor voluptate temporibus illum ex dolor eum.",
                             BookId = 2,
                             Stars = 3,
                             UserId = 4
+========
+                            Body = "Non culpa minus delectus atque rerum recusandae quos voluptas ut.",
+                            BookId = 3,
+                            Stars = 5,
+                            UserId = 1
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Natus rem odit et unde non amet quia.",
                             BookId = 3,
                             Stars = 1,
 >>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
+========
+                            Body = "Sequi dolor sed ut corporis non et iure assumenda tenetur.",
+                            BookId = 4,
+                            Stars = 3,
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                             UserId = 8
                         },
                         new
                         {
                             Id = 6,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Body = "Autem fuga officia eveniet neque perspiciatis maxime consequuntur libero soluta.",
@@ -495,6 +605,12 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Stars = 1,
                             UserId = 6
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Body = "Soluta repudiandae sit assumenda et ex placeat sed perspiciatis quaerat.",
+                            BookId = 4,
+                            Stars = 2,
+                            UserId = 6
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         });
                 });
 
@@ -527,6 +643,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 2,
                             Quantity = 3,
                             UserId = 3
@@ -539,11 +656,17 @@ namespace DAL.WebMVC.Migrations.Migrations
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
                             UserId = 1
 >>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
+========
+                            BookId = 2,
+                            Quantity = 3,
+                            UserId = 2
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
                             BookId = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Quantity = 3,
@@ -556,10 +679,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Quantity = 1,
                             UserId = 3
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Quantity = 1,
+                            UserId = 3
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
@@ -575,10 +703,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Quantity = 1,
                             UserId = 2
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            BookId = 3,
+                            Quantity = 2,
+                            UserId = 4
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 2,
@@ -594,6 +728,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Quantity = 4,
                             UserId = 1
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            BookId = 2,
+                            Quantity = 4,
+                            UserId = 3
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         });
                 });
 
@@ -654,6 +793,75 @@ namespace DAL.WebMVC.Migrations.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DAL.Models.LocalIdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("DAL.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -678,6 +886,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2016, 6, 30, 11, 6, 21, 639, DateTimeKind.Unspecified).AddTicks(7192),
 ========
                             Date = new DateTime(2023, 7, 4, 22, 36, 55, 849, DateTimeKind.Unspecified).AddTicks(1614),
@@ -687,10 +896,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Date = new DateTime(2017, 10, 6, 1, 58, 12, 888, DateTimeKind.Unspecified).AddTicks(4961),
                             UserId = 3
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Date = new DateTime(2016, 5, 24, 15, 31, 7, 248, DateTimeKind.Unspecified).AddTicks(449),
+                            UserId = 7
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2019, 1, 24, 1, 12, 43, 650, DateTimeKind.Unspecified).AddTicks(715),
@@ -703,10 +917,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Date = new DateTime(2018, 8, 19, 16, 41, 17, 806, DateTimeKind.Unspecified).AddTicks(1426),
                             UserId = 8
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Date = new DateTime(2018, 1, 25, 22, 32, 49, 395, DateTimeKind.Unspecified).AddTicks(8669),
+                            UserId = 7
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2019, 7, 19, 15, 12, 51, 716, DateTimeKind.Unspecified).AddTicks(4196),
@@ -719,10 +938,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Date = new DateTime(2023, 5, 13, 21, 8, 44, 756, DateTimeKind.Unspecified).AddTicks(8275),
                             UserId = 7
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Date = new DateTime(2019, 7, 3, 15, 50, 27, 844, DateTimeKind.Unspecified).AddTicks(1887),
+                            UserId = 5
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Date = new DateTime(2023, 8, 16, 0, 8, 43, 387, DateTimeKind.Unspecified).AddTicks(6816),
@@ -734,6 +958,10 @@ namespace DAL.WebMVC.Migrations.Migrations
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
                             UserId = 7
 >>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
+========
+                            Date = new DateTime(2024, 3, 7, 6, 4, 39, 8, DateTimeKind.Unspecified).AddTicks(3314),
+                            UserId = 6
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         });
                 });
 
@@ -764,15 +992,20 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 2,
+                            BookId = 1,
                             OrderId = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Quantity = 5
+========
+                            Quantity = 2
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
                             BookId = 1,
                             OrderId = 1,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Quantity = 2
@@ -782,10 +1015,14 @@ namespace DAL.WebMVC.Migrations.Migrations
 ========
                             Quantity = 2
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Quantity = 5
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
@@ -801,17 +1038,29 @@ namespace DAL.WebMVC.Migrations.Migrations
                             OrderId = 2,
                             Quantity = 1
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            BookId = 2,
+                            OrderId = 1,
+                            Quantity = 2
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
                             OrderId = 2,
                             Quantity = 4
+========
+                            BookId = 2,
+                            OrderId = 2,
+                            Quantity = 1
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 1,
@@ -826,10 +1075,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             OrderId = 2,
                             Quantity = 4
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            BookId = 4,
+                            OrderId = 2,
+                            Quantity = 4
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 6,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
                             OrderId = 3,
@@ -843,10 +1098,16 @@ namespace DAL.WebMVC.Migrations.Migrations
 ========
                             Quantity = 4
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            BookId = 3,
+                            OrderId = 2,
+                            Quantity = 4
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 7,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 4,
                             OrderId = 3,
@@ -856,10 +1117,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             OrderId = 3,
                             Quantity = 5
 >>>>>>>> cd684c3 (seeded Orders to DBs):DAL.WebAPI.Migrations/Migrations/20251030170836_migrated_migration.Designer.cs
+========
+                            BookId = 4,
+                            OrderId = 3,
+                            Quantity = 1
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 8,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             BookId = 1,
                             OrderId = 3,
                             Quantity = 1
@@ -882,13 +1149,25 @@ namespace DAL.WebMVC.Migrations.Migrations
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
                             OrderId = 4,
                             Quantity = 1
+========
+                            BookId = 2,
+                            OrderId = 3,
+                            Quantity = 5
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 9,
-                            BookId = 3,
+                            BookId = 1,
                             OrderId = 4,
-                            Quantity = 5
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BookId = 1,
+                            OrderId = 4,
+                            Quantity = 4
                         });
                 });
 
@@ -912,6 +1191,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Dietrich, Cormier and Pacocha"
 ========
                             Name = "Kuhlman and Sons"
@@ -919,10 +1199,14 @@ namespace DAL.WebMVC.Migrations.Migrations
 ========
                             Name = "Ward - Labadie"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Maggio Group"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Gibson, Roob and Grady"
@@ -932,10 +1216,14 @@ namespace DAL.WebMVC.Migrations.Migrations
 ========
                             Name = "Ward - Runte"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Bashirian - Padberg"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Gaylord - Bosco"
@@ -945,10 +1233,14 @@ namespace DAL.WebMVC.Migrations.Migrations
 ========
                             Name = "Haag, Yundt and Larson"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Bosco, Wilkinson and Gerhold"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Name = "Cummings, Lubowitz and Kulas"
@@ -958,6 +1250,9 @@ namespace DAL.WebMVC.Migrations.Migrations
 ========
                             Name = "Pagac, Tromp and Littel"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Name = "Moore - Keeling"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         });
                 });
 
@@ -990,6 +1285,7 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Jayde_Yundt91@hotmail.com",
                             IsBanned = false,
                             Username = "Bernhard_Ratke"
@@ -1003,10 +1299,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Annetta76"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Rosa_Corkery46@hotmail.com",
+                            IsBanned = false,
+                            Username = "Koby50"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 2,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Floyd_Moore@yahoo.com",
@@ -1022,10 +1324,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Emery_Ebert2"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Hattie55@gmail.com",
+                            IsBanned = true,
+                            Username = "Shyanne.Schowalter97"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 3,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Jacky_Weissnat20@gmail.com",
@@ -1041,10 +1349,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Shanna.Grady"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Mario.Ernser65@hotmail.com",
+                            IsBanned = false,
+                            Username = "Zola.Littel"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 4,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Chauncey.Sipes@gmail.com",
@@ -1060,10 +1374,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Catalina_Zulauf10"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Rory82@gmail.com",
+                            IsBanned = false,
+                            Username = "Syble.Little"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 5,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Antonio33@yahoo.com",
@@ -1079,10 +1399,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Angelita.Pouros62"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Lyda29@gmail.com",
+                            IsBanned = false,
+                            Username = "Dolores.Denesik68"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 6,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Leonor12@gmail.com",
@@ -1098,10 +1424,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Korbin42"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Chaim_Boyle58@gmail.com",
+                            IsBanned = false,
+                            Username = "Sally80"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 7,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Dorian8@hotmail.com",
@@ -1117,10 +1449,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Anthony90"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Sydni.Bernier72@hotmail.com",
+                            IsBanned = false,
+                            Username = "Verna2"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         },
                         new
                         {
                             Id = 8,
+<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
 <<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251114124303_remigrated.Designer.cs
                             Email = "Ford90@hotmail.com",
@@ -1136,6 +1474,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                             IsBanned = false,
                             Username = "Lera50"
 >>>>>>>> 20ed764 (fix migration conflicts):DAL.WebMVC.Migrations/Migrations/20251111212417_remigrated.Designer.cs
+========
+                            Email = "Wilfredo.Kuphal@yahoo.com",
+                            IsBanned = true,
+                            Username = "Trenton5"
+>>>>>>>> 6e1917b (migration deletetion before rebase did not help, fix merge conflicts):DAL.WebAPI.Migrations/Migrations/20251111213356_remigrated.Designer.cs
                         });
                 });
 
@@ -1158,6 +1501,134 @@ namespace DAL.WebMVC.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("WishlistItem");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("BookGenre", b =>
@@ -1238,6 +1709,17 @@ namespace DAL.WebMVC.Migrations.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DAL.Models.LocalIdentityUser", b =>
+                {
+                    b.HasOne("DAL.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DAL.Models.Order", b =>
                 {
                     b.HasOne("DAL.Models.User", "User")
@@ -1285,6 +1767,57 @@ namespace DAL.WebMVC.Migrations.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("DAL.Models.LocalIdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("DAL.Models.LocalIdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.LocalIdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("DAL.Models.LocalIdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Models.Author", b =>
