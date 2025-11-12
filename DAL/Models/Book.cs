@@ -26,6 +26,8 @@ namespace DAL.Models
 
         public virtual IEnumerable<BookReview> Reviews { get; set; }
 
+        public string? CoverImageUrl { get; set; }
+
         public int EditCount { get; set; } = 0;
 
         public int? LastEditedById { get; set; }

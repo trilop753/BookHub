@@ -79,6 +79,10 @@ public class BookService : IBookService
                 $"Genres with ids {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist."
             );
         }
+        if (dto.CoverImageUrl == string.Empty)
+        {
+            result.WithError($"Cover image url is missing.");
+        }
         if (result.IsFailed)
         {
             return result;
@@ -98,6 +102,7 @@ public class BookService : IBookService
             Author = author,
             Publisher = publisher,
             Genres = wantedExistingGenres,
+            CoverImageUrl = dto.CoverImageUrl,
         };
 
         await _bookRepository.AddAsync(newBook);
@@ -141,6 +146,11 @@ public class BookService : IBookService
             result.WithError($"User with id {dto.LastEditedById} does not exist.");
         }
 
+        if (dto.CoverImageUrl == string.Empty)
+        {
+            result.WithError($"Cover image url is missing.");
+        }
+
         if (result.IsFailed)
         {
             return result;
@@ -160,6 +170,7 @@ public class BookService : IBookService
         book.Genres = wantedExistingGenres; // this may be a bug
         book.EditCount += 1;
         book.LastEditedById = dto.LastEditedById;
+        book.CoverImageUrl = dto.CoverImageUrl;
 
         await _bookRepository.SaveChangesAsync();
         return Result.Ok();
