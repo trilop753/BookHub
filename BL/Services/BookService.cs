@@ -1,4 +1,5 @@
-﻿using BL.DTOs.BookDTOs;
+﻿using System.Text.RegularExpressions;
+using BL.DTOs.BookDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
 using DAL.Models;
@@ -11,6 +12,7 @@ public class BookService : IBookService
     private readonly IGenreRepository _genreRepository;
     private readonly IAuthorRepository _authorRepository;
     private readonly IPublisherRepository _publisherRepository;
+    private const string ImageUrlRegex = @"^https?:\/\/[^\s]+?\.(?:jpe?g|png)$";
 
     public BookService(
         IBookRepository bookRepository,
@@ -79,10 +81,17 @@ public class BookService : IBookService
                 $"Genres with ids {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist."
             );
         }
-        if (dto.CoverImageUrl == string.Empty)
+
+        var uri = new Uri(dto.CoverImageUrl);
+        if (
+            !Uri.IsWellFormedUriString(dto.CoverImageUrl, UriKind.Absolute)
+            || !(uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+            || !Regex.IsMatch(dto.CoverImageUrl, ImageUrlRegex)
+        )
         {
-            result.WithError($"Cover image url is missing.");
+            result.WithError($"Invalid url.");
         }
+
         if (result.IsFailed)
         {
             return result;
@@ -146,9 +155,14 @@ public class BookService : IBookService
             result.WithError($"User with id {dto.LastEditedById} does not exist.");
         }
 
-        if (dto.CoverImageUrl == string.Empty)
+        var uri = new Uri(dto.CoverImageUrl);
+        if (
+            !Uri.IsWellFormedUriString(dto.CoverImageUrl, UriKind.Absolute)
+            || !(uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+            || !Regex.IsMatch(dto.CoverImageUrl, ImageUrlRegex)
+        )
         {
-            result.WithError($"Cover image url is missing.");
+            result.WithError($"Invalid url.");
         }
 
         if (result.IsFailed)
