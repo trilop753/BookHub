@@ -19,6 +19,7 @@ namespace BL.Mappers
                 Author = book.Author.MapToSummaryDto(),
                 Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
                 Reviews = book.Reviews?.Select(r => r.MapToSummaryDto()).ToList() ?? [],
+                CoverImageUrl = book.CoverImageUrl,
                 EditCount = book.EditCount,
                 LastEditedBy = book.LastEditedBy?.MapToSummaryDto(),
             };
@@ -37,6 +38,7 @@ namespace BL.Mappers
                 AuthorName = book.Author.Name,
                 Genres = book.Genres.Select(g => g.Name).ToList(),
                 AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : null,
+                CoverImageUrl = book.CoverImageUrl,
             };
         }
 

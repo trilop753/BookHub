@@ -1,4 +1,5 @@
-﻿using BL.DTOs.BookDTOs;
+﻿using System.Text.RegularExpressions;
+using BL.DTOs.BookDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
 using DAL.Models;
@@ -11,6 +12,7 @@ public class BookService : IBookService
     private readonly IGenreRepository _genreRepository;
     private readonly IAuthorRepository _authorRepository;
     private readonly IPublisherRepository _publisherRepository;
+    private const string ImageUrlRegex = @"^https?:\/\/[^\s]+?\.(?:jpe?g|png)$";
 
     public BookService(
         IBookRepository bookRepository,
@@ -79,6 +81,17 @@ public class BookService : IBookService
                 $"Genres with ids {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist."
             );
         }
+
+        var uri = new Uri(dto.CoverImageUrl);
+        if (
+            !Uri.IsWellFormedUriString(dto.CoverImageUrl, UriKind.Absolute)
+            || !(uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+            || !Regex.IsMatch(dto.CoverImageUrl, ImageUrlRegex)
+        )
+        {
+            result.WithError($"Invalid url.");
+        }
+
         if (result.IsFailed)
         {
             return result;
@@ -98,6 +111,7 @@ public class BookService : IBookService
             Author = author,
             Publisher = publisher,
             Genres = wantedExistingGenres,
+            CoverImageUrl = dto.CoverImageUrl,
         };
 
         await _bookRepository.AddAsync(newBook);
@@ -141,6 +155,16 @@ public class BookService : IBookService
             result.WithError($"User with id {dto.LastEditedById} does not exist.");
         }
 
+        var uri = new Uri(dto.CoverImageUrl);
+        if (
+            !Uri.IsWellFormedUriString(dto.CoverImageUrl, UriKind.Absolute)
+            || !(uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+            || !Regex.IsMatch(dto.CoverImageUrl, ImageUrlRegex)
+        )
+        {
+            result.WithError($"Invalid url.");
+        }
+
         if (result.IsFailed)
         {
             return result;
@@ -160,6 +184,7 @@ public class BookService : IBookService
         book.Genres = wantedExistingGenres; // this may be a bug
         book.EditCount += 1;
         book.LastEditedById = dto.LastEditedById;
+        book.CoverImageUrl = dto.CoverImageUrl;
 
         await _bookRepository.SaveChangesAsync();
         return Result.Ok();
