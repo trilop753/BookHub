@@ -20,6 +20,8 @@ namespace WebMVC
 
             var app = builder.Build();
 
+            app.ApplyMigrations();
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
