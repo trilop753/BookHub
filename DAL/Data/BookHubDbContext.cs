@@ -1,9 +1,10 @@
 ﻿using DAL.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Data
 {
-    public class BookHubDbContext : DbContext
+    public class BookHubDbContext : IdentityDbContext<LocalIdentityUser>
     {
         public DbSet<User> User { get; set; }
         public DbSet<Book> Book { get; set; }

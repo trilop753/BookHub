@@ -5,14 +5,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DAL.Migrations
+namespace DAL.WebAPI.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class order_resync : Migration
+    public partial class remigrated : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Author",
                 columns: table => new
@@ -69,6 +83,59 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Book",
                 columns: table => new
                 {
@@ -79,7 +146,10 @@ namespace DAL.Migrations
                     ISBN = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     PublisherId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false)
+                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CoverImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    EditCount = table.Column<int>(type: "INTEGER", nullable: false),
+                    LastEditedById = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -96,6 +166,11 @@ namespace DAL.Migrations
                         principalTable: "Publisher",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Book_User_LastEditedById",
+                        column: x => x.LastEditedById,
+                        principalTable: "User",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -114,6 +189,91 @@ namespace DAL.Migrations
                         name: "FK_Order_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Value = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -255,11 +415,11 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "Jermey", "Lehner" },
-                    { 2, "Pascale", "Spencer" },
-                    { 3, "Vivianne", "O'Reilly" },
-                    { 4, "Arvid", "Wolff" },
-                    { 5, "Hermina", "Prosacco" }
+                    { 1, "Korbin", "Boyer" },
+                    { 2, "Adelle", "McClure" },
+                    { 3, "Christina", "Parisian" },
+                    { 4, "Allen", "Ledner" },
+                    { 5, "Raymundo", "Schoen" }
                 });
 
             migrationBuilder.InsertData(
@@ -282,10 +442,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Schroeder, Stoltenberg and Shanahan" },
-                    { 2, "Torp - Tromp" },
-                    { 3, "Jacobi, Tillman and Jones" },
-                    { 4, "Hudson LLC" }
+                    { 1, "Lemke Group" },
+                    { 2, "Goldner - Osinski" },
+                    { 3, "Haag - Shields" },
+                    { 4, "Hansen - Fay" }
                 });
 
             migrationBuilder.InsertData(
@@ -293,25 +453,25 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Estrella57@gmail.com", false, "Terrill57" },
-                    { 2, "Dennis.Kuhn49@yahoo.com", false, "Myrna_OKon" },
-                    { 3, "Filomena.Morar@hotmail.com", true, "Emanuel72" },
-                    { 4, "Godfrey.Jaskolski@gmail.com", false, "Neva.Treutel97" },
-                    { 5, "Alford.Fisher@yahoo.com", false, "Madaline_Osinski" },
-                    { 6, "Santiago.Kemmer80@yahoo.com", false, "Lessie.Turcotte24" },
-                    { 7, "Manuela_Fay@yahoo.com", false, "Rachelle88" },
-                    { 8, "Joany_Corwin1@gmail.com", false, "Aaron.Streich24" }
+                    { 1, "Chesley_Metz@yahoo.com", false, "Caleb.Gusikowski" },
+                    { 2, "Modesto_Borer@hotmail.com", false, "Webster_Wehner" },
+                    { 3, "Amari_Kovacek8@hotmail.com", false, "Alvis_Carter79" },
+                    { 4, "Savanah44@yahoo.com", false, "Josue94" },
+                    { 5, "Nadia16@hotmail.com", false, "Karen98" },
+                    { 6, "Willy.Quigley@hotmail.com", false, "Grady.Goyette" },
+                    { 7, "Ransom_Bayer19@yahoo.com", false, "Emile_Hackett" },
+                    { 8, "Humberto.Kirlin@gmail.com", false, "Judd_Haag74" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "Id", "AuthorId", "Description", "ISBN", "Price", "PublisherId", "Title" },
+                columns: new[] { "Id", "AuthorId", "CoverImageUrl", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 5, "Omnis modi magnam dolores voluptas. Et officiis sed voluptas odit facere quam. Odit doloremque dignissimos et. Omnis et est. Deserunt corporis molestiae quasi consequuntur. Dignissimos ab aspernatur asperiores est.", "6990281470026", 7.71m, 3, "Qui provident saepe quam cum perferendis." },
-                    { 2, 2, "Assumenda et quia et et iste. A ea ut vel quod maxime rem dolorem qui. Excepturi et at. Consequatur et autem repudiandae.", "3695979644170", 19.06m, 4, "Ut cupiditate a consectetur repellat eos." },
-                    { 3, 2, "Vero quidem et. Ad natus qui. Autem qui rerum eos et. Eos sunt quo odit sapiente expedita expedita cumque et. Odit quo tenetur eveniet dolorum. Officiis inventore dolore harum quo rerum corrupti.", "1380438581388", 13.31m, 2, "Mollitia consequatur maiores velit minus cum." },
-                    { 4, 5, "Aut quasi officiis vel beatae. Ea doloremque itaque voluptatibus officiis nisi omnis. Architecto exercitationem molestiae temporibus. Error quibusdam et quod est non rerum quae et tempora. Dicta dolorum dolorum magni possimus dolore quam dolor et. Veritatis ducimus nemo id autem.", "2239462964584", 13.80m, 3, "Et et et accusantium." }
+                    { 1, 1, null, "Fuga deleniti aut dolor velit numquam. Tenetur dolorum sed praesentium est. Esse quam quasi doloremque maiores praesentium. Iusto eum et rerum doloribus. Odio et et non ut laboriosam odio facilis.", 1, "1279588793393", 2, 8.68m, 2, "Praesentium dolor id aperiam velit." },
+                    { 2, 1, null, "Fugit occaecati esse dolores sed minus at aut impedit. Totam atque adipisci ut cupiditate. Consequatur quibusdam sunt rerum similique dolor sint corporis velit blanditiis. Pariatur nemo expedita veniam maxime tempore vel porro omnis.", 8, "3961083782276", 2, 19.37m, 4, "Aut est quo et." },
+                    { 3, 2, null, "Aut quos harum ut deleniti est qui ipsa temporibus. Sint sint accusamus quod voluptatibus. Reprehenderit aut animi ipsum.", 3, "8026287495263", 4, 18.17m, 3, "Nobis aut tenetur rerum consequatur." },
+                    { 4, 5, null, "Quia eius ut aut eius animi aut. Aliquid suscipit id nihil. Culpa veniam nesciunt dolorem culpa blanditiis recusandae. Quia assumenda qui accusamus fugit dolorem. Eos deserunt voluptas soluta et dolor culpa officiis velit.", 6, "8297748397703", 2, 15.91m, 1, "Esse nihil quae et." }
                 });
 
             migrationBuilder.InsertData(
@@ -319,10 +479,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Date", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2017, 1, 14, 1, 49, 36, 113, DateTimeKind.Unspecified).AddTicks(3304), 5 },
-                    { 2, new DateTime(2017, 6, 22, 12, 55, 59, 832, DateTimeKind.Unspecified).AddTicks(5418), 6 },
-                    { 3, new DateTime(2016, 8, 12, 22, 8, 47, 586, DateTimeKind.Unspecified).AddTicks(287), 4 },
-                    { 4, new DateTime(2024, 6, 7, 9, 11, 10, 671, DateTimeKind.Unspecified).AddTicks(1508), 8 }
+                    { 1, new DateTime(2016, 1, 23, 20, 41, 20, 171, DateTimeKind.Unspecified).AddTicks(7576), 7 },
+                    { 2, new DateTime(2024, 12, 31, 0, 57, 8, 250, DateTimeKind.Unspecified).AddTicks(6090), 7 },
+                    { 3, new DateTime(2020, 12, 29, 3, 50, 3, 401, DateTimeKind.Unspecified).AddTicks(6385), 1 },
+                    { 4, new DateTime(2022, 4, 20, 14, 32, 53, 674, DateTimeKind.Unspecified).AddTicks(7004), 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -342,12 +502,12 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Sed odio consequatur ratione ut velit est totam eum.", 4, 4, 8 },
-                    { 2, "Laboriosam rerum iure distinctio ut aliquid reprehenderit suscipit.", 4, 2, 6 },
-                    { 3, "Nulla sit modi sit quos quo nisi dolore.", 1, 3, 6 },
-                    { 4, "Nihil quis dolor magni est qui eos provident ipsam eum.", 3, 4, 5 },
-                    { 5, "Qui nihil occaecati sed sit illum incidunt dicta totam dolor.", 1, 1, 4 },
-                    { 6, "Et est aut fugit ea veniam eum modi possimus.", 3, 2, 8 }
+                    { 1, "Commodi est dolore omnis quae dolores aut ullam doloribus consequatur.", 3, 2, 6 },
+                    { 2, "Qui in eum dicta totam nobis quis qui optio corporis.", 4, 1, 3 },
+                    { 3, "Fugiat quaerat distinctio aspernatur architecto tempore quis debitis deleniti sit.", 1, 1, 4 },
+                    { 4, "Laudantium officiis quaerat omnis nihil itaque consequatur adipisci similique.", 1, 2, 8 },
+                    { 5, "Non voluptatem ipsum quisquam labore natus delectus illum.", 1, 2, 2 },
+                    { 6, "Ut omnis accusamus nobis eum laborum maiores modi.", 1, 1, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -355,10 +515,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 3, 1, 1 },
-                    { 2, 3, 3, 4 },
-                    { 3, 3, 2, 3 },
-                    { 4, 1, 2, 6 }
+                    { 1, 4, 2, 4 },
+                    { 2, 2, 3, 3 },
+                    { 3, 2, 1, 3 },
+                    { 4, 3, 4, 7 }
                 });
 
             migrationBuilder.InsertData(
@@ -366,21 +526,68 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 4 },
-                    { 2, 4, 1, 4 },
-                    { 3, 3, 1, 4 },
-                    { 4, 4, 2, 4 },
-                    { 5, 3, 2, 4 },
-                    { 6, 3, 3, 4 },
-                    { 7, 4, 4, 1 },
-                    { 8, 2, 4, 3 },
-                    { 9, 4, 4, 1 }
+                    { 1, 2, 1, 5 },
+                    { 2, 4, 1, 2 },
+                    { 3, 2, 2, 5 },
+                    { 4, 2, 3, 1 },
+                    { 5, 3, 3, 4 },
+                    { 6, 1, 3, 3 },
+                    { 7, 1, 4, 1 },
+                    { 8, 3, 4, 2 },
+                    { 9, 4, 4, 5 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_UserId",
+                table: "AspNetUsers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Book_AuthorId",
                 table: "Book",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Book_LastEditedById",
+                table: "Book",
+                column: "LastEditedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Book_PublisherId",
@@ -442,6 +649,21 @@ namespace DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
                 name: "BookGenre");
 
             migrationBuilder.DropTable(
@@ -457,6 +679,12 @@ namespace DAL.Migrations
                 name: "WishlistItem");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Genre");
 
             migrationBuilder.DropTable(
@@ -466,13 +694,13 @@ namespace DAL.Migrations
                 name: "Book");
 
             migrationBuilder.DropTable(
-                name: "User");
-
-            migrationBuilder.DropTable(
                 name: "Author");
 
             migrationBuilder.DropTable(
                 name: "Publisher");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }
