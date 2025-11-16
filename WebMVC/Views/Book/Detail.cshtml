@@ -1,50 +1,80 @@
 ﻿@using WebMVC.Models.Book
 @model BookDetailViewModel
 
-<div class="container mt-4">
-    <div class="row">
+<div class="container mt-5">
+
+    <div class="row g-4">
         <div class="col-md-4">
-            <img src="@Model.CoverImageUrl" class="img-fluid rounded" alt="@Model.Title Cover" style="width:400px; height:600px; object-fit:cover;" />
+            <div class="shadow-sm rounded overflow-hidden">
+                <img src="@Model.CoverImageUrl"
+                     alt="@Model.Title Cover"
+                     class="w-100"
+                     style="height:600px; object-fit:cover;" />
+            </div>
         </div>
 
         <div class="col-md-8">
-            <h2>@Model.Title</h2>
-            <p><strong>ISBN:</strong> @Model.ISBN</p>
-            <p><strong>Price:</strong> @Model.Price.ToString("C")</p>
-            <p><strong>Publisher:</strong> @Model.Publisher?.Name</p>
-            <p><strong>Author:</strong> @Model.Author?.Name</p>
+            <h1 class="fw-bold">@Model.Title</h1>
 
-            <h4>Description</h4>
+            <p class="text-muted small mt-1">
+                ISBN: @Model.ISBN
+            </p>
+
+            <div class="d-flex gap-4 mt-3">
+                <p><strong>Author:</strong> @Model.Author?.Name</p>
+                <p><strong>Publisher:</strong> @Model.Publisher?.Name</p>
+            </div>
+            
+            <h3 class="mt-3 text-primary fw-bold">
+                @Model.Price.ToString("C")
+            </h3>
+
+            <hr />
+
+            <h4 class="fw-semibold">Description</h4>
             <p>@Model.Description</p>
 
-            <h4>Genres</h4>
+            <h4 class="fw-semibold">Genres</h4>
             <ul>
                 @foreach (var genre in Model.Genres)
                 {
                     <li>@genre.Name</li>
                 }
             </ul>
+
+            <h4 class="fw-semibold">Average Rating</h4>
+            @if (Model.Reviews != null && Model.Reviews.Any())
+            {
+                var avg = Model.Reviews.Average(r => r.Stars);
+                <p class="fw-bold">@avg.ToString("0.0") / 5 ★</p>
+            }
+            else
+            {
+                <p>No ratings yet.</p>
+            }
         </div>
     </div>
 
-    <hr />
+    <hr class="my-5" />
 
-    <h3>Reviews</h3>
+    <h3 class="fw-bold mb-3">Reviews</h3>
     @if (Model.Reviews != null && Model.Reviews.Any())
     {
         foreach (var review in Model.Reviews)
         {
-            <div class="card mb-3">
+            <div class="card shadow-sm mb-3 border-0">
                 <div class="card-body">
-                    <h5 class="card-title">@review.User?.Username</h5>
-                    <p class="card-text">@review.Body</p>
-                    <p class="text-muted">Rating: @review.Stars / 5</p>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title mb-1">@review.User?.Username</h5>
+                        <span class="text-muted">@review.Stars / 5 ★</span>
+                    </div>
+                    <p class="mt-2">@review.Body</p>
                 </div>
             </div>
         }
     }
     else
     {
-        <p>No reviews available.</p>
+        <p class="text-muted">No reviews available.</p>
     }
 </div>
