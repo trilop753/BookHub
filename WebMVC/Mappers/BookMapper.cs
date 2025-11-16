@@ -19,7 +19,10 @@ namespace WebMVC.Mappers
             };
         }
 
-        public static BookDetailViewModel MapToDetailView(this BookDto book)
+        public static BookDetailViewModel MapToDetailView(
+            this BookDto book,
+            IEnumerable<int> wishlistedBooksIds
+        )
         {
             return new BookDetailViewModel()
             {
@@ -33,6 +36,9 @@ namespace WebMVC.Mappers
                 Author = book.Author.MapToView(),
                 Reviews = book.Reviews.Select(r => r.MapToView()),
                 CoverImageUrl = book.CoverImageUrl,
+                IsWishlisted = wishlistedBooksIds.Any()
+                    ? wishlistedBooksIds.Contains(book.Id)
+                    : false,
             };
         }
     }
