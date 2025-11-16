@@ -15,6 +15,7 @@ namespace WebMVC.Mappers
                 PublisherName = book.Publisher.Name,
                 Genres = book.Genres.Select(g => g.Name),
                 Price = book.Price,
+                CoverImageUrl = book.CoverImageUrl,
             };
         }
     }
