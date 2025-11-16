@@ -18,5 +18,22 @@ namespace WebMVC.Mappers
                 CoverImageUrl = book.CoverImageUrl,
             };
         }
+
+        public static BookDetailViewModel MapToDetailView(this BookDto book)
+        {
+            return new BookDetailViewModel()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                ISBN = book.ISBN,
+                Price = book.Price,
+                Genres = book.Genres.Select(g => g.MapToView()),
+                Publisher = book.Publisher.MapToView(),
+                Author = book.Author.MapToView(),
+                Reviews = book.Reviews.Select(r => r.MapToView()),
+                CoverImageUrl = book.CoverImageUrl,
+            };
+        }
     }
 }
