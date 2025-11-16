@@ -15,5 +15,16 @@ namespace WebMVC.Mappers
                 User = review.User.MapToUsernameView(),
             };
         }
+
+        public static BookReviewCreateDto MapToCreateDto(this BookReviewCreateViewModel review)
+        {
+            return new BookReviewCreateDto()
+            {
+                Body = review.Body,
+                Stars = review.Stars,
+                BookId = review.BookId,
+                UserId = review.UserId,
+            };
+        }
     }
 }
