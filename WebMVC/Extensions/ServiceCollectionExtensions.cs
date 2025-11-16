@@ -44,7 +44,9 @@ namespace WebMVC.Extensions
             services.AddScoped<IPublisherRepository, PublisherRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
+            services.AddScoped<IBookReviewRepository, BookReviewRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             return services;
         }
 
@@ -53,14 +55,24 @@ namespace WebMVC.Extensions
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWishlistItemService, WishlistItemService>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<IBookReviewService, BookReviewService>();
             services.AddScoped<ICartItemService, CartItemService>();
+            services.AddScoped<IOrderService, OrderService>();
             return services;
         }
 
         public static IServiceCollection AddFacades(this IServiceCollection services)
         {
             services.AddScoped<IWishlistFacade, WishlistFacade>();
+            services.AddScoped<IAuthorFacade, AuthorFacade>();
+            services.AddScoped<IGenreFacade, GenreFacade>();
+            services.AddScoped<IPublisherFacade, PublisherFacade>();
+            services.AddScoped<IBookReviewFacade, BookReviewFacade>();
             services.AddScoped<ICartFacade, CartFacade>();
+            services.AddScoped<IOrderFacade, OrderFacade>();
             return services;
         }
 
