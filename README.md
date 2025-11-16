@@ -1,9 +1,10 @@
 # PV179_BookHub | Seminar 3 | Team 8
 
 ## Team members:
-- xmackov1  
-- xpavlik9  
-- xkala  
+
+- xmackov1
+- xpavlik9
+- xkala
 
 # BookHub
 
@@ -14,6 +15,7 @@ BookHub is a digital platform for online book sales across various genres. It al
 ## Project Information
 
 **Technologies:**
+
 - C# (.NET 8 / ASP.NET Core Web API)
 - Entity Framework Core (Code First)
 - SQLite (main application database)
@@ -24,7 +26,7 @@ BookHub is a digital platform for online book sales across various genres. It al
 - GitLab CI/CD for merge requests
 
 **Repository:**
-The project is hosted on *GitLab* with **Internal** visibility.  
+The project is hosted on _GitLab_ with **Internal** visibility.  
 All changes are made through separate branches and merged via Merge Requests after approval from another team member.
 
 ---
@@ -32,6 +34,7 @@ All changes are made through separate branches and merged via Merge Requests aft
 ## Features
 
 ### Users
+
 - Registration and login
 - Browsing, filtering, and sorting books
 - Adding books to the cart and wishlist
@@ -40,12 +43,14 @@ All changes are made through separate branches and merged via Merge Requests aft
 - Viewing order history
 
 ### Administrator
+
 - Managing user accounts (including banning users)
 - Adding, editing, and deleting books
 - Changing book prices
 - Managing authors, publishers, and genres
 
 ### System Features
+
 - REST API with CRUD operations for all entities
 - Cache mechanism (refreshes every 10 minutes)
 - Logging middleware (records all incoming requests)
@@ -59,9 +64,11 @@ All changes are made through separate branches and merged via Merge Requests aft
 ## Architecture and Data Model
 
 ### Data Model
+
 ![ERD Diagram](/Docs/Images/erd-bookhub.png)
 
 **Main entities:**
+
 - **User** – contains user data and role (User/Admin)
 - **Book** – book entity with references to author, publisher, and genres
 - **Order / OrderItem** – represents purchase records
@@ -69,14 +76,16 @@ All changes are made through separate branches and merged via Merge Requests aft
 - **Review** – user ratings and comments
 - **Genre / Author / Publisher / Role** – supporting entities
 
-Relationships include *1:N* (e.g., User–Order) and *N:M* (e.g., Book–Genre via Book_Genre table).
+Relationships include _1:N_ (e.g., User–Order) and _N:M_ (e.g., Book–Genre via Book_Genre table).
 
 ---
 
 ### Use Case Diagram
+
 ![Use Case Diagram](/Docs/Images/use-case-bookhub.png)
 
 **Main user actions:**
+
 - Registered users can purchase, rate, and manage their wishlist.
 - Unregistered users can only browse books.
 - Administrators have additional permissions to manage books and accounts.
@@ -91,6 +100,7 @@ The `AuthenticationMiddleware` verifies all incoming requests for a valid Bearer
 Requests without the correct token return a `401 Unauthorized` response.
 
 Token used for testing:
+
 ```bash
 secrettoken123
 ```
@@ -98,10 +108,11 @@ secrettoken123
 ### Response Format Middleware
 
 The `ResponseFormatMiddleware` automatically converts API responses between `JSON` and `XML`.
+
 - Default format: `JSON`
 - XML can be requested using either:
-    - The Accept header (e.g., application/xml), or
-    - The query parameter ?format=xml
+  - The Accept header (e.g., application/xml), or
+  - The query parameter ?format=xml
 
 ### Logging Middleware
 
@@ -120,8 +131,10 @@ This makes it easy to populate all models consistently.
 ## Continuous Integration / Deployment
 
 ### GitLab Pipeline
+
 GitLab CI/CD runs for each Merge Request and ensures only successful pipelines can be merged.
 This project's pipeline:
+
 - Restores packages
 - Builds the solution in Release mode
 - Runs all unit tests
@@ -130,37 +143,51 @@ This project's pipeline:
 ## Running the Project
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://gitlab.fi.muni.cz/xmackov1/pv179_bookhub
 ```
+
 ```bash
 cd pv179_bookhub
 ```
 
 ### 2. Configure the database connection
+
 The project uses a SQLite database.
 By default, the connection string in `appsettings.json` points to a local database stored in your user directory:
+
 ```json
 "ConnectionStrings": {
     "DefaultConnection": "Data Source=%LocalAppData%\\bookhub.db"
 },
 ```
+
 You can modify the path or file name in the connection string if you want to store the database elsewhere.
 
 ### 3. Run the project
 
 #### In Visual Studio
+
 1. Open the `BookHub.sln` solution.
-2. Set `WebAPI` as the startup project.
+2. Set `WebAPI` or `WebMVC` as the startup project.
 3. Select the `https` profile in the toolbar.
 4. Click Start or F5.
 
 The project will build, apply migrations automatically, and open Swagger UI in your browser:
+
 ```bash
 https://localhost:7004/swagger
 ```
 
+Or for the MVC project:
+
+```bash
+https://localhost:7260/
+```
+
 ## From the command line
+
 ```bash
 cd WebAPI
 dotnet restore
@@ -169,21 +196,42 @@ dotnet ef database update
 dotnet run --launch-profile "https"
 ```
 
+Or for the MVC project:
+
+```bash
+cd WebMVC
+dotnet restore
+dotnet build
+dotnet ef database update
+dotnet run --launch-profile "https"
+```
+
 The project will build.
+
 ```bash
 https://localhost:7004/swagger
 ```
 
+Or for the MVC project:
+
+```bash
+https://localhost:7260/
+```
+
 ### 5. Authorization
+
 Secret token for authorization:
+
 ```bash
 supersecrettoken123
 ```
+
 In Swagger, click Authorize, choose Bearer Token, and paste the token there.
 
 ## Testing
+
 Run tests:
+
 ```bash
 dotnet test
 ```
-
