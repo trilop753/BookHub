@@ -9,7 +9,7 @@
 <table class="table table-striped table-bordered">
     <thead class="table-dark">
         <tr>
-			<th>Cover</th>
+            <th>Cover</th>
             <th>Title</th>
             <th>Price</th>
             <th>Genres</th>
@@ -21,16 +21,28 @@
         @foreach (var book in Model)
         {
             <tr>
-				<td>
-				<img src="@book.CoverImageUrl"
-					alt="failed to load image"
-					style="max-width:100px; max-height:150px; object-fit:cover;"/>
-					
-				</td>
-                <td>@book.Title</td>
+                <td>
+                    <img src="@book.CoverImageUrl"
+                         alt="failed to load image"
+                         style="max-width:100px; max-height:150px; object-fit:cover;" />
+                </td>
+
+                <td>
+                    <a asp-controller="Book"
+                       asp-action="Detail"
+                       asp-route-id="@book.Id">
+                        @book.Title
+                    </a>
+                </td>
+
                 <td>@book.Price.ToString("C")</td>
-                <td>@string.Join(", ", book.Genres)</td>
+
+                <td>
+                    @string.Join(", ", book.Genres)
+                </td>
+
                 <td>@book.PublisherName</td>
+
                 <td>@book.AuthorName</td>
             </tr>
         }
