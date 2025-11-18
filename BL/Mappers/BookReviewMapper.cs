@@ -17,6 +17,17 @@ namespace BL.Mappers
             };
         }
 
+        public static BookReviewNoBookDto MapToNoBookDto(this BookReview review)
+        {
+            return new BookReviewNoBookDto
+            {
+                Id = review.Id,
+                Stars = review.Stars,
+                Body = review.Body,
+                User = review.User.MapToSummaryDto(),
+            };
+        }
+
         public static BookReviewSummaryDto MapToSummaryDto(this BookReview review)
         {
             return new BookReviewSummaryDto

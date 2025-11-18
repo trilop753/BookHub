@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Internal Server Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 text-center">
+    <h1 class="display-4 text-danger">500</h1>
+    <h3 class="text-muted">Internal Server Error</h3>
+    <p>Something went wrong on our side.</p>
+
+    <p class="mt-4 fw-semibold">Choose which developer to blame:</p>
+
+    <div class="d-flex justify-content-center gap-3 mt-3">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="blameDev" id="devAlice" value="Alice">
+            <label class="form-check-label btn btn-outline-primary" for="devAlice">
+                Martin
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="blameDev" id="devBob" value="Bob">
+            <label class="form-check-label btn btn-outline-success" for="devBob">
+                Maroš
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="blameDev" id="devCharlie" value="Charlie">
+            <label class="form-check-label btn btn-outline-warning" for="devCharlie">
+                Adam
+            </label>
+        </div>
+    </div>
+
+    <button id="blameBtn" class="btn btn-primary mt-4">Submit Blame</button>
+
+    <div id="blameMessage" class="mt-4 fs-5 text-danger fw-bold"></div>
+
+    <a href="/" class="btn btn-outline-secondary mt-3 d-block">Go Home</a>
+</div>
+
+@section Scripts {
+    <script>
+        const radios = document.querySelectorAll('input[name="blameDev"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                radios.forEach(r => {
+                    const label = document.querySelector(`label[for="${r.id}"]`);
+                    if(r.checked) {
+                        label.classList.add('active');
+                    } else {
+                        label.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        document.getElementById('blameBtn').addEventListener('click', () => {
+            const selected = document.querySelector('input[name="blameDev"]:checked');
+            const messageDiv = document.getElementById('blameMessage');
+
+            if(selected){
+                messageDiv.innerHTML = `Error while submitting blame`;
+            }
+        });
+    </script>
+}
+
+<style>
+    .form-check-label {
+        cursor: pointer;
+        padding: 0.6rem 1.2rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+    }
+
+    .form-check-label.active {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .form-check-input {
+        display: none;
+    }
+</style>

@@ -18,7 +18,7 @@ namespace BL.Mappers
                 Publisher = book.Publisher.MapToSummaryDto(),
                 Author = book.Author.MapToSummaryDto(),
                 Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
-                Reviews = book.Reviews?.Select(r => r.MapToSummaryDto()).ToList() ?? [],
+                Reviews = book.Reviews?.Select(r => r.MapToNoBookDto()).ToList() ?? [],
                 CoverImageUrl = book.CoverImageUrl,
                 EditCount = book.EditCount,
                 LastEditedBy = book.LastEditedBy?.MapToSummaryDto(),
