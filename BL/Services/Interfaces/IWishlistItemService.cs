@@ -5,11 +5,9 @@ namespace BL.Services.Interfaces
 {
     public interface IWishlistItemService
     {
-        public Task<IEnumerable<WishlistItemDto>> GetAllUserWishlistItemsAsync(int userId);
-        public Task<IEnumerable<WishlistItemDto>> GetAllBookWishlistItemsAsync(int bookId);
-        public Task<Result<WishlistItemDto>> CreateWishlistItemAsync(
-            WishlistItemCreateDto wishlistItem
-        );
-        public Task<Result> DeleteWishlistItemAsync(int userId, int bookId);
+        Task<IEnumerable<WishlistItemDto>> GetAllUserWishlistItemsAsync(int userId);
+        Task<IEnumerable<WishlistItemDto>> GetAllBookWishlistItemsAsync(int bookId);
+        Task<Result<WishlistItemDto>> CreateWishlistItemAsync(WishlistItemCreateDto wishlistItem);
+        Task<Result> DeleteWishlistItemAsync(int userId, int bookId);
     }
 }
