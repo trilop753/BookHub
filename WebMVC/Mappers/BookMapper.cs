@@ -41,5 +41,20 @@ namespace WebMVC.Mappers
                     : false,
             };
         }
+
+        public static BookCreateDto MapToCreateDto(this BookCreateViewModel model)
+        {
+            return new BookCreateDto()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ISBN = model.ISBN,
+                Price = model.Price,
+                GenreIds = model.GenreIds,
+                PublisherId = model.PublisherId,
+                AuthorId = model.AuthorId,
+                CoverImageUrl = model.CoverImageUrl,
+            };
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace WebMVC.Models.Book
     {
         [Required]
         [Display(Name = "Book Title")]
-        [MaxLength(25)]
+        [MaxLength(50)]
         public string Title { get; set; } = string.Empty;
 
         [Display(Name = "Description")]
