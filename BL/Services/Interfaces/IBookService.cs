@@ -5,13 +5,11 @@ namespace BL.Services.Interfaces
 {
     public interface IBookService
     {
-        public Task<Result<BookDto>> GetBookByIdAsync(int id);
-        public Task<IEnumerable<BookDto>> GetAllBooksAsync();
-        public Task<Result<BookDto>> CreateBookAsync(BookCreateDto dto);
-        public Task<Result> UpdateBookAsync(int id, BookUpdateDto dto);
-        public Task<Result> DeleteBookAsync(int id);
-        public Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(
-            BookSearchCriteriaDto searchCriteria
-        );
+        Task<Result<BookDto>> GetBookByIdAsync(int id);
+        Task<IEnumerable<BookDto>> GetAllBooksAsync();
+        Task<Result<BookDto>> CreateBookAsync(BookCreateDto dto);
+        Task<Result> UpdateBookAsync(int id, BookUpdateDto dto);
+        Task<Result> DeleteBookAsync(int id);
+        Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(BookSearchCriteriaDto searchCriteria);
     }
 }
