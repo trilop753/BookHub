@@ -16,11 +16,13 @@ namespace WebAPI.Extensions
             IConfiguration config
         )
         {
+            
+            var folder = Environment.SpecialFolder.LocalApplicationData;
             var connectionString =
                 config.GetConnectionString("DefaultConnection")
-                ?? throw new Exception("DbString not found in appsettings.");
-
-            connectionString = Environment.ExpandEnvironmentVariables(connectionString);
+                ?? throw new Exception("Database name not found in appsettings.");
+            var path = Path.Combine(Environment.GetFolderPath(folder), connectionString);
+            connectionString = $"DataSource={path}";
 
             var migrationAssembly = config.GetValue<string>("MigrationProject");
 
