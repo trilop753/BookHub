@@ -11,11 +11,12 @@ public class LoggingMiddleware
     {
         _next = next;
 
+        var folder = Environment.SpecialFolder.LocalApplicationData;
         var connectionString =
             config.GetConnectionString("LogDatabase")
-            ?? throw new Exception("LogDatabase DbString not found in appsettings.");
-
-        _dbPath = Environment.ExpandEnvironmentVariables(connectionString);
+            ?? throw new Exception("LogDatabase name not found in appsettings.");
+        var path = Path.Combine(Environment.GetFolderPath(folder), connectionString);
+        _dbPath = path;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -32,7 +33,11 @@ public class LoggingMiddleware
             DurationMs = sw.Elapsed.TotalMilliseconds,
         };
 
-        using var db = new LiteDatabase(_dbPath);
+        using var db = new LiteDatabase(new ConnectionString
+        {
+            Filename = _dbPath
+        });
+
         var col = db.GetCollection<LogEntry>("logs");
         col.Insert(entry);
     }
