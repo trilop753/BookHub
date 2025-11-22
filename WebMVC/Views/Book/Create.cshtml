@@ -1,0 +1,64 @@
+@model WebMVC.Models.Book.BookCreateViewModel
+<form asp-controller="Book" asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control"/>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <input asp-for="Description" class="form-control"/>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="ISBN" class="form-label"></label>
+        <input asp-for="ISBN" class="form-control"/>
+        <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control"/>
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="AuthorId" class="form-label"></label>
+        <select asp-for="AuthorId" asp-items="Model.Authors" class="form-select">
+            <option value="">-- Select author --</option>
+        </select>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="PublisherId" class="form-label"></label>
+        <select asp-for="PublisherId" asp-items="Model.Publishers" class="form-select">
+            <option value="">-- Select publisher --</option>
+        </select>
+        <span asp-validation-for="PublisherId" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="GenreIds" class="form-label"></label>
+        <select asp-for="GenreIds"
+                asp-items="Model.Genres"
+                multiple
+                class="form-select">
+        </select>
+        <span asp-validation-for="GenreIds" class="text-danger"></span>
+        <div class="form-text">Hold Ctrl to select multiple genres.</div>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="CoverImageUrl" class="form-label"></label>
+        <input asp-for="CoverImageUrl" class="form-control" />
+        <span asp-validation-for="CoverImageUrl" class="text-danger"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+</form>
