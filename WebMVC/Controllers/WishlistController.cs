@@ -22,6 +22,24 @@ namespace WebMVC.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+
+            var res = await _wishlistFacade.GetAllWishlistedByUserIdAsync(identityUser.User.Id);
+            if (res.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+            var wishlistItems = res.Value;
+            return View(wishlistItems);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(int bookId)
         {
