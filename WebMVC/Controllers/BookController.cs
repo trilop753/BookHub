@@ -43,8 +43,14 @@ namespace WebMVC.Controllers
             var identityUser = await _userManager.GetUserAsync(User);
             var currentUser = identityUser?.User;
             var wishlistedBooksIds = currentUser?.Wishlist.Select(i => i.BookId);
+            var booksInCart = currentUser?.Cart.Select(i => i.BookId);
 
-            return View(book.Value.MapToDetailView(wishlistedBooksIds ?? new List<int>()));
+            return View(
+                book.Value.MapToDetailView(
+                    wishlistedBooksIds ?? new List<int>(),
+                    booksInCart ?? new List<int>()
+                )
+            );
         }
 
         // TODO remove comment when roles are added

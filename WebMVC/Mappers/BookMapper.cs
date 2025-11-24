@@ -21,7 +21,8 @@ namespace WebMVC.Mappers
 
         public static BookDetailViewModel MapToDetailView(
             this BookDto book,
-            IEnumerable<int> wishlistedBooksIds
+            IEnumerable<int> wishlistedBooksIds,
+            IEnumerable<int> booksInCart
         )
         {
             return new BookDetailViewModel()
@@ -39,6 +40,7 @@ namespace WebMVC.Mappers
                 IsWishlisted = wishlistedBooksIds.Any()
                     ? wishlistedBooksIds.Contains(book.Id)
                     : false,
+                IsInCart = booksInCart.Any() ? booksInCart.Contains(book.Id) : false,
             };
         }
 

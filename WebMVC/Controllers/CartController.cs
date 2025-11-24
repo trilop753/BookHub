@@ -1,0 +1,63 @@
+using BL.DTOs.CartItemDTOs;
+using BL.Facades.Interfaces;
+using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebMVC.Controllers;
+
+[Authorize]
+public class CartController : Controller
+{
+    private readonly ICartFacade _cartFacade;
+    private readonly UserManager<LocalIdentityUser> _userManager;
+
+    public CartController(ICartFacade cartFacade, UserManager<LocalIdentityUser> userManager)
+    {
+        _cartFacade = cartFacade;
+        _userManager = userManager;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(int bookId)
+    {
+        var identityUser = await _userManager.GetUserAsync(User);
+        if (identityUser == null || identityUser.User == null)
+        {
+            return View("InternalServerError");
+        }
+
+        var createDto = new CartItemCreateDto
+        {
+            BookId = bookId,
+            UserId = identityUser.User.Id,
+            Quantity = 1,
+        };
+        var res = await _cartFacade.AddToCartAsync(createDto);
+        if (res.IsFailed)
+        {
+            return View("InternalServerError");
+        }
+
+        return RedirectToAction("Detail", "Book", new { id = bookId });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Remove(int bookId)
+    {
+        var identityUser = await _userManager.GetUserAsync(User);
+        if (identityUser == null || identityUser.User == null)
+        {
+            return View("InternalServerError");
+        }
+
+        var res = await _cartFacade.RemoveFromCartAsync(identityUser.User.Id, bookId);
+        if (res.IsFailed)
+        {
+            return View("InternalServerError");
+        }
+
+        return RedirectToAction("Detail", "Book", new { id = bookId });
+    }
+}

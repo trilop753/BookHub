@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             [FromBody] CartItemCreateDto cartItem
         )
         {
-            var result = await _cartFacade.CreateCartItemAsync(cartItem);
+            var result = await _cartFacade.AddToCartAsync(cartItem);
 
             if (result.IsFailed)
             {
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _cartFacade.DeleteCartItemAsync(id);
+            var result = await _cartFacade.DeleteCartItemByIdAsync(id);
 
             if (result.IsFailed)
             {

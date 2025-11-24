@@ -7,7 +7,9 @@ namespace BL.Services.Interfaces
     {
         Task<Result<CartItemDto>> CreateCartItemAsync(CartItemCreateDto cartItem);
 
-        Task<Result> DeleteCartItemAsync(int id);
+        Task<Result> DeleteCartItemAsync(int userId, int bookId);
+
+        Task<Result> DeleteCartItemByIdAsync(int id);
 
         Task<Result> DeleteCartItemsAsync(IEnumerable<int> ids);
 

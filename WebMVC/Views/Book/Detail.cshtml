@@ -1,5 +1,4 @@
-﻿@using WebMVC.Models.Book
-@model BookDetailViewModel
+﻿@model WebMVC.Models.Book.BookDetailViewModel
 
 <div class="container mt-5">
 
@@ -57,13 +56,24 @@
                     </form>
                 }
 
-                <a asp-controller="TODO"
-                   asp-action="TODO"
-                   asp-route-id="TODO"
-                   class="btn btn-success btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white"
-                   style="transition: all 0.2s ease-in-out;">
-                    🛒 Add to Cart
-                </a>
+                @if (!Model.IsInCart)
+                {
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
+                        <input type="hidden" name="BookId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white">
+                            🛒 Add to Cart @*there is a shopping cart emoji before Add*@
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="Cart" asp-action="Remove" method="post" class="d-inline">
+                        <input type="hidden" name="BookId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-secondary btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white">
+                            🛒 Remove from Cart @*there is a shopping cart emoji before Remove*@
+                        </button>
+                    </form>
+                }
             </div>
 
             <hr />

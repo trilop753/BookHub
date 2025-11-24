@@ -138,7 +138,7 @@ namespace BL.Tests.Services
             {
                 var cartItemService = scope.ServiceProvider.GetRequiredService<ICartItemService>();
 
-                var result = await cartItemService.DeleteCartItemAsync(idToDelete);
+                var result = await cartItemService.DeleteCartItemByIdAsync(idToDelete);
 
                 Assert.True(result.IsSuccess);
             }
@@ -160,7 +160,7 @@ namespace BL.Tests.Services
             {
                 var cartItemService = scope.ServiceProvider.GetRequiredService<ICartItemService>();
 
-                var result = await cartItemService.DeleteCartItemAsync(idToDelete);
+                var result = await cartItemService.DeleteCartItemByIdAsync(idToDelete);
 
                 Assert.True(result.IsFailed);
             }

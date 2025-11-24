@@ -22,7 +22,7 @@ namespace BL.Facades
             _bookService = bookService;
         }
 
-        public async Task<Result<CartItemDto>> CreateCartItemAsync(CartItemCreateDto cartItem)
+        public async Task<Result<CartItemDto>> AddToCartAsync(CartItemCreateDto cartItem)
         {
             var userRes = await ValidateUserAsync(cartItem.UserId);
             var bookRes = await ValidateBookAsync(cartItem.BookId);
@@ -47,9 +47,34 @@ namespace BL.Facades
             return await _cartItemService.CreateCartItemAsync(cartItem);
         }
 
-        public async Task<Result> DeleteCartItemAsync(int id)
+        public async Task<Result> RemoveFromCartAsync(int userId, int bookId)
         {
-            return await _cartItemService.DeleteCartItemAsync(id);
+            var userRes = await ValidateUserAsync(userId);
+            var bookRes = await ValidateBookAsync(bookId);
+
+            var result = Result.Ok();
+
+            if (userRes.IsFailed)
+            {
+                result.WithErrors(userRes.Errors);
+            }
+
+            if (bookRes.IsFailed)
+            {
+                result.WithErrors(bookRes.Errors);
+            }
+
+            if (result.IsFailed)
+            {
+                return result;
+            }
+
+            return await _cartItemService.DeleteCartItemAsync(userId, bookId);
+        }
+
+        public async Task<Result> DeleteCartItemByIdAsync(int id)
+        {
+            return await _cartItemService.DeleteCartItemByIdAsync(id);
         }
 
         public async Task<Result<IEnumerable<CartItemDto>>> GetCartItemsByUserIdAsync(int userId)
