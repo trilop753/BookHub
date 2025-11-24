@@ -90,6 +90,11 @@ public class CartController : Controller
             return RedirectToAction(nameof(Index));
         }
 
+        if (!ModelState.IsValid) // should not happen
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
         foreach (var item in model.Items)
         {
             if (item.Quantity == 0)
