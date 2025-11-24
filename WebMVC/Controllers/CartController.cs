@@ -1,11 +1,13 @@
 using BL.DTOs.CartItemDTOs;
 using BL.Facades.Interfaces;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Controllers;
 
+[Authorize]
 public class CartController : Controller
 {
     private readonly ICartFacade _cartFacade;
