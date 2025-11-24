@@ -80,27 +80,23 @@ public class CartController : Controller
         return View(res.Value.MapToView());
     }
 
-    [HttpGet]
-    public async Task<IActionResult> RemoveInCart(int cartItemId)
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(CartViewModel model, int? removeId)
     {
-        var res = await _cartFacade.DeleteCartItemByIdAsync(cartItemId);
-        if (res.IsFailed)
+        if (removeId.HasValue)
         {
-            return View("InternalServerError");
+            await _cartFacade.DeleteCartItemByIdAsync(removeId.Value);
+            return RedirectToAction(nameof(Index));
         }
 
-        return RedirectToAction(nameof(Index));
-    }
-
-    public async Task<IActionResult> Update(CartViewModel model)
-    {
-        var identityUser = await _userManager.GetUserAsync(User);
-        if (identityUser == null || identityUser.User == null)
-        {
-            return View("InternalServerError");
-        }
         if (!ModelState.IsValid)
         {
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
             var res = await _cartFacade.GetCartItemsByUserIdAsync(identityUser.User.Id);
             if (res.IsFailed)
             {

@@ -53,13 +53,13 @@
                     @(Model.Items[i].Book.Price * Model.Items[i].Quantity)
                 </td>
                 <td class="text-end">
-                    <a asp-controller="Cart"
-                       asp-action="RemoveInCart"
-                       asp-route-cartItemId="@Model.Items[i].Id"
-                       class="btn btn-sm btn-danger"
-                       title="Remove from cart">
+                    <button type="submit"
+                            name="removeId"
+                            value="@Model.Items[i].Id"
+                            class="btn btn-sm btn-danger"
+                            title="Remove from cart">
                         &times;
-                    </a>
+                    </button>
                 </td>
             </tr>
         }
