@@ -27,5 +27,7 @@ namespace WebMVC.Models.Book
         public string? CoverImageUrl { get; set; }
 
         public bool IsWishlisted { get; set; }
+
+        public bool IsInCart { get; set; }
     }
 }
