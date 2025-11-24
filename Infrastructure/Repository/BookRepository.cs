@@ -26,9 +26,9 @@ namespace Infrastructure.Repository
                 includeReviews
             );
 
-            if (bookIds != null && bookIds.Length > 0)
+            if (bookIds != null)
             {
-                query.Where(b => bookIds.Contains(b.Id));
+                query = query.Where(b => bookIds.Contains(b.Id));
             }
 
             return await query.ToListAsync();

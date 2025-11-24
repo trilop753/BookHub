@@ -1,9 +1,11 @@
 ﻿using BL.DTOs.WishlistItemDTOs;
 using BL.Facades.Interfaces;
+using BL.Services.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Mappers;
 
 namespace WebMVC.Controllers
 {
@@ -11,15 +13,38 @@ namespace WebMVC.Controllers
     public class WishlistController : Controller
     {
         private readonly IWishlistFacade _wishlistFacade;
+        private readonly IBookService _bookService;
         private readonly UserManager<LocalIdentityUser> _userManager;
 
         public WishlistController(
             IWishlistFacade wishlistFacade,
+            IBookService bookService,
             UserManager<LocalIdentityUser> userManager
         )
         {
             _wishlistFacade = wishlistFacade;
+            _bookService = bookService;
             _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+
+            var res = await _wishlistFacade.GetAllWishlistedBooksByUserIdAsync(
+                identityUser.User.Id
+            );
+            if (res.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+            var wishlistedBooks = res.Value.Select(b => b.MapToView());
+            return View(wishlistedBooks);
         }
 
         [HttpPost]
