@@ -1,5 +1,4 @@
-﻿@using WebMVC.Models.Book
-@model BookDetailViewModel
+﻿@model WebMVC.Models.Book.BookDetailViewModel
 
 <div class="container mt-5">
 
@@ -62,7 +61,7 @@
                     <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
                         <input type="hidden" name="BookId" value="@Model.Id" />
                         <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white">
-                            ⭐ Add to Cart
+                            🛒 Add to Cart @*there is a shopping cart emoji before Add*@
                         </button>
                     </form>
                 }
@@ -71,7 +70,7 @@
                     <form asp-controller="Cart" asp-action="Remove" method="post" class="d-inline">
                         <input type="hidden" name="BookId" value="@Model.Id" />
                         <button type="submit" class="btn btn-secondary btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white">
-                            ⭐ Remove from Cart
+                            🛒 Remove from Cart @*there is a shopping cart emoji before Remove*@
                         </button>
                     </form>
                 }
