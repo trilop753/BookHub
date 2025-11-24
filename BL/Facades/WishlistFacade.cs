@@ -1,4 +1,5 @@
-﻿using BL.DTOs.WishlistItemDTOs;
+﻿using BL.DTOs.BookDTOs;
+using BL.DTOs.WishlistItemDTOs;
 using BL.Facades.Interfaces;
 using BL.Services.Interfaces;
 using FluentResults;
@@ -70,6 +71,21 @@ namespace BL.Facades
             return Result.Ok(wishlisted);
         }
 
+        public async Task<Result<IEnumerable<BookDto>>> GetAllWishlistedBooksByUserIdAsync(
+            int userId
+        )
+        {
+            var userRes = await _userService.GetUserByIdAsync(userId);
+
+            if (userRes.IsFailed)
+            {
+                return Result.Fail(userRes.Errors);
+            }
+            var wishlistedItems = await _wishlistItemService.GetAllUserWishlistItemsAsync(userId);
+            var wishlistedBooksIds = wishlistedItems.Select(w => w.Book.Id).ToArray();
+            return await _bookService.GetBooksByIdsAsync(wishlistedBooksIds);
+        }
+
         private async Task<Result<WishlistItemDto>> CheckUserAndBookExistAsync(
             int userId,
             int bookId
@@ -95,6 +111,17 @@ namespace BL.Facades
                 return Result.Fail(result.Errors);
             }
             return result;
+        }
+
+        private async Task<Result> ValidateUserAsync(int userId)
+        {
+            var userRes = await _userService.GetUserByIdAsync(userId);
+
+            if (userRes.IsFailed)
+            {
+                return Result.Fail(userRes.Errors);
+            }
+            return Result.Ok();
         }
     }
 }
