@@ -41,7 +41,6 @@ public class BookService : IBookService
 
     public async Task<Result<IEnumerable<BookDto>>> GetBooksByIdsAsync(int[] ids)
     {
-        //TODO check if empty ids
         var books = await _bookRepository.GetBooksAsync(bookIds: ids);
         return Result.Ok(books.Select(b => b.MapToDto()));
     }
