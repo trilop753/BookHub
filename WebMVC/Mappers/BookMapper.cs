@@ -19,6 +19,20 @@ namespace WebMVC.Mappers
             };
         }
 
+        public static BookViewModel MapToView(this BookSummaryDto book)
+        {
+            return new BookViewModel()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                AuthorName = book.AuthorName,
+                PublisherName = book.PublisherName,
+                Genres = book.Genres,
+                Price = book.Price,
+                CoverImageUrl = book.CoverImageUrl,
+            };
+        }
+
         public static BookDetailViewModel MapToDetailView(
             this BookDto book,
             IEnumerable<int> wishlistedBooksIds,
