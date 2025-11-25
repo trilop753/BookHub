@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using WebMVC.Models.Book;
 
 namespace WebMVC.Models.Cart;
@@ -8,5 +9,6 @@ public class CartItemViewModel
 
     public int Quantity { get; set; }
 
+    [ValidateNever]
     public BookViewModel Book { get; set; }
 }
