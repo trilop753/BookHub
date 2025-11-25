@@ -36,15 +36,12 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
 
-            var res = await _wishlistFacade.GetAllWishlistedBooksByUserIdAsync(
-                identityUser.User.Id
-            );
+            var res = await _wishlistFacade.GetAllWishlistedByUserIdAsync(identityUser.User.Id);
             if (res.IsFailed)
             {
                 return View("InternalServerError");
             }
-            var wishlistedBooks = res.Value.Select(b => b.MapToView());
-            return View(wishlistedBooks);
+            return View(res.Value.MapToView());
         }
 
         [HttpPost]
@@ -71,7 +68,7 @@ namespace WebMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(int bookId)
+        public async Task<IActionResult> Remove(int bookId, string? returnUrl)
         {
             var identityUser = await _userManager.GetUserAsync(User);
             if (identityUser == null || identityUser.User == null)
@@ -86,6 +83,11 @@ namespace WebMVC.Controllers
             if (res.IsFailed)
             {
                 return View("InternalServerError");
+            }
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
             }
 
             return RedirectToAction("Detail", "Book", new { id = bookId });
