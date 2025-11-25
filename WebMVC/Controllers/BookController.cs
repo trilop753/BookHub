@@ -54,17 +54,13 @@ namespace WebMVC.Controllers
             );
         }
 
-        // TODO remove comment when roles are added
-        // [Authorize(Roles = "Admin")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             return View(await FillDropdownsAsync(new BookCreateViewModel()));
         }
 
-        // TODO remove comment when roles are added
-        // [Authorize(Roles = "Admin")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateViewModel model)
         {
