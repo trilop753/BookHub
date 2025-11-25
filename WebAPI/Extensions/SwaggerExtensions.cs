@@ -51,10 +51,14 @@ namespace WebAPI.Extensions
             {
                 app.UseStaticFiles();
                 app.UseSwagger();
+                var jsPath = "/swagger-ui/show-token.js";
+                var filePath = Path.Combine(env.WebRootPath, "swagger-ui", "show-token.js");
+                var version = System.IO.File.GetLastWriteTime(filePath).Ticks;
+
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
-                    c.InjectJavascript("/swagger-ui/show-token.js");
+                    c.InjectJavascript($"{jsPath}?v={version}");
                 });
             }
 

@@ -2,6 +2,7 @@
 using BL.DTOs.BookReviewDTOs;
 using BL.DTOs.GenreDTOs;
 using BL.DTOs.PublisherDTOs;
+using BL.DTOs.UserDTOs;
 
 namespace BL.DTOs.BookDTOs
 {
@@ -23,6 +24,12 @@ namespace BL.DTOs.BookDTOs
 
         public IEnumerable<GenreSummaryDto> Genres { get; set; }
 
-        public IEnumerable<BookReviewSummaryDto> Reviews { get; set; }
+        public IEnumerable<BookReviewNoBookDto> Reviews { get; set; }
+
+        public string CoverImageUrl { get; set; }
+
+        public int EditCount { get; set; }
+
+        public UserSummaryDto LastEditedBy { get; set; }
     }
 }

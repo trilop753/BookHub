@@ -1,6 +1,6 @@
 ﻿using BL.DTOs.BookDTOs;
 
-namespace BL.DTOs
+namespace BL.DTOs.PublisherDTOs
 {
     public class PublisherDto
     {

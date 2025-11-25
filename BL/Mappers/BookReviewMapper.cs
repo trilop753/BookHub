@@ -17,6 +17,17 @@ namespace BL.Mappers
             };
         }
 
+        public static BookReviewNoBookDto MapToNoBookDto(this BookReview review)
+        {
+            return new BookReviewNoBookDto
+            {
+                Id = review.Id,
+                Stars = review.Stars,
+                Body = review.Body,
+                User = review.User.MapToSummaryDto(),
+            };
+        }
+
         public static BookReviewSummaryDto MapToSummaryDto(this BookReview review)
         {
             return new BookReviewSummaryDto
@@ -24,6 +35,17 @@ namespace BL.Mappers
                 Id = review.Id,
                 Stars = review.Stars,
                 Body = review.Body,
+            };
+        }
+
+        public static BookReview MapToModel(this BookReviewCreateDto bookReview)
+        {
+            return new BookReview()
+            {
+                Body = bookReview.Body,
+                Stars = bookReview.Stars,
+                BookId = bookReview.BookId,
+                UserId = bookReview.UserId,
             };
         }
     }

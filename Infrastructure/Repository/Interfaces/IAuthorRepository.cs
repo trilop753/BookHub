@@ -2,5 +2,9 @@
 
 namespace Infrastructure.Repository.Interfaces
 {
-    public interface IAuthorRepository : IGenericRepository<Author> { }
+    public interface IAuthorRepository : IGenericRepository<Author>
+    {
+        Task<Author?> GetByFullNameAsync(string name, string surname);
+        Task<IEnumerable<Author>> GetAllWithBooksAsync();
+    }
 }

@@ -13,8 +13,8 @@ namespace Infrastructure.Repository.Interfaces
             bool includeReviews = true
         );
 
-        public Task<IEnumerable<Book>> GetFiltered(BookSearchCriteria searchCriteria);
+        public Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria);
 
-        public Task<Book?> GetBookByIdWithGenresIncluded(int bookId);
+        public Task<Book?> GetBookByIdWithGenresIncludedAsync(int bookId);
     }
 }

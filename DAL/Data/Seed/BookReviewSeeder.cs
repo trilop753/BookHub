@@ -1,3 +1,4 @@
+using Bogus;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,39 +9,19 @@ namespace DAL.Data.Seed
         public static void Seed(this ModelBuilder modelBuilder)
         {
             var reviews = PrepareBookReviewModels();
-
             modelBuilder.Entity<BookReview>().HasData(reviews);
         }
 
         private static List<BookReview> PrepareBookReviewModels()
         {
-            return new List<BookReview>
-            {
-                new BookReview
-                {
-                    Id = 1,
-                    Stars = 5,
-                    Body = "Absolutely loved it! A masterpiece of fantasy.",
-                    UserId = 1,
-                    BookId = 1,
-                },
-                new BookReview
-                {
-                    Id = 2,
-                    Stars = 4,
-                    Body = "Creepy, atmospheric, and unique.",
-                    UserId = 2,
-                    BookId = 2,
-                },
-                new BookReview
-                {
-                    Id = 3,
-                    Stars = 5,
-                    Body = "Classic romance with wit and heart.",
-                    UserId = 3,
-                    BookId = 3,
-                },
-            };
+            var faker = new Faker<BookReview>("en")
+                .RuleFor(r => r.Id, f => f.IndexFaker + 1)
+                .RuleFor(r => r.Stars, f => f.Random.Int(1, 5))
+                .RuleFor(r => r.Body, f => f.Lorem.Sentence(8, 2))
+                .RuleFor(r => r.UserId, f => f.Random.Int(1, 8))
+                .RuleFor(r => r.BookId, f => f.Random.Int(1, 4));
+
+            return faker.Generate(6);
         }
     }
 }

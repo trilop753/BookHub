@@ -34,7 +34,7 @@ namespace Infrastructure.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<Book>> GetFiltered(BookSearchCriteria searchCriteria)
+        public async Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria)
         {
             IQueryable<Book> query = _dbSet;
 
@@ -82,7 +82,7 @@ namespace Infrastructure.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<Book?> GetBookByIdWithGenresIncluded(int bookId)
+        public async Task<Book?> GetBookByIdWithGenresIncludedAsync(int bookId)
         {
             IQueryable<Book> query = _dbSet
                 .Where(book => book.Id == bookId)

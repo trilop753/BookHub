@@ -1,32 +1,39 @@
 using System.Diagnostics;
+using DAL.Models;
+using LiteDB;
 
-namespace WebAPI.Middlewares
+public class LoggingMiddleware
 {
-    public class LoggingMiddleware
+    private readonly RequestDelegate _next;
+    private readonly string _dbPath;
+
+    public LoggingMiddleware(RequestDelegate next, IConfiguration config)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<LoggingMiddleware> _logger;
+        _next = next;
 
-        public LoggingMiddleware(RequestDelegate next, ILogger<LoggingMiddleware> logger)
+        var connectionString =
+            config.GetConnectionString("LogDatabase")
+            ?? throw new Exception("LogDatabase DbString not found in appsettings.");
+
+        _dbPath = Environment.ExpandEnvironmentVariables(connectionString);
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        var sw = Stopwatch.StartNew();
+        await _next(context);
+        sw.Stop();
+
+        var entry = new LogEntry
         {
-            _next = next;
-            _logger = logger;
-        }
+            Method = context.Request.Method,
+            Path = context.Request.Path,
+            StatusCode = context.Response.StatusCode,
+            DurationMs = sw.Elapsed.TotalMilliseconds,
+        };
 
-        public async Task InvokeAsync(HttpContext context)
-        {
-            _logger.LogInformation(
-                $"Incoming request: {context.Request.Method} {context.Request.Path}"
-            );
-
-            var stopwatch = Stopwatch.StartNew();
-
-            await _next(context);
-
-            stopwatch.Stop();
-            _logger.LogInformation(
-                $"Request handled: {context.Request.Method} {context.Request.Path} in {stopwatch.ElapsedMilliseconds} ms"
-            );
-        }
+        using var db = new LiteDatabase(_dbPath);
+        var col = db.GetCollection<LogEntry>("logs");
+        col.Insert(entry);
     }
 }

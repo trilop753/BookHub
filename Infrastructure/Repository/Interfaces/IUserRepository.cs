@@ -2,5 +2,8 @@
 
 namespace Infrastructure.Repository.Interfaces
 {
-    public interface IUserRepository : IGenericRepository<User> { }
+    public interface IUserRepository : IGenericRepository<User>
+    {
+        Task<User?> GetUserWithCartAsync(int id);
+    }
 }
