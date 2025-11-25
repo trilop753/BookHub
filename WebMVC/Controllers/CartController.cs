@@ -4,6 +4,8 @@ using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Mappers;
+using WebMVC.Models.Cart;
 
 namespace WebMVC.Controllers;
 
@@ -59,5 +61,52 @@ public class CartController : Controller
         }
 
         return RedirectToAction("Detail", "Book", new { id = bookId });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        var identityUser = await _userManager.GetUserAsync(User);
+        if (identityUser == null || identityUser.User == null)
+        {
+            return View("InternalServerError");
+        }
+
+        var res = await _cartFacade.GetCartItemsByUserIdAsync(identityUser.User.Id);
+        if (res.IsFailed)
+        {
+            return View("InternalServerError");
+        }
+        return View(res.Value.MapToView());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Update(CartViewModel model, int? removeId)
+    {
+        if (removeId.HasValue)
+        {
+            await _cartFacade.DeleteCartItemByIdAsync(removeId.Value);
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (!ModelState.IsValid) // should not happen
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        foreach (var item in model.Items)
+        {
+            if (item.Quantity == 0)
+            {
+                await _cartFacade.DeleteCartItemByIdAsync(item.Id);
+            }
+            else
+            {
+                await _cartFacade.UpdateItemQuantityAsync(item.Id, item.Quantity);
+            }
+        }
+
+        return RedirectToAction(nameof(Index));
     }
 }

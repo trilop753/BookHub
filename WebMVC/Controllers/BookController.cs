@@ -1,5 +1,6 @@
 ﻿using BL.Services.Interfaces;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -55,6 +56,7 @@ namespace WebMVC.Controllers
 
         // TODO remove comment when roles are added
         // [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             return View(await FillDropdownsAsync(new BookCreateViewModel()));
@@ -62,6 +64,7 @@ namespace WebMVC.Controllers
 
         // TODO remove comment when roles are added
         // [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateViewModel model)
         {
