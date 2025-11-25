@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using WebMVC.Extensions;
 
 namespace WebMVC
@@ -21,6 +22,16 @@ namespace WebMVC
             var app = builder.Build();
 
             app.ApplyMigrations();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                if (!roleManager.RoleExistsAsync("Admin").Result)
+                {
+                    roleManager.CreateAsync(new IdentityRole("Admin"));
+                }
+            }
 
             if (!app.Environment.IsDevelopment())
             {
