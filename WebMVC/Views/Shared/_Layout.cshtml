@@ -51,7 +51,7 @@
                         
                         @if (!User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
+                            <li class="nav-item border-start ps-3 ms-3">
                                 <form asp-controller="Admin" asp-action="AddAdminRole" method="post">
                                     @Html.AntiForgeryToken()
                                     <button class="nav-link btn btn-link text-dark" type="submit">
@@ -62,7 +62,7 @@
                         }
                         else
                         {
-                            <li class="nav-item">
+                            <li class="nav-item border-start ps-3 ms-3">
                                 <form asp-controller="Admin" asp-action="RemoveAdminRole" method="post">
                                     @Html.AntiForgeryToken()
                                     <button class="nav-link btn btn-link text-dark" type="submit">
