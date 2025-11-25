@@ -36,15 +36,12 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
 
-            var res = await _wishlistFacade.GetAllWishlistedBooksByUserIdAsync(
-                identityUser.User.Id
-            );
+            var res = await _wishlistFacade.GetAllWishlistedByUserIdAsync(identityUser.User.Id);
             if (res.IsFailed)
             {
                 return View("InternalServerError");
             }
-            var wishlistedBooks = res.Value.Select(b => b.MapToView());
-            return View(wishlistedBooks);
+            return View(res.Value.MapToView());
         }
 
         [HttpPost]
