@@ -1,7 +1,7 @@
 using BL.Services.Interfaces;
-using DAL;
 using FluentResults;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace BL.Services;
 
@@ -13,8 +13,15 @@ public class CoverImageService : ICoverImageService
         ".jpeg",
         ".png",
     };
+    private readonly string _coverImageStoragePath;
 
-    public CoverImageService() { }
+    public CoverImageService(IConfiguration configuration)
+    {
+        var appdata = Environment.SpecialFolder.LocalApplicationData;
+        var config = configuration["CoverImageStorage"];
+        _coverImageStoragePath = Path.Combine(Environment.GetFolderPath(appdata), config);
+        Directory.CreateDirectory(_coverImageStoragePath);
+    }
 
     public async Task<Result<string>> AddCoverImageAsync(IFormFile? file)
     {
@@ -31,25 +38,19 @@ public class CoverImageService : ICoverImageService
             );
         }
 
-        var res = GetCoverImageStoragePath();
-        if (res.IsFailed)
-        {
-            return Result.Fail(res.Errors);
-        }
-
-        var storagePath = res.Value;
         var fileName = $"{Guid.NewGuid()}{extension}";
-        var fullPath = Path.Combine(storagePath, fileName);
+        var fullPath = Path.Combine(_coverImageStoragePath, fileName);
 
         await using (var stream = new FileStream(fullPath, FileMode.Create))
         {
             await file.CopyToAsync(stream);
         }
-        return Result.Ok(fullPath);
+        return Result.Ok(fileName);
     }
 
-    public void DeleteCoverImage(string path)
+    public void DeleteCoverImage(string name)
     {
+        var path = Path.Combine(_coverImageStoragePath, name);
         if (string.IsNullOrWhiteSpace(path))
         {
             return;
@@ -61,8 +62,9 @@ public class CoverImageService : ICoverImageService
         }
     }
 
-    public async Task<Result<byte[]>> GetCoverImageAsync(string path)
+    public async Task<Result<byte[]>> GetCoverImageAsync(string name)
     {
+        var path = Path.Combine(_coverImageStoragePath, name);
         if (string.IsNullOrWhiteSpace(path))
         {
             return Result.Fail("Cover image path is null or empty.");
@@ -75,20 +77,5 @@ public class CoverImageService : ICoverImageService
 
         var bytes = await File.ReadAllBytesAsync(path);
         return Result.Ok(bytes);
-    }
-
-    private Result<string> GetCoverImageStoragePath()
-    {
-        var dalAssembly = typeof(AssemblyMarker).Assembly;
-        var dalDir = Path.GetDirectoryName(dalAssembly.Location);
-        if (string.IsNullOrEmpty(dalDir))
-        {
-            return Result.Fail(
-                "Cover image storage path could not be created or found. Something went wrong."
-            );
-        }
-        var coverImageStoragePath = Path.Combine(dalDir, "CoverImageStorage");
-        Directory.CreateDirectory(coverImageStoragePath);
-        return Result.Ok(coverImageStoragePath);
     }
 }

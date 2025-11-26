@@ -33,6 +33,7 @@ public class CoverImageController : ControllerBase
         return NoContent();
     }
 
+    // Don't use ResponseFormatMiddleWare if you want to show images
     [HttpGet("{path}")]
     [Produces("image/jpeg", "image/png")]
     public async Task<IActionResult> GetCoverImage(string path)
@@ -44,32 +45,8 @@ public class CoverImageController : ControllerBase
         }
 
         var bytes = res.Value;
-        var contentType = GetContentTypeFromExtension(Path.GetExtension(path));
+        var contentType = path.Split('.').Last();
+        contentType = $"image/{contentType}";
         return File(bytes, contentType);
-    }
-
-    private static string GetContentTypeFromExtension(string extension)
-    {
-        if (string.IsNullOrWhiteSpace(extension))
-        {
-            return "application/octet-stream";
-        }
-
-        switch (extension.ToLowerInvariant())
-        {
-            case ".jpg":
-            case ".jpeg":
-            {
-                return "image/jpeg";
-            }
-            case ".png":
-            {
-                return "image/png";
-            }
-            default:
-            {
-                return "application/octet-stream";
-            }
-        }
     }
 }
