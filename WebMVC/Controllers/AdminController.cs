@@ -2,6 +2,7 @@ using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Constants;
 
 namespace WebMVC.Controllers;
 
@@ -30,11 +31,9 @@ public class AdminController : Controller
             return View("InternalServerError");
         }
 
-        const string adminRoleName = "Admin";
-
-        if (!await _userManager.IsInRoleAsync(identityUser, adminRoleName))
+        if (!await _userManager.IsInRoleAsync(identityUser, Roles.Admin))
         {
-            var result = await _userManager.AddToRoleAsync(identityUser, adminRoleName);
+            var result = await _userManager.AddToRoleAsync(identityUser, Roles.Admin);
 
             if (!result.Succeeded)
             {
@@ -56,11 +55,9 @@ public class AdminController : Controller
             return View("InternalServerError");
         }
 
-        const string adminRoleName = "Admin";
-
-        if (await _userManager.IsInRoleAsync(identityUser, adminRoleName))
+        if (await _userManager.IsInRoleAsync(identityUser, Roles.Admin))
         {
-            var result = await _userManager.RemoveFromRoleAsync(identityUser, adminRoleName);
+            var result = await _userManager.RemoveFromRoleAsync(identityUser, Roles.Admin);
 
             if (!result.Succeeded)
             {

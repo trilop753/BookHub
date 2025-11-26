@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebMVC.Constants;
 using WebMVC.Mappers;
 using WebMVC.Models.Book;
 
@@ -54,13 +55,13 @@ namespace WebMVC.Controllers
             );
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Create()
         {
             return View(await FillDropdownsAsync(new BookCreateViewModel()));
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateViewModel model)
         {

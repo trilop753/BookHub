@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using WebMVC.Constants;
 using WebMVC.Extensions;
 
 namespace WebMVC
@@ -27,9 +28,9 @@ namespace WebMVC
             {
                 var services = scope.ServiceProvider;
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                if (!roleManager.RoleExistsAsync("Admin").Result)
+                if (!roleManager.RoleExistsAsync(Roles.Admin).Result)
                 {
-                    roleManager.CreateAsync(new IdentityRole("Admin"));
+                    roleManager.CreateAsync(new IdentityRole(Roles.Admin));
                 }
             }
 
