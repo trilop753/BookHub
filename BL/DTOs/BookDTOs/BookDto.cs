@@ -26,7 +26,7 @@ namespace BL.DTOs.BookDTOs
 
         public IEnumerable<BookReviewNoBookDto> Reviews { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public string CoverImageName { get; set; }
 
         public int EditCount { get; set; }
 

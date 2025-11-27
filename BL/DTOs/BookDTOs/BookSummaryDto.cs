@@ -20,6 +20,6 @@
 
         public double? AverageRating { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public string CoverImageName { get; set; }
     }
 }
