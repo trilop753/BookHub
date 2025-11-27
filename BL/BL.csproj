@@ -6,6 +6,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="4.0.0" />
+    <PackageReference
+      Include="Microsoft.AspNetCore.Http.Features"
+      Version="6.0.0-preview.4.21253.5"
+    />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />

@@ -16,7 +16,6 @@ namespace WebAPI.Extensions
             IConfiguration config
         )
         {
-            
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var connectionString =
                 config.GetConnectionString("DefaultConnection")
@@ -61,6 +60,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IBookReviewService, BookReviewService>();
             services.AddScoped<ICartItemService, CartItemService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICoverImageService, CoverImageService>();
             return services;
         }
 

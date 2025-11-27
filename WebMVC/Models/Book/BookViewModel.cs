@@ -14,6 +14,6 @@
 
         public string AuthorName { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public string CoverImageName { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace WebMVC.Models.Book
 
         public virtual IEnumerable<BookReviewViewModel> Reviews { get; set; }
 
-        public string? CoverImageUrl { get; set; }
+        public string? CoverImageName { get; set; }
 
         public bool IsWishlisted { get; set; }
 

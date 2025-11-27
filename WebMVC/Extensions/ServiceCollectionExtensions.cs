@@ -1,4 +1,5 @@
-﻿using BL.Facades;
+﻿using System.Diagnostics;
+using BL.Facades;
 using BL.Facades.Interfaces;
 using BL.Services;
 using BL.Services.Interfaces;
@@ -30,7 +31,7 @@ namespace WebMVC.Extensions
             services.AddDbContext<BookHubDbContext>(options =>
                 options
                     .UseSqlite(connectionString, x => x.MigrationsAssembly(migrationAssembly))
-                    .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
+                    .LogTo(s => Debug.WriteLine(s))
                     .UseLazyLoadingProxies()
             );
 
@@ -62,6 +63,7 @@ namespace WebMVC.Extensions
             services.AddScoped<IBookReviewService, BookReviewService>();
             services.AddScoped<ICartItemService, CartItemService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICoverImageService, CoverImageService>();
             return services;
         }
 
