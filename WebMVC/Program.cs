@@ -41,8 +41,8 @@ namespace WebMVC
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
+            app.ApplyStaticFilesManagement();
             app.UseRouting();
 
             app.UseAuthorization();
