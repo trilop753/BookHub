@@ -36,9 +36,8 @@ namespace WebMVC.Models.Book
         [Required]
         public List<int> GenreIds { get; set; } = new();
 
-        [Display(Name = "Cover image url")]
+        [Display(Name = "Cover image name")]
         [Required]
-        [Url]
         public string CoverImageName { get; set; } = string.Empty;
 
         public IEnumerable<SelectListItem> Authors { get; set; } =
