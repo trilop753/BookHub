@@ -16,7 +16,7 @@
 
         public IEnumerable<int> GenreIds { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public string CoverImageName { get; set; }
 
         public int LastEditedById { get; set; }
     }
