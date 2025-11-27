@@ -16,6 +16,7 @@ namespace WebMVC.Controllers
         private readonly IAuthorService _authorService;
         private readonly IPublisherService _publisherService;
         private readonly IGenreService _genreService;
+        private readonly ICoverImageService _coverImageService;
         private readonly UserManager<LocalIdentityUser> _userManager;
 
         public BookController(
@@ -23,6 +24,7 @@ namespace WebMVC.Controllers
             IAuthorService authorService,
             IPublisherService publisherService,
             IGenreService genreService,
+            ICoverImageService coverImageService,
             UserManager<LocalIdentityUser> userManager
         )
         {
@@ -30,6 +32,7 @@ namespace WebMVC.Controllers
             _authorService = authorService;
             _publisherService = publisherService;
             _genreService = genreService;
+            _coverImageService = coverImageService;
             _userManager = userManager;
         }
 
@@ -70,6 +73,17 @@ namespace WebMVC.Controllers
                 return View(await FillDropdownsAsync(model));
             }
 
+            var imgRes = await _coverImageService.AddCoverImageAsync(model.CoverImageFile);
+            if (imgRes.IsFailed)
+            {
+                foreach (var error in imgRes.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Message);
+                }
+                return View(await FillDropdownsAsync(model));
+            }
+
+            model.CoverImageName = imgRes.Value;
             var createDto = model.MapToCreateDto();
             var res = await _bookService.CreateBookAsync(createDto);
             if (res.IsFailed)

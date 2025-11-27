@@ -31,9 +31,8 @@ else
             {
                 <tr>
                     <td>
-                        <img src="@Model.Items[i].Book.CoverImageUrl"
-                             alt="failed to load image"
-                             style="max-width:100px; max-height:150px; object-fit:cover;" />
+                        <img src="~/cover-images/@Model.Items[i].Book.CoverImageName"
+                             alt="failed to load cover image"/>
                     </td>
                     <td>
                         <a asp-controller="Book"

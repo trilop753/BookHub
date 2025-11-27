@@ -36,10 +36,11 @@ namespace WebMVC.Models.Book
         [Required]
         public List<int> GenreIds { get; set; } = new();
 
-        [Display(Name = "Cover image url")]
+        [Display(Name = "Upload cover image")]
         [Required]
-        [Url]
-        public string CoverImageUrl { get; set; } = string.Empty;
+        public IFormFile? CoverImageFile { get; set; }
+
+        public string CoverImageName { get; set; } = "";
 
         public IEnumerable<SelectListItem> Authors { get; set; } =
             Enumerable.Empty<SelectListItem>();
