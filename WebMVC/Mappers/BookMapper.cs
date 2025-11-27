@@ -15,7 +15,7 @@ namespace WebMVC.Mappers
                 PublisherName = book.Publisher.Name,
                 Genres = book.Genres.Select(g => g.Name),
                 Price = book.Price,
-                CoverImageUrl = book.CoverImageName,
+                CoverImageName = book.CoverImageName,
             };
         }
 
@@ -29,7 +29,7 @@ namespace WebMVC.Mappers
                 PublisherName = book.PublisherName,
                 Genres = book.Genres,
                 Price = book.Price,
-                CoverImageUrl = book.CoverImageName,
+                CoverImageName = book.CoverImageName,
             };
         }
 
@@ -50,7 +50,7 @@ namespace WebMVC.Mappers
                 Publisher = book.Publisher.MapToView(),
                 Author = book.Author.MapToView(),
                 Reviews = book.Reviews.Select(r => r.MapToView()),
-                CoverImageUrl = book.CoverImageName,
+                CoverImageName = book.CoverImageName,
                 IsWishlisted = wishlistedBooksIds.Any()
                     ? wishlistedBooksIds.Contains(book.Id)
                     : false,
@@ -69,7 +69,7 @@ namespace WebMVC.Mappers
                 GenreIds = model.GenreIds,
                 PublisherId = model.PublisherId,
                 AuthorId = model.AuthorId,
-                CoverImageName = model.CoverImageUrl,
+                CoverImageName = model.CoverImageName,
             };
         }
     }

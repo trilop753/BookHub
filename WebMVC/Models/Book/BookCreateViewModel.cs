@@ -39,7 +39,7 @@ namespace WebMVC.Models.Book
         [Display(Name = "Cover image url")]
         [Required]
         [Url]
-        public string CoverImageUrl { get; set; } = string.Empty;
+        public string CoverImageName { get; set; } = string.Empty;
 
         public IEnumerable<SelectListItem> Authors { get; set; } =
             Enumerable.Empty<SelectListItem>();
