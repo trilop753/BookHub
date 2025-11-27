@@ -6,14 +6,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="4.0.0" />
+    <PackageReference
+      Include="Microsoft.AspNetCore.Http.Features"
+      Version="6.0.0-preview.4.21253.5"
+    />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Http.Features">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.app.ref\8.0.22\ref\net8.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
