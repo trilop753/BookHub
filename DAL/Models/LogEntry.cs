@@ -8,5 +8,7 @@
         public int StatusCode { get; set; }
         public double DurationMs { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+        
+        public string Source { get; set; }
     }
 }
