@@ -4,9 +4,9 @@ public static class CacheKeys
 {
     #region Book
 
-    public static string BookDetail(int id)
+    public static string BookDetail(int bookId)
     {
-        return $"Book:Detail:{id}";
+        return $"Book:Detail:{bookId}";
     }
 
     public static string BookAll()
@@ -16,9 +16,33 @@ public static class CacheKeys
 
     #endregion
 
-
-    public static string OrderDetail(int id)
+    public static string GenreAll()
     {
-        return $"Order:Detail:{id}";
+        return "Genre:All";
+    }
+
+    public static string AuthorAll()
+    {
+        return "Author:All";
+    }
+
+    public static string PublisherAll()
+    {
+        return "Publisher:All";
+    }
+
+    public static string OrderDetail(int orderId)
+    {
+        return $"Order:Detail:{orderId}";
+    }
+
+    public static string UserWishlistAll(int userId)
+    {
+        return $"Wishlist:All:{userId}";
+    }
+
+    public static string UserCartAll(int userId)
+    {
+        return $"Cart:All:{userId}";
     }
 }
