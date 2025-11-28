@@ -15,7 +15,7 @@ namespace WebMVC
             builder.Services.AddRepositories();
             builder.Services.AddBusinessServices();
             builder.Services.AddFacades();
-            builder.Services.AddSingleton<IMemoryCache>();
+            builder.Services.AddMemoryCache();
             builder.Services.AddCorsPolicy();
 
             builder.Services.AddLocalIdentityProvider();
