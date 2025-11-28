@@ -3,6 +3,7 @@ using BL.DTOs.UserDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
 using DAL.Models;
+using DAL.UtilityModels;
 using FluentResults;
 using Infrastructure.Repository.Interfaces;
 
@@ -60,10 +61,38 @@ namespace BL.Services
             return Result.Ok(orders.Select(o => o.MapToOrderDto()));
         }
 
+        public async Task<Result<OrderDto>> GetByIdAsync(int id)
+        {
+            var order = await _orderRepository.GetByIdAsync(id);
+            if (order == null)
+            {
+                return Result.Fail($"Order with id {id} does not exist.");
+            }
+
+            return Result.Ok(order.MapToOrderDto());
+        }
+
         public async Task<Result<IEnumerable<OrderDto>>> GetOrdersByUserIdAsync(int userId)
         {
             var orders = await _orderRepository.GetOrdersByUserIdAsync(userId);
             return Result.Ok(orders.Select(o => o.MapToOrderDto()));
+        }
+
+        public async Task<Result<OrderDto>> UpdateOrderPaymentStatusAsync(
+            int id,
+            PaymentStatus status
+        )
+        {
+            var order = await _orderRepository.GetByIdAsync(id);
+            if (order == null)
+            {
+                return Result.Fail($"Order with id {id} does not exist.");
+            }
+
+            order.PaymentStatus = status;
+            await _orderRepository.SaveChangesAsync();
+
+            return Result.Ok(order.MapToOrderDto());
         }
     }
 }

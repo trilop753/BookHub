@@ -1,5 +1,6 @@
 ﻿using BL.DTOs.OrderDTOs;
 using BL.Facades.Interfaces;
+using DAL.UtilityModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -55,6 +56,21 @@ namespace WebAPI.Controllers
             }
 
             return Ok(orderRes.Value);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<OrderDto>> UpdateOrderPaymentStatus(
+            int id,
+            PaymentStatus paymentStatus
+        )
+        {
+            var res = await _orderFacade.UpdateOrderPaymentStatusAsync(id, paymentStatus);
+            if (res.IsFailed)
+            {
+                return NotFound(res.Errors.Select(e => e.Message));
+            }
+
+            return Ok(res.Value);
         }
 
         [HttpDelete("delete/{id}")]

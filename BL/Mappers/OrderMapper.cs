@@ -13,6 +13,7 @@ namespace BL.Mappers
                 Date = order.Date,
                 User = order.User.MapToSummaryDto(),
                 Items = order.Items.Select(i => i.MapToOrderItemDto()) ?? [],
+                PaymentStatus = order.PaymentStatus,
             };
         }
 

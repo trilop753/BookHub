@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using DAL.UtilityModels;
 
 namespace DAL.Models
 {
@@ -12,5 +13,7 @@ namespace DAL.Models
         public virtual User User { get; set; }
 
         public virtual IEnumerable<OrderItem> Items { get; set; }
+
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.InProgress;
     }
 }
