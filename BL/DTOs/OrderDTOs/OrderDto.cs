@@ -1,4 +1,5 @@
 ﻿using BL.DTOs.UserDTOs;
+using DAL.UtilityModels;
 
 namespace BL.DTOs.OrderDTOs
 {
@@ -11,5 +12,7 @@ namespace BL.DTOs.OrderDTOs
         public UserSummaryDto User { get; set; }
 
         public IEnumerable<OrderItemDto> Items { get; set; }
+
+        public PaymentStatus PaymentStatus { get; set; }
     }
 }
