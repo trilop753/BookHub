@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.WebMVC.Migrations.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    [Migration("20251127135201_remove-url")]
-    partial class removeurl
+    [Migration("20251128073633_order_status")]
+    partial class order_status
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,32 +88,32 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Cleve",
-                            Surname = "Lueilwitz"
+                            Name = "Francisca",
+                            Surname = "Sauer"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Caterina",
-                            Surname = "Runolfsson"
+                            Name = "Coby",
+                            Surname = "O'Conner"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Casper",
-                            Surname = "Feest"
+                            Name = "Edd",
+                            Surname = "Collins"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Elyse",
-                            Surname = "Bauch"
+                            Name = "Clint",
+                            Surname = "Stamm"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Afton",
-                            Surname = "Simonis"
+                            Name = "Harvey",
+                            Surname = "Schoen"
                         });
                 });
 
@@ -167,50 +167,50 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = 2,
-                            Description = "Ut veritatis cupiditate omnis voluptas. Odit omnis velit. Quia non nobis tenetur explicabo qui eaque perspiciatis error. Ea voluptate est pariatur cupiditate est qui tempora unde laboriosam. Maxime enim ex.",
-                            EditCount = 0,
-                            ISBN = "2260133097836",
-                            LastEditedById = 5,
-                            Price = 14.31m,
-                            PublisherId = 1,
-                            Title = "Quidem voluptas repellendus nostrum aliquam temporibus."
+                            AuthorId = 3,
+                            Description = "Et vitae aut ex odit reiciendis ad quia laudantium. Veniam earum hic nihil. Enim in velit saepe ab voluptatibus voluptas suscipit assumenda.",
+                            EditCount = 7,
+                            ISBN = "8323313282577",
+                            LastEditedById = 2,
+                            Price = 14.76m,
+                            PublisherId = 3,
+                            Title = "Itaque vero fugiat voluptas."
                         },
                         new
                         {
                             Id = 2,
                             AuthorId = 2,
-                            Description = "Fugit facilis eaque assumenda dolor vel voluptates neque aut reprehenderit. Incidunt eligendi totam id doloremque rem inventore quidem aut. Et alias expedita ratione repudiandae vel nihil non officiis. Soluta illo atque deserunt aut omnis sapiente ut. Repellat omnis magnam eum.",
-                            EditCount = 8,
-                            ISBN = "0336157983652",
-                            LastEditedById = 5,
-                            Price = 19.59m,
+                            Description = "Ut aut modi animi fugiat id numquam quos. Explicabo velit est laborum distinctio. Deserunt et tempora. Illo voluptates facere voluptatum enim alias nihil laboriosam.",
+                            EditCount = 10,
+                            ISBN = "7039928792486",
+                            LastEditedById = 4,
+                            Price = 8.84m,
                             PublisherId = 1,
-                            Title = "Deleniti saepe amet voluptate perspiciatis sunt."
+                            Title = "Ut possimus alias ex voluptate ut."
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 5,
-                            Description = "Quibusdam cum ea. Asperiores quia rerum est consequuntur provident dolorem et illum. Nostrum et aut facilis labore illo aut doloremque autem. Nulla nostrum repellat dolores ut sunt. Quae aperiam delectus delectus ut doloremque ut consequatur.",
-                            EditCount = 9,
-                            ISBN = "8571124886518",
-                            LastEditedById = 3,
-                            Price = 5.03m,
-                            PublisherId = 1,
-                            Title = "Voluptas eligendi voluptatum cumque minima sit."
+                            AuthorId = 1,
+                            Description = "Qui praesentium rem est ut reiciendis aperiam molestiae modi eos. Eum et possimus aut nihil itaque ipsa. Consequatur est expedita ea. Suscipit et et voluptates.",
+                            EditCount = 1,
+                            ISBN = "4926811141687",
+                            LastEditedById = 1,
+                            Price = 12.05m,
+                            PublisherId = 3,
+                            Title = "Amet debitis sunt qui."
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 3,
-                            Description = "Voluptas nihil totam laborum labore totam fugit incidunt voluptates. Totam esse consequatur in dolores. At modi tempora necessitatibus voluptatem aspernatur officiis. Repellendus tenetur dolorum suscipit laudantium est corrupti aliquid quasi.",
-                            EditCount = 9,
-                            ISBN = "5181605624763",
-                            LastEditedById = 3,
-                            Price = 19.52m,
-                            PublisherId = 3,
-                            Title = "Veritatis ut culpa quas."
+                            AuthorId = 2,
+                            Description = "Eum et nihil ab reprehenderit. Magni corporis magni saepe. Culpa ut non. Temporibus quo maxime labore voluptas eveniet nihil eius enim. Corrupti quis ipsum qui quo est similique voluptatem quos illum.",
+                            EditCount = 7,
+                            ISBN = "2151087374206",
+                            LastEditedById = 2,
+                            Price = 5.95m,
+                            PublisherId = 4,
+                            Title = "Est laudantium ut odio sint."
                         });
                 });
 
@@ -245,50 +245,50 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Autem repellat et cumque natus repudiandae commodi voluptatum maxime voluptate.",
-                            BookId = 1,
+                            Body = "Omnis nisi in ducimus at ex aut totam veniam culpa.",
+                            BookId = 2,
                             Stars = 1,
-                            UserId = 4
+                            UserId = 8
                         },
                         new
                         {
                             Id = 2,
-                            Body = "Corrupti repellendus impedit eligendi voluptatem voluptate quo sint et sint.",
-                            BookId = 4,
-                            Stars = 1,
-                            UserId = 4
+                            Body = "Et fugiat autem expedita hic illum eum voluptatibus ex.",
+                            BookId = 1,
+                            Stars = 4,
+                            UserId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Body = "Dolore hic rerum quia omnis minus reprehenderit cumque ipsam.",
-                            BookId = 2,
-                            Stars = 1,
-                            UserId = 5
+                            Body = "Voluptatem et architecto suscipit error ut architecto expedita.",
+                            BookId = 4,
+                            Stars = 5,
+                            UserId = 4
                         },
                         new
                         {
                             Id = 4,
-                            Body = "Est aspernatur error quia sint ut velit assumenda qui porro.",
+                            Body = "A blanditiis inventore quod et consequatur nobis ipsa velit.",
                             BookId = 3,
-                            Stars = 3,
-                            UserId = 7
+                            Stars = 4,
+                            UserId = 6
                         },
                         new
                         {
                             Id = 5,
-                            Body = "Omnis tempora ut ipsum dolor corporis veniam sunt assumenda corrupti.",
-                            BookId = 3,
+                            Body = "Minus optio consequuntur aut velit est a temporibus dolorem.",
+                            BookId = 4,
                             Stars = 2,
                             UserId = 3
                         },
                         new
                         {
                             Id = 6,
-                            Body = "Vero unde nihil dolores in quis voluptas laudantium.",
-                            BookId = 2,
-                            Stars = 2,
-                            UserId = 3
+                            Body = "Pariatur quos voluptatum et qui reprehenderit maiores voluptas.",
+                            BookId = 4,
+                            Stars = 4,
+                            UserId = 4
                         });
                 });
 
@@ -319,30 +319,30 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 3,
-                            Quantity = 2,
+                            BookId = 4,
+                            Quantity = 4,
                             UserId = 5
                         },
                         new
                         {
                             Id = 2,
                             BookId = 3,
-                            Quantity = 1,
-                            UserId = 2
+                            Quantity = 5,
+                            UserId = 8
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 1,
-                            Quantity = 1,
-                            UserId = 6
+                            BookId = 4,
+                            Quantity = 3,
+                            UserId = 1
                         },
                         new
                         {
                             Id = 4,
-                            BookId = 3,
-                            Quantity = 1,
-                            UserId = 7
+                            BookId = 1,
+                            Quantity = 4,
+                            UserId = 5
                         });
                 });
 
@@ -481,6 +481,9 @@ namespace DAL.WebMVC.Migrations.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
@@ -494,26 +497,30 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2016, 11, 18, 4, 50, 4, 734, DateTimeKind.Unspecified).AddTicks(9990),
-                            UserId = 6
+                            Date = new DateTime(2022, 4, 1, 10, 5, 38, 94, DateTimeKind.Unspecified).AddTicks(4406),
+                            PaymentStatus = 0,
+                            UserId = 4
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2019, 6, 6, 3, 41, 51, 116, DateTimeKind.Unspecified).AddTicks(2671),
-                            UserId = 8
+                            Date = new DateTime(2017, 8, 7, 18, 35, 4, 657, DateTimeKind.Unspecified).AddTicks(2944),
+                            PaymentStatus = 0,
+                            UserId = 4
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2015, 12, 28, 1, 36, 21, 364, DateTimeKind.Unspecified).AddTicks(8662),
-                            UserId = 1
+                            Date = new DateTime(2025, 4, 29, 14, 41, 58, 308, DateTimeKind.Unspecified).AddTicks(2656),
+                            PaymentStatus = 0,
+                            UserId = 5
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2021, 10, 17, 19, 58, 8, 267, DateTimeKind.Unspecified).AddTicks(7600),
-                            UserId = 2
+                            Date = new DateTime(2025, 4, 14, 16, 2, 44, 744, DateTimeKind.Unspecified).AddTicks(9260),
+                            PaymentStatus = 0,
+                            UserId = 3
                         });
                 });
 
@@ -546,35 +553,49 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
                             BookId = 4,
                             OrderId = 1,
-                            Quantity = 2
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 2,
                             BookId = 1,
                             OrderId = 2,
-                            Quantity = 1
+                            Quantity = 2
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 2,
+                            BookId = 1,
                             OrderId = 2,
-                            Quantity = 5
+                            Quantity = 3
                         },
                         new
                         {
                             Id = 4,
-                            BookId = 3,
-                            OrderId = 3,
-                            Quantity = 1
+                            BookId = 4,
+                            OrderId = 2,
+                            Quantity = 3
                         },
                         new
                         {
                             Id = 5,
-                            BookId = 2,
-                            OrderId = 4,
+                            BookId = 1,
+                            OrderId = 3,
+                            Quantity = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BookId = 1,
+                            OrderId = 3,
                             Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BookId = 3,
+                            OrderId = 4,
+                            Quantity = 3
                         });
                 });
 
@@ -596,22 +617,22 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Hagenes and Sons"
+                            Name = "Graham, Bechtelar and Rutherford"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Erdman Group"
+                            Name = "Breitenberg Group"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Doyle Inc"
+                            Name = "Lowe, Morar and Moore"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Hayes Group"
+                            Name = "Abbott, Cartwright and McLaughlin"
                         });
                 });
 
@@ -642,58 +663,58 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "Elfrieda_Kessler@yahoo.com",
-                            IsBanned = true,
-                            Username = "Meggie.Hirthe52"
+                            Email = "Kaitlin.Dooley@gmail.com",
+                            IsBanned = false,
+                            Username = "Nicholas70"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "Frederik.Gutmann67@hotmail.com",
+                            Email = "Doris90@hotmail.com",
                             IsBanned = false,
-                            Username = "Evie38"
+                            Username = "Adonis.Conn"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "Declan.Reichert@hotmail.com",
+                            Email = "Hayley.Cormier3@hotmail.com",
                             IsBanned = false,
-                            Username = "Rogelio_Langosh"
+                            Username = "Kirk_Huels"
                         },
                         new
                         {
                             Id = 4,
-                            Email = "Guadalupe44@hotmail.com",
+                            Email = "Alford_Bahringer@hotmail.com",
                             IsBanned = false,
-                            Username = "Ulices.Nicolas40"
+                            Username = "Oma15"
                         },
                         new
                         {
                             Id = 5,
-                            Email = "Rowland_Feest27@gmail.com",
+                            Email = "Joel_Wyman10@hotmail.com",
                             IsBanned = false,
-                            Username = "Raul_Treutel"
+                            Username = "Giovanny.Tillman29"
                         },
                         new
                         {
                             Id = 6,
-                            Email = "Arnaldo_Hickle@yahoo.com",
+                            Email = "Carmen_Goodwin@hotmail.com",
                             IsBanned = false,
-                            Username = "Shane.Mitchell45"
+                            Username = "Nelson28"
                         },
                         new
                         {
                             Id = 7,
-                            Email = "Amely_Johnston@gmail.com",
+                            Email = "Jonas.Bechtelar69@hotmail.com",
                             IsBanned = false,
-                            Username = "Geo.Bogan"
+                            Username = "Karlee7"
                         },
                         new
                         {
                             Id = 8,
-                            Email = "Rosalyn.Johnson61@gmail.com",
+                            Email = "Winfield.Kemmer@hotmail.com",
                             IsBanned = false,
-                            Username = "Vivienne92"
+                            Username = "Julie.Langosh"
                         });
                 });
 

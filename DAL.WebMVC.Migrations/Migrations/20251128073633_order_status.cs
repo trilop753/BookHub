@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.WebMVC.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class removeurl : Migration
+    public partial class order_status : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -180,7 +180,8 @@ namespace DAL.WebMVC.Migrations.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PaymentStatus = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -415,11 +416,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "Cleve", "Lueilwitz" },
-                    { 2, "Caterina", "Runolfsson" },
-                    { 3, "Casper", "Feest" },
-                    { 4, "Elyse", "Bauch" },
-                    { 5, "Afton", "Simonis" }
+                    { 1, "Francisca", "Sauer" },
+                    { 2, "Coby", "O'Conner" },
+                    { 3, "Edd", "Collins" },
+                    { 4, "Clint", "Stamm" },
+                    { 5, "Harvey", "Schoen" }
                 });
 
             migrationBuilder.InsertData(
@@ -442,10 +443,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Hagenes and Sons" },
-                    { 2, "Erdman Group" },
-                    { 3, "Doyle Inc" },
-                    { 4, "Hayes Group" }
+                    { 1, "Graham, Bechtelar and Rutherford" },
+                    { 2, "Breitenberg Group" },
+                    { 3, "Lowe, Morar and Moore" },
+                    { 4, "Abbott, Cartwright and McLaughlin" }
                 });
 
             migrationBuilder.InsertData(
@@ -453,14 +454,14 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Elfrieda_Kessler@yahoo.com", true, "Meggie.Hirthe52" },
-                    { 2, "Frederik.Gutmann67@hotmail.com", false, "Evie38" },
-                    { 3, "Declan.Reichert@hotmail.com", false, "Rogelio_Langosh" },
-                    { 4, "Guadalupe44@hotmail.com", false, "Ulices.Nicolas40" },
-                    { 5, "Rowland_Feest27@gmail.com", false, "Raul_Treutel" },
-                    { 6, "Arnaldo_Hickle@yahoo.com", false, "Shane.Mitchell45" },
-                    { 7, "Amely_Johnston@gmail.com", false, "Geo.Bogan" },
-                    { 8, "Rosalyn.Johnson61@gmail.com", false, "Vivienne92" }
+                    { 1, "Kaitlin.Dooley@gmail.com", false, "Nicholas70" },
+                    { 2, "Doris90@hotmail.com", false, "Adonis.Conn" },
+                    { 3, "Hayley.Cormier3@hotmail.com", false, "Kirk_Huels" },
+                    { 4, "Alford_Bahringer@hotmail.com", false, "Oma15" },
+                    { 5, "Joel_Wyman10@hotmail.com", false, "Giovanny.Tillman29" },
+                    { 6, "Carmen_Goodwin@hotmail.com", false, "Nelson28" },
+                    { 7, "Jonas.Bechtelar69@hotmail.com", false, "Karlee7" },
+                    { 8, "Winfield.Kemmer@hotmail.com", false, "Julie.Langosh" }
                 });
 
             migrationBuilder.InsertData(
@@ -468,21 +469,21 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "AuthorId", "CoverImageName", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 2, null, "Ut veritatis cupiditate omnis voluptas. Odit omnis velit. Quia non nobis tenetur explicabo qui eaque perspiciatis error. Ea voluptate est pariatur cupiditate est qui tempora unde laboriosam. Maxime enim ex.", 0, "2260133097836", 5, 14.31m, 1, "Quidem voluptas repellendus nostrum aliquam temporibus." },
-                    { 2, 2, null, "Fugit facilis eaque assumenda dolor vel voluptates neque aut reprehenderit. Incidunt eligendi totam id doloremque rem inventore quidem aut. Et alias expedita ratione repudiandae vel nihil non officiis. Soluta illo atque deserunt aut omnis sapiente ut. Repellat omnis magnam eum.", 8, "0336157983652", 5, 19.59m, 1, "Deleniti saepe amet voluptate perspiciatis sunt." },
-                    { 3, 5, null, "Quibusdam cum ea. Asperiores quia rerum est consequuntur provident dolorem et illum. Nostrum et aut facilis labore illo aut doloremque autem. Nulla nostrum repellat dolores ut sunt. Quae aperiam delectus delectus ut doloremque ut consequatur.", 9, "8571124886518", 3, 5.03m, 1, "Voluptas eligendi voluptatum cumque minima sit." },
-                    { 4, 3, null, "Voluptas nihil totam laborum labore totam fugit incidunt voluptates. Totam esse consequatur in dolores. At modi tempora necessitatibus voluptatem aspernatur officiis. Repellendus tenetur dolorum suscipit laudantium est corrupti aliquid quasi.", 9, "5181605624763", 3, 19.52m, 3, "Veritatis ut culpa quas." }
+                    { 1, 3, null, "Et vitae aut ex odit reiciendis ad quia laudantium. Veniam earum hic nihil. Enim in velit saepe ab voluptatibus voluptas suscipit assumenda.", 7, "8323313282577", 2, 14.76m, 3, "Itaque vero fugiat voluptas." },
+                    { 2, 2, null, "Ut aut modi animi fugiat id numquam quos. Explicabo velit est laborum distinctio. Deserunt et tempora. Illo voluptates facere voluptatum enim alias nihil laboriosam.", 10, "7039928792486", 4, 8.84m, 1, "Ut possimus alias ex voluptate ut." },
+                    { 3, 1, null, "Qui praesentium rem est ut reiciendis aperiam molestiae modi eos. Eum et possimus aut nihil itaque ipsa. Consequatur est expedita ea. Suscipit et et voluptates.", 1, "4926811141687", 1, 12.05m, 3, "Amet debitis sunt qui." },
+                    { 4, 2, null, "Eum et nihil ab reprehenderit. Magni corporis magni saepe. Culpa ut non. Temporibus quo maxime labore voluptas eveniet nihil eius enim. Corrupti quis ipsum qui quo est similique voluptatem quos illum.", 7, "2151087374206", 2, 5.95m, 4, "Est laudantium ut odio sint." }
                 });
 
             migrationBuilder.InsertData(
                 table: "Order",
-                columns: new[] { "Id", "Date", "UserId" },
+                columns: new[] { "Id", "Date", "PaymentStatus", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2016, 11, 18, 4, 50, 4, 734, DateTimeKind.Unspecified).AddTicks(9990), 6 },
-                    { 2, new DateTime(2019, 6, 6, 3, 41, 51, 116, DateTimeKind.Unspecified).AddTicks(2671), 8 },
-                    { 3, new DateTime(2015, 12, 28, 1, 36, 21, 364, DateTimeKind.Unspecified).AddTicks(8662), 1 },
-                    { 4, new DateTime(2021, 10, 17, 19, 58, 8, 267, DateTimeKind.Unspecified).AddTicks(7600), 2 }
+                    { 1, new DateTime(2022, 4, 1, 10, 5, 38, 94, DateTimeKind.Unspecified).AddTicks(4406), 0, 4 },
+                    { 2, new DateTime(2017, 8, 7, 18, 35, 4, 657, DateTimeKind.Unspecified).AddTicks(2944), 0, 4 },
+                    { 3, new DateTime(2025, 4, 29, 14, 41, 58, 308, DateTimeKind.Unspecified).AddTicks(2656), 0, 5 },
+                    { 4, new DateTime(2025, 4, 14, 16, 2, 44, 744, DateTimeKind.Unspecified).AddTicks(9260), 0, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -502,12 +503,12 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Autem repellat et cumque natus repudiandae commodi voluptatum maxime voluptate.", 1, 1, 4 },
-                    { 2, "Corrupti repellendus impedit eligendi voluptatem voluptate quo sint et sint.", 4, 1, 4 },
-                    { 3, "Dolore hic rerum quia omnis minus reprehenderit cumque ipsam.", 2, 1, 5 },
-                    { 4, "Est aspernatur error quia sint ut velit assumenda qui porro.", 3, 3, 7 },
-                    { 5, "Omnis tempora ut ipsum dolor corporis veniam sunt assumenda corrupti.", 3, 2, 3 },
-                    { 6, "Vero unde nihil dolores in quis voluptas laudantium.", 2, 2, 3 }
+                    { 1, "Omnis nisi in ducimus at ex aut totam veniam culpa.", 2, 1, 8 },
+                    { 2, "Et fugiat autem expedita hic illum eum voluptatibus ex.", 1, 4, 2 },
+                    { 3, "Voluptatem et architecto suscipit error ut architecto expedita.", 4, 5, 4 },
+                    { 4, "A blanditiis inventore quod et consequatur nobis ipsa velit.", 3, 4, 6 },
+                    { 5, "Minus optio consequuntur aut velit est a temporibus dolorem.", 4, 2, 3 },
+                    { 6, "Pariatur quos voluptatum et qui reprehenderit maiores voluptas.", 4, 4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -515,10 +516,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 3, 2, 5 },
-                    { 2, 3, 1, 2 },
-                    { 3, 1, 1, 6 },
-                    { 4, 3, 1, 7 }
+                    { 1, 4, 4, 5 },
+                    { 2, 3, 5, 8 },
+                    { 3, 4, 3, 1 },
+                    { 4, 1, 4, 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -526,11 +527,13 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 4, 1, 2 },
-                    { 2, 1, 2, 1 },
-                    { 3, 2, 2, 5 },
-                    { 4, 3, 3, 1 },
-                    { 5, 2, 4, 2 }
+                    { 1, 4, 1, 1 },
+                    { 2, 1, 2, 2 },
+                    { 3, 1, 2, 3 },
+                    { 4, 4, 2, 3 },
+                    { 5, 1, 3, 5 },
+                    { 6, 1, 3, 2 },
+                    { 7, 3, 4, 3 }
                 });
 
             migrationBuilder.CreateIndex(
