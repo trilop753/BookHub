@@ -1,6 +1,6 @@
 namespace DAL.Models
 {
-    public class Giftcard: BaseEntity
+    public class Giftcard : BaseEntity
     {
         public string Name { get; set; } = null!;
 
@@ -9,7 +9,6 @@ namespace DAL.Models
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
 
-        public IEnumerable<GiftcardCode> Codes { get; set; }
+        public virtual IEnumerable<GiftcardCode> Codes { get; set; }
     }
 }
-
