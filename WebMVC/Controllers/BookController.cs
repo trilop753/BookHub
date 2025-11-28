@@ -1,5 +1,8 @@
-﻿using BL.DTOs.BookDTOs;
+﻿using BL.DTOs.AuthorDTOs;
+using BL.DTOs.BookDTOs;
 using BL.DTOs.CartItemDTOs;
+using BL.DTOs.GenreDTOs;
+using BL.DTOs.PublisherDTOs;
 using BL.DTOs.WishlistItemDTOs;
 using BL.Facades.Interfaces;
 using BL.Services.Interfaces;
@@ -66,8 +69,8 @@ namespace WebMVC.Controllers
                     cacheKey,
                     book,
                     new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(5))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(30))
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
                 );
             }
 
@@ -92,8 +95,8 @@ namespace WebMVC.Controllers
                     cacheKey,
                     wishlistedBooks,
                     new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(5))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(30))
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
                 );
             }
 
@@ -111,8 +114,8 @@ namespace WebMVC.Controllers
                     cacheKey,
                     booksInCart,
                     new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(5))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(30))
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
                 );
             }
 
@@ -168,19 +171,54 @@ namespace WebMVC.Controllers
 
         private async Task<BookCreateViewModel> FillDropdownsAsync(BookCreateViewModel model)
         {
-            var authors = await _authorService.GetAllAuthorsAsync();
-            var publishers = await _publisherService.GetAllPublishersAsync();
-            var genres = await _genreService.GetAllGenresAsync();
+            var cacheKey = CacheKeys.AuthorAll();
+            if (!_cache.TryGetValue(cacheKey, out IEnumerable<AuthorDto>? authors))
+            {
+                authors = await _authorService.GetAllAuthorsAsync();
+                _cache.Set(
+                    cacheKey,
+                    authors,
+                    new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
+                );
+            }
 
-            model.Authors = authors
+            cacheKey = CacheKeys.PublisherAll();
+            if (!_cache.TryGetValue(cacheKey, out IEnumerable<PublisherDto>? publishers))
+            {
+                publishers = await _publisherService.GetAllPublishersAsync();
+                _cache.Set(
+                    cacheKey,
+                    publishers,
+                    new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
+                );
+            }
+
+            cacheKey = CacheKeys.GenreAll();
+            if (!_cache.TryGetValue(cacheKey, out IEnumerable<GenreDto>? genres))
+            {
+                genres = await _genreService.GetAllGenresAsync();
+                _cache.Set(
+                    cacheKey,
+                    genres,
+                    new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
+                );
+            }
+
+            model.Authors = authors!
                 .Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name })
                 .ToList();
 
-            model.Publishers = publishers
+            model.Publishers = publishers!
                 .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name })
                 .ToList();
 
-            model.Genres = genres
+            model.Genres = genres!
                 .Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
                 .ToList();
             return model;
