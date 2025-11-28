@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
 using WebMVC.Constants;
 using WebMVC.Extensions;
 
@@ -14,6 +15,7 @@ namespace WebMVC
             builder.Services.AddRepositories();
             builder.Services.AddBusinessServices();
             builder.Services.AddFacades();
+            builder.Services.AddSingleton<IMemoryCache>();
             builder.Services.AddCorsPolicy();
 
             builder.Services.AddLocalIdentityProvider();
