@@ -86,7 +86,7 @@ namespace BL.Services
             var order = await _orderRepository.GetByIdAsync(id);
             if (order == null)
             {
-                return Result.Fail($"Book with id {id} does not exist.");
+                return Result.Fail($"Order with id {id} does not exist.");
             }
 
             order.PaymentStatus = status;
