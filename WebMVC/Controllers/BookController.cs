@@ -1,9 +1,14 @@
-﻿using BL.Services.Interfaces;
+﻿using BL.DTOs.BookDTOs;
+using BL.DTOs.CartItemDTOs;
+using BL.DTOs.WishlistItemDTOs;
+using BL.Facades.Interfaces;
+using BL.Services.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
 using WebMVC.Constants;
 using WebMVC.Mappers;
 using WebMVC.Models.Book;
@@ -17,7 +22,10 @@ namespace WebMVC.Controllers
         private readonly IPublisherService _publisherService;
         private readonly IGenreService _genreService;
         private readonly ICoverImageService _coverImageService;
+        private readonly IWishlistFacade _wishlistFacade;
+        private readonly ICartFacade _cartFacade;
         private readonly UserManager<LocalIdentityUser> _userManager;
+        private readonly IMemoryCache _cache;
 
         public BookController(
             IBookService bookService,
@@ -25,7 +33,10 @@ namespace WebMVC.Controllers
             IPublisherService publisherService,
             IGenreService genreService,
             ICoverImageService coverImageService,
-            UserManager<LocalIdentityUser> userManager
+            IWishlistFacade wishlistFacade,
+            ICartFacade cartFacade,
+            UserManager<LocalIdentityUser> userManager,
+            IMemoryCache cache
         )
         {
             _bookService = bookService;
@@ -33,27 +44,85 @@ namespace WebMVC.Controllers
             _publisherService = publisherService;
             _genreService = genreService;
             _coverImageService = coverImageService;
+            _wishlistFacade = wishlistFacade;
+            _cartFacade = cartFacade;
             _userManager = userManager;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var book = await _bookService.GetBookByIdAsync(id);
-
-            if (book.IsFailed)
+            var cacheKey = CacheKeys.BookDetail(id);
+            if (!_cache.TryGetValue(cacheKey, out BookDto? book))
             {
-                return View("NotFound");
+                var res = await _bookService.GetBookByIdAsync(id);
+                if (res.IsFailed)
+                {
+                    return View("NotFound");
+                }
+
+                book = res.Value;
+                _cache.Set(
+                    cacheKey,
+                    book,
+                    new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(5))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(30))
+                );
             }
 
             var identityUser = await _userManager.GetUserAsync(User);
-            var currentUser = identityUser?.User;
-            var wishlistedBooksIds = currentUser?.Wishlist.Select(i => i.BookId);
-            var booksInCart = currentUser?.Cart.Select(i => i.BookId);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+            var currentUser = identityUser.User;
+
+            cacheKey = CacheKeys.UserWishlistAll(currentUser.Id);
+            if (!_cache.TryGetValue(cacheKey, out IEnumerable<WishlistItemDto>? wishlistedBooks))
+            {
+                var res = await _wishlistFacade.GetAllWishlistedByUserIdAsync(currentUser.Id);
+                if (res.IsFailed)
+                {
+                    return View("InternalServerError");
+                }
+                wishlistedBooks = res.Value;
+
+                _cache.Set(
+                    cacheKey,
+                    wishlistedBooks,
+                    new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(5))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(30))
+                );
+            }
+
+            cacheKey = CacheKeys.UserCartAll(currentUser.Id);
+            if (!_cache.TryGetValue(cacheKey, out IEnumerable<CartItemDto>? booksInCart))
+            {
+                var res = await _cartFacade.GetCartItemsByUserIdAsync(currentUser.Id);
+                if (res.IsFailed)
+                {
+                    return View("InternalServerError");
+                }
+                booksInCart = res.Value;
+
+                _cache.Set(
+                    cacheKey,
+                    booksInCart,
+                    new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(5))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(30))
+                );
+            }
+
+            var wishlistedBooksIds = wishlistedBooks!.Select(i => i.Book.Id);
+            var booksInCartIds = booksInCart!.Select(i => i.Book.Id);
 
             return View(
-                book.Value.MapToDetailView(
+                book!.MapToDetailView(
                     wishlistedBooksIds ?? new List<int>(),
-                    booksInCart ?? new List<int>()
+                    booksInCartIds ?? new List<int>()
                 )
             );
         }
