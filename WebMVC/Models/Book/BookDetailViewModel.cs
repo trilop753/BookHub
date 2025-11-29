@@ -1,5 +1,5 @@
 ﻿using WebMVC.Models.Author;
-using WebMVC.Models.Genre;
+using WebMVC.Models.GenreBook;
 using WebMVC.Models.Publisher;
 
 namespace WebMVC.Models.Book
@@ -16,7 +16,7 @@ namespace WebMVC.Models.Book
 
         public decimal Price { get; set; }
 
-        public virtual IEnumerable<GenreViewModel> Genres { get; set; }
+        public virtual IEnumerable<GenreBookViewModel> Genres { get; set; }
 
         public PublisherViewModel Publisher { get; set; }
 

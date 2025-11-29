@@ -44,7 +44,10 @@ else
                 <td>
                     @if (book.Genres != null && book.Genres.Any())
                     {
-                        @string.Join(", ", book.Genres)
+                        @Html.Raw(string.Join(", ", book.Genres.Select(g =>
+                            g.IsPrimary
+                                ? $"<span style='font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>"
+                                : $"<span style='color:#555; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>")))
                     }
                     else
                     {
