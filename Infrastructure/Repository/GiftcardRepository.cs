@@ -17,23 +17,22 @@ namespace Infrastructure.Repository
 
         public async Task<GiftcardCode?> GetCodeByValueAsync(string code)
         {
-            return await _codes
-                .Include(c => c.Giftcard)
-                .FirstOrDefaultAsync(c => c.Code == code);
+            return await _codes.Include(c => c.Giftcard).FirstOrDefaultAsync(c => c.Code == code);
         }
 
         public async Task<IEnumerable<Giftcard>> GetAllAsync()
         {
-            return await _dbSet
-                .Include(g => g.Codes)
-                .ToListAsync();
+            return await _dbSet.Include(g => g.Codes).ToListAsync();
         }
 
         public async Task<Giftcard?> GetByIdAsync(int id)
         {
-            return await _dbSet
-                .Include(g => g.Codes)
-                .FirstOrDefaultAsync(g => g.Id == id);
+            return await _dbSet.Include(g => g.Codes).FirstOrDefaultAsync(g => g.Id == id);
+        }
+
+        public async Task<GiftcardCode?> GetCodeByIdAsync(int id)
+        {
+            return await _codes.Include(gc => gc.Giftcard).FirstOrDefaultAsync(gc => gc.Id == id);
         }
     }
 }
