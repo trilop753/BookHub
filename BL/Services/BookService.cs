@@ -4,8 +4,6 @@ using BL.Services.Interfaces;
 using DAL.Models;
 using FluentResults;
 using Infrastructure.Repository.Interfaces;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 
 public class BookService : IBookService
 {
@@ -88,6 +86,11 @@ public class BookService : IBookService
             );
         }
 
+        if (dto.Genres.Where(gb => gb.IsPrimary).Count() > 1)
+        {
+            result.WithError("Book cannot have multiple primary genres.");
+        }
+
         if (result.IsFailed)
         {
             return result;
@@ -120,15 +123,7 @@ public class BookService : IBookService
         };
 
         await _bookRepository.AddAsync(newBook);
-        try
-        {
-            await _bookRepository.SaveChangesAsync();
-        }
-        catch (DbUpdateException ex)
-            when (ex.InnerException is SqliteException sqliteEx && sqliteEx.SqliteErrorCode == 19)
-        {
-            return Result.Fail("Book cannot have multiple primary genres.");
-        }
+        await _bookRepository.SaveChangesAsync();
 
         return Result.Ok(newBook.MapToDto());
     }
@@ -168,6 +163,11 @@ public class BookService : IBookService
             result.WithError($"User with id {dto.LastEditedById} does not exist.");
         }
 
+        if (dto.Genres.Where(gb => gb.IsPrimary).Count() > 1)
+        {
+            result.WithError("Book cannot have multiple primary genres.");
+        }
+
         if (result.IsFailed)
         {
             return result;
@@ -198,15 +198,7 @@ public class BookService : IBookService
         book.LastEditedById = dto.LastEditedById;
         book.CoverImageName = dto.CoverImageName;
 
-        try
-        {
-            await _bookRepository.SaveChangesAsync();
-        }
-        catch (DbUpdateException ex)
-            when (ex.InnerException is SqliteException sqliteEx && sqliteEx.SqliteErrorCode == 19)
-        {
-            return Result.Fail("Book cannot have multiple primary genres.");
-        }
+        await _bookRepository.SaveChangesAsync();
 
         return Result.Ok();
     }
