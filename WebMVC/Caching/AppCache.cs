@@ -58,4 +58,9 @@ public class AppCache : IAppCache
             slidingWindowExpiration,
             absoluteExpiration);
     }
+
+    public void Remove(string cacheKey)
+    {
+        _cache.Remove(cacheKey);
+    }
 }

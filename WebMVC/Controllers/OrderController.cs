@@ -80,7 +80,7 @@ namespace WebMVC.Controllers
             {
                 return View("InternalServerError");
             }
-
+            _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
             return View("Detail", orderRes.Value.MapToView());
         }
 
