@@ -36,6 +36,11 @@ public static class CacheKeys
         return $"Order:Detail:{orderId}";
     }
 
+    public static string OrderAll(int userId)
+    {
+        return $"Order:All:{userId}";
+    }
+
     public static string UserWishlistAll(int userId)
     {
         return $"Wishlist:All:{userId}";

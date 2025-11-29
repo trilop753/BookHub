@@ -52,7 +52,10 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
 
-            var ordersRes = await _orderFacade.GetOrdersByUserIdAsync(identityUser.User.Id);
+            var ordersRes = await _cache.GetOrCreateAsync(
+                CacheKeys.OrderAll(identityUser.User.Id),
+                () => _orderFacade.GetOrdersByUserIdAsync(identityUser.User.Id)
+            );
             if (ordersRes.IsFailed)
             {
                 return View("InternalServerError");
@@ -81,18 +84,26 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
             _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
+            _cache.Remove(CacheKeys.OrderAll(identityUser.User.Id));
             return View("Detail", orderRes.Value.MapToView());
         }
 
         [HttpPost]
         public async Task<IActionResult> PayOrder(int id)
         {
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+
             var res = await _orderFacade.UpdateOrderPaymentStatusAsync(id, PaymentStatus.Completed);
             if (res.IsFailed)
             {
                 return NotFound();
             }
 
+            _cache.Remove(CacheKeys.OrderAll(identityUser.User.Id));
             return View("Detail", res.Value.MapToView());
         }
     }
