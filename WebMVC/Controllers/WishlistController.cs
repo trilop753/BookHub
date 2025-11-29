@@ -96,6 +96,7 @@ namespace WebMVC.Controllers
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
+                _cache.Remove(CacheKeys.UserWishlistAll(identityUser.User.Id));
                 return LocalRedirect(returnUrl);
             }
 
