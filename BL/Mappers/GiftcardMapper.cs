@@ -14,8 +14,10 @@ namespace BL.Mappers
                 Amount = giftcard.Amount,
                 ValidFrom = giftcard.ValidFrom,
                 ValidTo = giftcard.ValidTo,
-                TotalCodes = giftcard.Codes?.Count() ?? 0,
-                UsedCodes = giftcard.Codes?.Count(c => c.IsUsed) ?? 0
+
+                Codes =
+                    giftcard.Codes?.Select(c => c.MapToCodeDto())
+                    ?? Enumerable.Empty<GiftcardCodeDto>(),
             };
         }
 
@@ -28,9 +30,10 @@ namespace BL.Mappers
                 Amount = giftcard.Amount,
                 ValidFrom = giftcard.ValidFrom,
                 ValidTo = giftcard.ValidTo,
-                Codes = giftcard.Codes?
-                            .Select(c => c.MapToCodeDto())
-                        ?? Enumerable.Empty<GiftcardCodeDto>()
+
+                Codes =
+                    giftcard.Codes?.Select(c => c.MapToCodeDto())
+                    ?? Enumerable.Empty<GiftcardCodeDto>(),
             };
         }
 
@@ -41,7 +44,7 @@ namespace BL.Mappers
                 Id = code.Id,
                 Code = code.Code,
                 IsUsed = code.IsUsed,
-                OrderId = code.OrderId
+                OrderId = code.OrderId,
             };
         }
     }
