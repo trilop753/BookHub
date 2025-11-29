@@ -14,5 +14,9 @@ namespace BL.DTOs.OrderDTOs
         public IEnumerable<OrderItemDto> Items { get; set; }
 
         public PaymentStatus PaymentStatus { get; set; }
+
+        public decimal TotalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
+        public string? GiftcardCode { get; set; }
     }
 }

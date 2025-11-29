@@ -10,7 +10,6 @@ namespace BL.DTOs.GiftcardDTOs
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
 
-        public int TotalCodes { get; set; }
-        public int UsedCodes { get; set; }
+        public IEnumerable<GiftcardCodeDto> Codes { get; set; } = new List<GiftcardCodeDto>();
     }
 }
