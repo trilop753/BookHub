@@ -31,6 +31,7 @@ public class LoggingMiddleware
             Path = context.Request.Path,
             StatusCode = context.Response.StatusCode,
             DurationMs = sw.Elapsed.TotalMilliseconds,
+            Source = "API"
         };
 
         using var db = new LiteDatabase(new ConnectionString
