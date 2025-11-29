@@ -1,17 +1,11 @@
-﻿using BL.DTOs.AuthorDTOs;
-using BL.DTOs.BookDTOs;
-using BL.DTOs.CartItemDTOs;
-using BL.DTOs.GenreDTOs;
-using BL.DTOs.PublisherDTOs;
-using BL.DTOs.WishlistItemDTOs;
-using BL.Facades.Interfaces;
+﻿using BL.Facades.Interfaces;
 using BL.Services.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Caching.Memory;
+using WebMVC.Caching;
 using WebMVC.Constants;
 using WebMVC.Mappers;
 using WebMVC.Models.Book;
@@ -28,7 +22,7 @@ namespace WebMVC.Controllers
         private readonly IWishlistFacade _wishlistFacade;
         private readonly ICartFacade _cartFacade;
         private readonly UserManager<LocalIdentityUser> _userManager;
-        private readonly IMemoryCache _cache;
+        private readonly IAppCache _cache;
 
         public BookController(
             IBookService bookService,
@@ -39,7 +33,7 @@ namespace WebMVC.Controllers
             IWishlistFacade wishlistFacade,
             ICartFacade cartFacade,
             UserManager<LocalIdentityUser> userManager,
-            IMemoryCache cache
+            IAppCache cache
         )
         {
             _bookService = bookService;
@@ -55,25 +49,16 @@ namespace WebMVC.Controllers
 
         public async Task<IActionResult> Detail(int id)
         {
-            var cacheKey = CacheKeys.BookDetail(id);
-            if (!_cache.TryGetValue(cacheKey, out BookDto? book))
-            {
-                var res = await _bookService.GetBookByIdAsync(id);
-                if (res.IsFailed)
-                {
-                    return View("NotFound");
-                }
-
-                book = res.Value;
-                _cache.Set(
-                    cacheKey,
-                    book,
-                    new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
+            
+            var bookRes = await _cache.GetOrCreateAsync(
+                CacheKeys.BookDetail(id),
+                () => _bookService.GetBookByIdAsync(id)
                 );
+            if (bookRes.IsFailed)
+            {
+                return View("NotFound");
             }
-
+            
             var identityUser = await _userManager.GetUserAsync(User);
             if (identityUser == null || identityUser.User == null)
             {
@@ -81,49 +66,29 @@ namespace WebMVC.Controllers
             }
             var currentUser = identityUser.User;
 
-            cacheKey = CacheKeys.UserWishlistAll(currentUser.Id);
-            if (!_cache.TryGetValue(cacheKey, out IEnumerable<WishlistItemDto>? wishlistedBooks))
+            var wishlistRes = await _cache.GetOrCreateAsync(
+                CacheKeys.UserWishlistAll(currentUser.Id),
+                () => _wishlistFacade.GetAllWishlistedByUserIdAsync(currentUser.Id)
+            );
+            if (wishlistRes.IsFailed)
             {
-                var res = await _wishlistFacade.GetAllWishlistedByUserIdAsync(currentUser.Id);
-                if (res.IsFailed)
-                {
-                    return View("InternalServerError");
-                }
-                wishlistedBooks = res.Value;
-
-                _cache.Set(
-                    cacheKey,
-                    wishlistedBooks,
-                    new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
-                );
+                return View("InternalServerError");
+            }
+            
+            var cartRes = await _cache.GetOrCreateAsync(
+                CacheKeys.UserCartAll(currentUser.Id),
+                () => _cartFacade.GetCartItemsByUserIdAsync(currentUser.Id)
+            );
+            if (cartRes.IsFailed)
+            {
+                return View("InternalServerError");
             }
 
-            cacheKey = CacheKeys.UserCartAll(currentUser.Id);
-            if (!_cache.TryGetValue(cacheKey, out IEnumerable<CartItemDto>? booksInCart))
-            {
-                var res = await _cartFacade.GetCartItemsByUserIdAsync(currentUser.Id);
-                if (res.IsFailed)
-                {
-                    return View("InternalServerError");
-                }
-                booksInCart = res.Value;
-
-                _cache.Set(
-                    cacheKey,
-                    booksInCart,
-                    new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
-                );
-            }
-
-            var wishlistedBooksIds = wishlistedBooks!.Select(i => i.Book.Id);
-            var booksInCartIds = booksInCart!.Select(i => i.Book.Id);
+            var wishlistedBooksIds = wishlistRes.Value.Select(i => i.Book.Id);
+            var booksInCartIds = cartRes.Value.Select(i => i.Book.Id);
 
             return View(
-                book!.MapToDetailView(
+                bookRes.Value.MapToDetailView(
                     wishlistedBooksIds ?? new List<int>(),
                     booksInCartIds ?? new List<int>()
                 )
@@ -171,54 +136,30 @@ namespace WebMVC.Controllers
 
         private async Task<BookCreateViewModel> FillDropdownsAsync(BookCreateViewModel model)
         {
-            var cacheKey = CacheKeys.AuthorAll();
-            if (!_cache.TryGetValue(cacheKey, out IEnumerable<AuthorDto>? authors))
-            {
-                authors = await _authorService.GetAllAuthorsAsync();
-                _cache.Set(
-                    cacheKey,
-                    authors,
-                    new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
-                );
-            }
+            var authorsRes = await _cache.GetOrCreateAsync(
+                CacheKeys.AuthorAll(),
+                () => _authorService.GetAllAuthorsAsync()
+            );
 
-            cacheKey = CacheKeys.PublisherAll();
-            if (!_cache.TryGetValue(cacheKey, out IEnumerable<PublisherDto>? publishers))
-            {
-                publishers = await _publisherService.GetAllPublishersAsync();
-                _cache.Set(
-                    cacheKey,
-                    publishers,
-                    new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
-                );
-            }
+            var publishersRes = await _cache.GetOrCreateAsync(
+                CacheKeys.PublisherAll(),
+                () => _publisherService.GetAllPublishersAsync()
+            );
+            
+            var genresRes = await _cache.GetOrCreateAsync(
+                CacheKeys.GenreAll(),
+                () => _genreService.GetAllGenresAsync()
+            );
 
-            cacheKey = CacheKeys.GenreAll();
-            if (!_cache.TryGetValue(cacheKey, out IEnumerable<GenreDto>? genres))
-            {
-                genres = await _genreService.GetAllGenresAsync();
-                _cache.Set(
-                    cacheKey,
-                    genres,
-                    new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
-                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
-                );
-            }
-
-            model.Authors = authors!
+            model.Authors = authorsRes.Value
                 .Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name })
                 .ToList();
 
-            model.Publishers = publishers!
+            model.Publishers = publishersRes.Value
                 .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name })
                 .ToList();
 
-            model.Genres = genres!
+            model.Genres = genresRes.Value
                 .Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
                 .ToList();
             return model;
