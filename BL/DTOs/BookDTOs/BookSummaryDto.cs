@@ -1,4 +1,6 @@
-﻿namespace BL.DTOs.BookDTOs
+﻿using BL.DTOs.GenreBookDTOs;
+
+namespace BL.DTOs.BookDTOs
 {
     public class BookSummaryDto
     {
@@ -16,7 +18,7 @@
 
         public string AuthorName { get; set; }
 
-        public IEnumerable<string> Genres { get; set; }
+        public IEnumerable<GenreBookSummaryDto> Genres { get; set; }
 
         public double? AverageRating { get; set; }
 

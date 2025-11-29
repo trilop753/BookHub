@@ -65,7 +65,7 @@ namespace Infrastructure.Repository
             if (searchCriteria.GenreIds != null)
             {
                 query = query.Where(b =>
-                    b.Genres.Select(g => g.Id).Intersect(searchCriteria.GenreIds).Any()
+                    b.Genres.Select(gb => gb.Genre.Id).Intersect(searchCriteria.GenreIds).Any()
                 );
             }
 

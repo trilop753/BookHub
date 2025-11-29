@@ -66,7 +66,7 @@ namespace BL.Tests.Services
             var fakeBook = TestDataHelper.GetFakeBooks().First(book => book.Id == bookId);
             fakeBook.Author = new Author { Id = 1, Name = "test_author_1" };
             fakeBook.Publisher = new Publisher { Id = 1, Name = "test_publisher_1" };
-            fakeBook.Genres = new List<Genre>();
+            fakeBook.Genres = new List<GenreBook>();
             fakeBook.Reviews = new List<BookReview>();
 
             var fakeUser = TestDataHelper.GetFakeUsers().First(user => user.Id == userId);
@@ -228,7 +228,7 @@ namespace BL.Tests.Services
             var fakeBook = TestDataHelper.GetFakeBooks().First(book => book.Id == 1);
             fakeBook.Author = new Author { Id = 1, Name = "test_author_1" };
             fakeBook.Publisher = new Publisher { Id = 1, Name = "test_publisher_1" };
-            fakeBook.Genres = new List<Genre>();
+            fakeBook.Genres = new List<GenreBook>();
             fakeBook.Reviews = new List<BookReview>();
 
             var fakeUser = TestDataHelper.GetFakeUsers().First(user => user.Id == userId);
@@ -288,7 +288,7 @@ namespace BL.Tests.Services
             var fakeBook = TestDataHelper.GetFakeBooks().First();
             fakeBook.Author = new Author { Id = 1, Name = "test_author_1" };
             fakeBook.Publisher = new Publisher { Id = 1, Name = "test_publisher_1" };
-            fakeBook.Genres = new List<Genre>();
+            fakeBook.Genres = new List<GenreBook>();
             fakeBook.Reviews = new List<BookReview>();
 
             var fakeUser = TestDataHelper.GetFakeUsers().First();

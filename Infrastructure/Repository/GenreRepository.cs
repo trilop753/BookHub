@@ -21,8 +21,10 @@ namespace Infrastructure.Repository
         {
             return await _dbSet
                 .Include(g => g.Books)
+                .ThenInclude(gb => gb.Book)
                 .ThenInclude(b => b.Author)
                 .Include(g => g.Books)
+                .ThenInclude(gb => gb.Book)
                 .ThenInclude(b => b.Publisher)
                 .AsNoTracking()
                 .ToListAsync();

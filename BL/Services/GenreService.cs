@@ -94,7 +94,7 @@ public class GenreService : IGenreService
         var books = await _bookRepository.GetBooksAsync();
         var hasBooks =
             (genre.Books != null && genre.Books.Any())
-            || books.Any(b => b.Genres.Any(g => g.Id == id));
+            || books.Any(b => b.Genres.Any(gb => gb.GenreId == id));
 
         if (hasBooks)
         {
