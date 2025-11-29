@@ -49,16 +49,15 @@ namespace WebMVC.Controllers
 
         public async Task<IActionResult> Detail(int id)
         {
-            
             var bookRes = await _cache.GetOrCreateAsync(
                 CacheKeys.BookDetail(id),
                 () => _bookService.GetBookByIdAsync(id)
-                );
+            );
             if (bookRes.IsFailed)
             {
                 return View("NotFound");
             }
-            
+
             var identityUser = await _userManager.GetUserAsync(User);
             if (identityUser == null || identityUser.User == null)
             {
@@ -74,7 +73,7 @@ namespace WebMVC.Controllers
             {
                 return View("InternalServerError");
             }
-            
+
             var cartRes = await _cache.GetOrCreateAsync(
                 CacheKeys.UserCartAll(currentUser.Id),
                 () => _cartFacade.GetCartItemsByUserIdAsync(currentUser.Id)
@@ -131,6 +130,7 @@ namespace WebMVC.Controllers
                 }
                 return View(await FillDropdownsAsync(model));
             }
+            _cache.Remove(CacheKeys.BookAll());
             return RedirectToAction("Index", "Home");
         }
 
@@ -145,22 +145,22 @@ namespace WebMVC.Controllers
                 CacheKeys.PublisherAll(),
                 () => _publisherService.GetAllPublishersAsync()
             );
-            
+
             var genresRes = await _cache.GetOrCreateAsync(
                 CacheKeys.GenreAll(),
                 () => _genreService.GetAllGenresAsync()
             );
 
-            model.Authors = authorsRes.Value
-                .Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name })
+            model.Authors = authorsRes
+                .Value.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name })
                 .ToList();
 
-            model.Publishers = publishersRes.Value
-                .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name })
+            model.Publishers = publishersRes
+                .Value.Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name })
                 .ToList();
 
-            model.Genres = genresRes.Value
-                .Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
+            model.Genres = genresRes
+                .Value.Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
                 .ToList();
             return model;
         }

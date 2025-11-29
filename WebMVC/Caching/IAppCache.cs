@@ -26,8 +26,8 @@ public interface IAppCache
         TimeSpan? slidingWindowExpiration = null,
         TimeSpan? absoluteExpiration = null
     );
-    
-    // because some service/facade methods do not return Result
+
+    // because some service/facade methods do not return Result. Always returns Result.OK()
     public Task<Result<T>> GetOrCreateAsync<T>(
         string cacheKey,
         Func<Task<T>> factory,
