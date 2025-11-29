@@ -31,8 +31,8 @@ public class AppCache : IAppCache
             _cache.Set(cacheKey,
                 cached,
                 new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(slidingWindowExpiration ?? TimeSpan.FromSeconds(15))
-                    .SetAbsoluteExpiration(absoluteExpiration ?? TimeSpan.FromSeconds(60)));
+                    .SetSlidingExpiration(slidingWindowExpiration ?? TimeSpan.FromSeconds(30))
+                    .SetAbsoluteExpiration(absoluteExpiration ?? TimeSpan.FromSeconds(120)));
         }
         
         return cached == null
