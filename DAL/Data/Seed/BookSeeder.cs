@@ -6,20 +6,37 @@ namespace DAL.Data.Seed
 {
     public static class BookSeeder
     {
-        public static List<Book> Seed(this ModelBuilder modelBuilder)
+        public static List<Book> Seed(this ModelBuilder modelBuilder, List<Genre> genres)
         {
             var books = PrepareBookModels();
+
             modelBuilder.Entity<Book>().HasData(books);
 
-            modelBuilder
-                .Entity("BookGenre")
-                .HasData(
-                    new { BooksId = 1, GenresId = 1 },
-                    new { BooksId = 1, GenresId = 4 },
-                    new { BooksId = 2, GenresId = 2 },
-                    new { BooksId = 3, GenresId = 3 },
-                    new { BooksId = 4, GenresId = 5 }
-                );
+            var rand = new Random();
+            var genreBooks = new List<GenreBook>();
+            var idGen = 1;
+
+            foreach (var book in books)
+            {
+                int count = rand.Next(1, 4);
+                var selectedGenres = genres.OrderBy(g => rand.Next()).Take(count).ToList();
+                int primaryIndex = rand.Next(selectedGenres.Count);
+
+                for (int i = 0; i < selectedGenres.Count; i++)
+                {
+                    genreBooks.Add(
+                        new GenreBook
+                        {
+                            Id = idGen++,
+                            BookId = book.Id,
+                            GenreId = selectedGenres[i].Id,
+                            IsPrimary = i == primaryIndex,
+                        }
+                    );
+                }
+            }
+
+            modelBuilder.Entity<GenreBook>().HasData(genreBooks);
 
             return books;
         }
