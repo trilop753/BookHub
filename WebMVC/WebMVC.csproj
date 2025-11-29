@@ -4,6 +4,16 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="Views\NováSložka1\**" />
+      <Compile Remove="Views\NováSložka\**" />
+      <Content Remove="Views\NováSložka1\**" />
+      <Content Remove="Views\NováSložka\**" />
+      <EmbeddedResource Remove="Views\NováSložka1\**" />
+      <EmbeddedResource Remove="Views\NováSložka\**" />
+      <None Remove="Views\NováSložka1\**" />
+      <None Remove="Views\NováSložka\**" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="LiteDB" Version="6.0.0-prerelease.73" />
