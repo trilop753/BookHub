@@ -34,4 +34,6 @@ public interface IAppCache
         TimeSpan? slidingWindowExpiration = null,
         TimeSpan? absoluteExpiration = null
     );
+
+    public void Remove(string cacheKey);
 }

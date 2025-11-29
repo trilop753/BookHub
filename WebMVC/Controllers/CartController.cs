@@ -4,6 +4,8 @@ using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Caching;
+using WebMVC.Constants;
 using WebMVC.Mappers;
 using WebMVC.Models.Cart;
 
@@ -14,11 +16,13 @@ public class CartController : Controller
 {
     private readonly ICartFacade _cartFacade;
     private readonly UserManager<LocalIdentityUser> _userManager;
+    private readonly IAppCache _cache;
 
-    public CartController(ICartFacade cartFacade, UserManager<LocalIdentityUser> userManager)
+    public CartController(ICartFacade cartFacade, UserManager<LocalIdentityUser> userManager,  IAppCache cache)
     {
         _cartFacade = cartFacade;
         _userManager = userManager;
+        _cache = cache;
     }
 
     [HttpPost]
@@ -41,7 +45,8 @@ public class CartController : Controller
         {
             return View("InternalServerError");
         }
-
+        
+        _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
         return RedirectToAction("Detail", "Book", new { id = bookId });
     }
 
@@ -59,7 +64,8 @@ public class CartController : Controller
         {
             return View("InternalServerError");
         }
-
+        
+        _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
         return RedirectToAction("Detail", "Book", new { id = bookId });
     }
 
@@ -72,21 +78,31 @@ public class CartController : Controller
             return View("InternalServerError");
         }
 
-        var res = await _cartFacade.GetCartItemsByUserIdAsync(identityUser.User.Id);
-        if (res.IsFailed)
+        var cartRes = await _cache.GetOrCreateAsync(
+            CacheKeys.UserCartAll(identityUser.User.Id),
+            () => _cartFacade.GetCartItemsByUserIdAsync(identityUser.User.Id)
+        );
+        if (cartRes.IsFailed)
         {
             return View("InternalServerError");
         }
-        return View(res.Value.MapToView());
+        return View(cartRes.Value.MapToView());
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Update(CartViewModel model, int? removeId)
     {
+        var identityUser = await _userManager.GetUserAsync(User);
+        if (identityUser == null || identityUser.User == null)
+        {
+            return View("InternalServerError");
+        }
+        
         if (removeId.HasValue)
         {
             await _cartFacade.DeleteCartItemByIdAsync(removeId.Value);
+            _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
             return RedirectToAction(nameof(Index));
         }
 
@@ -106,7 +122,7 @@ public class CartController : Controller
                 await _cartFacade.UpdateItemQuantityAsync(item.Id, item.Quantity);
             }
         }
-
+        _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
         return RedirectToAction(nameof(Index));
     }
 }
