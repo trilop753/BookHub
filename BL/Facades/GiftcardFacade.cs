@@ -1,6 +1,7 @@
 using BL.DTOs.GiftcardDTOs;
 using BL.Facades.Interfaces;
 using BL.Services.Interfaces;
+using DAL.Models;
 using FluentResults;
 
 namespace BL.Facades
@@ -58,6 +59,11 @@ namespace BL.Facades
                 return Result.Fail(result.Errors);
 
             return Result.Ok(result.Value);
+        }
+
+        public Task<GiftcardCode?> GetCodeByValueAsync(string code)
+        {
+            return _giftcardService.GetCodeByValueAsync(code);
         }
     }
 }

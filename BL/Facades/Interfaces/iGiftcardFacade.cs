@@ -1,4 +1,5 @@
 using BL.DTOs.GiftcardDTOs;
+using DAL.Models;
 using FluentResults;
 
 namespace BL.Facades.Interfaces
@@ -15,7 +16,8 @@ namespace BL.Facades.Interfaces
 
         Task<Result> DeleteAsync(int id);
 
-        // Additional: Validate code in Cart (optional)
         Task<Result<GiftcardCodeValidationDto>> ValidateCodeAsync(string code);
+
+        Task<GiftcardCode?> GetCodeByValueAsync(string code);
     }
 }
