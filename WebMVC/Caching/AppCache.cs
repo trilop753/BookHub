@@ -17,7 +17,7 @@ public class AppCache : IAppCache
         Func<Task<Result<T>>> factory,
         TimeSpan? slidingWindowExpiration = null,
         TimeSpan? absoluteExpiration = null
-        )
+    )
     {
         if (!_cache.TryGetValue(cacheKey, out T? cached))
         {
@@ -26,15 +26,17 @@ public class AppCache : IAppCache
             {
                 return res;
             }
-            
+
             cached = res.Value;
-            _cache.Set(cacheKey,
+            _cache.Set(
+                cacheKey,
                 cached,
                 new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(slidingWindowExpiration ?? TimeSpan.FromSeconds(30))
-                    .SetAbsoluteExpiration(absoluteExpiration ?? TimeSpan.FromSeconds(120)));
+                    .SetAbsoluteExpiration(absoluteExpiration ?? TimeSpan.FromSeconds(120))
+            );
         }
-        
+
         return cached == null
             ? Result.Fail("Cache miss and factory returned null.")
             // ^^^ should not happen (services/facades do not return null) ^^^
@@ -46,7 +48,7 @@ public class AppCache : IAppCache
         Func<Task<T>> factory,
         TimeSpan? slidingWindowExpiration = null,
         TimeSpan? absoluteExpiration = null
-        )
+    )
     {
         return GetOrCreateAsync(
             cacheKey,
@@ -56,7 +58,8 @@ public class AppCache : IAppCache
                 return Result.Ok(value);
             },
             slidingWindowExpiration,
-            absoluteExpiration);
+            absoluteExpiration
+        );
     }
 
     public void Remove(string cacheKey)
