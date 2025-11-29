@@ -46,7 +46,7 @@ namespace BL.Services
                 Amount = dto.Amount,
                 ValidFrom = dto.ValidFrom,
                 ValidTo = dto.ValidTo,
-                Codes = GenerateCodes(dto.NumberOfCodes)
+                Codes = GenerateCodes(dto.NumberOfCodes),
             };
 
             await _giftcardRepository.AddAsync(card);
@@ -109,12 +109,14 @@ namespace BL.Services
             if (now < giftcard.ValidFrom || now > giftcard.ValidTo)
                 return Result.Fail("Giftcard code is expired or not valid yet.");
 
-            return Result.Ok(new GiftcardCodeValidationDto
-            {
-                Code = code,
-                Amount = giftcard.Amount,
-                GiftcardId = giftcard.Id
-            });
+            return Result.Ok(
+                new GiftcardCodeValidationDto
+                {
+                    Code = code,
+                    Amount = giftcard.Amount,
+                    GiftcardId = giftcard.Id,
+                }
+            );
         }
 
         private static IEnumerable<GiftcardCode> GenerateCodes(int count)
@@ -122,13 +124,20 @@ namespace BL.Services
             var list = new List<GiftcardCode>();
             for (int i = 0; i < count; i++)
             {
-                list.Add(new GiftcardCode
-                {
-                    Code = Guid.NewGuid().ToString("N")[..10].ToUpper(),
-                    IsUsed = false
-                });
+                list.Add(
+                    new GiftcardCode
+                    {
+                        Code = Guid.NewGuid().ToString("N")[..10].ToUpper(),
+                        IsUsed = false,
+                    }
+                );
             }
             return list;
+        }
+
+        public Task<GiftcardCode?> GetCodeByValueAsync(string code)
+        {
+            return _giftcardRepository.GetCodeByValueAsync(code);
         }
     }
 }
