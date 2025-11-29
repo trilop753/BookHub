@@ -23,7 +23,7 @@
                 <tr>
                     <td>
                         <img src="~/cover-images/@item.Book.CoverImageName"
-                             alt="failed to load cover image" />
+                             alt="failed to load cover image" style="max-height:120px;" />
                     </td>
                     <td>@item.Book.Title</td>
                     <td>@item.Book.AuthorName</td>
@@ -35,11 +35,44 @@
         </tbody>
     </table>
 
-    <h3>Total Price: @(Model.TotalPrice?.ToString("C") ?? "Error")</h3>
-    <h3>Payment Status: @Model.PaymentStatus.ToString()</h3>
-    
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <h3>Total Price: @Model.TotalPrice.ToString("C")</h3>
+
+    @if (Model.GiftcardCode != null)
+    {
+        <h4>Giftcard applied: <strong>@Model.GiftcardCode</strong></h4>
+        <h4>Discount: -@((Model.TotalPrice - Model.FinalPrice).ToString("C"))</h4>
+    }
+
+    <h2><strong>Final Price: @Model.FinalPrice.ToString("C")</strong></h2>
+
+
     @if (Model.PaymentStatus == PaymentStatus.InProgress)
     {
+        <form asp-controller="Order" asp-action="ApplyGiftcard" method="post" class="mt-3">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="orderId" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label>Giftcard code:</label>
+                <input type="text" name="code" class="form-control"
+                       placeholder="Enter your giftcard code" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Apply Giftcard
+            </button>
+        </form>
+
         <form asp-controller="Order" asp-action="PayOrder" method="post" class="mt-3">
             @Html.AntiForgeryToken()
             <input type="hidden" name="id" value="@Model.Id" />

@@ -78,5 +78,10 @@ namespace BL.Facades
             }
             return Result.Ok();
         }
+
+        public Task<Result> AssignGiftcardCodeAsync(int orderId, int giftcardCodeId)
+        {
+            return _orderService.AssignGiftcardCodeAsync(orderId, giftcardCodeId);
+        }
     }
 }
