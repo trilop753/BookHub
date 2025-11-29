@@ -1,9 +1,12 @@
-﻿using BL.Facades.Interfaces;
+﻿using BL.DTOs.OrderDTOs;
+using BL.Facades.Interfaces;
 using DAL.Models;
 using DAL.UtilityModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using WebMVC.Constants;
 using WebMVC.Mappers;
 
 namespace WebMVC.Controllers
@@ -14,27 +17,42 @@ namespace WebMVC.Controllers
         private readonly IOrderFacade _orderFacade;
         private readonly ICartFacade _cartFacade;
         private readonly UserManager<LocalIdentityUser> _userManager;
+        private readonly IMemoryCache _cache;
 
         public OrderController(
             IOrderFacade orderFacade,
             ICartFacade cartFacade,
-            UserManager<LocalIdentityUser> userManager
+            UserManager<LocalIdentityUser> userManager,
+            IMemoryCache cache
         )
         {
             _orderFacade = orderFacade;
             _cartFacade = cartFacade;
             _userManager = userManager;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var res = await _orderFacade.GetByIdAsync(id);
-            if (res.IsFailed)
+            var cacheKey = CacheKeys.OrderDetail(id);
+            if (!_cache.TryGetValue(cacheKey, out OrderDto? order))
             {
-                return NotFound();
-            }
+                var res = await _orderFacade.GetByIdAsync(id);
+                if (res.IsFailed)
+                {
+                    return View("NotFound");
+                }
 
-            return View(res.Value.MapToView());
+                order = res.Value;
+                _cache.Set(
+                    cacheKey,
+                    order,
+                    new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(15))
+                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(60))
+                );
+            }
+            return View(order!.MapToView());
         }
 
         public async Task<IActionResult> List()
