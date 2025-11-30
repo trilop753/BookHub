@@ -103,41 +103,23 @@ namespace WebMVC.Controllers
                 return RedirectToAction("Detail", new { id = orderId });
             }
 
-            var orderRes = await _orderFacade.GetByIdAsync(orderId);
-            if (orderRes.IsFailed)
+            var codeRes = await _giftcardFacade.GetCodeByValueAsync(code);
+
+            if (codeRes.IsFailed)
             {
-                return View("InternalServerError");
-            }
-
-            var order = orderRes.Value;
-
-            var giftcardCode = await _giftcardFacade.GetCodeByValueAsync(code);
-
-            if (giftcardCode == null)
-            {
-                TempData["Error"] = "Giftcard code not found.";
+                TempData["Error"] = codeRes.Errors.First().Message;
                 return RedirectToAction("Detail", new { id = orderId });
             }
 
-            if (giftcardCode.IsUsed)
+            var assignRes = await _orderFacade.AssignGiftcardCodeAsync(orderId, codeRes.Value.Id);
+
+            if (assignRes.IsFailed)
             {
-                TempData["Error"] = "This giftcard has already been used.";
+                TempData["Error"] = assignRes.Errors.First().Message;
                 return RedirectToAction("Detail", new { id = orderId });
             }
-
-            if (
-                DateTime.Now < giftcardCode.Giftcard.ValidFrom
-                || DateTime.Now > giftcardCode.Giftcard.ValidTo
-            )
-            {
-                TempData["Error"] = "This giftcard has expired or is not active.";
-                return RedirectToAction("Detail", new { id = orderId });
-            }
-
-            await _orderFacade.AssignGiftcardCodeAsync(orderId, giftcardCode.Id);
 
             TempData["Success"] = "Giftcard applied successfully.";
-
             return RedirectToAction("Detail", new { id = orderId });
         }
     }

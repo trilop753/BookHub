@@ -1,6 +1,6 @@
 ﻿using BL.Facades.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using WebMVC.Models.Giftcard;
+using WebMVC.Mappers;
 
 namespace WebMVC.Controllers
 {
@@ -18,26 +18,11 @@ namespace WebMVC.Controllers
             var res = await _giftcardFacade.GetByIdAsync(giftcardId);
 
             if (res.IsFailed)
-                return NotFound();
-
-            var g = res.Value;
-
-            var vm = new GiftcardCodesViewModel
             {
-                GiftcardId = g.Id,
-                GiftcardName = g.Name,
-                Codes = g
-                    .Codes.Select(c => new GiftcardCodeItemViewModel
-                    {
-                        Id = c.Id,
-                        Code = c.Code,
-                        IsUsed = c.IsUsed,
-                        OrderId = c.OrderId,
-                    })
-                    .ToList(),
-            };
+                return NotFound();
+            }
 
-            return View(vm);
+            return View(res.Value.MapToCodesView());
         }
     }
 }

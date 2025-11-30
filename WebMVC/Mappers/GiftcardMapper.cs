@@ -42,7 +42,7 @@ namespace WebMVC.Mappers
             };
         }
 
-        public static GiftcardCodesViewModel MapToCodesView(this GiftcardDto dto)
+        public static GiftcardCodesViewModel MapToCodesView(this GiftcardSummaryDto dto)
         {
             return new GiftcardCodesViewModel
             {
@@ -69,6 +69,29 @@ namespace WebMVC.Mappers
                 ValidFrom = vm.ValidFrom,
                 ValidTo = vm.ValidTo,
                 NumberOfCodes = vm.NumberOfCodes,
+            };
+        }
+
+        public static GiftcardDetailViewModel ToDetail(this GiftcardSummaryDto dto)
+        {
+            return new GiftcardDetailViewModel
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Amount = dto.Amount,
+                ValidFrom = dto.ValidFrom,
+                ValidTo = dto.ValidTo,
+                TotalCodes = dto.Codes?.Count() ?? 0,
+                UsedCodes = dto.Codes?.Count(c => c.IsUsed) ?? 0,
+                Codes =
+                    dto.Codes?.Select(c => new GiftcardCodeSummaryViewModel
+                        {
+                            Id = c.Id,
+                            Code = c.Code,
+                            IsUsed = c.IsUsed,
+                            OrderId = c.OrderId,
+                        })
+                        .ToList() ?? new List<GiftcardCodeSummaryViewModel>(),
             };
         }
     }
