@@ -10,8 +10,12 @@ namespace WebMVC.Models.Order
 
         public IEnumerable<OrderItemViewModel> Items { get; set; }
 
-        public decimal? TotalPrice => Items?.Sum(i => i.Quantity * i.Book.Price);
+        public decimal TotalPrice { get; set; }
+
+        public decimal FinalPrice { get; set; }
 
         public PaymentStatus PaymentStatus { get; set; }
+
+        public string? GiftcardCode { get; set; }
     }
 }

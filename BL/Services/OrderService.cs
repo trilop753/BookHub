@@ -12,10 +12,15 @@ namespace BL.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IGiftcardRepository _giftcardRepository;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrderService(
+            IOrderRepository orderRepository,
+            IGiftcardRepository giftcardRepository
+        )
         {
             _orderRepository = orderRepository;
+            _giftcardRepository = giftcardRepository;
         }
 
         public async Task<Result<OrderDto>> CreateOrderFromUserCartAsync(UserCartDto user)
@@ -38,12 +43,14 @@ namespace BL.Services
 
             await _orderRepository.AddAsync(order);
             await _orderRepository.SaveChangesAsync();
-            return Result.Ok(order.MapToOrderDto());
+
+            var loaded = await _orderRepository.GetDetailByIdAsync(order.Id);
+            return Result.Ok(loaded!.MapToOrderDto());
         }
 
         public async Task<Result> DeleteAsync(int id)
         {
-            var order = await _orderRepository.GetByIdAsync(id);
+            var order = await _orderRepository.GetDetailByIdAsync(id);
 
             if (order == null)
             {
@@ -57,13 +64,13 @@ namespace BL.Services
 
         public async Task<Result<IEnumerable<OrderDto>>> GetAllAsync()
         {
-            var orders = await _orderRepository.GetAllAsync();
+            var orders = await _orderRepository.GetAllDetailedAsync();
             return Result.Ok(orders.Select(o => o.MapToOrderDto()));
         }
 
         public async Task<Result<OrderDto>> GetByIdAsync(int id)
         {
-            var order = await _orderRepository.GetByIdAsync(id);
+            var order = await _orderRepository.GetDetailByIdAsync(id);
             if (order == null)
             {
                 return Result.Fail($"Order with id {id} does not exist.");
@@ -83,16 +90,59 @@ namespace BL.Services
             PaymentStatus status
         )
         {
-            var order = await _orderRepository.GetByIdAsync(id);
+            var order = await _orderRepository.GetDetailByIdAsync(id);
             if (order == null)
             {
                 return Result.Fail($"Order with id {id} does not exist.");
             }
 
             order.PaymentStatus = status;
+
             await _orderRepository.SaveChangesAsync();
 
             return Result.Ok(order.MapToOrderDto());
+        }
+
+        public async Task<Result> AssignGiftcardCodeAsync(int orderId, int giftcardCodeId)
+        {
+            var order = await _orderRepository.GetDetailByIdAsync(orderId);
+            if (order == null)
+            {
+                return Result.Fail("Order not found.");
+            }
+
+            var code = await _giftcardRepository.GetCodeByIdAsync(giftcardCodeId);
+            if (code == null)
+            {
+                return Result.Fail("Giftcard code not found.");
+            }
+
+            if (code.IsUsed)
+            {
+                return Result.Fail("This giftcard code has already been used.");
+            }
+
+            var now = DateTime.UtcNow;
+            var gc = code.Giftcard;
+
+            if (gc == null)
+            {
+                return Result.Fail("Giftcard data not loaded.");
+            }
+
+            if (now < gc.ValidFrom || now > gc.ValidTo)
+            {
+                return Result.Fail("Giftcard code is expired or not yet active.");
+            }
+
+            code.IsUsed = true;
+            code.OrderId = orderId;
+
+            order.GiftcardCodeId = giftcardCodeId;
+
+            await _orderRepository.SaveChangesAsync();
+
+            return Result.Ok();
         }
     }
 }

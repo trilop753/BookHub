@@ -18,5 +18,7 @@ namespace BL.Services.Interfaces
         Task<Result<OrderDto>> UpdateOrderPaymentStatusAsync(int id, PaymentStatus status);
 
         Task<Result> DeleteAsync(int id);
+
+        Task<Result> AssignGiftcardCodeAsync(int orderId, int giftcardCodeId);
     }
 }

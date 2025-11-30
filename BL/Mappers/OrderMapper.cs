@@ -12,8 +12,11 @@ namespace BL.Mappers
                 Id = order.Id,
                 Date = order.Date,
                 User = order.User.MapToSummaryDto(),
-                Items = order.Items.Select(i => i.MapToOrderItemDto()) ?? [],
+                Items = order.Items?.Select(i => i.MapToOrderItemDto()) ?? [],
                 PaymentStatus = order.PaymentStatus,
+                TotalPrice = order.TotalPrice,
+                FinalPrice = order.FinalPrice,
+                GiftcardCode = order.GiftcardCode?.Code,
             };
         }
 

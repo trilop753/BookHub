@@ -19,10 +19,10 @@
             <tr>
                 <td>@order.Id</td>
                 <td>@order.Date.ToString("dd.MM. yyyy")</td>
-                <td>@order.TotalPrice?.ToString("C")</td>
+                <td>@order.TotalPrice.ToString("C")</td>
                 <td>@order.PaymentStatus.ToString()</td>
                 <td>
-                    <a asp-asp-controller="Order" asp-action="Detail" asp-route-id="@order.Id" class="btn btn-primary btn-sm">
+                    <a asp-controller="Order" asp-action="Detail" asp-route-id="@order.Id" class="btn btn-primary btn-sm">
                         View
                     </a>
                 </td>
