@@ -97,17 +97,23 @@ namespace BL.Services
             var codeEntity = await _giftcardRepository.GetCodeByValueAsync(code);
 
             if (codeEntity == null)
+            {
                 return Result.Fail("Giftcard code does not exist.");
+            }
 
             if (codeEntity.IsUsed)
+            {
                 return Result.Fail("Giftcard code has already been used.");
+            }
 
             var giftcard = codeEntity.Giftcard;
 
             var now = DateTime.UtcNow;
 
             if (now < giftcard.ValidFrom || now > giftcard.ValidTo)
+            {
                 return Result.Fail("Giftcard code is expired or not valid yet.");
+            }
 
             return Result.Ok(
                 new GiftcardCodeValidationDto
@@ -135,9 +141,21 @@ namespace BL.Services
             return list;
         }
 
-        public Task<GiftcardCode?> GetCodeByValueAsync(string code)
+        public async Task<Result<GiftcardCode>> GetCodeByValueAsync(string code)
         {
-            return _giftcardRepository.GetCodeByValueAsync(code);
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                return Result.Fail("Code cannot be empty.");
+            }
+
+            var entity = await _giftcardRepository.GetCodeByValueAsync(code);
+
+            if (entity == null)
+            {
+                return Result.Fail("Giftcard code not found.");
+            }
+
+            return Result.Ok(entity);
         }
     }
 }

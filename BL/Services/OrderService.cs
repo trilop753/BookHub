@@ -100,8 +100,7 @@ namespace BL.Services
 
             await _orderRepository.SaveChangesAsync();
 
-            var loaded = await _orderRepository.GetDetailByIdAsync(id);
-            return Result.Ok(loaded!.MapToOrderDto());
+            return Result.Ok(order.MapToOrderDto());
         }
 
         public async Task<Result> AssignGiftcardCodeAsync(int orderId, int giftcardCodeId)
@@ -116,6 +115,24 @@ namespace BL.Services
             if (code == null)
             {
                 return Result.Fail("Giftcard code not found.");
+            }
+
+            if (code.IsUsed)
+            {
+                return Result.Fail("This giftcard code has already been used.");
+            }
+
+            var now = DateTime.UtcNow;
+            var gc = code.Giftcard;
+
+            if (gc == null)
+            {
+                return Result.Fail("Giftcard data not loaded.");
+            }
+
+            if (now < gc.ValidFrom || now > gc.ValidTo)
+            {
+                return Result.Fail("Giftcard code is expired or not yet active.");
             }
 
             code.IsUsed = true;

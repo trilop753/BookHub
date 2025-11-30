@@ -18,6 +18,6 @@ namespace BL.Services.Interfaces
 
         Task<Result<GiftcardCodeValidationDto>> ValidateCodeAsync(string code);
 
-        Task<GiftcardCode?> GetCodeByValueAsync(string code);
+        Task<Result<GiftcardCode>> GetCodeByValueAsync(string code);
     }
 }

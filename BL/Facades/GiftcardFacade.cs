@@ -19,7 +19,9 @@ namespace BL.Facades
         {
             var result = await _giftcardService.CreateAsync(dto);
             if (result.IsFailed)
+            {
                 return Result.Fail(result.Errors);
+            }
 
             return Result.Ok(result.Value);
         }
@@ -38,7 +40,9 @@ namespace BL.Facades
         {
             var result = await _giftcardService.GetByIdAsync(id);
             if (result.IsFailed)
+            {
                 return Result.Fail(result.Errors);
+            }
 
             return Result.Ok(result.Value);
         }
@@ -47,7 +51,9 @@ namespace BL.Facades
         {
             var result = await _giftcardService.UpdateAsync(id, dto);
             if (result.IsFailed)
+            {
                 return Result.Fail(result.Errors);
+            }
 
             return Result.Ok(result.Value);
         }
@@ -56,12 +62,14 @@ namespace BL.Facades
         {
             var result = await _giftcardService.ValidateCodeAsync(code);
             if (result.IsFailed)
+            {
                 return Result.Fail(result.Errors);
+            }
 
             return Result.Ok(result.Value);
         }
 
-        public Task<GiftcardCode?> GetCodeByValueAsync(string code)
+        public Task<Result<GiftcardCode>> GetCodeByValueAsync(string code)
         {
             return _giftcardService.GetCodeByValueAsync(code);
         }
