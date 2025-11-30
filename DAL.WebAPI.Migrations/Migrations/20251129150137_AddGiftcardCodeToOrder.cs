@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DAL.WebMVC.Migrations.Migrations
+namespace DAL.WebAPI.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class order_status : Migration
+    public partial class AddGiftcardCodeToOrder : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,6 +52,22 @@ namespace DAL.WebMVC.Migrations.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genre", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Giftcard",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Amount = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValidFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ValidTo = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Giftcard", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,27 +187,6 @@ namespace DAL.WebMVC.Migrations.Migrations
                         column: x => x.LastEditedById,
                         principalTable: "User",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentStatus = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Order_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -385,6 +380,55 @@ namespace DAL.WebMVC.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GiftcardCode",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    GiftcardId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Code = table.Column<string>(type: "TEXT", nullable: false),
+                    IsUsed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    OrderId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GiftcardCode", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GiftcardCode_Giftcard_GiftcardId",
+                        column: x => x.GiftcardId,
+                        principalTable: "Giftcard",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    GiftcardCodeId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PaymentStatus = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_GiftcardCode_GiftcardCodeId",
+                        column: x => x.GiftcardCodeId,
+                        principalTable: "GiftcardCode",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Order_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderItem",
                 columns: table => new
                 {
@@ -416,11 +460,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "Francisca", "Sauer" },
-                    { 2, "Coby", "O'Conner" },
-                    { 3, "Edd", "Collins" },
-                    { 4, "Clint", "Stamm" },
-                    { 5, "Harvey", "Schoen" }
+                    { 1, "Wilbert", "Lynch" },
+                    { 2, "Fay", "Crist" },
+                    { 3, "Trevor", "Metz" },
+                    { 4, "Griffin", "Williamson" },
+                    { 5, "Garrick", "Collier" }
                 });
 
             migrationBuilder.InsertData(
@@ -443,10 +487,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Graham, Bechtelar and Rutherford" },
-                    { 2, "Breitenberg Group" },
-                    { 3, "Lowe, Morar and Moore" },
-                    { 4, "Abbott, Cartwright and McLaughlin" }
+                    { 1, "Kuhn Inc" },
+                    { 2, "Rutherford and Sons" },
+                    { 3, "O'Kon Inc" },
+                    { 4, "Will - Gislason" }
                 });
 
             migrationBuilder.InsertData(
@@ -454,14 +498,14 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Kaitlin.Dooley@gmail.com", false, "Nicholas70" },
-                    { 2, "Doris90@hotmail.com", false, "Adonis.Conn" },
-                    { 3, "Hayley.Cormier3@hotmail.com", false, "Kirk_Huels" },
-                    { 4, "Alford_Bahringer@hotmail.com", false, "Oma15" },
-                    { 5, "Joel_Wyman10@hotmail.com", false, "Giovanny.Tillman29" },
-                    { 6, "Carmen_Goodwin@hotmail.com", false, "Nelson28" },
-                    { 7, "Jonas.Bechtelar69@hotmail.com", false, "Karlee7" },
-                    { 8, "Winfield.Kemmer@hotmail.com", false, "Julie.Langosh" }
+                    { 1, "Zander.Zemlak@gmail.com", false, "Junius18" },
+                    { 2, "Lempi_Beer@yahoo.com", false, "Arianna_Bartell" },
+                    { 3, "Cydney71@yahoo.com", false, "Era56" },
+                    { 4, "Ethyl_Brown93@hotmail.com", false, "Lenna.Ryan26" },
+                    { 5, "Tanner86@gmail.com", false, "Margot_Monahan" },
+                    { 6, "Emile25@gmail.com", false, "Franz.Cassin" },
+                    { 7, "Kieran56@yahoo.com", false, "Leann11" },
+                    { 8, "Oleta.Adams19@gmail.com", false, "Eugenia57" }
                 });
 
             migrationBuilder.InsertData(
@@ -469,21 +513,21 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "AuthorId", "CoverImageName", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 3, null, "Et vitae aut ex odit reiciendis ad quia laudantium. Veniam earum hic nihil. Enim in velit saepe ab voluptatibus voluptas suscipit assumenda.", 7, "8323313282577", 2, 14.76m, 3, "Itaque vero fugiat voluptas." },
-                    { 2, 2, null, "Ut aut modi animi fugiat id numquam quos. Explicabo velit est laborum distinctio. Deserunt et tempora. Illo voluptates facere voluptatum enim alias nihil laboriosam.", 10, "7039928792486", 4, 8.84m, 1, "Ut possimus alias ex voluptate ut." },
-                    { 3, 1, null, "Qui praesentium rem est ut reiciendis aperiam molestiae modi eos. Eum et possimus aut nihil itaque ipsa. Consequatur est expedita ea. Suscipit et et voluptates.", 1, "4926811141687", 1, 12.05m, 3, "Amet debitis sunt qui." },
-                    { 4, 2, null, "Eum et nihil ab reprehenderit. Magni corporis magni saepe. Culpa ut non. Temporibus quo maxime labore voluptas eveniet nihil eius enim. Corrupti quis ipsum qui quo est similique voluptatem quos illum.", 7, "2151087374206", 2, 5.95m, 4, "Est laudantium ut odio sint." }
+                    { 1, 5, null, "Rerum non similique molestias omnis dicta alias nemo fugit. Quia pariatur quos sit. Temporibus quia ducimus est inventore molestias et quisquam commodi. Ut modi hic dicta totam perferendis quasi aut ut repellendus. Ea voluptatem saepe delectus et nemo. Itaque error nihil nihil recusandae quidem facere.", 0, "7917662334769", 1, 5.95m, 4, "Vel qui odio iusto." },
+                    { 2, 3, null, "Minus vel repellendus sit velit deleniti aliquam assumenda. Qui enim dolores minus doloribus eos officia non harum voluptatem. Quia numquam consequuntur eos praesentium magni. Est facere aut voluptates voluptatem officiis qui inventore. Consequatur et nesciunt qui sequi ut quia iure quaerat.", 3, "4895214419023", 5, 10.11m, 4, "Placeat commodi numquam est harum reprehenderit." },
+                    { 3, 2, null, "Non explicabo dolorem quia nam qui omnis. Quia est molestiae assumenda amet sit. Dignissimos exercitationem voluptates dolorem alias voluptates reiciendis sapiente quia aperiam. Et quisquam ut voluptatem ut alias a id corrupti eligendi. Quibusdam vel sunt et mollitia ut sint autem id praesentium. Alias mollitia id qui alias veritatis molestiae ut animi et.", 3, "1919912237376", 1, 8.89m, 2, "Error error commodi qui aut." },
+                    { 4, 1, null, "Et mollitia magnam. Molestiae quia repellat porro consequatur sed hic. Aut sit dolorum autem. Mollitia ex maiores sed beatae minus id facilis voluptatem quod.", 2, "2406227680854", 4, 14.01m, 2, "Incidunt nihil asperiores delectus sunt debitis." }
                 });
 
             migrationBuilder.InsertData(
                 table: "Order",
-                columns: new[] { "Id", "Date", "PaymentStatus", "UserId" },
+                columns: new[] { "Id", "Date", "GiftcardCodeId", "PaymentStatus", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 4, 1, 10, 5, 38, 94, DateTimeKind.Unspecified).AddTicks(4406), 0, 4 },
-                    { 2, new DateTime(2017, 8, 7, 18, 35, 4, 657, DateTimeKind.Unspecified).AddTicks(2944), 0, 4 },
-                    { 3, new DateTime(2025, 4, 29, 14, 41, 58, 308, DateTimeKind.Unspecified).AddTicks(2656), 0, 5 },
-                    { 4, new DateTime(2025, 4, 14, 16, 2, 44, 744, DateTimeKind.Unspecified).AddTicks(9260), 0, 3 }
+                    { 1, new DateTime(2015, 3, 2, 20, 6, 36, 477, DateTimeKind.Unspecified).AddTicks(2626), null, 0, 1 },
+                    { 2, new DateTime(2017, 7, 11, 22, 45, 50, 414, DateTimeKind.Unspecified).AddTicks(7688), null, 0, 5 },
+                    { 3, new DateTime(2016, 6, 30, 10, 42, 35, 254, DateTimeKind.Unspecified).AddTicks(6513), null, 0, 6 },
+                    { 4, new DateTime(2023, 2, 7, 6, 40, 46, 870, DateTimeKind.Unspecified).AddTicks(8577), null, 0, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -503,12 +547,12 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Omnis nisi in ducimus at ex aut totam veniam culpa.", 2, 1, 8 },
-                    { 2, "Et fugiat autem expedita hic illum eum voluptatibus ex.", 1, 4, 2 },
-                    { 3, "Voluptatem et architecto suscipit error ut architecto expedita.", 4, 5, 4 },
-                    { 4, "A blanditiis inventore quod et consequatur nobis ipsa velit.", 3, 4, 6 },
-                    { 5, "Minus optio consequuntur aut velit est a temporibus dolorem.", 4, 2, 3 },
-                    { 6, "Pariatur quos voluptatum et qui reprehenderit maiores voluptas.", 4, 4, 4 }
+                    { 1, "Doloremque voluptates labore voluptate et blanditiis tempora sed consequatur.", 2, 5, 2 },
+                    { 2, "Aliquid voluptatem labore ab consequatur fugiat sint aut sed.", 3, 3, 2 },
+                    { 3, "Porro exercitationem est et nisi suscipit qui quaerat.", 1, 1, 3 },
+                    { 4, "Labore non et aut consequatur sit dolorem commodi quidem.", 2, 1, 4 },
+                    { 5, "Repellat veniam et unde accusamus quasi quasi est doloremque voluptas.", 1, 2, 4 },
+                    { 6, "Mollitia earum deserunt commodi provident est libero autem nobis ipsam.", 2, 5, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -516,10 +560,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 4, 4, 5 },
-                    { 2, 3, 5, 8 },
-                    { 3, 4, 3, 1 },
-                    { 4, 1, 4, 5 }
+                    { 1, 3, 1, 6 },
+                    { 2, 1, 3, 8 },
+                    { 3, 4, 3, 4 },
+                    { 4, 1, 1, 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -527,13 +571,12 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 4, 1, 1 },
-                    { 2, 1, 2, 2 },
-                    { 3, 1, 2, 3 },
-                    { 4, 4, 2, 3 },
-                    { 5, 1, 3, 5 },
-                    { 6, 1, 3, 2 },
-                    { 7, 3, 4, 3 }
+                    { 1, 4, 1, 3 },
+                    { 2, 2, 2, 3 },
+                    { 3, 4, 2, 5 },
+                    { 4, 1, 3, 5 },
+                    { 5, 1, 4, 2 },
+                    { 6, 1, 4, 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -619,6 +662,21 @@ namespace DAL.WebMVC.Migrations.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GiftcardCode_GiftcardId",
+                table: "GiftcardCode",
+                column: "GiftcardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GiftcardCode_OrderId",
+                table: "GiftcardCode",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_GiftcardCodeId",
+                table: "Order",
+                column: "GiftcardCodeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Order_UserId",
                 table: "Order",
                 column: "UserId");
@@ -642,11 +700,30 @@ namespace DAL.WebMVC.Migrations.Migrations
                 name: "IX_WishlistItem_UserId",
                 table: "WishlistItem",
                 column: "UserId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_GiftcardCode_Order_OrderId",
+                table: "GiftcardCode",
+                column: "OrderId",
+                principalTable: "Order",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Order_User_UserId",
+                table: "Order");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_GiftcardCode_Giftcard_GiftcardId",
+                table: "GiftcardCode");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_GiftcardCode_Order_OrderId",
+                table: "GiftcardCode");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -687,9 +764,6 @@ namespace DAL.WebMVC.Migrations.Migrations
                 name: "Genre");
 
             migrationBuilder.DropTable(
-                name: "Order");
-
-            migrationBuilder.DropTable(
                 name: "Book");
 
             migrationBuilder.DropTable(
@@ -700,6 +774,15 @@ namespace DAL.WebMVC.Migrations.Migrations
 
             migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "Giftcard");
+
+            migrationBuilder.DropTable(
+                name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "GiftcardCode");
         }
     }
 }

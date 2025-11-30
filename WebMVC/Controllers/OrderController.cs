@@ -1,4 +1,5 @@
-﻿using BL.Facades.Interfaces;
+﻿using BL.Facades;
+using BL.Facades.Interfaces;
 using DAL.Models;
 using DAL.UtilityModels;
 using Microsoft.AspNetCore.Authorization;
@@ -12,18 +13,21 @@ namespace WebMVC.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderFacade _orderFacade;
+        private readonly IGiftcardFacade _giftcardFacade;
         private readonly ICartFacade _cartFacade;
         private readonly UserManager<LocalIdentityUser> _userManager;
 
         public OrderController(
             IOrderFacade orderFacade,
             ICartFacade cartFacade,
-            UserManager<LocalIdentityUser> userManager
+            UserManager<LocalIdentityUser> userManager,
+            IGiftcardFacade giftcardFacade
         )
         {
             _orderFacade = orderFacade;
             _cartFacade = cartFacade;
             _userManager = userManager;
+            _giftcardFacade = giftcardFacade;
         }
 
         public async Task<IActionResult> Detail(int id)
@@ -87,6 +91,36 @@ namespace WebMVC.Controllers
             }
 
             return View("Detail", res.Value.MapToView());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApplyGiftcard(int orderId, string code)
+        {
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                TempData["Error"] = "Please enter a valid giftcard code.";
+                return RedirectToAction("Detail", new { id = orderId });
+            }
+
+            var codeRes = await _giftcardFacade.GetCodeByValueAsync(code);
+
+            if (codeRes.IsFailed)
+            {
+                TempData["Error"] = codeRes.Errors.First().Message;
+                return RedirectToAction("Detail", new { id = orderId });
+            }
+
+            var assignRes = await _orderFacade.AssignGiftcardCodeAsync(orderId, codeRes.Value.Id);
+
+            if (assignRes.IsFailed)
+            {
+                TempData["Error"] = assignRes.Errors.First().Message;
+                return RedirectToAction("Detail", new { id = orderId });
+            }
+
+            TempData["Success"] = "Giftcard applied successfully.";
+            return RedirectToAction("Detail", new { id = orderId });
         }
     }
 }

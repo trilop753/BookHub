@@ -1,0 +1,85 @@
+﻿@model IEnumerable<WebMVC.Models.Giftcard.GiftcardViewModel>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold">Gift Cards</h1>
+
+        <a asp-controller="Giftcard"
+           asp-action="Create"
+           class="btn btn-primary btn-lg shadow-sm">
+            + Create New Gift Card
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No gift cards available yet.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-hover shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Valid From</th>
+                    <th>Valid To</th>
+                    <th>Total Codes</th>
+                    <th>Used Codes</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+
+                        <td>@item.Amount.ToString("C")</td>
+
+                        <td>@item.ValidFrom.ToString("yyyy-MM-dd")</td>
+
+                        <td>@item.ValidTo.ToString("yyyy-MM-dd")</td>
+
+                        <td>@item.TotalCodes</td>
+
+                        <td>@item.UsedCodes</td>
+
+                        <td class="text-end">
+
+                            <a asp-controller="Giftcard"
+                               asp-action="Detail"
+                               asp-route-id="@item.Id"
+                               class="btn btn-sm btn-info text-white me-2">
+                                Details
+                            </a>
+
+                            <a asp-controller="GiftcardCode"
+                               asp-action="Index"
+                               asp-route-giftcardId="@item.Id"
+                               class="btn btn-sm btn-secondary me-2">
+                                Codes
+                            </a>
+
+                            <form asp-controller="Giftcard"
+                                  asp-action="Delete"
+                                  asp-route-id="@item.Id"
+                                  method="post"
+                                  class="d-inline"
+                                  onsubmit="return confirm('Are you sure you want to delete this gift card?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

@@ -13,6 +13,9 @@ namespace DAL.Data
         public DbSet<Publisher> Publisher { get; set; }
         public DbSet<WishlistItem> WishlistItem { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
+        
+        public DbSet<Giftcard> Giftcard { get; set; }
+        public DbSet<GiftcardCode> GiftcardCode { get; set; }
 
         public BookHubDbContext(DbContextOptions<BookHubDbContext> options)
             : base(options) { }

@@ -25,6 +25,9 @@ namespace WebMVC.Mappers
                 Date = orderDto.Date,
                 Items = orderDto.Items.MapToView(),
                 PaymentStatus = orderDto.PaymentStatus,
+                TotalPrice = orderDto.TotalPrice,
+                FinalPrice = orderDto.FinalPrice,
+                GiftcardCode = orderDto.GiftcardCode,
             };
         }
     }
