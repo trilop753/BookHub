@@ -9,9 +9,9 @@ namespace DAL.Data
         {
             AuthorSeeder.Seed(modelBuilder);
             PublisherSeeder.Seed(modelBuilder);
-            GenreSeeder.Seed(modelBuilder);
+            var genres = GenreSeeder.Seed(modelBuilder);
             var users = UserSeeder.Seed(modelBuilder);
-            var books = BookSeeder.Seed(modelBuilder);
+            var books = BookSeeder.Seed(modelBuilder, genres);
             BookReviewSeeder.Seed(modelBuilder);
             CartItemsSeeder.Seed(modelBuilder, users, books);
             OrderSeeder.Seed(modelBuilder, users, books);

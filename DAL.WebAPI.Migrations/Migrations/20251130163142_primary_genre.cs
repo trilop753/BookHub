@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.WebAPI.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class AddGiftcardCodeToOrder : Migration
+    public partial class primary_genre : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -275,30 +275,6 @@ namespace DAL.WebAPI.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookGenre",
-                columns: table => new
-                {
-                    BooksId = table.Column<int>(type: "INTEGER", nullable: false),
-                    GenresId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookGenre", x => new { x.BooksId, x.GenresId });
-                    table.ForeignKey(
-                        name: "FK_BookGenre_Book_BooksId",
-                        column: x => x.BooksId,
-                        principalTable: "Book",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BookGenre_Genre_GenresId",
-                        column: x => x.GenresId,
-                        principalTable: "Genre",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BookReview",
                 columns: table => new
                 {
@@ -349,6 +325,33 @@ namespace DAL.WebAPI.Migrations.Migrations
                         name: "FK_CartItem_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GenreBooks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    GenreId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsPrimary = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GenreBooks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GenreBooks_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GenreBooks_Genre_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genre",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -460,11 +463,11 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "Wilbert", "Lynch" },
-                    { 2, "Fay", "Crist" },
-                    { 3, "Trevor", "Metz" },
-                    { 4, "Griffin", "Williamson" },
-                    { 5, "Garrick", "Collier" }
+                    { 1, "Marvin", "Dicki" },
+                    { 2, "Freeman", "Wehner" },
+                    { 3, "Annie", "Kiehn" },
+                    { 4, "Precious", "Zieme" },
+                    { 5, "Armando", "Langosh" }
                 });
 
             migrationBuilder.InsertData(
@@ -487,10 +490,10 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Kuhn Inc" },
-                    { 2, "Rutherford and Sons" },
-                    { 3, "O'Kon Inc" },
-                    { 4, "Will - Gislason" }
+                    { 1, "O'Hara - Rau" },
+                    { 2, "Bernhard - Ferry" },
+                    { 3, "Jenkins, Durgan and Mueller" },
+                    { 4, "Kirlin, Morar and Olson" }
                 });
 
             migrationBuilder.InsertData(
@@ -498,14 +501,14 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Zander.Zemlak@gmail.com", false, "Junius18" },
-                    { 2, "Lempi_Beer@yahoo.com", false, "Arianna_Bartell" },
-                    { 3, "Cydney71@yahoo.com", false, "Era56" },
-                    { 4, "Ethyl_Brown93@hotmail.com", false, "Lenna.Ryan26" },
-                    { 5, "Tanner86@gmail.com", false, "Margot_Monahan" },
-                    { 6, "Emile25@gmail.com", false, "Franz.Cassin" },
-                    { 7, "Kieran56@yahoo.com", false, "Leann11" },
-                    { 8, "Oleta.Adams19@gmail.com", false, "Eugenia57" }
+                    { 1, "Vito_Schamberger63@yahoo.com", false, "Stefanie.Larkin" },
+                    { 2, "Verlie_Dare@yahoo.com", false, "Maxie_Harber51" },
+                    { 3, "Madisyn7@hotmail.com", false, "Braulio_Hagenes62" },
+                    { 4, "Haskell.Beahan2@yahoo.com", false, "Lia_MacGyver79" },
+                    { 5, "Pedro_Lueilwitz@hotmail.com", false, "Bianka31" },
+                    { 6, "Vincenzo.Feeney67@gmail.com", false, "Bertha_Watsica" },
+                    { 7, "Brook_Frami@gmail.com", false, "Grady.Waelchi" },
+                    { 8, "Destinee.Sawayn@yahoo.com", false, "Nora.Luettgen" }
                 });
 
             migrationBuilder.InsertData(
@@ -513,10 +516,10 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "AuthorId", "CoverImageName", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 5, null, "Rerum non similique molestias omnis dicta alias nemo fugit. Quia pariatur quos sit. Temporibus quia ducimus est inventore molestias et quisquam commodi. Ut modi hic dicta totam perferendis quasi aut ut repellendus. Ea voluptatem saepe delectus et nemo. Itaque error nihil nihil recusandae quidem facere.", 0, "7917662334769", 1, 5.95m, 4, "Vel qui odio iusto." },
-                    { 2, 3, null, "Minus vel repellendus sit velit deleniti aliquam assumenda. Qui enim dolores minus doloribus eos officia non harum voluptatem. Quia numquam consequuntur eos praesentium magni. Est facere aut voluptates voluptatem officiis qui inventore. Consequatur et nesciunt qui sequi ut quia iure quaerat.", 3, "4895214419023", 5, 10.11m, 4, "Placeat commodi numquam est harum reprehenderit." },
-                    { 3, 2, null, "Non explicabo dolorem quia nam qui omnis. Quia est molestiae assumenda amet sit. Dignissimos exercitationem voluptates dolorem alias voluptates reiciendis sapiente quia aperiam. Et quisquam ut voluptatem ut alias a id corrupti eligendi. Quibusdam vel sunt et mollitia ut sint autem id praesentium. Alias mollitia id qui alias veritatis molestiae ut animi et.", 3, "1919912237376", 1, 8.89m, 2, "Error error commodi qui aut." },
-                    { 4, 1, null, "Et mollitia magnam. Molestiae quia repellat porro consequatur sed hic. Aut sit dolorum autem. Mollitia ex maiores sed beatae minus id facilis voluptatem quod.", 2, "2406227680854", 4, 14.01m, 2, "Incidunt nihil asperiores delectus sunt debitis." }
+                    { 1, 1, null, "Consequatur veniam asperiores ut inventore expedita ratione sed eum ut. Voluptatem dolorem tempore facilis ducimus temporibus ex dolores suscipit. Dignissimos iste et itaque maiores ratione.", 3, "1875627475888", 5, 15.93m, 1, "Corrupti ut molestiae nihil et est." },
+                    { 2, 1, null, "Quam aut recusandae deserunt unde eligendi quia dolorem non. Voluptas quas ea a eligendi error ut magnam enim. Amet beatae eius veniam. Placeat voluptates sed.", 8, "0965312374969", 2, 17.50m, 2, "Excepturi eaque repellendus rerum voluptates." },
+                    { 3, 4, null, "Repudiandae sint cupiditate architecto et quasi autem. Minus dicta nobis sint provident. Suscipit nihil atque architecto maxime sed.", 3, "6880166999431", 5, 18.18m, 2, "Voluptatem et dolor repudiandae exercitationem vero." },
+                    { 4, 2, null, "Quos dolorem quae nisi consequuntur est hic quibusdam dolorem similique. Pariatur velit excepturi. Est nihil in qui sit delectus vero ex beatae. Quo voluptatum ut rerum quae voluptas. Assumenda qui assumenda ut vel architecto laudantium aliquid.", 0, "2513355568449", 2, 12.35m, 1, "Minus accusantium ut et voluptatem." }
                 });
 
             migrationBuilder.InsertData(
@@ -524,22 +527,10 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Date", "GiftcardCodeId", "PaymentStatus", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2015, 3, 2, 20, 6, 36, 477, DateTimeKind.Unspecified).AddTicks(2626), null, 0, 1 },
-                    { 2, new DateTime(2017, 7, 11, 22, 45, 50, 414, DateTimeKind.Unspecified).AddTicks(7688), null, 0, 5 },
-                    { 3, new DateTime(2016, 6, 30, 10, 42, 35, 254, DateTimeKind.Unspecified).AddTicks(6513), null, 0, 6 },
-                    { 4, new DateTime(2023, 2, 7, 6, 40, 46, 870, DateTimeKind.Unspecified).AddTicks(8577), null, 0, 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "BookGenre",
-                columns: new[] { "BooksId", "GenresId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 1, 4 },
-                    { 2, 2 },
-                    { 3, 3 },
-                    { 4, 5 }
+                    { 1, new DateTime(2015, 12, 20, 16, 58, 36, 579, DateTimeKind.Unspecified).AddTicks(9158), null, 0, 5 },
+                    { 2, new DateTime(2019, 3, 25, 1, 1, 55, 77, DateTimeKind.Unspecified).AddTicks(7242), null, 0, 1 },
+                    { 3, new DateTime(2017, 10, 5, 13, 20, 47, 431, DateTimeKind.Unspecified).AddTicks(6963), null, 0, 3 },
+                    { 4, new DateTime(2017, 5, 16, 12, 0, 52, 812, DateTimeKind.Unspecified).AddTicks(8593), null, 0, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -547,12 +538,12 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Doloremque voluptates labore voluptate et blanditiis tempora sed consequatur.", 2, 5, 2 },
-                    { 2, "Aliquid voluptatem labore ab consequatur fugiat sint aut sed.", 3, 3, 2 },
-                    { 3, "Porro exercitationem est et nisi suscipit qui quaerat.", 1, 1, 3 },
-                    { 4, "Labore non et aut consequatur sit dolorem commodi quidem.", 2, 1, 4 },
-                    { 5, "Repellat veniam et unde accusamus quasi quasi est doloremque voluptas.", 1, 2, 4 },
-                    { 6, "Mollitia earum deserunt commodi provident est libero autem nobis ipsam.", 2, 5, 2 }
+                    { 1, "Iste veniam maxime qui incidunt voluptatum odio nihil.", 2, 4, 5 },
+                    { 2, "Repellendus consequatur suscipit repellendus doloremque quo accusamus natus molestiae.", 3, 3, 2 },
+                    { 3, "Molestiae aperiam aut eius omnis expedita quis aut.", 2, 4, 8 },
+                    { 4, "Sint repellat optio incidunt aut omnis nisi voluptates dicta.", 3, 5, 2 },
+                    { 5, "Excepturi itaque qui est consectetur nemo voluptas doloremque.", 3, 1, 6 },
+                    { 6, "Fuga tempore id provident qui ea rerum blanditiis sapiente sapiente.", 2, 2, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -560,10 +551,27 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 3, 1, 6 },
-                    { 2, 1, 3, 8 },
-                    { 3, 4, 3, 4 },
-                    { 4, 1, 1, 6 }
+                    { 1, 1, 3, 6 },
+                    { 2, 3, 2, 2 },
+                    { 3, 1, 1, 1 },
+                    { 4, 2, 2, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GenreBooks",
+                columns: new[] { "Id", "BookId", "GenreId", "IsPrimary" },
+                values: new object[,]
+                {
+                    { 1, 1, 7, false },
+                    { 2, 1, 2, false },
+                    { 3, 1, 1, true },
+                    { 4, 2, 8, false },
+                    { 5, 2, 5, true },
+                    { 6, 3, 7, true },
+                    { 7, 3, 2, false },
+                    { 8, 4, 4, false },
+                    { 9, 4, 7, true },
+                    { 10, 4, 2, false }
                 });
 
             migrationBuilder.InsertData(
@@ -571,12 +579,12 @@ namespace DAL.WebAPI.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 4, 1, 3 },
-                    { 2, 2, 2, 3 },
-                    { 3, 4, 2, 5 },
-                    { 4, 1, 3, 5 },
-                    { 5, 1, 4, 2 },
-                    { 6, 1, 4, 4 }
+                    { 1, 2, 1, 1 },
+                    { 2, 3, 2, 5 },
+                    { 3, 3, 2, 1 },
+                    { 4, 1, 2, 3 },
+                    { 5, 1, 3, 4 },
+                    { 6, 1, 4, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -637,11 +645,6 @@ namespace DAL.WebAPI.Migrations.Migrations
                 column: "PublisherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookGenre_GenresId",
-                table: "BookGenre",
-                column: "GenresId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BookReview_BookId",
                 table: "BookReview",
                 column: "BookId");
@@ -660,6 +663,18 @@ namespace DAL.WebAPI.Migrations.Migrations
                 name: "IX_CartItem_UserId",
                 table: "CartItem",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GenreBooks_BookId_IsPrimary",
+                table: "GenreBooks",
+                columns: new[] { "BookId", "IsPrimary" },
+                unique: true,
+                filter: "[IsPrimary] = 1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GenreBooks_GenreId",
+                table: "GenreBooks",
+                column: "GenreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GiftcardCode_GiftcardId",
@@ -740,13 +755,13 @@ namespace DAL.WebAPI.Migrations.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BookGenre");
-
-            migrationBuilder.DropTable(
                 name: "BookReview");
 
             migrationBuilder.DropTable(
                 name: "CartItem");
+
+            migrationBuilder.DropTable(
+                name: "GenreBooks");
 
             migrationBuilder.DropTable(
                 name: "OrderItem");

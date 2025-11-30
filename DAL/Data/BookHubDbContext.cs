@@ -13,7 +13,7 @@ namespace DAL.Data
         public DbSet<Publisher> Publisher { get; set; }
         public DbSet<WishlistItem> WishlistItem { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
-        
+        public DbSet<GenreBook> GenreBooks { get; set; }
         public DbSet<Giftcard> Giftcard { get; set; }
         public DbSet<GiftcardCode> GiftcardCode { get; set; }
 
@@ -59,11 +59,6 @@ namespace DAL.Data
                     .WithOne(b => b.Publisher)
                     .HasForeignKey(b => b.PublisherId)
                     .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<Genre>(entity =>
-            {
-                entity.HasMany(g => g.Books).WithMany(b => b.Genres);
             });
 
             modelBuilder.Entity<WishlistItem>(entity =>
@@ -118,6 +113,26 @@ namespace DAL.Data
                     .WithMany()
                     .HasForeignKey(oi => oi.BookId)
                     .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<GenreBook>(entity =>
+            {
+                entity
+                    .HasOne(gb => gb.Book)
+                    .WithMany(b => b.Genres)
+                    .HasForeignKey(gb => gb.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasOne(gb => gb.Genre)
+                    .WithMany(g => g.Books)
+                    .HasForeignKey(gb => gb.GenreId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity
+                    .HasIndex(gb => new { gb.BookId, gb.IsPrimary })
+                    .IsUnique()
+                    .HasFilter("[IsPrimary] = 1");
             });
 
             base.OnModelCreating(modelBuilder);

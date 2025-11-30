@@ -17,7 +17,7 @@ namespace BL.Mappers
                 Price = book.Price,
                 Publisher = book.Publisher.MapToSummaryDto(),
                 Author = book.Author.MapToSummaryDto(),
-                Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
+                Genres = book.Genres.Select(gb => gb.MapToSummaryDto()).ToList(),
                 Reviews = book.Reviews?.Select(r => r.MapToNoBookDto()).ToList() ?? [],
                 CoverImageName = book.CoverImageName,
                 EditCount = book.EditCount,
@@ -36,7 +36,7 @@ namespace BL.Mappers
                 Price = book.Price,
                 PublisherName = book.Publisher.Name,
                 AuthorName = book.Author.Name,
-                Genres = book.Genres.Select(g => g.Name).ToList(),
+                Genres = book.Genres.Select(gb => gb.MapToSummaryDto()).ToList(),
                 AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : null,
                 CoverImageName = book.CoverImageName,
             };

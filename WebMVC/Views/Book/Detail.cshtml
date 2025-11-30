@@ -82,10 +82,14 @@
             <p>@Model.Description</p>
 
             <h4 class="fw-semibold">Genres</h4>
-            <ul>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; gap:6px;">
                 @foreach (var genre in Model.Genres)
                 {
-                    <li>@genre.Name</li>
+                    <li style="@(genre.IsPrimary
+                                    ? "font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;"
+                                    : "color:#555; padding:2px 6px; border-radius:4px;")">
+                    @genre.GenreName
+                    </li>
                 }
             </ul>
 

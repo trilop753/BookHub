@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
 
-        public virtual IEnumerable<Book> Books { get; set; } = new HashSet<Book>();
+        public virtual IEnumerable<GenreBook> Books { get; set; } = new HashSet<GenreBook>();
     }
 }

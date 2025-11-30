@@ -1,16 +1,15 @@
-using Bogus;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using static Bogus.DataSets.Name;
 
 namespace DAL.Data.Seed
 {
     public static class GenreSeeder
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static List<Genre> Seed(this ModelBuilder modelBuilder)
         {
             var genres = PrepareGenreModels();
             modelBuilder.Entity<Genre>().HasData(genres);
+            return genres;
         }
 
         private static List<Genre> PrepareGenreModels()

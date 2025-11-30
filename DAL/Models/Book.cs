@@ -12,7 +12,7 @@ namespace DAL.Models
 
         public decimal Price { get; set; }
 
-        public virtual IEnumerable<Genre> Genres { get; set; } = new HashSet<Genre>();
+        public virtual IEnumerable<GenreBook> Genres { get; set; } = new HashSet<GenreBook>();
 
         public int PublisherId { get; set; }
 

@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using BL.DTOs.BookDTOs;
+﻿using BL.DTOs.BookDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
 using DAL.Models;
@@ -80,11 +79,16 @@ public class BookService : IBookService
 
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
-        if (!dto.GenreIds.All(allGenresIds.Contains))
+        if (!dto.Genres.Select(gb => gb.GenreId).All(allGenresIds.Contains))
         {
             result.WithError(
-                $"Genres with ids {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist."
+                $"Genres with ids {string.Join(", ", dto.Genres.Select(gb => gb.GenreId).Except(allGenresIds))} do not exist."
             );
+        }
+
+        if (dto.Genres.Where(gb => gb.IsPrimary).Count() > 1)
+        {
+            result.WithError("Book cannot have multiple primary genres.");
         }
 
         if (result.IsFailed)
@@ -92,7 +96,7 @@ public class BookService : IBookService
             return result;
         }
 
-        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedGenres = dto.Genres.Select(gb => gb.GenreId).Distinct().ToHashSet();
         var wantedExistingGenres = allGenres
             .Where(genre => wantedGenres.Contains(genre.Id))
             .ToList();
@@ -105,7 +109,16 @@ public class BookService : IBookService
             Price = dto.Price,
             Author = author,
             Publisher = publisher,
-            Genres = wantedExistingGenres,
+            Genres = dto
+                .Genres.Where(gb => wantedExistingGenres.Any(g => g.Id == gb.GenreId))
+                .GroupBy(gb => gb.GenreId)
+                .Select(g => g.OrderByDescending(x => x.IsPrimary).First())
+                .Select(gb => new GenreBook { GenreId = gb.GenreId, IsPrimary = gb.IsPrimary })
+                .ToList(),
+            /*
+             * Selecting valid distinct genres while
+             * prioritizing genres with IsPrimary = true
+             */
             CoverImageName = dto.CoverImageName,
         };
 
@@ -137,10 +150,10 @@ public class BookService : IBookService
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
 
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
-        if (!dto.GenreIds.All(allGenresIds.Contains))
+        if (!dto.Genres.All(gb => allGenresIds.Contains(gb.GenreId)))
         {
             result.WithError(
-                $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist"
+                $"Genres with ids: {string.Join(", ", dto.Genres.Where(gb => !allGenresIds.Contains(gb.GenreId)))} do not exist"
             );
         }
 
@@ -150,12 +163,17 @@ public class BookService : IBookService
             result.WithError($"User with id {dto.LastEditedById} does not exist.");
         }
 
+        if (dto.Genres.Where(gb => gb.IsPrimary).Count() > 1)
+        {
+            result.WithError("Book cannot have multiple primary genres.");
+        }
+
         if (result.IsFailed)
         {
             return result;
         }
 
-        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedGenres = dto.Genres.Select(gb => gb.GenreId).Distinct().ToHashSet();
         var wantedExistingGenres = allGenres
             .Where(genre => wantedGenres.Contains(genre.Id))
             .ToList();
@@ -166,12 +184,22 @@ public class BookService : IBookService
         book.Price = dto.Price;
         book.AuthorId = dto.AuthorId;
         book.PublisherId = dto.PublisherId;
-        book.Genres = wantedExistingGenres; // this may be a bug
+        book.Genres = dto
+            .Genres.Where(gb => wantedExistingGenres.Any(g => g.Id == gb.GenreId))
+            .GroupBy(gb => gb.GenreId)
+            .Select(g => g.OrderByDescending(x => x.IsPrimary).First())
+            .Select(gb => new GenreBook { GenreId = gb.GenreId, IsPrimary = gb.IsPrimary })
+            .ToList();
+        /*
+         * Selecting valid distinct genres while
+         * prioritizing genres with IsPrimary = true
+         */
         book.EditCount += 1;
         book.LastEditedById = dto.LastEditedById;
         book.CoverImageName = dto.CoverImageName;
 
         await _bookRepository.SaveChangesAsync();
+
         return Result.Ok();
     }
 
