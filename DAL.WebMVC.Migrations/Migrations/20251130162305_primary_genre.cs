@@ -8,11 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.WebMVC.Migrations.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-    public partial class AddGiftcardCodeToOrder : Migration
-========
-    public partial class genre_book : Migration
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+    public partial class primary_genre : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -467,19 +463,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, "Garry", "Volkman" },
-                    { 2, "Ottilie", "Blick" },
-                    { 3, "Gino", "Kulas" },
-                    { 4, "Aron", "Langworth" },
-                    { 5, "Judy", "Brekke" }
-========
-                    { 1, "Seth", "Hilpert" },
-                    { 2, "Jacinthe", "Bernier" },
-                    { 3, "Breanne", "Pfeffer" },
-                    { 4, "Muhammad", "Bauch" },
-                    { 5, "Tyrique", "Walsh" }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 1, "Jamal", "Howe" },
+                    { 2, "Hildegard", "Prohaska" },
+                    { 3, "Maye", "Von" },
+                    { 4, "Garfield", "Spinka" },
+                    { 5, "Virginie", "Pouros" }
                 });
 
             migrationBuilder.InsertData(
@@ -502,17 +490,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, "McCullough, Moore and Hintz" },
-                    { 2, "Simonis - Schmidt" },
-                    { 3, "Thiel, Schuppe and Funk" },
-                    { 4, "Hauck - Mueller" }
-========
-                    { 1, "Fay, Vandervort and Moore" },
-                    { 2, "Schinner and Sons" },
-                    { 3, "Smith Inc" },
-                    { 4, "Kilback - Runolfsdottir" }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 1, "Witting - Kub" },
+                    { 2, "Will, Johnston and Rowe" },
+                    { 3, "Jaskolski - Wolf" },
+                    { 4, "Rogahn - Gusikowski" }
                 });
 
             migrationBuilder.InsertData(
@@ -520,25 +501,14 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, "Madie.Christiansen24@yahoo.com", false, "Desmond_Effertz59" },
-                    { 2, "Bethel.Swaniawski52@yahoo.com", false, "Waylon45" },
-                    { 3, "Kenton.Howe@hotmail.com", false, "Sonya60" },
-                    { 4, "Shanna_Stroman@gmail.com", false, "Jamel_Volkman" },
-                    { 5, "Maegan_Yost54@yahoo.com", false, "Mckayla.Turner88" },
-                    { 6, "Monserrat_Hansen28@hotmail.com", false, "Mallory56" },
-                    { 7, "Kristopher41@gmail.com", false, "Marquise_Dicki" },
-                    { 8, "Eve53@gmail.com", false, "Major.VonRueden95" }
-========
-                    { 1, "Alek99@hotmail.com", false, "Jack.Gislason85" },
-                    { 2, "Jeff93@yahoo.com", false, "Katherine89" },
-                    { 3, "Gavin.Halvorson@hotmail.com", false, "Dewitt94" },
-                    { 4, "Sigrid_Breitenberg@yahoo.com", false, "Keyon15" },
-                    { 5, "Bernhard.Miller@yahoo.com", false, "Gerard_Olson" },
-                    { 6, "Ryan_Lubowitz65@yahoo.com", false, "Aracely_Jast71" },
-                    { 7, "Angie_Ruecker20@hotmail.com", false, "Justus.Stamm" },
-                    { 8, "Felton_Rosenbaum@gmail.com", false, "Nickolas40" }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 1, "Florine_Mueller91@yahoo.com", false, "Rita90" },
+                    { 2, "Monserrat83@gmail.com", false, "Sheila_Simonis11" },
+                    { 3, "Monserrate89@yahoo.com", false, "Jarvis.Sporer44" },
+                    { 4, "Ally22@gmail.com", false, "Sally_Smitham53" },
+                    { 5, "Madie68@hotmail.com", false, "Daisy_Pouros72" },
+                    { 6, "Serenity29@hotmail.com", false, "Jayda78" },
+                    { 7, "Holly60@yahoo.com", false, "Willis63" },
+                    { 8, "Fausto_Schoen56@gmail.com", false, "Coty88" }
                 });
 
             migrationBuilder.InsertData(
@@ -546,17 +516,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "AuthorId", "CoverImageName", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, 4, null, "Esse velit ab et molestiae qui illo. Aliquam quo reiciendis exercitationem molestias ipsum. Dignissimos nostrum dolores dolores et. Est consequuntur dignissimos voluptate tenetur in.", 5, "3775949185909", 4, 13.68m, 2, "Voluptates exercitationem non rerum voluptas." },
-                    { 2, 5, null, "Quod libero dolores quaerat. Quibusdam id ullam sint soluta consequatur perspiciatis commodi voluptatem. In hic aut. Est quaerat vel et dolores doloribus.", 0, "6152549448301", 2, 14.61m, 4, "Quis et nihil accusamus aut." },
-                    { 3, 3, null, "Assumenda beatae qui quo. Aut recusandae alias facere veritatis non. Odio nam est veritatis facilis soluta et. Voluptatem quisquam aut. Ea voluptatem voluptatem ut aut amet incidunt. Doloremque ea aut velit.", 5, "7244857448582", 4, 18.92m, 3, "Ex eligendi excepturi et culpa." },
-                    { 4, 5, null, "Recusandae dignissimos et sed et quibusdam. Voluptatum quia earum in minus corporis vitae eum dolor ipsam. Explicabo nisi fuga vero cumque asperiores. Aut laborum accusamus quam voluptatem accusamus. Praesentium velit aut soluta. Temporibus dolorem fugit ut sed error sunt laudantium impedit dolore.", 6, "7123982971434", 4, 18.32m, 3, "Laboriosam excepturi et mollitia." }
-========
-                    { 1, 3, null, "Aliquid ducimus expedita officia ut quisquam. Et nisi a. Vitae dolores magnam occaecati. Occaecati consequatur in illum sit nesciunt ducimus quis. Et maiores minus qui quos expedita mollitia quia magnam. Sunt nemo totam quibusdam voluptate.", 3, "8450724862989", 2, 19.57m, 1, "Officiis possimus et temporibus est laudantium." },
-                    { 2, 1, null, "Animi doloribus et. Sit expedita dignissimos ut et aut et. Autem sint laborum eaque expedita illo aut rem placeat ipsum.", 6, "1163454570310", 5, 16.67m, 2, "Voluptatum quasi est omnis facere corrupti." },
-                    { 3, 4, null, "Enim sunt debitis suscipit aut et. Dolore aperiam natus voluptatem excepturi placeat. Molestias consequuntur temporibus at necessitatibus. Quisquam accusantium accusantium debitis esse aut optio vel illo.", 3, "3046855756584", 1, 17.71m, 2, "Nostrum recusandae ad ab repudiandae." },
-                    { 4, 5, null, "Totam facilis quia. Aliquam facere ipsa assumenda dolor illum doloremque praesentium. Pariatur autem quis cumque nisi dicta. Vero tempora laboriosam quos repellendus esse. Fuga ut et et voluptatibus sed eum. Incidunt eum tenetur illum velit eligendi.", 5, "6817248651284", 4, 18.22m, 3, "Delectus repudiandae ex mollitia aut reiciendis." }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 1, 3, null, "Vel excepturi animi eligendi. Vitae pariatur est accusamus nostrum sequi vel impedit. Eligendi ad eaque. Ea sit libero cumque aut minus sit maxime fugiat.", 0, "6987550715261", 3, 12.28m, 2, "Modi et voluptatibus inventore non tenetur." },
+                    { 2, 5, null, "Molestiae sint dolorem sequi porro odit voluptate qui asperiores error. Ea illum repellendus officiis. Harum sunt quidem. Voluptatem ut et dolore dolorum. Ex aliquam aut omnis non qui est ea aut voluptas. Excepturi eos vitae earum cupiditate iste porro.", 3, "4913044273162", 5, 14.94m, 2, "Suscipit odit nobis dolor voluptas nobis." },
+                    { 3, 3, null, "Et voluptatibus ea consequatur. Reiciendis quia nostrum aspernatur quod mollitia debitis iusto modi voluptate. Eligendi qui illum qui voluptatem vel debitis. Assumenda qui ut.", 4, "5455164224406", 3, 7.16m, 1, "Maxime doloremque at sapiente quia et." },
+                    { 4, 2, null, "Beatae nesciunt sint fugit est hic et nihil. Soluta officiis nesciunt quod est dignissimos incidunt enim quisquam. Voluptas quas atque eum similique et autem libero. Enim excepturi consectetur beatae qui impedit non porro.", 3, "8485182712538", 1, 13.50m, 1, "Dignissimos non doloribus quaerat." }
                 });
 
             migrationBuilder.InsertData(
@@ -564,29 +527,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Date", "GiftcardCodeId", "PaymentStatus", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, new DateTime(2023, 3, 20, 17, 48, 38, 990, DateTimeKind.Unspecified).AddTicks(2622), null, 0, 2 },
-                    { 2, new DateTime(2020, 10, 6, 12, 54, 37, 561, DateTimeKind.Unspecified).AddTicks(7626), null, 0, 6 },
-                    { 3, new DateTime(2025, 1, 6, 7, 49, 29, 806, DateTimeKind.Unspecified).AddTicks(7424), null, 0, 5 },
-                    { 4, new DateTime(2023, 3, 10, 2, 38, 5, 206, DateTimeKind.Unspecified).AddTicks(7710), null, 0, 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "BookGenre",
-                columns: new[] { "BooksId", "GenresId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 1, 4 },
-                    { 2, 2 },
-                    { 3, 3 },
-                    { 4, 5 }
-========
-                    { 1, new DateTime(2023, 4, 14, 9, 59, 54, 809, DateTimeKind.Unspecified).AddTicks(943), 0, 5 },
-                    { 2, new DateTime(2016, 9, 2, 18, 23, 47, 207, DateTimeKind.Unspecified).AddTicks(5659), 0, 6 },
-                    { 3, new DateTime(2020, 6, 29, 11, 18, 28, 897, DateTimeKind.Unspecified).AddTicks(1786), 0, 6 },
-                    { 4, new DateTime(2020, 5, 27, 8, 32, 0, 688, DateTimeKind.Unspecified).AddTicks(6122), 0, 2 }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 1, new DateTime(2019, 11, 7, 18, 45, 44, 273, DateTimeKind.Unspecified).AddTicks(414), null, 0, 5 },
+                    { 2, new DateTime(2022, 6, 3, 14, 40, 39, 476, DateTimeKind.Unspecified).AddTicks(9102), null, 0, 1 },
+                    { 3, new DateTime(2017, 8, 7, 4, 4, 4, 355, DateTimeKind.Unspecified).AddTicks(921), null, 0, 6 },
+                    { 4, new DateTime(2025, 12, 13, 19, 9, 42, 732, DateTimeKind.Unspecified).AddTicks(1070), null, 0, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -594,21 +538,12 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, "Quia minus et quod reiciendis voluptatibus qui non.", 3, 1, 2 },
-                    { 2, "Qui natus omnis sit sapiente consequatur ducimus molestiae ipsam.", 2, 4, 1 },
-                    { 3, "Ut omnis quia earum occaecati vel voluptates ducimus doloribus ipsam.", 4, 1, 1 },
-                    { 4, "Possimus molestiae magni eius hic voluptatibus delectus mollitia consectetur quia.", 1, 2, 4 },
-                    { 5, "Dolorem maiores fugit dicta voluptas ullam laboriosam aspernatur sapiente nisi.", 3, 1, 8 },
-                    { 6, "Mollitia ipsam odio voluptatem quod omnis suscipit corrupti.", 4, 4, 5 }
-========
-                    { 1, "Fugit saepe rem culpa est laboriosam nulla non et eos.", 3, 1, 6 },
-                    { 2, "Iste quia deleniti sint sint accusamus omnis quo.", 4, 1, 3 },
-                    { 3, "Repudiandae soluta eos sunt architecto beatae ea maiores.", 3, 1, 8 },
-                    { 4, "Sequi officiis est non et aut aut beatae fugit.", 1, 3, 5 },
-                    { 5, "Sunt vitae beatae qui laborum sed officiis voluptatem sequi.", 3, 1, 2 },
-                    { 6, "Voluptatibus ipsa atque velit modi nisi repellat neque incidunt.", 2, 1, 4 }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 1, "Aut quasi quas in laudantium consequuntur impedit repellendus voluptate est.", 4, 2, 5 },
+                    { 2, "Et vero blanditiis officia velit qui nobis deleniti culpa.", 1, 2, 2 },
+                    { 3, "Est facilis aliquam temporibus ea sint voluptatibus rerum et.", 3, 5, 4 },
+                    { 4, "Velit repellendus mollitia numquam dolorum quis voluptates eos.", 1, 1, 4 },
+                    { 5, "In fugiat odio quia voluptates veritatis blanditiis ut consequatur rem.", 2, 4, 7 },
+                    { 6, "Minus ea qui numquam quae quia dolores mollitia aut.", 3, 2, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -616,16 +551,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, 4, 3, 6 },
-                    { 2, 2, 3, 4 },
-                    { 3, 1, 2, 1 },
-                    { 4, 4, 4, 4 }
-========
-                    { 1, 2, 2, 4 },
-                    { 2, 3, 4, 6 },
-                    { 3, 3, 5, 8 },
-                    { 4, 3, 1, 7 }
+                    { 1, 1, 4, 7 },
+                    { 2, 2, 1, 6 },
+                    { 3, 3, 2, 1 },
+                    { 4, 2, 4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -633,13 +562,13 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "GenreId", "IsPrimary" },
                 values: new object[,]
                 {
-                    { 1, 1, 5, true },
-                    { 2, 2, 2, false },
-                    { 3, 2, 7, true },
-                    { 4, 3, 8, false },
-                    { 5, 3, 2, true },
-                    { 6, 4, 4, true }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 1, 1, 6, true },
+                    { 2, 2, 3, false },
+                    { 3, 2, 5, false },
+                    { 4, 2, 6, true },
+                    { 5, 3, 8, true },
+                    { 6, 3, 5, false },
+                    { 7, 4, 6, true }
                 });
 
             migrationBuilder.InsertData(
@@ -647,21 +576,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
-                    { 1, 4, 1, 5 },
-                    { 2, 4, 2, 3 },
-                    { 3, 3, 3, 5 },
-                    { 4, 2, 3, 4 },
-                    { 5, 1, 4, 5 },
-                    { 6, 4, 4, 2 }
-========
-                    { 1, 3, 1, 2 },
-                    { 2, 4, 1, 3 },
+                    { 1, 1, 1, 3 },
+                    { 2, 4, 1, 1 },
                     { 3, 2, 2, 2 },
-                    { 4, 4, 3, 2 },
-                    { 5, 1, 3, 5 },
-                    { 6, 3, 4, 1 }
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
+                    { 4, 4, 3, 3 },
+                    { 5, 3, 4, 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -742,7 +661,18 @@ namespace DAL.WebMVC.Migrations.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.cs
+                name: "IX_GenreBooks_BookId_IsPrimary",
+                table: "GenreBooks",
+                columns: new[] { "BookId", "IsPrimary" },
+                unique: true,
+                filter: "[IsPrimary] = 1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GenreBooks_GenreId",
+                table: "GenreBooks",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GiftcardCode_GiftcardId",
                 table: "GiftcardCode",
                 column: "GiftcardId");
@@ -756,18 +686,6 @@ namespace DAL.WebMVC.Migrations.Migrations
                 name: "IX_Order_GiftcardCodeId",
                 table: "Order",
                 column: "GiftcardCodeId");
-========
-                name: "IX_GenreBooks_BookId_IsPrimary",
-                table: "GenreBooks",
-                columns: new[] { "BookId", "IsPrimary" },
-                unique: true,
-                filter: "[IsPrimary] = 1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GenreBooks_GenreId",
-                table: "GenreBooks",
-                column: "GenreId");
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.cs
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_UserId",

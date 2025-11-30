@@ -11,13 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.WebMVC.Migrations.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-    [Migration("20251129150212_AddGiftcardCodeToOrder")]
-    partial class AddGiftcardCodeToOrder
-========
-    [Migration("20251129102333_genre_book")]
-    partial class genre_book
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+    [Migration("20251130162305_primary_genre")]
+    partial class primary_genre
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,57 +46,32 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Garry",
-                            Surname = "Volkman"
-========
-                            Name = "Seth",
-                            Surname = "Hilpert"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Jamal",
+                            Surname = "Howe"
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Ottilie",
-                            Surname = "Blick"
-========
-                            Name = "Jacinthe",
-                            Surname = "Bernier"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Hildegard",
+                            Surname = "Prohaska"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Gino",
-                            Surname = "Kulas"
-========
-                            Name = "Breanne",
-                            Surname = "Pfeffer"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Maye",
+                            Surname = "Von"
                         },
                         new
                         {
                             Id = 4,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Aron",
-                            Surname = "Langworth"
-========
-                            Name = "Muhammad",
-                            Surname = "Bauch"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Garfield",
+                            Surname = "Spinka"
                         },
                         new
                         {
                             Id = 5,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Judy",
-                            Surname = "Brekke"
-========
-                            Name = "Tyrique",
-                            Surname = "Walsh"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Virginie",
+                            Surname = "Pouros"
                         });
                 });
 
@@ -155,93 +125,50 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            AuthorId = 4,
-                            Description = "Esse velit ab et molestiae qui illo. Aliquam quo reiciendis exercitationem molestias ipsum. Dignissimos nostrum dolores dolores et. Est consequuntur dignissimos voluptate tenetur in.",
-                            EditCount = 5,
-                            ISBN = "3775949185909",
-                            LastEditedById = 4,
-                            Price = 13.68m,
-                            PublisherId = 2,
-                            Title = "Voluptates exercitationem non rerum voluptas."
-========
                             AuthorId = 3,
-                            Description = "Aliquid ducimus expedita officia ut quisquam. Et nisi a. Vitae dolores magnam occaecati. Occaecati consequatur in illum sit nesciunt ducimus quis. Et maiores minus qui quos expedita mollitia quia magnam. Sunt nemo totam quibusdam voluptate.",
-                            EditCount = 3,
-                            ISBN = "8450724862989",
-                            LastEditedById = 2,
-                            Price = 19.57m,
-                            PublisherId = 1,
-                            Title = "Officiis possimus et temporibus est laudantium."
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Description = "Vel excepturi animi eligendi. Vitae pariatur est accusamus nostrum sequi vel impedit. Eligendi ad eaque. Ea sit libero cumque aut minus sit maxime fugiat.",
+                            EditCount = 0,
+                            ISBN = "6987550715261",
+                            LastEditedById = 3,
+                            Price = 12.28m,
+                            PublisherId = 2,
+                            Title = "Modi et voluptatibus inventore non tenetur."
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
                             AuthorId = 5,
-                            Description = "Quod libero dolores quaerat. Quibusdam id ullam sint soluta consequatur perspiciatis commodi voluptatem. In hic aut. Est quaerat vel et dolores doloribus.",
-                            EditCount = 0,
-                            ISBN = "6152549448301",
-                            LastEditedById = 2,
-                            Price = 14.61m,
-                            PublisherId = 4,
-                            Title = "Quis et nihil accusamus aut."
-========
-                            AuthorId = 1,
-                            Description = "Animi doloribus et. Sit expedita dignissimos ut et aut et. Autem sint laborum eaque expedita illo aut rem placeat ipsum.",
-                            EditCount = 6,
-                            ISBN = "1163454570310",
+                            Description = "Molestiae sint dolorem sequi porro odit voluptate qui asperiores error. Ea illum repellendus officiis. Harum sunt quidem. Voluptatem ut et dolore dolorum. Ex aliquam aut omnis non qui est ea aut voluptas. Excepturi eos vitae earum cupiditate iste porro.",
+                            EditCount = 3,
+                            ISBN = "4913044273162",
                             LastEditedById = 5,
-                            Price = 16.67m,
+                            Price = 14.94m,
                             PublisherId = 2,
-                            Title = "Voluptatum quasi est omnis facere corrupti."
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Title = "Suscipit odit nobis dolor voluptas nobis."
                         },
                         new
                         {
                             Id = 3,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
                             AuthorId = 3,
-                            Description = "Assumenda beatae qui quo. Aut recusandae alias facere veritatis non. Odio nam est veritatis facilis soluta et. Voluptatem quisquam aut. Ea voluptatem voluptatem ut aut amet incidunt. Doloremque ea aut velit.",
-                            EditCount = 5,
-                            ISBN = "7244857448582",
-                            LastEditedById = 4,
-                            Price = 18.92m,
-                            PublisherId = 3,
-                            Title = "Ex eligendi excepturi et culpa."
-========
-                            AuthorId = 4,
-                            Description = "Enim sunt debitis suscipit aut et. Dolore aperiam natus voluptatem excepturi placeat. Molestias consequuntur temporibus at necessitatibus. Quisquam accusantium accusantium debitis esse aut optio vel illo.",
-                            EditCount = 3,
-                            ISBN = "3046855756584",
-                            LastEditedById = 1,
-                            Price = 17.71m,
-                            PublisherId = 2,
-                            Title = "Nostrum recusandae ad ab repudiandae."
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Description = "Et voluptatibus ea consequatur. Reiciendis quia nostrum aspernatur quod mollitia debitis iusto modi voluptate. Eligendi qui illum qui voluptatem vel debitis. Assumenda qui ut.",
+                            EditCount = 4,
+                            ISBN = "5455164224406",
+                            LastEditedById = 3,
+                            Price = 7.16m,
+                            PublisherId = 1,
+                            Title = "Maxime doloremque at sapiente quia et."
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 5,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Description = "Recusandae dignissimos et sed et quibusdam. Voluptatum quia earum in minus corporis vitae eum dolor ipsam. Explicabo nisi fuga vero cumque asperiores. Aut laborum accusamus quam voluptatem accusamus. Praesentium velit aut soluta. Temporibus dolorem fugit ut sed error sunt laudantium impedit dolore.",
-                            EditCount = 6,
-                            ISBN = "7123982971434",
-                            LastEditedById = 4,
-                            Price = 18.32m,
-                            PublisherId = 3,
-                            Title = "Laboriosam excepturi et mollitia."
-========
-                            Description = "Totam facilis quia. Aliquam facere ipsa assumenda dolor illum doloremque praesentium. Pariatur autem quis cumque nisi dicta. Vero tempora laboriosam quos repellendus esse. Fuga ut et et voluptatibus sed eum. Incidunt eum tenetur illum velit eligendi.",
-                            EditCount = 5,
-                            ISBN = "6817248651284",
-                            LastEditedById = 4,
-                            Price = 18.22m,
-                            PublisherId = 3,
-                            Title = "Delectus repudiandae ex mollitia aut reiciendis."
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            AuthorId = 2,
+                            Description = "Beatae nesciunt sint fugit est hic et nihil. Soluta officiis nesciunt quod est dignissimos incidunt enim quisquam. Voluptas quas atque eum similique et autem libero. Enim excepturi consectetur beatae qui impedit non porro.",
+                            EditCount = 3,
+                            ISBN = "8485182712538",
+                            LastEditedById = 1,
+                            Price = 13.50m,
+                            PublisherId = 1,
+                            Title = "Dignissimos non doloribus quaerat."
                         });
                 });
 
@@ -276,92 +203,50 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Body = "Quia minus et quod reiciendis voluptatibus qui non.",
-                            BookId = 3,
-                            Stars = 1,
-                            UserId = 2
-========
-                            Body = "Fugit saepe rem culpa est laboriosam nulla non et eos.",
-                            BookId = 3,
-                            Stars = 1,
-                            UserId = 6
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Body = "Aut quasi quas in laudantium consequuntur impedit repellendus voluptate est.",
+                            BookId = 4,
+                            Stars = 2,
+                            UserId = 5
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Body = "Qui natus omnis sit sapiente consequatur ducimus molestiae ipsam.",
-                            BookId = 2,
-                            Stars = 4,
-                            UserId = 1
-========
-                            Body = "Iste quia deleniti sint sint accusamus omnis quo.",
-                            BookId = 4,
-                            Stars = 1,
-                            UserId = 3
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
-                        },
-                        new
-                        {
-                            Id = 3,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Body = "Ut omnis quia earum occaecati vel voluptates ducimus doloribus ipsam.",
-                            BookId = 4,
-                            Stars = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Body = "Possimus molestiae magni eius hic voluptatibus delectus mollitia consectetur quia.",
+                            Body = "Et vero blanditiis officia velit qui nobis deleniti culpa.",
                             BookId = 1,
                             Stars = 2,
-                            UserId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Body = "Dolorem maiores fugit dicta voluptas ullam laboriosam aspernatur sapiente nisi.",
-========
-                            Body = "Repudiandae soluta eos sunt architecto beatae ea maiores.",
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
-                            BookId = 3,
-                            Stars = 1,
-                            UserId = 8
-                        },
-                        new
-                        {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Id = 6,
-                            Body = "Mollitia ipsam odio voluptatem quod omnis suscipit corrupti.",
-                            BookId = 4,
-                            Stars = 4,
-                            UserId = 5
-========
-                            Id = 4,
-                            Body = "Sequi officiis est non et aut aut beatae fugit.",
-                            BookId = 1,
-                            Stars = 3,
-                            UserId = 5
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Body = "Sunt vitae beatae qui laborum sed officiis voluptatem sequi.",
-                            BookId = 3,
-                            Stars = 1,
                             UserId = 2
                         },
                         new
                         {
-                            Id = 6,
-                            Body = "Voluptatibus ipsa atque velit modi nisi repellat neque incidunt.",
-                            BookId = 2,
+                            Id = 3,
+                            Body = "Est facilis aliquam temporibus ea sint voluptatibus rerum et.",
+                            BookId = 3,
+                            Stars = 5,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "Velit repellendus mollitia numquam dolorum quis voluptates eos.",
+                            BookId = 1,
                             Stars = 1,
                             UserId = 4
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "In fugiat odio quia voluptates veritatis blanditiis ut consequatur rem.",
+                            BookId = 2,
+                            Stars = 4,
+                            UserId = 7
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Body = "Minus ea qui numquam quae quia dolores mollitia aut.",
+                            BookId = 3,
+                            Stars = 2,
+                            UserId = 3
                         });
                 });
 
@@ -392,56 +277,30 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            BookId = 4,
-                            Quantity = 3,
-                            UserId = 6
-========
-                            BookId = 2,
-                            Quantity = 2,
-                            UserId = 4
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            BookId = 1,
+                            Quantity = 4,
+                            UserId = 7
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
                             BookId = 2,
-                            Quantity = 3,
-                            UserId = 4
+                            Quantity = 1,
+                            UserId = 6
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 1,
+                            BookId = 3,
                             Quantity = 2,
                             UserId = 1
                         },
                         new
                         {
                             Id = 4,
-                            BookId = 4,
+                            BookId = 2,
                             Quantity = 4,
                             UserId = 4
-========
-                            BookId = 3,
-                            Quantity = 4,
-                            UserId = 6
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BookId = 3,
-                            Quantity = 5,
-                            UserId = 8
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BookId = 3,
-                            Quantity = 1,
-                            UserId = 7
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
                         });
                 });
 
@@ -502,17 +361,89 @@ namespace DAL.WebMVC.Migrations.Migrations
                         });
                 });
 
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-            modelBuilder.Entity("DAL.Models.Giftcard", b =>
-========
             modelBuilder.Entity("DAL.Models.GenreBook", b =>
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("BookId", "IsPrimary")
+                        .IsUnique()
+                        .HasFilter("[IsPrimary] = 1");
+
+                    b.ToTable("GenreBooks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookId = 1,
+                            GenreId = 6,
+                            IsPrimary = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BookId = 2,
+                            GenreId = 3,
+                            IsPrimary = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BookId = 2,
+                            GenreId = 5,
+                            IsPrimary = false
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BookId = 2,
+                            GenreId = 6,
+                            IsPrimary = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BookId = 3,
+                            GenreId = 8,
+                            IsPrimary = true
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BookId = 3,
+                            GenreId = 5,
+                            IsPrimary = false
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BookId = 4,
+                            GenreId = 6,
+                            IsPrimary = true
+                        });
+                });
+
+            modelBuilder.Entity("DAL.Models.Giftcard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("TEXT");
 
@@ -548,78 +479,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("OrderId")
-========
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsPrimary")
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
                     b.HasIndex("GiftcardId");
 
                     b.HasIndex("OrderId");
 
                     b.ToTable("GiftcardCode");
-========
-                    b.HasIndex("GenreId");
-
-                    b.HasIndex("BookId", "IsPrimary")
-                        .IsUnique()
-                        .HasFilter("[IsPrimary] = 1");
-
-                    b.ToTable("GenreBooks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BookId = 1,
-                            GenreId = 5,
-                            IsPrimary = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BookId = 2,
-                            GenreId = 2,
-                            IsPrimary = false
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BookId = 2,
-                            GenreId = 7,
-                            IsPrimary = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BookId = 3,
-                            GenreId = 8,
-                            IsPrimary = false
-                        },
-                        new
-                        {
-                            Id = 5,
-                            BookId = 3,
-                            GenreId = 2,
-                            IsPrimary = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            BookId = 4,
-                            GenreId = 4,
-                            IsPrimary = true
-                        });
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
                 });
 
             modelBuilder.Entity("DAL.Models.LocalIdentityUser", b =>
@@ -721,55 +589,30 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Date = new DateTime(2023, 3, 20, 17, 48, 38, 990, DateTimeKind.Unspecified).AddTicks(2622),
-                            PaymentStatus = 0,
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2020, 10, 6, 12, 54, 37, 561, DateTimeKind.Unspecified).AddTicks(7626),
-                            PaymentStatus = 0,
-                            UserId = 6
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2025, 1, 6, 7, 49, 29, 806, DateTimeKind.Unspecified).AddTicks(7424),
-========
-                            Date = new DateTime(2023, 4, 14, 9, 59, 54, 809, DateTimeKind.Unspecified).AddTicks(943),
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Date = new DateTime(2019, 11, 7, 18, 45, 44, 273, DateTimeKind.Unspecified).AddTicks(414),
                             PaymentStatus = 0,
                             UserId = 5
                         },
                         new
                         {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Id = 4,
-                            Date = new DateTime(2023, 3, 10, 2, 38, 5, 206, DateTimeKind.Unspecified).AddTicks(7710),
+                            Id = 2,
+                            Date = new DateTime(2022, 6, 3, 14, 40, 39, 476, DateTimeKind.Unspecified).AddTicks(9102),
                             PaymentStatus = 0,
                             UserId = 1
-========
-                            Id = 2,
-                            Date = new DateTime(2016, 9, 2, 18, 23, 47, 207, DateTimeKind.Unspecified).AddTicks(5659),
-                            PaymentStatus = 0,
-                            UserId = 6
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2020, 6, 29, 11, 18, 28, 897, DateTimeKind.Unspecified).AddTicks(1786),
+                            Date = new DateTime(2017, 8, 7, 4, 4, 4, 355, DateTimeKind.Unspecified).AddTicks(921),
                             PaymentStatus = 0,
                             UserId = 6
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2020, 5, 27, 8, 32, 0, 688, DateTimeKind.Unspecified).AddTicks(6122),
+                            Date = new DateTime(2025, 12, 13, 19, 9, 42, 732, DateTimeKind.Unspecified).AddTicks(1070),
                             PaymentStatus = 0,
-                            UserId = 2
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            UserId = 4
                         });
                 });
 
@@ -800,22 +643,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 3,
+                            BookId = 1,
                             OrderId = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Quantity = 5
-========
-                            Quantity = 2
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Quantity = 3
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-========
                             BookId = 4,
                             OrderId = 1,
-                            Quantity = 3
+                            Quantity = 1
                         },
                         new
                         {
@@ -827,45 +664,16 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 4,
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
                             BookId = 4,
                             OrderId = 3,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BookId = 3,
-                            OrderId = 3,
-                            Quantity = 5
-                        },
-                        new
-                        {
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Id = 4,
-                            BookId = 2,
-                            OrderId = 3,
-                            Quantity = 4
+                            Quantity = 3
                         },
                         new
                         {
                             Id = 5,
-                            BookId = 1,
-                            OrderId = 4,
-                            Quantity = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            BookId = 4,
-                            OrderId = 4,
-                            Quantity = 2
-========
-                            Id = 6,
                             BookId = 3,
                             OrderId = 4,
-                            Quantity = 1
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Quantity = 4
                         });
                 });
 
@@ -887,38 +695,22 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "McCullough, Moore and Hintz"
-========
-                            Name = "Fay, Vandervort and Moore"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Witting - Kub"
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Simonis - Schmidt"
-========
-                            Name = "Schinner and Sons"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Will, Johnston and Rowe"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Thiel, Schuppe and Funk"
-========
-                            Name = "Smith Inc"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Jaskolski - Wolf"
                         },
                         new
                         {
                             Id = 4,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Name = "Hauck - Mueller"
-========
-                            Name = "Kilback - Runolfsdottir"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Name = "Rogahn - Gusikowski"
                         });
                 });
 
@@ -949,106 +741,58 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Madie.Christiansen24@yahoo.com",
+                            Email = "Florine_Mueller91@yahoo.com",
                             IsBanned = false,
-                            Username = "Desmond_Effertz59"
-========
-                            Email = "Alek99@hotmail.com",
-                            IsBanned = false,
-                            Username = "Jack.Gislason85"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Rita90"
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Bethel.Swaniawski52@yahoo.com",
+                            Email = "Monserrat83@gmail.com",
                             IsBanned = false,
-                            Username = "Waylon45"
-========
-                            Email = "Jeff93@yahoo.com",
-                            IsBanned = false,
-                            Username = "Katherine89"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Sheila_Simonis11"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Kenton.Howe@hotmail.com",
+                            Email = "Monserrate89@yahoo.com",
                             IsBanned = false,
-                            Username = "Sonya60"
-========
-                            Email = "Gavin.Halvorson@hotmail.com",
-                            IsBanned = false,
-                            Username = "Dewitt94"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Jarvis.Sporer44"
                         },
                         new
                         {
                             Id = 4,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Shanna_Stroman@gmail.com",
+                            Email = "Ally22@gmail.com",
                             IsBanned = false,
-                            Username = "Jamel_Volkman"
-========
-                            Email = "Sigrid_Breitenberg@yahoo.com",
-                            IsBanned = false,
-                            Username = "Keyon15"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Sally_Smitham53"
                         },
                         new
                         {
                             Id = 5,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Maegan_Yost54@yahoo.com",
+                            Email = "Madie68@hotmail.com",
                             IsBanned = false,
-                            Username = "Mckayla.Turner88"
-========
-                            Email = "Bernhard.Miller@yahoo.com",
-                            IsBanned = false,
-                            Username = "Gerard_Olson"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Daisy_Pouros72"
                         },
                         new
                         {
                             Id = 6,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Monserrat_Hansen28@hotmail.com",
+                            Email = "Serenity29@hotmail.com",
                             IsBanned = false,
-                            Username = "Mallory56"
-========
-                            Email = "Ryan_Lubowitz65@yahoo.com",
-                            IsBanned = false,
-                            Username = "Aracely_Jast71"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Jayda78"
                         },
                         new
                         {
                             Id = 7,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Kristopher41@gmail.com",
+                            Email = "Holly60@yahoo.com",
                             IsBanned = false,
-                            Username = "Marquise_Dicki"
-========
-                            Email = "Angie_Ruecker20@hotmail.com",
-                            IsBanned = false,
-                            Username = "Justus.Stamm"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Willis63"
                         },
                         new
                         {
                             Id = 8,
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-                            Email = "Eve53@gmail.com",
+                            Email = "Fausto_Schoen56@gmail.com",
                             IsBanned = false,
-                            Username = "Major.VonRueden95"
-========
-                            Email = "Felton_Rosenbaum@gmail.com",
-                            IsBanned = false,
-                            Username = "Nickolas40"
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                            Username = "Coty88"
                         });
                 });
 
@@ -1264,23 +1008,6 @@ namespace DAL.WebMVC.Migrations.Migrations
                     b.Navigation("User");
                 });
 
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-            modelBuilder.Entity("DAL.Models.GiftcardCode", b =>
-                {
-                    b.HasOne("DAL.Models.Giftcard", "Giftcard")
-                        .WithMany("Codes")
-                        .HasForeignKey("GiftcardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
-
-                    b.Navigation("Giftcard");
-
-                    b.Navigation("Order");
-========
             modelBuilder.Entity("DAL.Models.GenreBook", b =>
                 {
                     b.HasOne("DAL.Models.Book", "Book")
@@ -1298,7 +1025,23 @@ namespace DAL.WebMVC.Migrations.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Genre");
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                });
+
+            modelBuilder.Entity("DAL.Models.GiftcardCode", b =>
+                {
+                    b.HasOne("DAL.Models.Giftcard", "Giftcard")
+                        .WithMany("Codes")
+                        .HasForeignKey("GiftcardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("Giftcard");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("DAL.Models.LocalIdentityUser", b =>
@@ -1430,15 +1173,14 @@ namespace DAL.WebMVC.Migrations.Migrations
                     b.Navigation("Reviews");
                 });
 
-<<<<<<<< HEAD:DAL.WebMVC.Migrations/Migrations/20251129150212_AddGiftcardCodeToOrder.Designer.cs
-            modelBuilder.Entity("DAL.Models.Giftcard", b =>
-                {
-                    b.Navigation("Codes");
-========
             modelBuilder.Entity("DAL.Models.Genre", b =>
                 {
                     b.Navigation("Books");
->>>>>>>> 2505e1e (updated genres in DAL):DAL.WebMVC.Migrations/Migrations/20251129102333_genre_book.Designer.cs
+                });
+
+            modelBuilder.Entity("DAL.Models.Giftcard", b =>
+                {
+                    b.Navigation("Codes");
                 });
 
             modelBuilder.Entity("DAL.Models.Order", b =>
