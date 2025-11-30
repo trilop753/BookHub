@@ -46,6 +46,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IBookReviewRepository, BookReviewRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IGiftcardRepository, GiftcardRepository>();
             return services;
         }
 
@@ -61,6 +62,7 @@ namespace WebAPI.Extensions
             services.AddScoped<ICartItemService, CartItemService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICoverImageService, CoverImageService>();
+            services.AddScoped<IGiftcardService, GiftcardService>();
             return services;
         }
 
@@ -73,6 +75,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IBookReviewFacade, BookReviewFacade>();
             services.AddScoped<ICartFacade, CartFacade>();
             services.AddScoped<IOrderFacade, OrderFacade>();
+            services.AddScoped<IGiftcardFacade, GiftcardFacade>();
             return services;
         }
 
