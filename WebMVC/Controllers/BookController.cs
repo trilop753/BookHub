@@ -1,9 +1,11 @@
-﻿using BL.Services.Interfaces;
+﻿using BL.Facades.Interfaces;
+using BL.Services.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebMVC.Caching;
 using WebMVC.Constants;
 using WebMVC.Mappers;
 using WebMVC.Models.Book;
@@ -17,7 +19,10 @@ namespace WebMVC.Controllers
         private readonly IPublisherService _publisherService;
         private readonly IGenreService _genreService;
         private readonly ICoverImageService _coverImageService;
+        private readonly IWishlistFacade _wishlistFacade;
+        private readonly ICartFacade _cartFacade;
         private readonly UserManager<LocalIdentityUser> _userManager;
+        private readonly IAppCache _cache;
 
         public BookController(
             IBookService bookService,
@@ -25,7 +30,10 @@ namespace WebMVC.Controllers
             IPublisherService publisherService,
             IGenreService genreService,
             ICoverImageService coverImageService,
-            UserManager<LocalIdentityUser> userManager
+            IWishlistFacade wishlistFacade,
+            ICartFacade cartFacade,
+            UserManager<LocalIdentityUser> userManager,
+            IAppCache cache
         )
         {
             _bookService = bookService;
@@ -33,27 +41,55 @@ namespace WebMVC.Controllers
             _publisherService = publisherService;
             _genreService = genreService;
             _coverImageService = coverImageService;
+            _wishlistFacade = wishlistFacade;
+            _cartFacade = cartFacade;
             _userManager = userManager;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var book = await _bookService.GetBookByIdAsync(id);
-
-            if (book.IsFailed)
+            var bookRes = await _cache.GetOrCreateAsync(
+                CacheKeys.BookDetail(id),
+                () => _bookService.GetBookByIdAsync(id)
+            );
+            if (bookRes.IsFailed)
             {
                 return View("NotFound");
             }
 
             var identityUser = await _userManager.GetUserAsync(User);
-            var currentUser = identityUser?.User;
-            var wishlistedBooksIds = currentUser?.Wishlist.Select(i => i.BookId);
-            var booksInCart = currentUser?.Cart.Select(i => i.BookId);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+            var currentUser = identityUser.User;
+
+            var wishlistRes = await _cache.GetOrCreateAsync(
+                CacheKeys.UserWishlistAll(currentUser.Id),
+                () => _wishlistFacade.GetAllWishlistedByUserIdAsync(currentUser.Id)
+            );
+            if (wishlistRes.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+
+            var cartRes = await _cache.GetOrCreateAsync(
+                CacheKeys.UserCartAll(currentUser.Id),
+                () => _cartFacade.GetCartItemsByUserIdAsync(currentUser.Id)
+            );
+            if (cartRes.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+
+            var wishlistedBooksIds = wishlistRes.Value.Select(i => i.Book.Id);
+            var booksInCartIds = cartRes.Value.Select(i => i.Book.Id);
 
             return View(
-                book.Value.MapToDetailView(
+                bookRes.Value.MapToDetailView(
                     wishlistedBooksIds ?? new List<int>(),
-                    booksInCart ?? new List<int>()
+                    booksInCartIds ?? new List<int>()
                 )
             );
         }
@@ -94,25 +130,37 @@ namespace WebMVC.Controllers
                 }
                 return View(await FillDropdownsAsync(model));
             }
+            _cache.Remove(CacheKeys.BookAll());
             return RedirectToAction("Index", "Home");
         }
 
         private async Task<BookCreateViewModel> FillDropdownsAsync(BookCreateViewModel model)
         {
-            var authors = await _authorService.GetAllAuthorsAsync();
-            var publishers = await _publisherService.GetAllPublishersAsync();
-            var genres = await _genreService.GetAllGenresAsync();
+            var authorsRes = await _cache.GetOrCreateAsync(
+                CacheKeys.AuthorAll(),
+                () => _authorService.GetAllAuthorsAsync()
+            );
 
-            model.Authors = authors
-                .Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name })
+            var publishersRes = await _cache.GetOrCreateAsync(
+                CacheKeys.PublisherAll(),
+                () => _publisherService.GetAllPublishersAsync()
+            );
+
+            var genresRes = await _cache.GetOrCreateAsync(
+                CacheKeys.GenreAll(),
+                () => _genreService.GetAllGenresAsync()
+            );
+
+            model.Authors = authorsRes
+                .Value.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name })
                 .ToList();
 
-            model.Publishers = publishers
-                .Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name })
+            model.Publishers = publishersRes
+                .Value.Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name })
                 .ToList();
 
-            model.Genres = genres
-                .Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
+            model.Genres = genresRes
+                .Value.Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
                 .ToList();
             return model;
         }

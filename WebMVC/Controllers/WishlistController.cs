@@ -5,6 +5,8 @@ using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Caching;
+using WebMVC.Constants;
 using WebMVC.Mappers;
 
 namespace WebMVC.Controllers
@@ -15,16 +17,19 @@ namespace WebMVC.Controllers
         private readonly IWishlistFacade _wishlistFacade;
         private readonly IBookService _bookService;
         private readonly UserManager<LocalIdentityUser> _userManager;
+        private readonly IAppCache _cache;
 
         public WishlistController(
             IWishlistFacade wishlistFacade,
             IBookService bookService,
-            UserManager<LocalIdentityUser> userManager
+            UserManager<LocalIdentityUser> userManager,
+            IAppCache cache
         )
         {
             _wishlistFacade = wishlistFacade;
             _bookService = bookService;
             _userManager = userManager;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -36,12 +41,15 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
 
-            var res = await _wishlistFacade.GetAllWishlistedByUserIdAsync(identityUser.User.Id);
-            if (res.IsFailed)
+            var wishlistRes = await _cache.GetOrCreateAsync(
+                CacheKeys.UserWishlistAll(identityUser.User.Id),
+                () => _wishlistFacade.GetAllWishlistedByUserIdAsync(identityUser.User.Id)
+            );
+            if (wishlistRes.IsFailed)
             {
                 return View("InternalServerError");
             }
-            return View(res.Value.MapToView());
+            return View(wishlistRes.Value.MapToView());
         }
 
         [HttpPost]
@@ -64,6 +72,7 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
 
+            _cache.Remove(CacheKeys.UserWishlistAll(identityUser.User.Id));
             return RedirectToAction("Detail", "Book", new { id = bookId });
         }
 
@@ -87,9 +96,11 @@ namespace WebMVC.Controllers
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
+                _cache.Remove(CacheKeys.UserWishlistAll(identityUser.User.Id));
                 return LocalRedirect(returnUrl);
             }
 
+            _cache.Remove(CacheKeys.UserWishlistAll(identityUser.User.Id));
             return RedirectToAction("Detail", "Book", new { id = bookId });
         }
     }

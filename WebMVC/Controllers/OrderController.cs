@@ -5,6 +5,8 @@ using DAL.UtilityModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Caching;
+using WebMVC.Constants;
 using WebMVC.Mappers;
 
 namespace WebMVC.Controllers
@@ -16,29 +18,34 @@ namespace WebMVC.Controllers
         private readonly IGiftcardFacade _giftcardFacade;
         private readonly ICartFacade _cartFacade;
         private readonly UserManager<LocalIdentityUser> _userManager;
+        private readonly IAppCache _cache;
 
         public OrderController(
             IOrderFacade orderFacade,
             ICartFacade cartFacade,
             UserManager<LocalIdentityUser> userManager,
+            IAppCache cache,
             IGiftcardFacade giftcardFacade
         )
         {
             _orderFacade = orderFacade;
             _cartFacade = cartFacade;
             _userManager = userManager;
+            _cache = cache;
             _giftcardFacade = giftcardFacade;
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var res = await _orderFacade.GetByIdAsync(id);
-            if (res.IsFailed)
+            var orderRes = await _cache.GetOrCreateAsync(
+                CacheKeys.OrderDetail(id),
+                () => _orderFacade.GetByIdAsync(id)
+            );
+            if (orderRes.IsFailed)
             {
-                return NotFound();
+                return View("NotFound");
             }
-
-            return View(res.Value.MapToView());
+            return View(orderRes.Value.MapToView());
         }
 
         public async Task<IActionResult> List()
@@ -49,7 +56,10 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
 
-            var ordersRes = await _orderFacade.GetOrdersByUserIdAsync(identityUser.User.Id);
+            var ordersRes = await _cache.GetOrCreateAsync(
+                CacheKeys.OrderAll(identityUser.User.Id),
+                () => _orderFacade.GetOrdersByUserIdAsync(identityUser.User.Id)
+            );
             if (ordersRes.IsFailed)
             {
                 return View("InternalServerError");
@@ -77,19 +87,27 @@ namespace WebMVC.Controllers
             {
                 return View("InternalServerError");
             }
-
+            _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
+            _cache.Remove(CacheKeys.OrderAll(identityUser.User.Id));
             return View("Detail", orderRes.Value.MapToView());
         }
 
         [HttpPost]
         public async Task<IActionResult> PayOrder(int id)
         {
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+
             var res = await _orderFacade.UpdateOrderPaymentStatusAsync(id, PaymentStatus.Completed);
             if (res.IsFailed)
             {
                 return NotFound();
             }
 
+            _cache.Remove(CacheKeys.OrderAll(identityUser.User.Id));
             return View("Detail", res.Value.MapToView());
         }
 
