@@ -71,18 +71,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var code in Model.Codes)
+                        @foreach (var _code in Model.Codes)
                         {
                             <tr>
-                                <td>@code.Code</td>
-                                <td>@(code.IsUsed ? "Yes" : "No")</td>
+                                <td>@_code.Code</td>
+                                <td>@(_code.IsUsed ? "Yes" : "No")</td>
                                 <td>
-                                    @if (code.OrderId != null)
+                                    @if (_code.OrderId != null)
                                     {
                                         <a asp-controller="Order"
                                            asp-action="Detail"
-                                           asp-route-id="@code.OrderId">
-                                            Order #@code.OrderId
+                                           asp-route-id="@_code.OrderId">
+                                            Order #@_code.OrderId
                                         </a>
                                     }
                                     else
