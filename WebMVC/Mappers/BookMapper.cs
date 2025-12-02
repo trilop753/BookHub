@@ -100,5 +100,25 @@ namespace WebMVC.Mappers
                 CoverImageName = dto.CoverImageName,
             };
         }
+
+        public static BookUpdateDto MapToDto(this BookUpdateViewModel model)
+        {
+            return new BookUpdateDto
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ISBN = model.ISBN,
+                Price = model.Price,
+                AuthorId = model.AuthorId,
+                PublisherId = model.PublisherId,
+                Genres = model.GenreIds.Select(id => new GenreBookUpdateDto()
+                {
+                    GenreId = id,
+                    IsPrimary = id == model.GenreIds.First(),
+                }),
+                CoverImageName = model.CoverImageName,
+                LastEditedById = model.LastEditedById,
+            };
+        }
     }
 }

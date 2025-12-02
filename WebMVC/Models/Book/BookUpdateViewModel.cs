@@ -41,4 +41,6 @@ public class BookUpdateViewModel : BookDropDownViewModel
     public IFormFile? CoverImageFile { get; set; }
 
     public string CoverImageName { get; set; }
+
+    public int LastEditedById { get; set; }
 }
