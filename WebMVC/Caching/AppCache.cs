@@ -66,4 +66,12 @@ public class AppCache : IAppCache
     {
         _cache.Remove(cacheKey);
     }
+
+    public void Clear()
+    {
+        if (_cache is MemoryCache cache)
+        {
+            cache.Clear();
+        }
+    }
 }

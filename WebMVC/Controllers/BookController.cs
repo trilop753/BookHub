@@ -202,8 +202,7 @@ namespace WebMVC.Controllers
             {
                 _coverImageService.DeleteCoverImage(oldImageName);
             }
-            _cache.Remove(CacheKeys.BookAll());
-            _cache.Remove(CacheKeys.BookDetail(model.Id));
+            _cache.Clear();
             return RedirectToAction("Detail", "Book", new { id = model.Id });
         }
 
