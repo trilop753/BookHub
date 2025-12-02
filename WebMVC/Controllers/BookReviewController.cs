@@ -3,6 +3,8 @@ using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Caching;
+using WebMVC.Constants;
 using WebMVC.Mappers;
 using WebMVC.Models.Book;
 
@@ -13,14 +15,17 @@ namespace WebMVC.Controllers
     {
         private readonly IBookReviewFacade _bookReviewFacade;
         private readonly UserManager<LocalIdentityUser> _userManager;
+        private readonly IAppCache _cache;
 
         public BookReviewController(
             IBookReviewFacade bookReviewFacade,
-            UserManager<LocalIdentityUser> userManager
+            UserManager<LocalIdentityUser> userManager,
+            IAppCache cache
         )
         {
             _bookReviewFacade = bookReviewFacade;
             _userManager = userManager;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Create(int bookId)
@@ -38,7 +43,6 @@ namespace WebMVC.Controllers
                 BookId = bookId,
                 UserId = currentUser.Id,
             };
-
             return View(review);
         }
 
@@ -57,6 +61,7 @@ namespace WebMVC.Controllers
                 return View(review);
             }
 
+            _cache.Remove(CacheKeys.BookDetail(res.Value.Book.Id));
             return RedirectToAction("Detail", "Book", new { id = res.Value.Book.Id });
         }
     }
