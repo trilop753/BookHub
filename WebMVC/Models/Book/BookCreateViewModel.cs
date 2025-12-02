@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebMVC.Models.Book
 {
-    public class BookCreateViewModel
+    public class BookCreateViewModel : BookDropDownViewModel
     {
         [Required]
         [Display(Name = "Book Title")]
@@ -41,12 +40,5 @@ namespace WebMVC.Models.Book
         public IFormFile? CoverImageFile { get; set; }
 
         public string CoverImageName { get; set; } = "";
-
-        public IEnumerable<SelectListItem> Authors { get; set; } =
-            Enumerable.Empty<SelectListItem>();
-        public IEnumerable<SelectListItem> Publishers { get; set; } =
-            Enumerable.Empty<SelectListItem>();
-        public IEnumerable<SelectListItem> Genres { get; set; } =
-            Enumerable.Empty<SelectListItem>();
     }
 }
