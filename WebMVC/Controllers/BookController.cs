@@ -148,6 +148,14 @@ namespace WebMVC.Controllers
             }
 
             var model = bookRes.Value.MapToUpdateView();
+
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+            model.LastEditedById = identityUser.UserId;
+
             return View(await FillDropdownsAsync(model, model.GenreIds));
         }
 
@@ -160,30 +168,43 @@ namespace WebMVC.Controllers
                 return View(await FillDropdownsAsync(model, model.GenreIds));
             }
 
-            var imgAddRes = await _coverImageService.AddCoverImageAsync(model.CoverImageFile);
-            if (imgAddRes.IsFailed)
+            var oldImageName = model.CoverImageName;
+            if (model.CoverImageFile != null)
             {
-                foreach (var error in imgAddRes.Errors)
+                var imgAddRes = await _coverImageService.AddCoverImageAsync(model.CoverImageFile);
+                if (imgAddRes.IsFailed)
+                {
+                    foreach (var error in imgAddRes.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Message);
+                    }
+                    return View(await FillDropdownsAsync(model, model.GenreIds));
+                }
+                model.CoverImageName = imgAddRes.Value;
+            }
+
+            var updateRes = await _bookService.UpdateBookAsync(model.Id, model.MapToDto());
+            if (updateRes.IsFailed)
+            {
+                if (model.CoverImageFile != null)
+                {
+                    _coverImageService.DeleteCoverImage(model.CoverImageName);
+                }
+                model.CoverImageName = oldImageName;
+                foreach (var error in updateRes.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Message);
                 }
                 return View(await FillDropdownsAsync(model, model.GenreIds));
             }
-            _coverImageService.DeleteCoverImage(model.CoverImageName);
 
-            // model.CoverImageName = imgAddRes.Value;
-            // var createDto = model.MapToCreateDto();
-            // var res = await _bookService.CreateBookAsync(createDto);
-            // if (res.IsFailed)
-            // {
-            //     foreach (var error in res.Errors)
-            //     {
-            //         ModelState.AddModelError(string.Empty, error.Message);
-            //     }
-            //     return View(await FillDropdownsAsync(model));
-            // }
-            // _cache.Remove(CacheKeys.BookAll());
-            return RedirectToAction("Index", "Home");
+            if (model.CoverImageFile != null)
+            {
+                _coverImageService.DeleteCoverImage(oldImageName);
+            }
+            _cache.Remove(CacheKeys.BookAll());
+            _cache.Remove(CacheKeys.BookDetail(model.Id));
+            return RedirectToAction("Detail", "Book", new { id = model.Id });
         }
 
         private async Task<T> FillDropdownsAsync<T>(T model, IEnumerable<int>? oldGenres = null)
