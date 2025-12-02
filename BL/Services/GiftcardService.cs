@@ -81,9 +81,16 @@ namespace BL.Services
         public async Task<Result> DeleteAsync(int id)
         {
             var card = await _giftcardRepository.GetByIdAsync(id);
+
             if (card == null)
             {
                 return Result.Fail($"Giftcard with id {id} does not exist.");
+            }
+
+            var usedCount = card.Codes.Count(c => c.IsUsed);
+            if (usedCount > 0)
+            {
+                return Result.Fail($"Giftcard cannot be deleted because {usedCount} code(s) have already been used.");
             }
 
             _giftcardRepository.Delete(card);
