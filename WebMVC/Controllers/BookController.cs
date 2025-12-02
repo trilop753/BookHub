@@ -134,7 +134,60 @@ namespace WebMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private async Task<BookCreateViewModel> FillDropdownsAsync(BookCreateViewModel model)
+        [Authorize(Roles = Roles.Admin)]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var bookRes = await _cache.GetOrCreateAsync(
+                CacheKeys.BookDetail(id),
+                () => _bookService.GetBookByIdAsync(id)
+            );
+            if (bookRes.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+
+            var model = bookRes.Value.MapToUpdateView();
+            return View(await FillDropdownsAsync(model, model.GenreIds));
+        }
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> Edit(BookUpdateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(await FillDropdownsAsync(model, model.GenreIds));
+            }
+
+            var imgAddRes = await _coverImageService.AddCoverImageAsync(model.CoverImageFile);
+            if (imgAddRes.IsFailed)
+            {
+                foreach (var error in imgAddRes.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Message);
+                }
+                return View(await FillDropdownsAsync(model, model.GenreIds));
+            }
+            _coverImageService.DeleteCoverImage(model.CoverImageName);
+
+            // model.CoverImageName = imgAddRes.Value;
+            // var createDto = model.MapToCreateDto();
+            // var res = await _bookService.CreateBookAsync(createDto);
+            // if (res.IsFailed)
+            // {
+            //     foreach (var error in res.Errors)
+            //     {
+            //         ModelState.AddModelError(string.Empty, error.Message);
+            //     }
+            //     return View(await FillDropdownsAsync(model));
+            // }
+            // _cache.Remove(CacheKeys.BookAll());
+            return RedirectToAction("Index", "Home");
+        }
+
+        private async Task<T> FillDropdownsAsync<T>(T model, IEnumerable<int>? oldGenres = null)
+            where T : BookDropDownViewModel
         {
             var authorsRes = await _cache.GetOrCreateAsync(
                 CacheKeys.AuthorAll(),
@@ -160,7 +213,12 @@ namespace WebMVC.Controllers
                 .ToList();
 
             model.Genres = genresRes
-                .Value.Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
+                .Value.Select(g => new SelectListItem
+                {
+                    Value = g.Id.ToString(),
+                    Text = g.Name,
+                    Selected = oldGenres != null && oldGenres.Contains(g.Id),
+                })
                 .ToList();
             return model;
         }
