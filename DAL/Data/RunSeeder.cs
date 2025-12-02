@@ -15,6 +15,7 @@ namespace DAL.Data
             BookReviewSeeder.Seed(modelBuilder);
             CartItemsSeeder.Seed(modelBuilder, users, books);
             OrderSeeder.Seed(modelBuilder, users, books);
+            GiftcardSeeder.Seed(modelBuilder);
         }
     }
 }
