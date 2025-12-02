@@ -11,18 +11,21 @@ public class BookService : IBookService
     private readonly IGenreRepository _genreRepository;
     private readonly IAuthorRepository _authorRepository;
     private readonly IPublisherRepository _publisherRepository;
+    private readonly IUserRepository _userRepository;
 
     public BookService(
         IBookRepository bookRepository,
         IGenreRepository genreRepository,
         IAuthorRepository authorRepository,
-        IPublisherRepository publisherRepository
+        IPublisherRepository publisherRepository,
+        IUserRepository userRepository
     )
     {
         _bookRepository = bookRepository;
         _genreRepository = genreRepository;
         _authorRepository = authorRepository;
         _publisherRepository = publisherRepository;
+        _userRepository = userRepository;
     }
 
     #region Get
@@ -157,7 +160,7 @@ public class BookService : IBookService
             );
         }
 
-        var editor = await _authorRepository.GetByIdAsync(dto.LastEditedById);
+        var editor = await _userRepository.GetByIdAsync(dto.LastEditedById);
         if (editor == null)
         {
             result.WithError($"User with id {dto.LastEditedById} does not exist.");
