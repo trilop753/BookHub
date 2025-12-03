@@ -145,7 +145,7 @@
 
             <form asp-controller="Book"
                   asp-action="Delete"
-                  asp-route-id="@Model.Id"
+                  asp-route-bookId="@Model.Id"
                   method="post"
                   onsubmit=
                   "return confirm('Are you sure you want to delete this book? This action is irreversible.');">

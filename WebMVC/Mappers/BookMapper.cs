@@ -97,7 +97,7 @@ namespace WebMVC.Mappers
                 AuthorId = dto.Author.Id,
                 PublisherId = dto.Publisher.Id,
                 GenreIds = dto.Genres.Select(g => g.GenreId).ToList(),
-                CoverImageName = dto.CoverImageName,
+                CoverImageName = dto.CoverImageName ?? string.Empty,
             };
         }
 

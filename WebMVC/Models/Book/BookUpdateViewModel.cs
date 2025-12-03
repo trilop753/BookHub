@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace WebMVC.Models.Book;
 
@@ -38,9 +39,10 @@ public class BookUpdateViewModel : BookDropDownViewModel
     public List<int> GenreIds { get; set; }
 
     [Display(Name = "Upload cover image")]
-    public IFormFile? CoverImageFile { get; set; }
+    public IFormFile? NewCoverImageFile { get; set; }
 
-    public string CoverImageName { get; set; }
+    [ValidateNever]
+    public string CoverImageName { get; set; } = "";
 
     public int LastEditedById { get; set; }
 }

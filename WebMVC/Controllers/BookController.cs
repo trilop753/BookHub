@@ -169,9 +169,11 @@ namespace WebMVC.Controllers
             }
 
             var oldImageName = model.CoverImageName;
-            if (model.CoverImageFile != null)
+            if (model.NewCoverImageFile != null)
             {
-                var imgAddRes = await _coverImageService.AddCoverImageAsync(model.CoverImageFile);
+                var imgAddRes = await _coverImageService.AddCoverImageAsync(
+                    model.NewCoverImageFile
+                );
                 if (imgAddRes.IsFailed)
                 {
                     foreach (var error in imgAddRes.Errors)
@@ -186,7 +188,7 @@ namespace WebMVC.Controllers
             var updateRes = await _bookService.UpdateBookAsync(model.Id, model.MapToDto());
             if (updateRes.IsFailed)
             {
-                if (model.CoverImageFile != null)
+                if (model.NewCoverImageFile != null)
                 {
                     _coverImageService.DeleteCoverImage(model.CoverImageName);
                 }
@@ -198,12 +200,27 @@ namespace WebMVC.Controllers
                 return View(await FillDropdownsAsync(model, model.GenreIds));
             }
 
-            if (model.CoverImageFile != null)
+            if (model.NewCoverImageFile != null)
             {
                 _coverImageService.DeleteCoverImage(oldImageName);
             }
             _cache.Clear();
             return RedirectToAction("Detail", "Book", new { id = model.Id });
+        }
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int bookId)
+        {
+            var bookRes = await _bookService.DeleteBookAsync(bookId);
+            if (bookRes.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+
+            _coverImageService.DeleteCoverImage(bookRes.Value);
+            _cache.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
         private async Task<T> FillDropdownsAsync<T>(T model, IEnumerable<int>? oldGenres = null)
