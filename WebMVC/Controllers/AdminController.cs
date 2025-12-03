@@ -68,4 +68,9 @@ public class AdminController : Controller
 
         return RedirectToAction("Index", "Home");
     }
+
+    public async Task<IActionResult> Dashboard()
+    {
+        return View();
+    }
 }
