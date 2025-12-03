@@ -206,16 +206,17 @@ public class BookService : IBookService
         return Result.Ok();
     }
 
-    public async Task<Result> DeleteBookAsync(int id)
+    public async Task<Result<string>> DeleteBookAsync(int id)
     {
         var existing = await _bookRepository.GetByIdAsync(id);
         if (existing == null)
         {
             return Result.Fail($"Book with id {id} does not exist.");
         }
+        var coverImageName = existing.CoverImageName;
 
         _bookRepository.Delete(existing);
         await _bookRepository.SaveChangesAsync();
-        return Result.Ok();
+        return Result.Ok(coverImageName);
     }
 }
