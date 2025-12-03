@@ -134,7 +134,97 @@ namespace WebMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private async Task<BookCreateViewModel> FillDropdownsAsync(BookCreateViewModel model)
+        [Authorize(Roles = Roles.Admin)]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var bookRes = await _cache.GetOrCreateAsync(
+                CacheKeys.BookDetail(id),
+                () => _bookService.GetBookByIdAsync(id)
+            );
+            if (bookRes.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+
+            var model = bookRes.Value.MapToUpdateView();
+
+            var identityUser = await _userManager.GetUserAsync(User);
+            if (identityUser == null || identityUser.User == null)
+            {
+                return View("InternalServerError");
+            }
+            model.LastEditedById = identityUser.UserId;
+
+            return View(await FillDropdownsAsync(model, model.GenreIds));
+        }
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> Edit(BookUpdateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(await FillDropdownsAsync(model, model.GenreIds));
+            }
+
+            var oldImageName = model.CoverImageName;
+            if (model.NewCoverImageFile != null)
+            {
+                var imgAddRes = await _coverImageService.AddCoverImageAsync(
+                    model.NewCoverImageFile
+                );
+                if (imgAddRes.IsFailed)
+                {
+                    foreach (var error in imgAddRes.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Message);
+                    }
+                    return View(await FillDropdownsAsync(model, model.GenreIds));
+                }
+                model.CoverImageName = imgAddRes.Value;
+            }
+
+            var updateRes = await _bookService.UpdateBookAsync(model.Id, model.MapToDto());
+            if (updateRes.IsFailed)
+            {
+                if (model.NewCoverImageFile != null)
+                {
+                    _coverImageService.DeleteCoverImage(model.CoverImageName);
+                }
+                model.CoverImageName = oldImageName;
+                foreach (var error in updateRes.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Message);
+                }
+                return View(await FillDropdownsAsync(model, model.GenreIds));
+            }
+
+            if (model.NewCoverImageFile != null)
+            {
+                _coverImageService.DeleteCoverImage(oldImageName);
+            }
+            _cache.Clear();
+            return RedirectToAction("Detail", "Book", new { id = model.Id });
+        }
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int bookId)
+        {
+            var bookRes = await _bookService.DeleteBookAsync(bookId);
+            if (bookRes.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+
+            _coverImageService.DeleteCoverImage(bookRes.Value);
+            _cache.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
+        private async Task<T> FillDropdownsAsync<T>(T model, IEnumerable<int>? oldGenres = null)
+            where T : BookDropDownViewModel
         {
             var authorsRes = await _cache.GetOrCreateAsync(
                 CacheKeys.AuthorAll(),
@@ -160,7 +250,12 @@ namespace WebMVC.Controllers
                 .ToList();
 
             model.Genres = genresRes
-                .Value.Select(g => new SelectListItem { Value = g.Id.ToString(), Text = g.Name })
+                .Value.Select(g => new SelectListItem
+                {
+                    Value = g.Id.ToString(),
+                    Text = g.Name,
+                    Selected = oldGenres != null && oldGenres.Contains(g.Id),
+                })
                 .ToList();
             return model;
         }

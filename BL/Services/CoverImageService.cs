@@ -50,12 +50,11 @@ public class CoverImageService : ICoverImageService
 
     public void DeleteCoverImage(string name)
     {
-        var path = Path.Combine(_coverImageStoragePath, name);
-        if (string.IsNullOrWhiteSpace(path))
+        if (string.IsNullOrWhiteSpace(name))
         {
             return;
         }
-
+        var path = Path.Combine(_coverImageStoragePath, name);
         if (File.Exists(path))
         {
             File.Delete(path);

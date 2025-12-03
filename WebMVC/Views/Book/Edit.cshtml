@@ -1,31 +1,38 @@
-@model WebMVC.Models.Book.BookCreateViewModel
-<form asp-controller="Book" asp-action="Create" method="post" enctype="multipart/form-data">
+@model WebMVC.Models.Book.BookUpdateViewModel
+
+<form asp-controller="Book" asp-action="Edit" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
-    
+
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="CoverImageName" type="hidden" />
+    <input asp-for="LastEditedById" type="hidden" />
+
     <div class="mb-3">
         <label asp-for="Title" class="form-label"></label>
-        <input asp-for="Title" class="form-control"/>
+        <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
-    
+
     <div class="mb-3">
         <label asp-for="Description" class="form-label"></label>
-        <input asp-for="Description" class="form-control"/>
+        <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    
+
     <div class="mb-3">
         <label asp-for="ISBN" class="form-label"></label>
-        <input asp-for="ISBN" class="form-control"/>
+        <input asp-for="ISBN" class="form-control" />
         <span asp-validation-for="ISBN" class="text-danger"></span>
     </div>
-    
+
     <div class="mb-3">
         <label asp-for="Price" class="form-label"></label>
-        <input asp-for="Price" class="form-control"/>
+        <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
-    
+
     <div class="mb-3">
         <label asp-for="AuthorId" class="form-label"></label>
         <select asp-for="AuthorId" asp-items="Model.Authors" class="form-select">
@@ -33,7 +40,7 @@
         </select>
         <span asp-validation-for="AuthorId" class="text-danger"></span>
     </div>
-    
+
     <div class="mb-3">
         <label asp-for="PublisherId" class="form-label"></label>
         <select asp-for="PublisherId" asp-items="Model.Publishers" class="form-select">
@@ -41,7 +48,7 @@
         </select>
         <span asp-validation-for="PublisherId" class="text-danger"></span>
     </div>
-    
+
     <div class="mb-3">
         <label asp-for="GenreIds" class="form-label"></label>
         <select asp-for="GenreIds"
@@ -52,13 +59,21 @@
         <span asp-validation-for="GenreIds" class="text-danger"></span>
         <div class="form-text">Hold Ctrl to select multiple genres.</div>
     </div>
-    
+
     <div class="mb-3">
-        <label asp-for="CoverImageFile" class="form-label"></label>
-        <input asp-for="CoverImageFile" class="form-control" type="file" />
-        <span asp-validation-for="CoverImageFile" class="text-danger"></span>
+        <label class="form-label">Current cover image</label>
+        <img src="~/cover-images/@Model.CoverImageName"
+             alt="failed to load cover image"
+             class="img-thumbnail"
+             style="max-height:200px;" />
     </div>
-    
-    <button type="submit" class="btn btn-primary">Create</button>
+
+    <div class="mb-3">
+        <label asp-for="NewCoverImageFile" class="form-label"></label>
+        <input asp-for="NewCoverImageFile" class="form-control" type="file" />
+        <span asp-validation-for="NewCoverImageFile" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save changes</button>
     <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
 </form>

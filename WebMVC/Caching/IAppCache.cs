@@ -36,4 +36,5 @@ public interface IAppCache
     );
 
     public void Remove(string cacheKey);
+    public void Clear();
 }

@@ -84,5 +84,41 @@ namespace WebMVC.Mappers
                 CoverImageName = model.CoverImageName,
             };
         }
+
+        public static BookUpdateViewModel MapToUpdateView(this BookDto dto)
+        {
+            return new BookUpdateViewModel()
+            {
+                Id = dto.Id,
+                Title = dto.Title,
+                Description = dto.Description,
+                Price = dto.Price,
+                ISBN = dto.ISBN,
+                AuthorId = dto.Author.Id,
+                PublisherId = dto.Publisher.Id,
+                GenreIds = dto.Genres.Select(g => g.GenreId).ToList(),
+                CoverImageName = dto.CoverImageName ?? string.Empty,
+            };
+        }
+
+        public static BookUpdateDto MapToDto(this BookUpdateViewModel model)
+        {
+            return new BookUpdateDto
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ISBN = model.ISBN,
+                Price = model.Price,
+                AuthorId = model.AuthorId,
+                PublisherId = model.PublisherId,
+                Genres = model.GenreIds.Select(id => new GenreBookUpdateDto()
+                {
+                    GenreId = id,
+                    IsPrimary = id == model.GenreIds.First(),
+                }),
+                CoverImageName = model.CoverImageName,
+                LastEditedById = model.LastEditedById,
+            };
+        }
     }
 }
