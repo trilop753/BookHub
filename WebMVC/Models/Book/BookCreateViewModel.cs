@@ -40,6 +40,7 @@ namespace WebMVC.Models.Book
         [Required]
         public IFormFile? CoverImageFile { get; set; }
 
+        [ValidateNever]
         public string CoverImageName { get; set; }
     }
 }
