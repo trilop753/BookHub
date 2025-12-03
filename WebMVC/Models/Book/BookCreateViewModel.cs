@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace WebMVC.Models.Book
 {
@@ -39,6 +40,6 @@ namespace WebMVC.Models.Book
         [Required]
         public IFormFile? CoverImageFile { get; set; }
 
-        public string CoverImageName { get; set; } = "";
+        public string CoverImageName { get; set; }
     }
 }
