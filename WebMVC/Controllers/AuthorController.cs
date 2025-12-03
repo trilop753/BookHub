@@ -42,6 +42,32 @@ public class AuthorController : Controller
         return View(authRes.Value.Select(a => a.MapToView()));
     }
 
+    public async Task<IActionResult> Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(AuthorCreateViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var authRes = await _authorService.CreateAuthorAsync(model.MapToDto());
+        if (authRes.IsFailed)
+        {
+            foreach (var error in authRes.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Message);
+            }
+            return View(model);
+        }
+        _cache.Remove(CacheKeys.AuthorAll());
+        return RedirectToAction("Index");
+    }
+
     public async Task<IActionResult> Edit(int authorId)
     {
         var authRes = await _cache.GetOrCreateAsync(
@@ -74,7 +100,8 @@ public class AuthorController : Controller
             }
             return View(model);
         }
-        _cache.Clear();
+        _cache.Remove(CacheKeys.AuthorAll());
+        _cache.Remove(CacheKeys.AuthorDetail(model.Id));
         return RedirectToAction("Index");
     }
 
@@ -89,7 +116,7 @@ public class AuthorController : Controller
             return RedirectToAction("Index");
         }
 
-        _cache.Clear();
+        _cache.Remove(CacheKeys.AuthorAll());
         return RedirectToAction("Index");
     }
 }

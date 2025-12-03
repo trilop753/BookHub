@@ -39,5 +39,10 @@ namespace WebMVC.Mappers
         {
             return new AuthorUpdateDto() { Name = author.Name, Surname = author.Surname };
         }
+
+        public static AuthorCreateDto MapToDto(this AuthorCreateViewModel author)
+        {
+            return new AuthorCreateDto() { Name = author.Name, Surname = author.Surname };
+        }
     }
 }

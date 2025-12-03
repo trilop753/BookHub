@@ -53,7 +53,7 @@
                         <button type="submit"
                                 class="btn btn-sm btn-danger"
                                 title="Delete">
-                        &times;
+                            &times;
                         </button>
                     </form>
                 </td>
@@ -61,4 +61,12 @@
         }
         </tbody>
     </table>
+    
+    <div class="d-flex justify-content-end mt-3">
+        <a asp-controller="Author"
+           asp-action="Create"
+           class="btn btn-success">
+            Create Author
+        </a>
+    </div>
 </div>
