@@ -14,5 +14,15 @@ namespace WebMVC.Mappers
                 Surname = author.Surname,
             };
         }
+
+        public static AuthorViewModel MapToView(this AuthorDto author)
+        {
+            return new AuthorViewModel()
+            {
+                Id = author.Id,
+                Name = author.Name,
+                Surname = author.Surname,
+            };
+        }
     }
 }
