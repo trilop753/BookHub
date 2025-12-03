@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebMVC.Caching;
 using WebMVC.Constants;
 using WebMVC.Mappers;
+using WebMVC.Models.Author;
 
 namespace WebMVC.Controllers;
 
@@ -39,5 +40,56 @@ public class AuthorController : Controller
             return View("InternalServerError");
         }
         return View(authRes.Value.Select(a => a.MapToView()));
+    }
+
+    public async Task<IActionResult> Edit(int authorId)
+    {
+        var authRes = await _cache.GetOrCreateAsync(
+            CacheKeys.AuthorDetail(authorId),
+            () => _authorService.GetAuthorByIdAsync(authorId)
+        );
+        if (authRes.IsFailed)
+        {
+            return View("InternalServerError");
+        }
+
+        var model = authRes.Value.MapToUpdateView();
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(AuthorUpdateViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var authRes = await _authorService.UpdateAuthorAsync(model.Id, model.MapToDto());
+        if (authRes.IsFailed)
+        {
+            foreach (var error in authRes.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Message);
+            }
+            return View(model);
+        }
+        _cache.Clear();
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int authorId)
+    {
+        var authRes = await _authorService.DeleteAuthorAsync(authorId);
+        if (authRes.IsFailed)
+        {
+            var errorMessages = string.Join("<br />", authRes.Errors.Select(e => e.Message));
+            TempData["ErrorMessage"] = errorMessages;
+            return RedirectToAction("Index");
+        }
+
+        _cache.Clear();
+        return RedirectToAction("Index");
     }
 }
