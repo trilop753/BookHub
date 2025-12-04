@@ -1,7 +1,5 @@
 using BL.Services.Interfaces;
-using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Caching;
 using WebMVC.Constants;
@@ -110,6 +108,7 @@ public class GenreController : Controller
             return RedirectToAction("Index");
         }
 
+        TempData["SuccessMessage"] = "Genre was deleted.";
         _cache.Remove(CacheKeys.GenreAll());
         return RedirectToAction("Index");
     }

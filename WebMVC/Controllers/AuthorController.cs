@@ -108,6 +108,7 @@ public class AuthorController : Controller
             return RedirectToAction("Index");
         }
 
+        TempData["SuccessMessage"] = "Author was deleted.";
         _cache.Remove(CacheKeys.AuthorAll());
         return RedirectToAction("Index");
     }

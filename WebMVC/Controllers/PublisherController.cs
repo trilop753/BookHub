@@ -108,6 +108,7 @@ public class PublisherController : Controller
             return RedirectToAction("Index");
         }
 
+        TempData["SuccessMessage"] = "Publisher was deleted.";
         _cache.Remove(CacheKeys.PublisherAll());
         return RedirectToAction("Index");
     }
