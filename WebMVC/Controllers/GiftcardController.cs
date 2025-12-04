@@ -1,5 +1,7 @@
-﻿using BL.Facades.Interfaces;
+using BL.Facades.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Caching;
+using WebMVC.Constants;
 using WebMVC.Mappers;
 using WebMVC.Models.Giftcard;
 
@@ -8,15 +10,20 @@ namespace WebMVC.Controllers
     public class GiftcardController : Controller
     {
         private readonly IGiftcardFacade _giftcardFacade;
+        private readonly IAppCache _cache;
 
-        public GiftcardController(IGiftcardFacade giftcardFacade)
+        public GiftcardController(IGiftcardFacade giftcardFacade, IAppCache cache)
         {
             _giftcardFacade = giftcardFacade;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Index()
         {
-            var res = await _giftcardFacade.GetAllAsync();
+            var res = await _cache.GetOrCreateAsync(
+                CacheKeys.GiftcardAll(),
+                () => _giftcardFacade.GetAllAsync()
+            );
 
             if (res.IsFailed)
             {
@@ -28,7 +35,10 @@ namespace WebMVC.Controllers
 
         public async Task<IActionResult> Detail(int id)
         {
-            var res = await _giftcardFacade.GetByIdAsync(id);
+            var res = await _cache.GetOrCreateAsync(
+                CacheKeys.GiftcardDetail(id),
+                () => _giftcardFacade.GetByIdAsync(id)
+            );
 
             if (res.IsFailed)
             {
@@ -60,6 +70,8 @@ namespace WebMVC.Controllers
                 return View(model);
             }
 
+            _cache.Remove(CacheKeys.GiftcardAll());
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -77,6 +89,9 @@ namespace WebMVC.Controllers
             }
 
             TempData["SuccessMessage"] = "Giftcard was deleted.";
+            
+            _cache.Remove(CacheKeys.GiftcardAll());
+            _cache.Remove(CacheKeys.GiftcardDetail(id));
             return RedirectToAction(nameof(Index));
         }
     }

@@ -16,6 +16,20 @@ public static class CacheKeys
 
     #endregion
 
+    #region Giftcard
+
+    public static string GiftcardDetail(int giftcardId)
+    {
+        return $"Giftcard:Detail:{giftcardId}";
+    }
+
+    public static string GiftcardAll()
+    {
+        return "Giftcard:All";
+    }
+
+    #endregion
+
     public static string GenreAll()
     {
         return "Genre:All";
@@ -34,6 +48,11 @@ public static class CacheKeys
     public static string PublisherAll()
     {
         return "Publisher:All";
+    }
+
+    public static string PublisherDetail(int publisherId)
+    {
+        return $"Publisher:Detail:{publisherId}";
     }
 
     public static string OrderDetail(int orderId)
