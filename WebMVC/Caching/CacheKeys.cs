@@ -16,6 +16,20 @@ public static class CacheKeys
 
     #endregion
 
+    #region Giftcard
+
+    public static string GiftcardDetail(int giftcardId)
+    {
+        return $"Giftcard:Detail:{giftcardId}";
+    }
+
+    public static string GiftcardAll()
+    {
+        return "Giftcard:All";
+    }
+
+    #endregion
+
     public static string GenreAll()
     {
         return "Genre:All";
