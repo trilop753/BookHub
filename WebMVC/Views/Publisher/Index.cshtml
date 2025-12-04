@@ -19,8 +19,9 @@
         <thead class="table-dark">
         <tr>
             <th>Name</th>
-            <th style="width: 60px;">Edit</th>
-            <th style="width: 60px;">Delete</th>
+            <th style="width: 1%; white-space: nowrap;">
+                Actions
+            </th>
         </tr>
         </thead>
 
@@ -30,7 +31,8 @@
             <tr>
                 <td>@publisher.Name</td>
 
-                <td>
+                <td style="width: 1%; white-space: nowrap;">
+
                     <a asp-controller="Publisher"
                        asp-action="Edit"
                        asp-route-publisherId="@publisher.Id"
@@ -38,9 +40,7 @@
                        title="Edit">
                         edit
                     </a>
-                </td>
 
-                <td>
                     <form asp-controller="Publisher"
                           asp-action="Delete"
                           asp-route-publisherId="@publisher.Id"
@@ -51,7 +51,7 @@
                         <button type="submit"
                                 class="btn btn-sm btn-danger"
                                 title="Delete">
-                            &times;
+                            delete
                         </button>
                     </form>
                 </td>

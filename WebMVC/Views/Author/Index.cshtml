@@ -20,8 +20,9 @@
         <tr>
             <th>Name</th>
             <th>Surname</th>
-            <th style="width: 60px;">Edit</th>
-            <th style="width: 60px;">Delete</th>
+            <th style="width: 1%; white-space: nowrap;">
+                Actions
+            </th>
         </tr>
         </thead>
 
@@ -32,7 +33,7 @@
                 <td>@author.Name</td>
                 <td>@author.Surname</td>
 
-                <td>
+                <td style="width: 1%; white-space: nowrap;">
                     <a asp-controller="Author"
                        asp-action="Edit"
                        asp-route-authorId="@author.Id"
@@ -40,9 +41,7 @@
                        title="Edit">
                         edit
                     </a>
-                </td>
 
-                <td>
                     <form asp-controller="Author"
                           asp-action="Delete"
                           asp-route-authorId="@author.Id"
@@ -53,7 +52,7 @@
                         <button type="submit"
                                 class="btn btn-sm btn-danger"
                                 title="Delete">
-                            &times;
+                            delete
                         </button>
                     </form>
                 </td>
