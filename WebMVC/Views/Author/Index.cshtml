@@ -1,0 +1,72 @@
+@model IEnumerable<WebMVC.Models.Author.AuthorViewModel>
+
+@if (TempData["ErrorMessage"] is string errorMessage)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @Html.Raw(errorMessage)
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@{
+    ViewData["Title"] = "Authors";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <h1 class="display-6 text-center mb-4">Authors</h1>
+
+    <table class="table table-sm table-striped table-bordered align-middle text-center">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th style="width: 60px;">Edit</th>
+            <th style="width: 60px;">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var author in Model)
+        {
+            <tr>
+                <td>@author.Name</td>
+                <td>@author.Surname</td>
+
+                <td>
+                    <a asp-controller="Author"
+                       asp-action="Edit"
+                       asp-route-authorId="@author.Id"
+                       class="btn btn-sm btn-warning"
+                       title="Edit">
+                        edit
+                    </a>
+                </td>
+
+                <td>
+                    <form asp-controller="Author"
+                          asp-action="Delete"
+                          asp-route-authorId="@author.Id"
+                          method="post"
+                          onsubmit="return confirm('Are you sure you want to delete this author?');"
+                          class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit"
+                                class="btn btn-sm btn-danger"
+                                title="Delete">
+                            &times;
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div class="d-flex justify-content-end mt-3">
+        <a asp-controller="Author"
+           asp-action="Create"
+           class="btn btn-success">
+            Create Author
+        </a>
+    </div>
+</div>
