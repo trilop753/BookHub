@@ -64,15 +64,19 @@ namespace WebMVC.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var res = await _giftcardFacade.DeleteAsync(id);
 
             if (res.IsFailed)
             {
-                return BadRequest(res.Errors);
+                var errorMessages = string.Join("<br />", res.Errors.Select(e => e.Message));
+                TempData["ErrorMessage"] = errorMessages;
+                return RedirectToAction(nameof(Index));
             }
 
+            TempData["SuccessMessage"] = "Giftcard was deleted.";
             return RedirectToAction(nameof(Index));
         }
     }
