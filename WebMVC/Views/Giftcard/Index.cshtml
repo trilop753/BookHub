@@ -4,6 +4,20 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="fw-bold">Gift Cards</h1>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.Raw(TempData["ErrorMessage"])
+            </div>
+        }
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
 
         <a asp-controller="Giftcard"
            asp-action="Create"
