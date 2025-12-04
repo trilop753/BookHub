@@ -1,0 +1,70 @@
+@model IEnumerable<WebMVC.Models.Publisher.PublisherViewModel>
+
+@if (TempData["ErrorMessage"] is string errorMessage)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @Html.Raw(errorMessage)
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@{
+    ViewData["Title"] = "Publishers";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <h1 class="display-6 text-center mb-4">Publishers</h1>
+
+    <table class="table table-sm table-striped table-bordered align-middle text-center">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th style="width: 60px;">Edit</th>
+            <th style="width: 60px;">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var publisher in Model)
+        {
+            <tr>
+                <td>@publisher.Name</td>
+
+                <td>
+                    <a asp-controller="Publisher"
+                       asp-action="Edit"
+                       asp-route-publisherId="@publisher.Id"
+                       class="btn btn-sm btn-warning"
+                       title="Edit">
+                        edit
+                    </a>
+                </td>
+
+                <td>
+                    <form asp-controller="Publisher"
+                          asp-action="Delete"
+                          asp-route-publisherId="@publisher.Id"
+                          method="post"
+                          onsubmit="return confirm('Are you sure you want to delete this publisher?');"
+                          class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit"
+                                class="btn btn-sm btn-danger"
+                                title="Delete">
+                            &times;
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div class="d-flex justify-content-end mt-3">
+        <a asp-controller="Publisher"
+           asp-action="Create"
+           class="btn btn-success">
+            Create Publisher
+        </a>
+    </div>
+</div>
