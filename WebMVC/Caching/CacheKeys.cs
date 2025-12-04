@@ -36,6 +36,11 @@ public static class CacheKeys
         return "Publisher:All";
     }
 
+    public static string PublisherDetail(int publisherId)
+    {
+        return $"Publisher:Detail:{publisherId}";
+    }
+
     public static string OrderDetail(int orderId)
     {
         return $"Order:Detail:{orderId}";
