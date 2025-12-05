@@ -52,10 +52,10 @@ public class BookService : IBookService
         return books.Select(b => b.MapToDto());
     }
 
-    public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(
-        BookSearchCriteriaDto searchCriteria
-    )
+    public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(BookSearchCriteriaDto searchCriteria)
     {
+        searchCriteria ??= new BookSearchCriteriaDto();
+
         var books = await _bookRepository.GetFilteredAsync(
             searchCriteria.MapToBookSearchCriteria()
         );
