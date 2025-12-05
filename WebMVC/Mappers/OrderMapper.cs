@@ -16,7 +16,6 @@ namespace WebMVC.Mappers
                 BookTitle = oi.BookTitle,
                 BookISBN = oi.BookISBN,
                 BookPrice = oi.BookPrice,
-                BookGenres = oi.BookGenres,
                 BookAuthor = oi.BookAuthor,
                 BookPublisher = oi.BookPublisher,
             });
