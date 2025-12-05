@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace WebMVC.Models.Book;
 
-public class BookUpdateViewModel : BookDropDownViewModel
+public class BookUpdateViewModel : BookDropDownViewModel, IValidatableObject
 {
     public int Id { get; set; }
 
@@ -36,7 +36,10 @@ public class BookUpdateViewModel : BookDropDownViewModel
 
     [Display(Name = "Genres")]
     [Required]
-    public List<int> GenreIds { get; set; }
+    public List<int> GenreIds { get; set; } = new();
+
+    [Required]
+    public int PrimaryGenreId { get; set; }
 
     [Display(Name = "Upload cover image")]
     public IFormFile? NewCoverImageFile { get; set; }
@@ -45,4 +48,23 @@ public class BookUpdateViewModel : BookDropDownViewModel
     public string CoverImageName { get; set; } = "";
 
     public int LastEditedById { get; set; }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (GenreIds == null || !GenreIds.Any())
+        {
+            yield return new ValidationResult(
+                "At least one genre must be selected.",
+                new[] { nameof(GenreIds) }
+            );
+        }
+
+        if (PrimaryGenreId == 0 || (GenreIds != null && !GenreIds.Contains(PrimaryGenreId)))
+        {
+            yield return new ValidationResult(
+                "Primary genre must be selected and must be one of the selected genres.",
+                new[] { nameof(PrimaryGenreId) }
+            );
+        }
+    }
 }
