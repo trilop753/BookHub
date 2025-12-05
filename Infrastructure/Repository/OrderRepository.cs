@@ -15,7 +15,6 @@ namespace Infrastructure.Repository
             return await _dbSet
                 .Include(o => o.User)
                 .Include(o => o.Items)
-                .ThenInclude(i => i.Book)
                 .Include(o => o.GiftcardCode)
                 .ThenInclude(gc => gc.Giftcard)
                 .FirstOrDefaultAsync(o => o.Id == id);
@@ -26,7 +25,6 @@ namespace Infrastructure.Repository
             return await _dbSet
                 .Include(o => o.User)
                 .Include(o => o.Items)
-                .ThenInclude(i => i.Book)
                 .Include(o => o.GiftcardCode)
                 .ThenInclude(gc => gc.Giftcard)
                 .ToListAsync();
@@ -37,7 +35,6 @@ namespace Infrastructure.Repository
             return await _dbSet
                 .Where(o => o.UserId == userId)
                 .Include(o => o.Items)
-                .ThenInclude(i => i.Book)
                 .Include(o => o.GiftcardCode)
                 .ThenInclude(gc => gc.Giftcard)
                 .ToListAsync();

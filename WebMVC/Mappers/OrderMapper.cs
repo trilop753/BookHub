@@ -12,8 +12,13 @@ namespace WebMVC.Mappers
             return orderItemsDto.Select(oi => new OrderItemViewModel()
             {
                 Id = oi.Id,
-                Book = oi.Book.MapToView(),
                 Quantity = oi.Quantity,
+                BookTitle = oi.BookTitle,
+                BookISBN = oi.BookISBN,
+                BookPrice = oi.BookPrice,
+                BookGenres = oi.BookGenres,
+                BookAuthor = oi.BookAuthor,
+                BookPublisher = oi.BookPublisher,
             });
         }
 

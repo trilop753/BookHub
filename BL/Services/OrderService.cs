@@ -31,7 +31,15 @@ namespace BL.Services
             }
 
             var items = user
-                .Cart.Select(i => new OrderItem() { BookId = i.Book.Id, Quantity = i.Quantity })
+                .Cart.Select(i => new OrderItem()
+                {
+                    Quantity = i.Quantity,
+                    BookTitle = i.Book.Title,
+                    BookISBN = i.Book.ISBN,
+                    BookPrice = i.Book.Price,
+                    BookPublisher = i.Book.PublisherName,
+                    BookAuthor = i.Book.AuthorName,
+                })
                 .ToList();
 
             var order = new Order()

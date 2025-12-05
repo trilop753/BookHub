@@ -25,8 +25,12 @@ namespace BL.Mappers
             return new OrderItemDto()
             {
                 Id = item.Id,
-                Book = item.Book.MapToSummaryDto(),
                 Quantity = item.Quantity,
+                BookTitle = item.BookTitle,
+                BookISBN = item.BookISBN,
+                BookPrice = item.BookPrice,
+                BookAuthor = item.BookAuthor,
+                BookPublisher = item.BookPublisher,
             };
         }
     }
