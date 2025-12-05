@@ -12,8 +12,6 @@
 
         public decimal BookPrice { get; set; }
 
-        public virtual IEnumerable<string> BookGenres { get; set; } = [];
-
         public string BookPublisher { get; set; }
 
         public string BookAuthor { get; set; }
