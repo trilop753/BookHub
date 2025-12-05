@@ -35,7 +35,7 @@ namespace BL.Mappers
                 ISBN = book.ISBN,
                 Price = book.Price,
                 PublisherName = book.Publisher.Name,
-                AuthorName = book.Author.Name,
+                AuthorName = $"{book.Author?.Name} {book.Author?.Surname}".Trim(),
                 Genres = book.Genres.Select(gb => gb.MapToSummaryDto()).ToList(),
                 AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : null,
                 CoverImageName = book.CoverImageName,
@@ -44,6 +44,8 @@ namespace BL.Mappers
 
         public static BookSearchCriteria MapToBookSearchCriteria(this BookSearchCriteriaDto model)
         {
+            model ??= new BookSearchCriteriaDto();
+
             return new BookSearchCriteria
             {
                 Title = model.Title,
@@ -53,6 +55,8 @@ namespace BL.Mappers
                 GenreIds = model.GenreIds,
                 AuthorId = model.AuthorId,
                 PublisherId = model.PublisherId,
+                SearchMode = model.SearchMode,
+                Query = model.Query
             };
         }
     }

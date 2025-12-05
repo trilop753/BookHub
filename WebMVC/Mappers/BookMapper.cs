@@ -12,8 +12,8 @@ namespace WebMVC.Mappers
             {
                 Id = book.Id,
                 Title = book.Title,
-                AuthorName = book.Author.Name,
-                PublisherName = book.Publisher.Name,
+                AuthorName = $"{book.Author?.Name} {book.Author?.Surname}".Trim(),
+                PublisherName = book.Publisher?.Name ?? string.Empty,
                 Genres = book.Genres.Select(g => g.MapToView()),
                 Price = book.Price,
                 CoverImageName = book.CoverImageName,
