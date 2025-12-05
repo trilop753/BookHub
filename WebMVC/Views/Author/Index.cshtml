@@ -1,12 +1,28 @@
 @model IEnumerable<WebMVC.Models.Author.AuthorViewModel>
 
-@if (TempData["ErrorMessage"] is string errorMessage)
+@* @if (TempData["ErrorMessage"] is string errorMessage) *@
+@* { *@
+@*     <div class="alert alert-danger alert-dismissible fade show" role="alert"> *@
+@*         @Html.Raw(errorMessage) *@
+@*         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@*     </div> *@
+@* } *@
+
+
+@if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @Html.Raw(errorMessage)
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert alert-danger" role="alert">
+        @Html.Raw(TempData["ErrorMessage"])
     </div>
 }
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 
 @{
     ViewData["Title"] = "Authors";
@@ -20,8 +36,9 @@
         <tr>
             <th>Name</th>
             <th>Surname</th>
-            <th style="width: 60px;">Edit</th>
-            <th style="width: 60px;">Delete</th>
+            <th style="width: 1%; white-space: nowrap;">
+                Actions
+            </th>
         </tr>
         </thead>
 
@@ -32,7 +49,7 @@
                 <td>@author.Name</td>
                 <td>@author.Surname</td>
 
-                <td>
+                <td style="width: 1%; white-space: nowrap;">
                     <a asp-controller="Author"
                        asp-action="Edit"
                        asp-route-authorId="@author.Id"
@@ -40,9 +57,7 @@
                        title="Edit">
                         edit
                     </a>
-                </td>
 
-                <td>
                     <form asp-controller="Author"
                           asp-action="Delete"
                           asp-route-authorId="@author.Id"
@@ -53,7 +68,7 @@
                         <button type="submit"
                                 class="btn btn-sm btn-danger"
                                 title="Delete">
-                            &times;
+                            delete
                         </button>
                     </form>
                 </td>
