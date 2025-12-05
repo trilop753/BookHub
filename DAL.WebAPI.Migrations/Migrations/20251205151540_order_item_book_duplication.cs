@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DAL.WebMVC.Migrations.Migrations
+namespace DAL.WebAPI.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class order_item_book_duplication : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -439,17 +439,15 @@ namespace DAL.WebMVC.Migrations.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BookId = table.Column<int>(type: "INTEGER", nullable: false)
+                    BookTitle = table.Column<string>(type: "TEXT", nullable: false),
+                    BookISBN = table.Column<string>(type: "TEXT", nullable: false),
+                    BookPrice = table.Column<decimal>(type: "TEXT", nullable: false),
+                    BookPublisher = table.Column<string>(type: "TEXT", nullable: false),
+                    BookAuthor = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItem_Book_BookId",
-                        column: x => x.BookId,
-                        principalTable: "Book",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderItem_Order_OrderId",
                         column: x => x.OrderId,
@@ -463,11 +461,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name", "Surname" },
                 values: new object[,]
                 {
-                    { 1, "Emerald", "Senger" },
-                    { 2, "Robbie", "Wilderman" },
-                    { 3, "Dax", "MacGyver" },
-                    { 4, "Hortense", "Romaguera" },
-                    { 5, "Gudrun", "Mann" }
+                    { 1, "Theodore", "Ruecker" },
+                    { 2, "Marcelina", "Swift" },
+                    { 3, "Harley", "Predovic" },
+                    { 4, "Miguel", "Spencer" },
+                    { 5, "Amos", "Heidenreich" }
                 });
 
             migrationBuilder.InsertData(
@@ -490,11 +488,11 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Amount", "Name", "ValidFrom", "ValidTo" },
                 values: new object[,]
                 {
-                    { 1, 250m, "Gorgeous Steel Keyboard", new DateTime(2023, 6, 18, 19, 1, 12, 14, DateTimeKind.Unspecified).AddTicks(4114), new DateTime(2024, 10, 18, 19, 1, 12, 14, DateTimeKind.Unspecified).AddTicks(4114) },
-                    { 2, 2000m, "Tasty Soft Keyboard", new DateTime(2023, 11, 24, 23, 38, 44, 729, DateTimeKind.Unspecified).AddTicks(9821), new DateTime(2025, 5, 24, 23, 38, 44, 729, DateTimeKind.Unspecified).AddTicks(9821) },
-                    { 3, 500m, "Fantastic Granite Pants", new DateTime(2023, 6, 23, 6, 31, 49, 17, DateTimeKind.Unspecified).AddTicks(5070), new DateTime(2024, 11, 23, 6, 31, 49, 17, DateTimeKind.Unspecified).AddTicks(5070) },
-                    { 4, 500m, "Small Frozen Keyboard", new DateTime(2024, 4, 3, 15, 8, 13, 910, DateTimeKind.Unspecified).AddTicks(6024), new DateTime(2025, 2, 3, 15, 8, 13, 910, DateTimeKind.Unspecified).AddTicks(6024) },
-                    { 5, 2000m, "Awesome Plastic Fish", new DateTime(2024, 2, 19, 12, 42, 4, 797, DateTimeKind.Unspecified).AddTicks(105), new DateTime(2024, 8, 19, 12, 42, 4, 797, DateTimeKind.Unspecified).AddTicks(105) }
+                    { 1, 1000m, "Awesome Steel Computer", new DateTime(2023, 4, 30, 14, 11, 54, 542, DateTimeKind.Unspecified).AddTicks(6302), new DateTime(2023, 10, 30, 14, 11, 54, 542, DateTimeKind.Unspecified).AddTicks(6302) },
+                    { 2, 1000m, "Tasty Wooden Keyboard", new DateTime(2025, 5, 2, 23, 3, 10, 924, DateTimeKind.Unspecified).AddTicks(6255), new DateTime(2026, 2, 2, 23, 3, 10, 924, DateTimeKind.Unspecified).AddTicks(6255) },
+                    { 3, 500m, "Ergonomic Frozen Mouse", new DateTime(2025, 10, 14, 7, 12, 47, 572, DateTimeKind.Unspecified).AddTicks(2310), new DateTime(2026, 4, 14, 7, 12, 47, 572, DateTimeKind.Unspecified).AddTicks(2310) },
+                    { 4, 2000m, "Licensed Metal Chair", new DateTime(2023, 9, 10, 10, 43, 2, 195, DateTimeKind.Unspecified).AddTicks(1441), new DateTime(2025, 1, 10, 10, 43, 2, 195, DateTimeKind.Unspecified).AddTicks(1441) },
+                    { 5, 2000m, "Intelligent Soft Car", new DateTime(2025, 6, 27, 7, 2, 51, 137, DateTimeKind.Unspecified).AddTicks(9959), new DateTime(2026, 7, 27, 7, 2, 51, 137, DateTimeKind.Unspecified).AddTicks(9959) }
                 });
 
             migrationBuilder.InsertData(
@@ -502,10 +500,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Grady - Reilly" },
-                    { 2, "Auer, Wilderman and Cormier" },
-                    { 3, "Howe Group" },
-                    { 4, "Shields LLC" }
+                    { 1, "Weissnat - Collins" },
+                    { 2, "Gutmann, Ledner and Wisozk" },
+                    { 3, "Goyette LLC" },
+                    { 4, "Brakus - Lindgren" }
                 });
 
             migrationBuilder.InsertData(
@@ -513,14 +511,14 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Email", "IsBanned", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Halle_Lehner63@hotmail.com", false, "Gage.VonRueden96" },
-                    { 2, "Paul_Gorczany@hotmail.com", false, "Guadalupe31" },
-                    { 3, "Icie_Rutherford43@hotmail.com", false, "Deion.Bashirian" },
-                    { 4, "Marlon68@yahoo.com", false, "Natasha77" },
-                    { 5, "Leonardo65@yahoo.com", false, "Gretchen_Dare" },
-                    { 6, "Fannie.Lakin9@hotmail.com", false, "Eulah47" },
-                    { 7, "Mohammed.Gerhold99@yahoo.com", false, "Destini.Pfannerstill" },
-                    { 8, "Erik.Bailey@hotmail.com", false, "Trenton.Schaefer51" }
+                    { 1, "Jared.Willms32@yahoo.com", false, "Petra8" },
+                    { 2, "Columbus62@gmail.com", false, "Eden_Herzog61" },
+                    { 3, "Lavon16@hotmail.com", false, "Maci.Roberts73" },
+                    { 4, "Jamarcus57@yahoo.com", false, "Jewell68" },
+                    { 5, "Marc95@hotmail.com", true, "Karina33" },
+                    { 6, "Chase.Wehner@hotmail.com", false, "Bethel.Lind" },
+                    { 7, "Jonathan.Hammes@hotmail.com", false, "Jaclyn.Walter" },
+                    { 8, "Dallin_Rath9@gmail.com", false, "Cleo69" }
                 });
 
             migrationBuilder.InsertData(
@@ -528,10 +526,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "AuthorId", "CoverImageName", "Description", "EditCount", "ISBN", "LastEditedById", "Price", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 3, null, "Porro enim suscipit sed. Soluta maxime et quo tempora. Ipsum corrupti et ad qui deserunt in et praesentium ut. Ipsa doloremque voluptatem libero hic doloribus rerum iste atque. Et omnis delectus.", 1, "0911314746372", 3, 19.15m, 1, "Corporis iure voluptatem eum sed veniam." },
-                    { 2, 2, null, "Labore et voluptatum itaque libero alias qui ullam eveniet. Laudantium voluptatem et et sed. Autem dolor repellendus rerum non distinctio voluptatem est cum adipisci.", 0, "7433615861507", 2, 18.49m, 3, "Quas veniam aspernatur ut." },
-                    { 3, 1, null, "Rem saepe iure adipisci eligendi error. Ut quo repellendus voluptas necessitatibus et ut sapiente. Ut ea consequatur.", 1, "4789258920051", 1, 9.92m, 4, "Eos architecto id iste maiores error." },
-                    { 4, 3, null, "Dolorem dolore architecto magni quibusdam temporibus. Quod laboriosam excepturi. Enim et corrupti accusamus maiores velit et. Voluptatum saepe quod minus repellendus placeat quia id eveniet velit. Fugit optio provident. Ipsam fugit et repudiandae natus quos accusantium ducimus.", 5, "5652596082882", 1, 16.14m, 4, "Sint iusto dolorem architecto dolorem placeat." }
+                    { 1, 3, null, "Maxime qui quia adipisci corporis tempora. Sed sed cupiditate. Necessitatibus quidem et dignissimos unde eius et doloremque aut.", 1, "4559234765293", 5, 16.70m, 3, "Sunt architecto nulla voluptas." },
+                    { 2, 5, null, "Sed dignissimos est minima nemo. Corrupti veritatis impedit est qui in soluta facilis qui. Et necessitatibus corrupti dolorem quibusdam officiis quia.", 1, "3877837529434", 2, 13.01m, 2, "Qui asperiores rem dolore ab." },
+                    { 3, 3, null, "Magni sit molestias non voluptates voluptatibus. Cum itaque facere. Voluptatem quam mollitia sed dignissimos neque vitae.", 7, "6594889781678", 4, 9.88m, 4, "Et ratione itaque officiis et." },
+                    { 4, 3, null, "Ab voluptas facere quas illo ullam. Amet eligendi dolorem est architecto. Molestias autem voluptatem voluptatem odio blanditiis aut numquam laborum. Ratione quidem accusantium aliquam exercitationem animi et rerum. Aut commodi temporibus non explicabo dignissimos. Quas maxime voluptas ex animi odit odio fuga.", 5, "1402338747890", 3, 9.34m, 4, "Quia molestiae quibusdam iure rerum qui." }
                 });
 
             migrationBuilder.InsertData(
@@ -539,56 +537,56 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Code", "GiftcardId", "IsUsed", "OrderId" },
                 values: new object[,]
                 {
-                    { 1, "GC-2067-0459", 1, false, null },
-                    { 2, "GC-9162-0020", 1, false, null },
-                    { 3, "GC-2242-2861", 1, true, null },
-                    { 4, "GC-0963-1222", 1, false, null },
-                    { 5, "GC-1303-4709", 1, false, null },
-                    { 6, "GC-9585-6193", 1, false, null },
-                    { 7, "GC-1645-7220", 1, false, null },
-                    { 8, "GC-7982-8168", 1, false, null },
-                    { 9, "GC-5950-4042", 1, false, null },
-                    { 10, "GC-0063-4668", 1, false, null },
-                    { 11, "GC-9356-3928", 2, false, null },
-                    { 12, "GC-2280-5483", 2, false, null },
-                    { 13, "GC-3324-7884", 2, false, null },
-                    { 14, "GC-4188-7925", 2, false, null },
-                    { 15, "GC-1714-6469", 2, false, null },
-                    { 16, "GC-1181-8289", 2, false, null },
-                    { 17, "GC-5545-6429", 2, true, null },
-                    { 18, "GC-6972-5613", 2, false, null },
-                    { 19, "GC-4412-4721", 2, false, null },
-                    { 20, "GC-2351-2467", 2, false, null },
-                    { 21, "GC-4752-0825", 3, false, null },
-                    { 22, "GC-6707-3359", 3, false, null },
-                    { 23, "GC-8384-2395", 3, false, null },
-                    { 24, "GC-2903-0306", 3, false, null },
-                    { 25, "GC-6055-3573", 3, true, null },
-                    { 26, "GC-8162-4513", 3, false, null },
-                    { 27, "GC-7595-4089", 3, false, null },
-                    { 28, "GC-0114-7627", 3, true, null },
-                    { 29, "GC-4438-7079", 3, false, null },
-                    { 30, "GC-0044-5440", 3, false, null },
-                    { 31, "GC-0596-2995", 4, true, null },
-                    { 32, "GC-7734-5939", 4, true, null },
-                    { 33, "GC-1025-8845", 4, true, null },
-                    { 34, "GC-5326-1317", 4, false, null },
-                    { 35, "GC-7444-9232", 4, false, null },
-                    { 36, "GC-0959-9803", 4, true, null },
-                    { 37, "GC-0986-5730", 4, true, null },
-                    { 38, "GC-7604-0899", 4, false, null },
-                    { 39, "GC-7143-9475", 4, false, null },
-                    { 40, "GC-4506-8477", 4, true, null },
-                    { 41, "GC-7500-8996", 5, false, null },
-                    { 42, "GC-6251-9180", 5, true, null },
-                    { 43, "GC-0490-3319", 5, false, null },
-                    { 44, "GC-8727-2649", 5, false, null },
-                    { 45, "GC-4655-6927", 5, false, null },
-                    { 46, "GC-8245-5832", 5, false, null },
-                    { 47, "GC-1040-8942", 5, false, null },
-                    { 48, "GC-6635-3263", 5, false, null },
-                    { 49, "GC-4682-5804", 5, false, null },
-                    { 50, "GC-6301-7067", 5, false, null }
+                    { 1, "GC-9692-6060", 1, false, null },
+                    { 2, "GC-6327-9370", 1, false, null },
+                    { 3, "GC-1356-1691", 1, false, null },
+                    { 4, "GC-0966-2349", 1, false, null },
+                    { 5, "GC-8546-3358", 1, false, null },
+                    { 6, "GC-8712-9502", 1, true, null },
+                    { 7, "GC-2795-9212", 1, false, null },
+                    { 8, "GC-8445-8702", 1, true, null },
+                    { 9, "GC-6320-6406", 1, false, null },
+                    { 10, "GC-9707-5660", 1, false, null },
+                    { 11, "GC-6320-3560", 2, false, null },
+                    { 12, "GC-7262-1589", 2, false, null },
+                    { 13, "GC-8727-4271", 2, false, null },
+                    { 14, "GC-9373-5913", 2, false, null },
+                    { 15, "GC-2707-8952", 2, false, null },
+                    { 16, "GC-9177-7772", 2, false, null },
+                    { 17, "GC-6720-6532", 2, false, null },
+                    { 18, "GC-1620-5488", 2, false, null },
+                    { 19, "GC-3582-9488", 2, false, null },
+                    { 20, "GC-5339-1487", 2, false, null },
+                    { 21, "GC-3634-3208", 3, false, null },
+                    { 22, "GC-6138-8675", 3, false, null },
+                    { 23, "GC-5130-7042", 3, false, null },
+                    { 24, "GC-1448-1712", 3, false, null },
+                    { 25, "GC-9532-5346", 3, true, null },
+                    { 26, "GC-2256-0519", 3, false, null },
+                    { 27, "GC-1784-4760", 3, false, null },
+                    { 28, "GC-0785-2909", 3, false, null },
+                    { 29, "GC-1637-4489", 3, false, null },
+                    { 30, "GC-9466-0349", 3, false, null },
+                    { 31, "GC-4199-5594", 4, true, null },
+                    { 32, "GC-7719-1007", 4, true, null },
+                    { 33, "GC-5838-2375", 4, false, null },
+                    { 34, "GC-3162-2360", 4, false, null },
+                    { 35, "GC-8221-6733", 4, true, null },
+                    { 36, "GC-4717-6531", 4, false, null },
+                    { 37, "GC-2818-5115", 4, false, null },
+                    { 38, "GC-8187-3818", 4, true, null },
+                    { 39, "GC-8602-0708", 4, false, null },
+                    { 40, "GC-9375-2852", 4, true, null },
+                    { 41, "GC-6186-1646", 5, false, null },
+                    { 42, "GC-5502-3201", 5, false, null },
+                    { 43, "GC-1899-5090", 5, false, null },
+                    { 44, "GC-5292-8829", 5, false, null },
+                    { 45, "GC-6494-1419", 5, false, null },
+                    { 46, "GC-5780-2027", 5, true, null },
+                    { 47, "GC-6982-3132", 5, false, null },
+                    { 48, "GC-2375-2018", 5, false, null },
+                    { 49, "GC-7997-6030", 5, false, null },
+                    { 50, "GC-0847-8855", 5, false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -596,10 +594,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Date", "GiftcardCodeId", "PaymentStatus", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2018, 5, 5, 23, 25, 15, 929, DateTimeKind.Unspecified).AddTicks(1720), null, 0, 5 },
-                    { 2, new DateTime(2020, 5, 5, 0, 59, 57, 630, DateTimeKind.Unspecified).AddTicks(9772), null, 0, 3 },
-                    { 3, new DateTime(2021, 10, 7, 14, 33, 12, 198, DateTimeKind.Unspecified).AddTicks(2334), null, 0, 3 },
-                    { 4, new DateTime(2024, 10, 30, 18, 29, 8, 107, DateTimeKind.Unspecified).AddTicks(8890), null, 0, 4 }
+                    { 1, new DateTime(2020, 11, 14, 23, 30, 49, 410, DateTimeKind.Unspecified).AddTicks(2803), null, 0, 2 },
+                    { 2, new DateTime(2015, 6, 14, 5, 32, 59, 785, DateTimeKind.Unspecified).AddTicks(2081), null, 0, 3 },
+                    { 3, new DateTime(2019, 2, 24, 6, 24, 47, 77, DateTimeKind.Unspecified).AddTicks(2588), null, 0, 8 },
+                    { 4, new DateTime(2022, 2, 2, 17, 9, 56, 626, DateTimeKind.Unspecified).AddTicks(5838), null, 0, 8 }
                 });
 
             migrationBuilder.InsertData(
@@ -607,12 +605,12 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "Body", "BookId", "Stars", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Cupiditate rem quas minima ipsa impedit quia voluptas quos nam.", 3, 2, 4 },
-                    { 2, "Et neque omnis eveniet error enim inventore et veniam.", 2, 3, 1 },
-                    { 3, "Qui facere optio ullam qui alias doloremque quos facilis officia.", 1, 2, 2 },
-                    { 4, "Tempora ut architecto id fugiat qui et deserunt ut.", 1, 3, 4 },
-                    { 5, "Maiores deleniti consequatur in soluta debitis cumque voluptatem.", 4, 5, 6 },
-                    { 6, "Autem ea excepturi ipsum ducimus perspiciatis est autem.", 4, 2, 7 }
+                    { 1, "Provident libero dolor sunt sed error aut voluptatem accusantium.", 3, 4, 2 },
+                    { 2, "Ex laborum sapiente et dolorem doloribus ut sed commodi.", 4, 3, 4 },
+                    { 3, "Pariatur ad temporibus eos eveniet vel culpa nisi.", 2, 1, 5 },
+                    { 4, "Architecto id qui eius velit ut ea expedita voluptatem corrupti.", 3, 4, 7 },
+                    { 5, "Ea facilis nam alias ut corrupti maxime cupiditate perferendis.", 1, 1, 2 },
+                    { 6, "Dolor quis ducimus eveniet enim quae accusamus ut libero.", 1, 3, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -620,10 +618,10 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "Quantity", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 4, 3, 1 },
-                    { 2, 3, 1, 3 },
-                    { 3, 1, 5, 3 },
-                    { 4, 3, 3, 3 }
+                    { 1, 3, 4, 2 },
+                    { 2, 4, 5, 7 },
+                    { 3, 4, 3, 2 },
+                    { 4, 1, 3, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -631,35 +629,28 @@ namespace DAL.WebMVC.Migrations.Migrations
                 columns: new[] { "Id", "BookId", "GenreId", "IsPrimary" },
                 values: new object[,]
                 {
-                    { 1, 1, 2, true },
-                    { 2, 1, 5, false },
-                    { 3, 1, 4, false },
-                    { 4, 2, 6, false },
+                    { 1, 1, 5, false },
+                    { 2, 1, 7, true },
+                    { 3, 1, 3, false },
+                    { 4, 2, 7, false },
                     { 5, 2, 5, true },
-                    { 6, 3, 1, false },
-                    { 7, 3, 4, true },
-                    { 8, 3, 5, false },
-                    { 9, 4, 8, false },
-                    { 10, 4, 1, true }
+                    { 6, 3, 6, true },
+                    { 7, 3, 3, false },
+                    { 8, 4, 3, false },
+                    { 9, 4, 1, true }
                 });
 
             migrationBuilder.InsertData(
                 table: "OrderItem",
-                columns: new[] { "Id", "BookId", "OrderId", "Quantity" },
+                columns: new[] { "Id", "BookAuthor", "BookISBN", "BookPrice", "BookPublisher", "BookTitle", "OrderId", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 2, 1, 3 },
-                    { 2, 3, 1, 1 },
-                    { 3, 2, 1, 2 },
-                    { 4, 1, 2, 5 },
-                    { 5, 3, 2, 5 },
-                    { 6, 4, 2, 3 },
-                    { 7, 1, 3, 5 },
-                    { 8, 2, 3, 5 },
-                    { 9, 1, 3, 2 },
-                    { 10, 2, 4, 2 },
-                    { 11, 1, 4, 4 },
-                    { 12, 3, 4, 1 }
+                    { 1, "BrycenDenesik", "4559234765293", 16.70m, "Hahn and Sons", "Sunt architecto nulla voluptas.", 1, 2 },
+                    { 2, "RachelRobel", "4559234765293", 16.70m, "Sporer, Walter and Anderson", "Sunt architecto nulla voluptas.", 2, 2 },
+                    { 3, "KeithRoob", "1402338747890", 9.34m, "Bergstrom - Moore", "Quia molestiae quibusdam iure rerum qui.", 3, 1 },
+                    { 4, "MartyCrooks", "1402338747890", 9.34m, "Donnelly - Moore", "Quia molestiae quibusdam iure rerum qui.", 3, 3 },
+                    { 5, "IsmaelCorkery", "4559234765293", 16.70m, "Jakubowski Group", "Sunt architecto nulla voluptas.", 3, 5 },
+                    { 6, "TerrellBarton", "3877837529434", 13.01m, "Price LLC", "Qui asperiores rem dolore ab.", 4, 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -770,11 +761,6 @@ namespace DAL.WebMVC.Migrations.Migrations
                 name: "IX_Order_UserId",
                 table: "Order",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_BookId",
-                table: "OrderItem",
-                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_OrderId",

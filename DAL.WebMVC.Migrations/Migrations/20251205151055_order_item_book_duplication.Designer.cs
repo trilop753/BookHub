@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.WebMVC.Migrations.Migrations
 {
     [DbContext(typeof(BookHubDbContext))]
-    [Migration("20251201191805_Init")]
-    partial class Init
+    [Migration("20251205151055_order_item_book_duplication")]
+    partial class order_item_book_duplication
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,32 +46,32 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Emerald",
-                            Surname = "Senger"
+                            Name = "Jovan",
+                            Surname = "Leuschke"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Robbie",
-                            Surname = "Wilderman"
+                            Name = "Trudie",
+                            Surname = "Johnson"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Dax",
-                            Surname = "MacGyver"
+                            Name = "Charity",
+                            Surname = "Rutherford"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Hortense",
-                            Surname = "Romaguera"
+                            Name = "Neoma",
+                            Surname = "Hammes"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Gudrun",
-                            Surname = "Mann"
+                            Name = "Eddie",
+                            Surname = "O'Kon"
                         });
                 });
 
@@ -125,50 +125,50 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = 3,
-                            Description = "Porro enim suscipit sed. Soluta maxime et quo tempora. Ipsum corrupti et ad qui deserunt in et praesentium ut. Ipsa doloremque voluptatem libero hic doloribus rerum iste atque. Et omnis delectus.",
-                            EditCount = 1,
-                            ISBN = "0911314746372",
-                            LastEditedById = 3,
-                            Price = 19.15m,
+                            AuthorId = 1,
+                            Description = "Corporis possimus dolore. Beatae suscipit exercitationem quo asperiores in et rerum illo. Itaque aut omnis minus autem commodi quae iusto. Sed omnis saepe illum quisquam et commodi.",
+                            EditCount = 4,
+                            ISBN = "7848910114492",
+                            LastEditedById = 5,
+                            Price = 17.55m,
                             PublisherId = 1,
-                            Title = "Corporis iure voluptatem eum sed veniam."
+                            Title = "Culpa totam fugiat dolores nisi."
                         },
                         new
                         {
                             Id = 2,
-                            AuthorId = 2,
-                            Description = "Labore et voluptatum itaque libero alias qui ullam eveniet. Laudantium voluptatem et et sed. Autem dolor repellendus rerum non distinctio voluptatem est cum adipisci.",
-                            EditCount = 0,
-                            ISBN = "7433615861507",
-                            LastEditedById = 2,
-                            Price = 18.49m,
-                            PublisherId = 3,
-                            Title = "Quas veniam aspernatur ut."
+                            AuthorId = 1,
+                            Description = "Qui quibusdam reiciendis debitis. Odio labore et in culpa illo nihil iure consequatur est. Placeat veniam culpa. Sed sed harum ex. Numquam sed perspiciatis sint totam tempora quis.",
+                            EditCount = 7,
+                            ISBN = "5762633662677",
+                            LastEditedById = 1,
+                            Price = 13.08m,
+                            PublisherId = 2,
+                            Title = "Qui aspernatur et quia autem."
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 1,
-                            Description = "Rem saepe iure adipisci eligendi error. Ut quo repellendus voluptas necessitatibus et ut sapiente. Ut ea consequatur.",
-                            EditCount = 1,
-                            ISBN = "4789258920051",
-                            LastEditedById = 1,
-                            Price = 9.92m,
-                            PublisherId = 4,
-                            Title = "Eos architecto id iste maiores error."
+                            AuthorId = 5,
+                            Description = "Velit incidunt blanditiis qui tempora perferendis placeat officiis iusto. Perferendis recusandae a nemo praesentium quo mollitia. Sed quasi veritatis. Dolores impedit aut.",
+                            EditCount = 7,
+                            ISBN = "3349167135178",
+                            LastEditedById = 4,
+                            Price = 15.07m,
+                            PublisherId = 3,
+                            Title = "Ut est nam placeat."
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 3,
-                            Description = "Dolorem dolore architecto magni quibusdam temporibus. Quod laboriosam excepturi. Enim et corrupti accusamus maiores velit et. Voluptatum saepe quod minus repellendus placeat quia id eveniet velit. Fugit optio provident. Ipsam fugit et repudiandae natus quos accusantium ducimus.",
-                            EditCount = 5,
-                            ISBN = "5652596082882",
-                            LastEditedById = 1,
-                            Price = 16.14m,
-                            PublisherId = 4,
-                            Title = "Sint iusto dolorem architecto dolorem placeat."
+                            AuthorId = 1,
+                            Description = "Tenetur et nobis delectus. Est sed laborum quis blanditiis sit atque eos. Dolorum ipsa et libero quae dolorem sit. Nihil ipsam ex quos maxime omnis quam molestiae repellendus.",
+                            EditCount = 9,
+                            ISBN = "5018325791904",
+                            LastEditedById = 4,
+                            Price = 9.45m,
+                            PublisherId = 3,
+                            Title = "Ab laborum quam illo aperiam et."
                         });
                 });
 
@@ -203,47 +203,47 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Body = "Cupiditate rem quas minima ipsa impedit quia voluptas quos nam.",
-                            BookId = 3,
+                            Body = "Quis illo dolorum suscipit sit inventore sunt iure veniam.",
+                            BookId = 4,
                             Stars = 2,
                             UserId = 4
                         },
                         new
                         {
                             Id = 2,
-                            Body = "Et neque omnis eveniet error enim inventore et veniam.",
-                            BookId = 2,
+                            Body = "Autem ab et tempore voluptatem porro impedit eius.",
+                            BookId = 4,
                             Stars = 3,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Body = "Qui facere optio ullam qui alias doloremque quos facilis officia.",
-                            BookId = 1,
-                            Stars = 2,
                             UserId = 2
                         },
                         new
                         {
+                            Id = 3,
+                            Body = "Libero distinctio magni incidunt dolor sed sit ut.",
+                            BookId = 4,
+                            Stars = 4,
+                            UserId = 8
+                        },
+                        new
+                        {
                             Id = 4,
-                            Body = "Tempora ut architecto id fugiat qui et deserunt ut.",
-                            BookId = 1,
+                            Body = "Dolores dolorum harum nihil voluptates molestiae consequuntur dolor illo ratione.",
+                            BookId = 4,
                             Stars = 3,
-                            UserId = 4
+                            UserId = 8
                         },
                         new
                         {
                             Id = 5,
-                            Body = "Maiores deleniti consequatur in soluta debitis cumque voluptatem.",
-                            BookId = 4,
-                            Stars = 5,
-                            UserId = 6
+                            Body = "Tempore optio hic aliquam blanditiis vero illum vel corrupti.",
+                            BookId = 2,
+                            Stars = 4,
+                            UserId = 8
                         },
                         new
                         {
                             Id = 6,
-                            Body = "Autem ea excepturi ipsum ducimus perspiciatis est autem.",
+                            Body = "Aliquam sint ut ut qui sed nisi repellat blanditiis.",
                             BookId = 4,
                             Stars = 2,
                             UserId = 7
@@ -277,30 +277,30 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 4,
-                            Quantity = 3,
-                            UserId = 1
+                            BookId = 1,
+                            Quantity = 4,
+                            UserId = 3
                         },
                         new
                         {
                             Id = 2,
-                            BookId = 3,
-                            Quantity = 1,
-                            UserId = 3
+                            BookId = 1,
+                            Quantity = 4,
+                            UserId = 7
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 1,
+                            BookId = 3,
                             Quantity = 5,
-                            UserId = 3
+                            UserId = 6
                         },
                         new
                         {
                             Id = 4,
                             BookId = 3,
-                            Quantity = 3,
-                            UserId = 3
+                            Quantity = 2,
+                            UserId = 4
                         });
                 });
 
@@ -392,69 +392,62 @@ namespace DAL.WebMVC.Migrations.Migrations
                             Id = 1,
                             BookId = 1,
                             GenreId = 2,
-                            IsPrimary = true
+                            IsPrimary = false
                         },
                         new
                         {
                             Id = 2,
                             BookId = 1,
-                            GenreId = 5,
-                            IsPrimary = false
+                            GenreId = 6,
+                            IsPrimary = true
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 1,
-                            GenreId = 4,
-                            IsPrimary = false
+                            BookId = 2,
+                            GenreId = 2,
+                            IsPrimary = true
                         },
                         new
                         {
                             Id = 4,
                             BookId = 2,
-                            GenreId = 6,
+                            GenreId = 8,
                             IsPrimary = false
                         },
                         new
                         {
                             Id = 5,
-                            BookId = 2,
-                            GenreId = 5,
+                            BookId = 3,
+                            GenreId = 8,
                             IsPrimary = true
                         },
                         new
                         {
                             Id = 6,
                             BookId = 3,
-                            GenreId = 1,
+                            GenreId = 7,
                             IsPrimary = false
                         },
                         new
                         {
                             Id = 7,
-                            BookId = 3,
-                            GenreId = 4,
-                            IsPrimary = true
+                            BookId = 4,
+                            GenreId = 1,
+                            IsPrimary = false
                         },
                         new
                         {
                             Id = 8,
-                            BookId = 3,
-                            GenreId = 5,
+                            BookId = 4,
+                            GenreId = 6,
                             IsPrimary = false
                         },
                         new
                         {
                             Id = 9,
                             BookId = 4,
-                            GenreId = 8,
-                            IsPrimary = false
-                        },
-                        new
-                        {
-                            Id = 10,
-                            BookId = 4,
-                            GenreId = 1,
+                            GenreId = 4,
                             IsPrimary = true
                         });
                 });
@@ -487,41 +480,41 @@ namespace DAL.WebMVC.Migrations.Migrations
                         {
                             Id = 1,
                             Amount = 250m,
-                            Name = "Gorgeous Steel Keyboard",
-                            ValidFrom = new DateTime(2023, 6, 18, 19, 1, 12, 14, DateTimeKind.Unspecified).AddTicks(4114),
-                            ValidTo = new DateTime(2024, 10, 18, 19, 1, 12, 14, DateTimeKind.Unspecified).AddTicks(4114)
+                            Name = "Sleek Fresh Shirt",
+                            ValidFrom = new DateTime(2023, 5, 27, 12, 14, 39, 781, DateTimeKind.Unspecified).AddTicks(7476),
+                            ValidTo = new DateTime(2024, 3, 27, 12, 14, 39, 781, DateTimeKind.Unspecified).AddTicks(7476)
                         },
                         new
                         {
                             Id = 2,
-                            Amount = 2000m,
-                            Name = "Tasty Soft Keyboard",
-                            ValidFrom = new DateTime(2023, 11, 24, 23, 38, 44, 729, DateTimeKind.Unspecified).AddTicks(9821),
-                            ValidTo = new DateTime(2025, 5, 24, 23, 38, 44, 729, DateTimeKind.Unspecified).AddTicks(9821)
+                            Amount = 250m,
+                            Name = "Tasty Cotton Towels",
+                            ValidFrom = new DateTime(2025, 7, 25, 18, 42, 43, 291, DateTimeKind.Unspecified).AddTicks(643),
+                            ValidTo = new DateTime(2027, 1, 25, 18, 42, 43, 291, DateTimeKind.Unspecified).AddTicks(643)
                         },
                         new
                         {
                             Id = 3,
                             Amount = 500m,
-                            Name = "Fantastic Granite Pants",
-                            ValidFrom = new DateTime(2023, 6, 23, 6, 31, 49, 17, DateTimeKind.Unspecified).AddTicks(5070),
-                            ValidTo = new DateTime(2024, 11, 23, 6, 31, 49, 17, DateTimeKind.Unspecified).AddTicks(5070)
+                            Name = "Rustic Frozen Hat",
+                            ValidFrom = new DateTime(2025, 4, 11, 5, 2, 11, 709, DateTimeKind.Unspecified).AddTicks(5554),
+                            ValidTo = new DateTime(2026, 5, 11, 5, 2, 11, 709, DateTimeKind.Unspecified).AddTicks(5554)
                         },
                         new
                         {
                             Id = 4,
-                            Amount = 500m,
-                            Name = "Small Frozen Keyboard",
-                            ValidFrom = new DateTime(2024, 4, 3, 15, 8, 13, 910, DateTimeKind.Unspecified).AddTicks(6024),
-                            ValidTo = new DateTime(2025, 2, 3, 15, 8, 13, 910, DateTimeKind.Unspecified).AddTicks(6024)
+                            Amount = 1000m,
+                            Name = "Refined Wooden Pants",
+                            ValidFrom = new DateTime(2024, 2, 28, 8, 21, 14, 309, DateTimeKind.Unspecified).AddTicks(6378),
+                            ValidTo = new DateTime(2025, 2, 28, 8, 21, 14, 309, DateTimeKind.Unspecified).AddTicks(6378)
                         },
                         new
                         {
                             Id = 5,
-                            Amount = 2000m,
-                            Name = "Awesome Plastic Fish",
-                            ValidFrom = new DateTime(2024, 2, 19, 12, 42, 4, 797, DateTimeKind.Unspecified).AddTicks(105),
-                            ValidTo = new DateTime(2024, 8, 19, 12, 42, 4, 797, DateTimeKind.Unspecified).AddTicks(105)
+                            Amount = 500m,
+                            Name = "Awesome Granite Chicken",
+                            ValidFrom = new DateTime(2023, 7, 14, 7, 45, 2, 497, DateTimeKind.Unspecified).AddTicks(4361),
+                            ValidTo = new DateTime(2024, 10, 14, 7, 45, 2, 497, DateTimeKind.Unspecified).AddTicks(4361)
                         });
                 });
 
@@ -556,350 +549,350 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Code = "GC-2067-0459",
+                            Code = "GC-7744-1344",
                             GiftcardId = 1,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 2,
-                            Code = "GC-9162-0020",
+                            Code = "GC-2531-3864",
                             GiftcardId = 1,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 3,
-                            Code = "GC-2242-2861",
+                            Code = "GC-9400-6910",
                             GiftcardId = 1,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 4,
-                            Code = "GC-0963-1222",
+                            Code = "GC-1879-3962",
                             GiftcardId = 1,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 5,
-                            Code = "GC-1303-4709",
+                            Code = "GC-6652-6248",
                             GiftcardId = 1,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 6,
-                            Code = "GC-9585-6193",
+                            Code = "GC-8052-5006",
                             GiftcardId = 1,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 7,
-                            Code = "GC-1645-7220",
+                            Code = "GC-5614-5024",
                             GiftcardId = 1,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 8,
-                            Code = "GC-7982-8168",
+                            Code = "GC-7717-9405",
                             GiftcardId = 1,
-                            IsUsed = false
+                            IsUsed = true
                         },
                         new
                         {
                             Id = 9,
-                            Code = "GC-5950-4042",
+                            Code = "GC-9444-0029",
                             GiftcardId = 1,
-                            IsUsed = false
+                            IsUsed = true
                         },
                         new
                         {
                             Id = 10,
-                            Code = "GC-0063-4668",
+                            Code = "GC-9754-6282",
                             GiftcardId = 1,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 11,
-                            Code = "GC-9356-3928",
+                            Code = "GC-5894-2306",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 12,
-                            Code = "GC-2280-5483",
+                            Code = "GC-2615-1727",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 13,
-                            Code = "GC-3324-7884",
+                            Code = "GC-5475-5262",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 14,
-                            Code = "GC-4188-7925",
+                            Code = "GC-8916-0466",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 15,
-                            Code = "GC-1714-6469",
+                            Code = "GC-3288-6161",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 16,
-                            Code = "GC-1181-8289",
+                            Code = "GC-2878-4159",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 17,
-                            Code = "GC-5545-6429",
+                            Code = "GC-4450-8065",
                             GiftcardId = 2,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 18,
-                            Code = "GC-6972-5613",
+                            Code = "GC-5125-6939",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 19,
-                            Code = "GC-4412-4721",
+                            Code = "GC-6797-5214",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 20,
-                            Code = "GC-2351-2467",
+                            Code = "GC-4575-5874",
                             GiftcardId = 2,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 21,
-                            Code = "GC-4752-0825",
+                            Code = "GC-9681-2410",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 22,
-                            Code = "GC-6707-3359",
+                            Code = "GC-0156-9006",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 23,
-                            Code = "GC-8384-2395",
+                            Code = "GC-3155-3208",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 24,
-                            Code = "GC-2903-0306",
+                            Code = "GC-8307-1627",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 25,
-                            Code = "GC-6055-3573",
-                            GiftcardId = 3,
-                            IsUsed = true
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Code = "GC-8162-4513",
+                            Code = "GC-3814-5894",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
+                            Id = 26,
+                            Code = "GC-6221-4634",
+                            GiftcardId = 3,
+                            IsUsed = true
+                        },
+                        new
+                        {
                             Id = 27,
-                            Code = "GC-7595-4089",
+                            Code = "GC-4294-3052",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 28,
-                            Code = "GC-0114-7627",
+                            Code = "GC-0954-6183",
                             GiftcardId = 3,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 29,
-                            Code = "GC-4438-7079",
+                            Code = "GC-5163-4935",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 30,
-                            Code = "GC-0044-5440",
+                            Code = "GC-3226-6911",
                             GiftcardId = 3,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 31,
-                            Code = "GC-0596-2995",
+                            Code = "GC-8743-1700",
                             GiftcardId = 4,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 32,
-                            Code = "GC-7734-5939",
+                            Code = "GC-4297-7174",
                             GiftcardId = 4,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 33,
-                            Code = "GC-1025-8845",
+                            Code = "GC-1710-0224",
                             GiftcardId = 4,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 34,
-                            Code = "GC-5326-1317",
+                            Code = "GC-0353-3907",
                             GiftcardId = 4,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 35,
-                            Code = "GC-7444-9232",
+                            Code = "GC-5422-1771",
                             GiftcardId = 4,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 36,
-                            Code = "GC-0959-9803",
+                            Code = "GC-8578-6448",
                             GiftcardId = 4,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 37,
-                            Code = "GC-0986-5730",
+                            Code = "GC-7673-1759",
                             GiftcardId = 4,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 38,
-                            Code = "GC-7604-0899",
+                            Code = "GC-3010-7161",
                             GiftcardId = 4,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 39,
-                            Code = "GC-7143-9475",
+                            Code = "GC-2761-4547",
                             GiftcardId = 4,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 40,
-                            Code = "GC-4506-8477",
+                            Code = "GC-5929-2007",
                             GiftcardId = 4,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 41,
-                            Code = "GC-7500-8996",
+                            Code = "GC-1341-0336",
                             GiftcardId = 5,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 42,
-                            Code = "GC-6251-9180",
+                            Code = "GC-1525-7423",
                             GiftcardId = 5,
-                            IsUsed = true
+                            IsUsed = false
                         },
                         new
                         {
                             Id = 43,
-                            Code = "GC-0490-3319",
+                            Code = "GC-4722-3100",
                             GiftcardId = 5,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 44,
-                            Code = "GC-8727-2649",
+                            Code = "GC-4756-0443",
                             GiftcardId = 5,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 45,
-                            Code = "GC-4655-6927",
+                            Code = "GC-0226-5718",
                             GiftcardId = 5,
-                            IsUsed = false
+                            IsUsed = true
                         },
                         new
                         {
                             Id = 46,
-                            Code = "GC-8245-5832",
+                            Code = "GC-4946-6255",
                             GiftcardId = 5,
-                            IsUsed = false
+                            IsUsed = true
                         },
                         new
                         {
                             Id = 47,
-                            Code = "GC-1040-8942",
+                            Code = "GC-6233-2312",
                             GiftcardId = 5,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 48,
-                            Code = "GC-6635-3263",
+                            Code = "GC-3752-5434",
                             GiftcardId = 5,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 49,
-                            Code = "GC-4682-5804",
+                            Code = "GC-4338-6668",
                             GiftcardId = 5,
                             IsUsed = false
                         },
                         new
                         {
                             Id = 50,
-                            Code = "GC-6301-7067",
+                            Code = "GC-0930-5388",
                             GiftcardId = 5,
                             IsUsed = false
                         });
@@ -1004,30 +997,30 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2018, 5, 5, 23, 25, 15, 929, DateTimeKind.Unspecified).AddTicks(1720),
+                            Date = new DateTime(2024, 9, 18, 1, 32, 32, 547, DateTimeKind.Unspecified).AddTicks(304),
                             PaymentStatus = 0,
-                            UserId = 5
+                            UserId = 3
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2020, 5, 5, 0, 59, 57, 630, DateTimeKind.Unspecified).AddTicks(9772),
+                            Date = new DateTime(2020, 7, 17, 21, 0, 9, 245, DateTimeKind.Unspecified).AddTicks(4721),
                             PaymentStatus = 0,
-                            UserId = 3
+                            UserId = 6
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2021, 10, 7, 14, 33, 12, 198, DateTimeKind.Unspecified).AddTicks(2334),
+                            Date = new DateTime(2025, 5, 12, 14, 13, 33, 217, DateTimeKind.Unspecified).AddTicks(4704),
                             PaymentStatus = 0,
-                            UserId = 3
+                            UserId = 7
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2024, 10, 30, 18, 29, 8, 107, DateTimeKind.Unspecified).AddTicks(8890),
+                            Date = new DateTime(2015, 10, 2, 5, 39, 5, 219, DateTimeKind.Unspecified).AddTicks(5823),
                             PaymentStatus = 0,
-                            UserId = 4
+                            UserId = 7
                         });
                 });
 
@@ -1037,8 +1030,24 @@ namespace DAL.WebMVC.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("BookAuthor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BookISBN")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("BookPrice")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BookPublisher")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BookTitle")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
@@ -1048,8 +1057,6 @@ namespace DAL.WebMVC.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItem");
@@ -1058,86 +1065,90 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 2,
+                            BookAuthor = "StephonHills",
+                            BookISBN = "3349167135178",
+                            BookPrice = 15.07m,
+                            BookPublisher = "Denesik Group",
+                            BookTitle = "Ut est nam placeat.",
                             OrderId = 1,
                             Quantity = 3
                         },
                         new
                         {
                             Id = 2,
-                            BookId = 3,
+                            BookAuthor = "ShaunGislason",
+                            BookISBN = "5762633662677",
+                            BookPrice = 13.08m,
+                            BookPublisher = "Willms, Wisoky and Feil",
+                            BookTitle = "Qui aspernatur et quia autem.",
                             OrderId = 1,
                             Quantity = 1
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 2,
-                            OrderId = 1,
-                            Quantity = 2
+                            BookAuthor = "MicahBradtke",
+                            BookISBN = "3349167135178",
+                            BookPrice = 15.07m,
+                            BookPublisher = "Raynor - Marks",
+                            BookTitle = "Ut est nam placeat.",
+                            OrderId = 2,
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 4,
-                            BookId = 1,
+                            BookAuthor = "ChristopheHoppe",
+                            BookISBN = "3349167135178",
+                            BookPrice = 15.07m,
+                            BookPublisher = "Shanahan LLC",
+                            BookTitle = "Ut est nam placeat.",
                             OrderId = 2,
-                            Quantity = 5
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 5,
-                            BookId = 3,
-                            OrderId = 2,
-                            Quantity = 5
+                            BookAuthor = "AltheaHackett",
+                            BookISBN = "5762633662677",
+                            BookPrice = 13.08m,
+                            BookPublisher = "Waters, Mayer and Stroman",
+                            BookTitle = "Qui aspernatur et quia autem.",
+                            OrderId = 3,
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 6,
-                            BookId = 4,
-                            OrderId = 2,
-                            Quantity = 3
+                            BookAuthor = "LennaSchuster",
+                            BookISBN = "7848910114492",
+                            BookPrice = 17.55m,
+                            BookPublisher = "Yost - VonRueden",
+                            BookTitle = "Culpa totam fugiat dolores nisi.",
+                            OrderId = 3,
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 7,
-                            BookId = 1,
+                            BookAuthor = "TitoBartoletti",
+                            BookISBN = "5762633662677",
+                            BookPrice = 13.08m,
+                            BookPublisher = "VonRueden - Torp",
+                            BookTitle = "Qui aspernatur et quia autem.",
                             OrderId = 3,
-                            Quantity = 5
-                        },
-                        new
-                        {
-                            Id = 8,
-                            BookId = 2,
-                            OrderId = 3,
-                            Quantity = 5
-                        },
-                        new
-                        {
-                            Id = 9,
-                            BookId = 1,
-                            OrderId = 3,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 10,
-                            BookId = 2,
-                            OrderId = 4,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 11,
-                            BookId = 1,
-                            OrderId = 4,
                             Quantity = 4
                         },
                         new
                         {
-                            Id = 12,
-                            BookId = 3,
+                            Id = 8,
+                            BookAuthor = "AdelbertBlick",
+                            BookISBN = "5762633662677",
+                            BookPrice = 13.08m,
+                            BookPublisher = "Goodwin LLC",
+                            BookTitle = "Qui aspernatur et quia autem.",
                             OrderId = 4,
-                            Quantity = 1
+                            Quantity = 5
                         });
                 });
 
@@ -1159,22 +1170,22 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Grady - Reilly"
+                            Name = "Christiansen Group"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Auer, Wilderman and Cormier"
+                            Name = "Gulgowski, Keeling and Parisian"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Howe Group"
+                            Name = "Funk - Johns"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Shields LLC"
+                            Name = "Grady and Sons"
                         });
                 });
 
@@ -1205,58 +1216,58 @@ namespace DAL.WebMVC.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "Halle_Lehner63@hotmail.com",
+                            Email = "Clifford_Thiel18@hotmail.com",
                             IsBanned = false,
-                            Username = "Gage.VonRueden96"
+                            Username = "Bailey.Ritchie"
                         },
                         new
                         {
                             Id = 2,
-                            Email = "Paul_Gorczany@hotmail.com",
+                            Email = "Brenda.Dickens@hotmail.com",
                             IsBanned = false,
-                            Username = "Guadalupe31"
+                            Username = "Asa83"
                         },
                         new
                         {
                             Id = 3,
-                            Email = "Icie_Rutherford43@hotmail.com",
+                            Email = "Vaughn9@hotmail.com",
                             IsBanned = false,
-                            Username = "Deion.Bashirian"
+                            Username = "Elmira.Johnston76"
                         },
                         new
                         {
                             Id = 4,
-                            Email = "Marlon68@yahoo.com",
-                            IsBanned = false,
-                            Username = "Natasha77"
+                            Email = "Ebba.Gislason@gmail.com",
+                            IsBanned = true,
+                            Username = "Jamie.Aufderhar"
                         },
                         new
                         {
                             Id = 5,
-                            Email = "Leonardo65@yahoo.com",
+                            Email = "Tressa.Will@hotmail.com",
                             IsBanned = false,
-                            Username = "Gretchen_Dare"
+                            Username = "Angelica45"
                         },
                         new
                         {
                             Id = 6,
-                            Email = "Fannie.Lakin9@hotmail.com",
+                            Email = "Daisy_Huels2@yahoo.com",
                             IsBanned = false,
-                            Username = "Eulah47"
+                            Username = "Zackery_Abbott30"
                         },
                         new
                         {
                             Id = 7,
-                            Email = "Mohammed.Gerhold99@yahoo.com",
+                            Email = "Clemens.Marquardt@hotmail.com",
                             IsBanned = false,
-                            Username = "Destini.Pfannerstill"
+                            Username = "Adaline.Fritsch98"
                         },
                         new
                         {
                             Id = 8,
-                            Email = "Erik.Bailey@hotmail.com",
+                            Email = "Alana_Kohler5@yahoo.com",
                             IsBanned = false,
-                            Username = "Trenton.Schaefer51"
+                            Username = "Carroll_Pfeffer"
                         });
                 });
 
@@ -1538,19 +1549,11 @@ namespace DAL.WebMVC.Migrations.Migrations
 
             modelBuilder.Entity("DAL.Models.OrderItem", b =>
                 {
-                    b.HasOne("DAL.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DAL.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Book");
 
                     b.Navigation("Order");
                 });
