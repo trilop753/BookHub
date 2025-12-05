@@ -107,12 +107,6 @@ namespace DAL.Data
                     .WithMany(o => o.Items)
                     .HasForeignKey(oi => oi.OrderId)
                     .OnDelete(DeleteBehavior.Cascade);
-
-                entity
-                    .HasOne(oi => oi.Book)
-                    .WithMany()
-                    .HasForeignKey(oi => oi.BookId)
-                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<GenreBook>(entity =>

@@ -31,19 +31,33 @@ namespace DAL.Data.Seed
         {
             var faker = new Faker<OrderItem>()
                 .RuleFor(o => o.Id, f => f.IndexFaker + 1)
-                .RuleFor(i => i.BookId, f => f.PickRandom(books).Id)
-                .RuleFor(i => i.Quantity, f => f.Random.Int(1, 5));
+                .RuleFor(i => i.Quantity, f => f.Random.Int(1, 5))
+                .RuleFor(i => i.BookAuthor, f => f.Name.FirstName() + f.Name.LastName())
+                .RuleFor(i => i.BookPublisher, f => f.Company.CompanyName())
+                .FinishWith(
+                    (f, item) =>
+                    {
+                        var book = f.PickRandom(books);
+
+                        item.BookTitle = book.Title;
+                        item.BookISBN = book.ISBN;
+                        item.BookPrice = book.Price;
+                    }
+                );
 
             List<OrderItem> orderItems = new();
 
             foreach (var order in orders)
             {
-                var itemsForThisOrder = faker.Generate(new Random().Next(1, 4));
-                foreach (var item in itemsForThisOrder)
+                int count = new Random().Next(1, 4);
+                var items = faker.Generate(count);
+
+                foreach (var item in items)
                 {
                     item.OrderId = order.Id;
                 }
-                orderItems.AddRange(itemsForThisOrder);
+
+                orderItems.AddRange(items);
             }
 
             return orderItems;

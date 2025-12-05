@@ -9,7 +9,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Cover</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Quantity</th>
@@ -21,15 +20,11 @@
             @foreach (var item in Model.Items)
             {
                 <tr>
-                    <td>
-                        <img src="~/cover-images/@item.Book.CoverImageName"
-                             alt="failed to load cover image" style="max-height:120px;" />
-                    </td>
-                    <td>@item.Book.Title</td>
-                    <td>@item.Book.AuthorName</td>
+                    <td>@item.BookTitle</td>
+                    <td>@item.BookAuthor</td>
                     <td>@item.Quantity</td>
-                    <td>@item.Book.Price.ToString("C")</td>
-                    <td>@((item.Quantity * item.Book.Price).ToString("C"))</td>
+                    <td>@item.BookPrice.ToString("C")</td>
+                    <td>@((item.Quantity * item.BookPrice).ToString("C"))</td>
                 </tr>
             }
         </tbody>
