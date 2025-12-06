@@ -36,51 +36,96 @@ namespace Infrastructure.Repository
 
         public async Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria)
         {
-            IQueryable<Book> query = _dbSet;
+            searchCriteria ??= new BookSearchCriteria();
 
-            if (searchCriteria.Title != null)
+            IQueryable<Book> query = GetBasicQuery(
+                includeAuthor: true,
+                includePublisher: true,
+                includeGenres: true,
+                includeReviews: false
+            );
+
+
+            if (searchCriteria.LowPrice.HasValue)
+            {
+                query = query.Where(b => b.Price > searchCriteria.LowPrice.Value);
+            }
+
+            if (searchCriteria.HighPrice.HasValue)
+            {
+                query = query.Where(b => b.Price <= searchCriteria.HighPrice.Value);
+            }
+
+            var title = Normalize(searchCriteria.Title);
+            var desc = Normalize(searchCriteria.Description);
+            var q = Normalize(searchCriteria.Query);
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                title ??= q;
+                desc ??= q;
+            }
+
+            var hasTitle = !string.IsNullOrWhiteSpace(title);
+            var hasDesc = !string.IsNullOrWhiteSpace(desc);
+            var hasGenres = searchCriteria.GenreIds is { Length: > 0 };
+            var hasAuthor = searchCriteria.AuthorId.HasValue;
+            var hasPublisher = searchCriteria.PublisherId.HasValue;
+
+            if (searchCriteria.SearchMode == BookSearchMode.And)
+            {
+                if (hasTitle)
+                {
+                    query = query.Where(b => EF.Functions.Like(b.Title, $"%{title}%"));
+                }
+
+                if (hasDesc)
+                {
+                    query = query.Where(b => EF.Functions.Like(b.Description, $"%{desc}%"));
+                }
+
+                if (hasGenres)
+                {
+                    var ids = searchCriteria.GenreIds!;
+                    query = query.Where(b => b.Genres.Any(gb => ids.Contains(gb.Genre.Id)));
+                }
+
+                if (hasAuthor)
+                {
+                    var authorId = searchCriteria.AuthorId!.Value;
+                    query = query.Where(b => b.AuthorId == authorId);
+                }
+
+                if (hasPublisher)
+                {
+                    var publisherId = searchCriteria.PublisherId!.Value;
+                    query = query.Where(b => b.PublisherId == publisherId);
+                }
+            }
+            else
             {
                 query = query.Where(b =>
-                    b.Title.ToLower().Contains(searchCriteria.Title.ToLower())
+                    (hasTitle && EF.Functions.Like(b.Title, $"%{title}%")) ||
+                    (hasDesc && EF.Functions.Like(b.Description, $"%{desc}%")) ||
+                    (hasGenres && b.Genres.Any(gb => searchCriteria.GenreIds!.Contains(gb.Genre.Id))) ||
+                    (hasAuthor && b.AuthorId == searchCriteria.AuthorId!.Value) ||
+                    (hasPublisher && b.PublisherId == searchCriteria.PublisherId!.Value)
                 );
-            }
-
-            if (searchCriteria.Description != null)
-            {
-                query = query.Where(b =>
-                    b.Description.ToLower().Contains(searchCriteria.Description.ToLower())
-                );
-            }
-
-            if (searchCriteria.LowPrice != null)
-            {
-                query = query.Where(b => b.Price > searchCriteria.LowPrice);
-            }
-
-            if (searchCriteria.HighPrice != null)
-            {
-                query = query.Where(b => b.Price <= searchCriteria.HighPrice);
-            }
-
-            if (searchCriteria.GenreIds != null)
-            {
-                query = query.Where(b =>
-                    b.Genres.Select(gb => gb.Genre.Id).Intersect(searchCriteria.GenreIds).Any()
-                );
-            }
-
-            if (searchCriteria.AuthorId != null)
-            {
-                query = query.Where(b => b.AuthorId == searchCriteria.AuthorId);
-            }
-
-            if (searchCriteria.PublisherId != null)
-            {
-                query = query.Where(b => b.PublisherId == searchCriteria.PublisherId);
             }
 
             return await query.ToListAsync();
         }
+
+        private static string? Normalize(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
+            return value.Trim();
+        }
+
 
         public async Task<Book?> GetBookByIdWithGenresIncludedAsync(int bookId)
         {

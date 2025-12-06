@@ -79,4 +79,9 @@ public static class CacheKeys
     {
         return $"Cart:All:{userId}";
     }
+    
+    public static string BookSearchSuggestions(string query)
+    {
+        return $"Book:Search:Suggestions:{query}";
+    }
 }

@@ -6,6 +6,28 @@
 
 <h1 class="display-4 text-center mb-4">Books</h1>
 
+<div class="mb-4 position-relative" style="max-width: 720px; margin: 0 auto;">
+    <div class="input-group input-group-lg">
+        <span class="input-group-text">🔎</span>
+        <input id="search"
+               type="text"
+               class="form-control"
+               placeholder="Search by title, genre, author or publisher…"
+               autocomplete="off" />
+        <button id="clear" type="button" class="btn btn-outline-secondary">✕</button>
+    </div>
+
+    <div id="dropdown"
+         class="shadow bg-white border rounded-3 mt-2"
+         style="display:none; position:absolute; z-index: 2000; width: 100%; overflow:hidden;">
+        <div id="dropdownInner"></div>
+    </div>
+
+    <small class="text-muted d-block mt-2">
+        Tip: try something like <code>king</code>, <code>fantasy</code>, <code>rowling</code>…
+    </small>
+</div>
+
 <table class="table table-striped table-bordered">
     <thead class="table-dark">
         <tr>
@@ -20,10 +42,14 @@
     <tbody>
         @foreach (var book in Model)
         {
-            <tr>
+            <tr data-title="@book.Title"
+                data-author="@book.AuthorName"
+                data-publisher="@book.PublisherName"
+                data-genres="@string.Join(" ", book.Genres.Select(g => g.GenreName))">
+
                 <td>
                     <img src="~/cover-images/@book.CoverImageName"
-                         alt="failed to load cover image"/>
+                         alt="failed to load cover image" />
                 </td>
 
                 <td>
@@ -50,3 +76,168 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        (() => {
+            const input = document.getElementById("search");
+            const clearBtn = document.getElementById("clear");
+            const dd = document.getElementById("dropdown");
+            const ddInner = document.getElementById("dropdownInner");
+
+            const rows = Array.from(document.querySelectorAll("tbody tr[data-title]"));
+            let timer = null;
+
+            const esc = (s) => (s ?? "").toString()
+                .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;").replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+
+            const show = () => dd.style.display = "block";
+            const hide = () => dd.style.display = "none";
+
+            const applyFilterToTable = (q) => {
+                const needle = (q ?? "").trim().toLowerCase();
+
+                if (!needle) {
+                    rows.forEach(r => r.style.display = "");
+                    return;
+                }
+
+                rows.forEach(r => {
+                    const hay = (
+                        (r.dataset.title || "") + " " +
+                        (r.dataset.author || "") + " " +
+                        (r.dataset.publisher || "") + " " +
+                        (r.dataset.genres || "")
+                    ).toLowerCase();
+
+                    r.style.display = hay.includes(needle) ? "" : "none";
+                });
+            };
+
+            const renderSection = (label, itemsHtml) => `
+                <div class="px-3 pt-3 pb-2 small text-uppercase text-muted fw-semibold">${esc(label)}</div>
+                ${itemsHtml || `<div class="px-3 pb-2 text-muted small">None</div>`}
+            `;
+
+            const render = (data) => {
+                const titles = (data.titles || []).map(x => `
+                    <a class="item d-block text-decoration-none text-dark px-3 py-2"
+                       href="/Book/Detail/${x.id}">
+                        <div class="fw-semibold">${esc(x.text)}</div>
+                        <div class="text-muted small">${esc(x.meta)}</div>
+                    </a>
+                `).join("");
+
+                const genres = (data.genres || []).map(x => `
+                    <button type="button"
+                            class="item w-100 text-start border-0 bg-white px-3 py-2"
+                            data-filter="${esc(x.text)}">
+                        <div class="fw-semibold">${esc(x.text)}</div>
+                        <div class="text-muted small">Genre</div>
+                    </button>
+                `).join("");
+
+                const ap = (data.authorPublishers || []).map(x => `
+                    <button type="button"
+                            class="item w-100 text-start border-0 bg-white px-3 py-2"
+                            data-filter="${esc(x.text)}">
+                        <div class="fw-semibold">${esc(x.text)}</div>
+                        <div class="text-muted small">${esc(x.kind === "publisher" ? "Publisher" : "Author")}</div>
+                    </button>
+                `).join("");
+
+                return `
+                    ${renderSection("Books", titles)}
+                    <div class="border-top"></div>
+                    ${renderSection("Genres", genres)}
+                    <div class="border-top"></div>
+                    ${renderSection("Autor / Publisher", ap)}
+                `;
+            };
+
+            const wireFilterButtons = () => {
+                ddInner.querySelectorAll("button[data-filter]").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const value = btn.getAttribute("data-filter") || "";
+                        input.value = value;
+                        hide();
+                        applyFilterToTable(value);
+                        input.focus();
+                    });
+                });
+            };
+
+            const load = async (q) => {
+                const query = (q ?? "").trim();
+
+                if (query.length < 2) {
+                    ddInner.innerHTML = "";
+                    hide();
+                    return;
+                }
+
+                try {
+                    const resp = await fetch(`/Search/Suggestions?q=${encodeURIComponent(query)}`);
+                    if (!resp.ok) {
+                        hide();
+                        return;
+                    }
+
+                    const data = await resp.json();
+                    ddInner.innerHTML = render(data);
+                    wireFilterButtons();
+                    show();
+                } catch {
+                    hide();
+                }
+            };
+
+            input.addEventListener("input", () => {
+                clearTimeout(timer);
+                timer = setTimeout(() => load(input.value), 200);
+            });
+
+            input.addEventListener("focus", () => {
+                if ((input.value || "").trim().length >= 2) {
+                    load(input.value);
+                }
+            });
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    input.value = "";
+                    hide();
+                    applyFilterToTable("");
+                }
+
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    applyFilterToTable(input.value);
+                    hide();
+                }
+            });
+
+            clearBtn.addEventListener("click", () => {
+                input.value = "";
+                hide();
+                applyFilterToTable("");
+                input.focus();
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!dd.contains(e.target) && e.target !== input) {
+                    hide();
+                }
+            });
+        })();
+    </script>
+
+    <style>
+        .item:hover { background: #f6f7f9; }
+        .item:active { background: #eef1f5; }
+    </style>
+}
+
+
