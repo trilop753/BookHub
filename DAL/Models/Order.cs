@@ -21,7 +21,7 @@ namespace DAL.Models
 
         public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.InProgress;
 
-        public decimal TotalPrice => Items?.Sum(i => i.Quantity * i.Book.Price) ?? 0;
+        public decimal TotalPrice => Items?.Sum(i => i.Quantity * i.BookPrice) ?? 0;
 
         public decimal FinalPrice
         {

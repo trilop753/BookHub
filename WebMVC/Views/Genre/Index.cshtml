@@ -1,4 +1,4 @@
-@model IEnumerable<WebMVC.Models.Publisher.PublisherViewModel>
+@model IEnumerable<WebMVC.Models.Genre.GenreViewModel>
 
 @if (TempData["ErrorMessage"] != null)
 {
@@ -15,11 +15,11 @@
 }
 
 @{
-    ViewData["Title"] = "Publishers";
+    ViewData["Title"] = "Genres";
 }
 
 <div class="container mt-4" style="max-width: 600px;">
-    <h1 class="display-6 text-center mb-4">Publishers</h1>
+    <h1 class="display-6 text-center mb-4">Genres</h1>
 
     <table class="table table-sm table-striped table-bordered align-middle text-center">
         <thead class="table-dark">
@@ -32,26 +32,26 @@
         </thead>
 
         <tbody>
-        @foreach (var publisher in Model)
+        @foreach (var genre in Model)
         {
             <tr>
-                <td>@publisher.Name</td>
+                <td>@genre.Name</td>
 
                 <td style="width: 1%; white-space: nowrap;">
 
-                    <a asp-controller="Publisher"
+                    <a asp-controller="Genre"
                        asp-action="Edit"
-                       asp-route-publisherId="@publisher.Id"
+                       asp-route-genreId="@genre.Id"
                        class="btn btn-sm btn-warning"
                        title="Edit">
                         edit
                     </a>
 
-                    <form asp-controller="Publisher"
+                    <form asp-controller="Genre"
                           asp-action="Delete"
-                          asp-route-publisherId="@publisher.Id"
+                          asp-route-genreId="@genre.Id"
                           method="post"
-                          onsubmit="return confirm('Are you sure you want to delete this publisher?');"
+                          onsubmit="return confirm('Are you sure you want to delete this genre?');"
                           class="d-inline">
                         @Html.AntiForgeryToken()
                         <button type="submit"
@@ -67,10 +67,10 @@
     </table>
     
     <div class="d-flex justify-content-end mt-3">
-        <a asp-controller="Publisher"
+        <a asp-controller="Genre"
            asp-action="Create"
            class="btn btn-success">
-            Create Publisher
+            Create Genre
         </a>
     </div>
 </div>

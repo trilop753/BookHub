@@ -70,14 +70,7 @@ namespace WebMVC.Mappers
                 Genres = model.GenreIds.Select(gId => new GenreBookCreateDto()
                 {
                     GenreId = gId,
-                    IsPrimary = gId == model.GenreIds.First(),
-                    /*
-                     * Set the first Genre in the list as primary.
-                     * Reason is that selecting genres when creating a book
-                     * is kinda wonky even without primary genre.
-                     * Otherwise, the entire genre selection for
-                     * book creation would need to be revised.
-                     */
+                    IsPrimary = gId == model.PrimaryGenreId,
                 }),
                 PublisherId = model.PublisherId,
                 AuthorId = model.AuthorId,
@@ -97,6 +90,7 @@ namespace WebMVC.Mappers
                 AuthorId = dto.Author.Id,
                 PublisherId = dto.Publisher.Id,
                 GenreIds = dto.Genres.Select(g => g.GenreId).ToList(),
+                PrimaryGenreId = dto.Genres.Where(g => g.IsPrimary).Single().GenreId,
                 CoverImageName = dto.CoverImageName ?? string.Empty,
             };
         }
@@ -114,7 +108,7 @@ namespace WebMVC.Mappers
                 Genres = model.GenreIds.Select(id => new GenreBookUpdateDto()
                 {
                     GenreId = id,
-                    IsPrimary = id == model.GenreIds.First(),
+                    IsPrimary = id == model.PrimaryGenreId,
                 }),
                 CoverImageName = model.CoverImageName,
                 LastEditedById = model.LastEditedById,

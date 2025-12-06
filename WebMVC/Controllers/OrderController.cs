@@ -1,5 +1,4 @@
-﻿using BL.Facades;
-using BL.Facades.Interfaces;
+﻿using BL.Facades.Interfaces;
 using DAL.Models;
 using DAL.UtilityModels;
 using Microsoft.AspNetCore.Authorization;

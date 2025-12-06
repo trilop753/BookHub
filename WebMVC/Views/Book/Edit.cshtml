@@ -3,7 +3,7 @@
 <form asp-controller="Book" asp-action="Edit" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
 
-    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
     <input asp-for="Id" type="hidden" />
     <input asp-for="CoverImageName" type="hidden" />
@@ -50,14 +50,23 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="GenreIds" class="form-label"></label>
-        <select asp-for="GenreIds"
-                asp-items="Model.Genres"
-                multiple
-                class="form-select genre-select">
-        </select>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+            <label class="form-label" style="margin:0;">Genres</label>
+            <span style="font-size:0.9rem; color:#555;">Primary</span>
+        </div>
+        @foreach (var genre in Model.Genres)
+        {
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+                <input type="checkbox" class="genre-checkbox" name="GenreIds" value="@genre.Value" id="chk-@genre.Value" @(Model.GenreIds.Contains(int.Parse(genre.Value)) ? "checked" : "") />
+                <label for="chk-@genre.Value" style="margin:0;">@genre.Text</label>
+
+                <div style="margin-left:auto;">
+                    <input type="radio" name="PrimaryGenreId" value="@genre.Value" id="rad-@genre.Value" disabled @(Model.PrimaryGenreId.ToString() == genre.Value ? "checked" : "") />
+                </div>
+            </div>
+        }
         <span asp-validation-for="GenreIds" class="text-danger"></span>
-        <div class="form-text">Hold Ctrl to select multiple genres.</div>
+        <span asp-validation-for="PrimaryGenreId" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
@@ -77,3 +86,24 @@
     <button type="submit" class="btn btn-primary">Save changes</button>
     <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
 </form>
+
+<script>
+    function syncRadios() {
+        document.querySelectorAll('.genre-checkbox').forEach(function (chk) {
+            const rad = document.getElementById('rad-' + chk.value);
+            rad.disabled = !chk.checked;
+
+            if (chk.checked && rad.hasAttribute("checked")) {
+                rad.disabled = false;
+            }
+        });
+    }
+
+    syncRadios();
+
+    document.querySelectorAll('.genre-checkbox').forEach(function (chk) {
+        chk.addEventListener('change', function () {
+            syncRadios();
+        });
+    });
+</script>

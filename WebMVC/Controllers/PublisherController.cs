@@ -1,12 +1,9 @@
 using BL.Services.Interfaces;
-using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Caching;
 using WebMVC.Constants;
 using WebMVC.Mappers;
-using WebMVC.Models.Author;
 using WebMVC.Models.Publisher;
 
 namespace WebMVC.Controllers;
@@ -15,17 +12,11 @@ namespace WebMVC.Controllers;
 public class PublisherController : Controller
 {
     private readonly IPublisherService _publisherService;
-    private readonly UserManager<LocalIdentityUser> _userManager;
     private readonly IAppCache _cache;
 
-    public PublisherController(
-        IPublisherService publisherService,
-        UserManager<LocalIdentityUser> userManager,
-        IAppCache cache
-    )
+    public PublisherController(IPublisherService publisherService, IAppCache cache)
     {
         _publisherService = publisherService;
-        _userManager = userManager;
         _cache = cache;
     }
 
@@ -117,6 +108,7 @@ public class PublisherController : Controller
             return RedirectToAction("Index");
         }
 
+        TempData["SuccessMessage"] = "Publisher was deleted.";
         _cache.Remove(CacheKeys.PublisherAll());
         return RedirectToAction("Index");
     }

@@ -35,6 +35,11 @@ public static class CacheKeys
         return "Genre:All";
     }
 
+    public static string GenreDetail(int genreId)
+    {
+        return $"Genre:Detail:{genreId}";
+    }
+
     public static string AuthorAll()
     {
         return "Author:All";

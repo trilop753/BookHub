@@ -61,8 +61,9 @@ namespace WebMVC.Controllers
             var identityUser = await _userManager.GetUserAsync(User);
             if (identityUser == null || identityUser.User == null)
             {
-                return View("InternalServerError");
+                return View(bookRes.Value.MapToDetailView(new List<int>(), new List<int>()));
             }
+
             var currentUser = identityUser.User;
 
             var wishlistRes = await _cache.GetOrCreateAsync(
@@ -86,12 +87,7 @@ namespace WebMVC.Controllers
             var wishlistedBooksIds = wishlistRes.Value.Select(i => i.Book.Id);
             var booksInCartIds = cartRes.Value.Select(i => i.Book.Id);
 
-            return View(
-                bookRes.Value.MapToDetailView(
-                    wishlistedBooksIds ?? new List<int>(),
-                    booksInCartIds ?? new List<int>()
-                )
-            );
+            return View(bookRes.Value.MapToDetailView(wishlistedBooksIds, booksInCartIds));
         }
 
         [Authorize(Roles = Roles.Admin)]

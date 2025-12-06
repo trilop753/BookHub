@@ -1,7 +1,5 @@
 using BL.Services.Interfaces;
-using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Caching;
 using WebMVC.Constants;
@@ -14,17 +12,11 @@ namespace WebMVC.Controllers;
 public class AuthorController : Controller
 {
     private readonly IAuthorService _authorService;
-    private readonly UserManager<LocalIdentityUser> _userManager;
     private readonly IAppCache _cache;
 
-    public AuthorController(
-        IAuthorService authorService,
-        UserManager<LocalIdentityUser> userManager,
-        IAppCache cache
-    )
+    public AuthorController(IAuthorService authorService, IAppCache cache)
     {
         _authorService = authorService;
-        _userManager = userManager;
         _cache = cache;
     }
 
@@ -116,6 +108,7 @@ public class AuthorController : Controller
             return RedirectToAction("Index");
         }
 
+        TempData["SuccessMessage"] = "Author was deleted.";
         _cache.Remove(CacheKeys.AuthorAll());
         return RedirectToAction("Index");
     }
