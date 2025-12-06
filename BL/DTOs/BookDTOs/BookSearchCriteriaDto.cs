@@ -28,12 +28,16 @@ namespace BL.DTOs.BookDTOs
         public int? AuthorId { get; set; }
 
         public int? PublisherId { get; set; }
-        
+
         /// <summary>
         /// How multiple criteria are combined.
         /// </summary>
         public BookSearchMode SearchMode { get; set; } = BookSearchMode.And;
-        
+
+        /// <summary>
+        /// Convenience full-text query.
+        /// Typically implemented as: (Title contains Query) OR (Description contains Query),
+        /// </summary>
         public string? Query { get; set; }
     }
 }
