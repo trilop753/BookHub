@@ -18,7 +18,7 @@ html {
 }
 
 body {
-    background: linear-gradient(135deg, #f7ebff, #f7f2fa, #ffffff);
+    background: linear-gradient(135deg, #f5d5ec, #f5d5d5, #f5e5d5);
     color: #000000;
     margin-bottom: 60px;
 }
@@ -46,4 +46,11 @@ table {
 .table thead {
     background-color: #222;
     color: #ffffff;
+}
+
+.table-cover {
+    width: 60px;
+    height: 90px;
+    object-fit: contain;
+    display: block;
 }

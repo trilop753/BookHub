@@ -52,10 +52,12 @@ namespace WebMVC.Mappers
                 Author = book.Author.MapToView(),
                 Reviews = book.Reviews.Select(r => r.MapToView()),
                 CoverImageName = book.CoverImageName,
-                IsWishlisted = wishlistedBooksIds.Any()
-                    ? wishlistedBooksIds.Contains(book.Id)
-                    : false,
-                IsInCart = booksInCart.Any() ? booksInCart.Contains(book.Id) : false,
+                IsWishlisted = false,
+                IsInCart = false,
+                // IsWishlisted = wishlistedBooksIds.Any()
+                //     ? wishlistedBooksIds.Contains(book.Id)
+                //     : false,
+                // IsInCart = booksInCart.Any() ? booksInCart.Contains(book.Id) : false,
             };
         }
 
