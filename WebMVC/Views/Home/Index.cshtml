@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebMVC.Models.Book.BookViewModel>
 
 @{
-    ViewData["Title"] = "Books";
+ViewData["Title"] = "Books";
 }
 
 <h1 class="display-4 text-center mb-4">Books</h1>
@@ -28,101 +28,100 @@
     </small>
 </div>
 
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>Cover</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Genres</th>
-            <th>Publisher</th>
-            <th>Author</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="container p-1 border rounded-3 shadow-sm bg-light">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
         @foreach (var book in Model)
         {
-            <tr data-title="@book.Title"
-                data-author="@book.AuthorName"
-                data-publisher="@book.PublisherName"
-                data-genres="@string.Join(" ", book.Genres.Select(g => g.GenreName))">
+        <div class="col book-item"
+             data-title="@book.Title"
+             data-author="@book.AuthorName"
+             data-publisher="@book.PublisherName"
+             data-genres="@string.Join(" ", book.Genres.Select(g => g.GenreName))">
 
-                <td>
+            <div class="card h-100 border rounded-3 shadow-sm book-card">
+                <a asp-controller="Book"
+                   asp-action="Detail"
+                   asp-route-id="@book.Id"
+                   class="text-decoration-none text-dark">
                     <img src="~/cover-images/@book.CoverImageName"
+                         class="card-img-top book-cover"
                          alt="failed to load cover image" />
-                </td>
 
-                <td>
-                    <a asp-controller="Book"
-                       asp-action="Detail"
-                       asp-route-id="@book.Id">
-                        @book.Title
-                    </a>
-                </td>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title mb-2">@book.Title</h5>
 
-                <td>@book.Price.ToString("C")</td>
+                        <p class="card-text mb-0">
+                            <span class="fw-semibold"></span> @book.AuthorName
+                        </p>
+                        
+                        <p class="card-text mb-2">
+                            <strong>@book.Price.ToString("C")</strong>
+                        </p>
 
-                <td>
-                    @Html.Raw(string.Join(", ", book.Genres.Select(g =>
-                        g.IsPrimary
+                        <p class="card-text mb-2 small">
+                            @Html.Raw(string.Join(", ", book.Genres.Select(g =>
+                            g.IsPrimary
                             ? $"<span style='font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>"
                             : $"<span style='color:#555; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>")))
-                </td>
-
-                <td>@book.PublisherName</td>
-
-                <td>@book.AuthorName</td>
-            </tr>
+                        </p>
+                        
+                        <p class="card-text mb-1 small text-muted">
+                            <span class="fw-semibold"></span> @book.PublisherName
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
 
 @section Scripts {
-    <script>
-        (() => {
-            const input = document.getElementById("search");
-            const clearBtn = document.getElementById("clear");
-            const dd = document.getElementById("dropdown");
-            const ddInner = document.getElementById("dropdownInner");
+<script>
+    (() => {
+        const input = document.getElementById("search");
+        const clearBtn = document.getElementById("clear");
+        const dd = document.getElementById("dropdown");
+        const ddInner = document.getElementById("dropdownInner");
 
-            const rows = Array.from(document.querySelectorAll("tbody tr[data-title]"));
-            let timer = null;
+        const items = Array.from(document.querySelectorAll(".book-item"));
+        let timer = null;
 
-            const esc = (s) => (s ?? "").toString()
-                .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;").replaceAll('"', "&quot;")
-                .replaceAll("'", "&#039;");
+        const esc = (s) => (s ?? "").toString()
+            .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;").replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
 
-            const show = () => dd.style.display = "block";
-            const hide = () => dd.style.display = "none";
+        const show = () => dd.style.display = "block";
+        const hide = () => dd.style.display = "none";
 
-            const applyFilterToTable = (q) => {
-                const needle = (q ?? "").trim().toLowerCase();
+        const applyFilterToGrid = (q) => {
+            const needle = (q ?? "").trim().toLowerCase();
 
-                if (!needle) {
-                    rows.forEach(r => r.style.display = "");
-                    return;
-                }
+            if (!needle) {
+                items.forEach(i => i.style.display = "");
+                return;
+            }
 
-                rows.forEach(r => {
-                    const hay = (
-                        (r.dataset.title || "") + " " +
-                        (r.dataset.author || "") + " " +
-                        (r.dataset.publisher || "") + " " +
-                        (r.dataset.genres || "")
-                    ).toLowerCase();
+            items.forEach(i => {
+                const hay = (
+                    (i.dataset.title || "") + " " +
+                    (i.dataset.author || "") + " " +
+                    (i.dataset.publisher || "") + " " +
+                    (i.dataset.genres || "")
+                ).toLowerCase();
 
-                    r.style.display = hay.includes(needle) ? "" : "none";
-                });
-            };
+                i.style.display = hay.includes(needle) ? "" : "none";
+            });
+        };
 
-            const renderSection = (label, itemsHtml) => `
+        const renderSection = (label, itemsHtml) => `
                 <div class="px-3 pt-3 pb-2 small text-uppercase text-muted fw-semibold">${esc(label)}</div>
                 ${itemsHtml || `<div class="px-3 pb-2 text-muted small">None</div>`}
             `;
 
-            const render = (data) => {
-                const titles = (data.titles || []).map(x => `
+        const render = (data) => {
+            const titles = (data.titles || []).map(x => `
                     <a class="item d-block text-decoration-none text-dark px-3 py-2"
                        href="/Book/Detail/${x.id}">
                         <div class="fw-semibold">${esc(x.text)}</div>
@@ -130,7 +129,7 @@
                     </a>
                 `).join("");
 
-                const genres = (data.genres || []).map(x => `
+            const genres = (data.genres || []).map(x => `
                     <button type="button"
                             class="item w-100 text-start border-0 bg-white px-3 py-2"
                             data-filter="${esc(x.text)}">
@@ -139,7 +138,7 @@
                     </button>
                 `).join("");
 
-                const ap = (data.authorPublishers || []).map(x => `
+            const ap = (data.authorPublishers || []).map(x => `
                     <button type="button"
                             class="item w-100 text-start border-0 bg-white px-3 py-2"
                             data-filter="${esc(x.text)}">
@@ -148,96 +147,100 @@
                     </button>
                 `).join("");
 
-                return `
+            return `
                     ${renderSection("Books", titles)}
                     <div class="border-top"></div>
                     ${renderSection("Genres", genres)}
                     <div class="border-top"></div>
                     ${renderSection("Autor / Publisher", ap)}
                 `;
-            };
+        };
 
-            const wireFilterButtons = () => {
-                ddInner.querySelectorAll("button[data-filter]").forEach(btn => {
-                    btn.addEventListener("click", () => {
-                        const value = btn.getAttribute("data-filter") || "";
-                        input.value = value;
-                        hide();
-                        applyFilterToTable(value);
-                        input.focus();
-                    });
+        const wireFilterButtons = () => {
+            ddInner.querySelectorAll("button[data-filter]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const value = btn.getAttribute("data-filter") || "";
+                    input.value = value;
+                    hide();
+                    applyFilterToGrid(value);
+                    input.focus();
                 });
-            };
+            });
+        };
 
-            const load = async (q) => {
-                const query = (q ?? "").trim();
+        const load = async (q) => {
+            const query = (q ?? "").trim();
 
-                if (query.length < 2) {
-                    ddInner.innerHTML = "";
+            if (query.length < 2) {
+                ddInner.innerHTML = "";
+                hide();
+                return;
+            }
+
+            try {
+                const resp = await fetch(`/Search/Suggestions?q=${encodeURIComponent(query)}`);
+                if (!resp.ok) {
                     hide();
                     return;
                 }
 
-                try {
-                    const resp = await fetch(`/Search/Suggestions?q=${encodeURIComponent(query)}`);
-                    if (!resp.ok) {
-                        hide();
-                        return;
-                    }
+                const data = await resp.json();
+                ddInner.innerHTML = render(data);
+                wireFilterButtons();
+                show();
+            } catch {
+                hide();
+            }
+        };
 
-                    const data = await resp.json();
-                    ddInner.innerHTML = render(data);
-                    wireFilterButtons();
-                    show();
-                } catch {
-                    hide();
-                }
-            };
+        input.addEventListener("input", () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => load(input.value), 200);
+        });
 
-            input.addEventListener("input", () => {
-                clearTimeout(timer);
-                timer = setTimeout(() => load(input.value), 200);
-            });
+        input.addEventListener("focus", () => {
+            if ((input.value || "").trim().length >= 2) {
+                load(input.value);
+            }
+        });
 
-            input.addEventListener("focus", () => {
-                if ((input.value || "").trim().length >= 2) {
-                    load(input.value);
-                }
-            });
-
-            input.addEventListener("keydown", (e) => {
-                if (e.key === "Escape") {
-                    input.value = "";
-                    hide();
-                    applyFilterToTable("");
-                }
-
-                if (e.key === "Enter") {
-                    e.preventDefault();
-                    applyFilterToTable(input.value);
-                    hide();
-                }
-            });
-
-            clearBtn.addEventListener("click", () => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
                 input.value = "";
                 hide();
-                applyFilterToTable("");
-                input.focus();
-            });
+                applyFilterToGrid("");
+            }
 
-            document.addEventListener("click", (e) => {
-                if (!dd.contains(e.target) && e.target !== input) {
-                    hide();
-                }
-            });
-        })();
-    </script>
+            if (e.key === "Enter") {
+                e.preventDefault();
+                applyFilterToGrid(input.value);
+                hide();
+            }
+        });
 
-    <style>
-        .item:hover { background: #f6f7f9; }
-        .item:active { background: #eef1f5; }
-    </style>
+        clearBtn.addEventListener("click", () => {
+            input.value = "";
+            hide();
+            applyFilterToGrid("");
+            input.focus();
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!dd.contains(e.target) && e.target !== input) {
+                hide();
+            }
+        });
+    })();
+</script>
+
+<style>
+    .item:hover { background: #f6f7f9; }
+    .item:active { background: #eef1f5; }
+
+    .book-cover {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+</style>
 }
-
-
