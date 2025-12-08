@@ -52,13 +52,13 @@ namespace BL.Services
         public async Task<IEnumerable<WishlistItemDto>> GetAllBookWishlistItemsAsync(int bookId)
         {
             var items = await _repository.GetAllWithBookIdAsync(bookId);
-            return items.Select(wishlistItem => wishlistItem.MapToDto());
+            return items.Select(wishlistItem => wishlistItem.MapToDto()).ToList();
         }
 
         public async Task<IEnumerable<WishlistItemDto>> GetAllUserWishlistItemsAsync(int userId)
         {
             var items = await _repository.GetAllByUserIdAsync(userId);
-            return items.Select(wishlistItem => wishlistItem.MapToDto());
+            return items.Select(wishlistItem => wishlistItem.MapToDto()).ToList();
         }
     }
 }

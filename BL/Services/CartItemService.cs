@@ -92,7 +92,7 @@ namespace BL.Services
         public async Task<Result<IEnumerable<CartItemDto>>> GetCartItemsByUserIdAsync(int userId)
         {
             var items = await _repository.GetByUserIdAsync(userId);
-            return Result.Ok(items.Select(i => i.MapToDto()));
+            return Result.Ok<IEnumerable<CartItemDto>>(items.Select(i => i.MapToDto()).ToList());
         }
 
         public async Task<Result<CartItemDto>> UpdateItemQuantityAsync(int id, int quantity)

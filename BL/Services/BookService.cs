@@ -43,16 +43,18 @@ public class BookService : IBookService
     public async Task<Result<IEnumerable<BookDto>>> GetBooksByIdsAsync(int[] ids)
     {
         var books = await _bookRepository.GetBooksAsync(bookIds: ids);
-        return Result.Ok(books.Select(b => b.MapToDto()));
+        return Result.Ok<IEnumerable<BookDto>>(books.Select(b => b.MapToDto()).ToList());
     }
 
     public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
     {
         var books = await _bookRepository.GetBooksAsync();
-        return books.Select(b => b.MapToDto());
+        return books.Select(b => b.MapToDto()).ToList();
     }
 
-    public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(BookSearchCriteriaDto searchCriteria)
+    public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(
+        BookSearchCriteriaDto searchCriteria
+    )
     {
         searchCriteria ??= new BookSearchCriteriaDto();
 
@@ -60,7 +62,7 @@ public class BookService : IBookService
             searchCriteria.MapToBookSearchCriteria()
         );
 
-        return books.Select(b => b.MapToSummaryDto());
+        return books.Select(b => b.MapToSummaryDto()).ToList();
     }
 
     #endregion

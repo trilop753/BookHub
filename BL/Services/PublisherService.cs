@@ -35,7 +35,7 @@ public class PublisherService : IPublisherService
     public async Task<IEnumerable<PublisherDto>> GetAllPublishersAsync()
     {
         var publishers = await _publisherRepository.GetAllWithBooksAsync();
-        return publishers.Select(p => p.MapToDto());
+        return publishers.Select(p => p.MapToDto()).ToList();
     }
 
     #endregion

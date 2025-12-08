@@ -19,7 +19,7 @@ namespace BL.Services
         public async Task<Result<IEnumerable<GiftcardDto>>> GetAllAsync()
         {
             var cards = await _giftcardRepository.GetAllAsync();
-            return Result.Ok(cards.Select(c => c.MapToDto()));
+            return Result.Ok<IEnumerable<GiftcardDto>>(cards.Select(c => c.MapToDto()).ToList());
         }
 
         public async Task<Result<GiftcardSummaryDto>> GetByIdAsync(int id)
@@ -90,7 +90,9 @@ namespace BL.Services
             var usedCount = card.Codes.Count(c => c.IsUsed);
             if (usedCount > 0)
             {
-                return Result.Fail($"Giftcard cannot be deleted because {usedCount} code(s) have already been used.");
+                return Result.Fail(
+                    $"Giftcard cannot be deleted because {usedCount} code(s) have already been used."
+                );
             }
 
             _giftcardRepository.Delete(card);

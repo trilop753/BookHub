@@ -32,7 +32,7 @@ public class GenreService : IGenreService
     public async Task<IEnumerable<GenreDto>> GetAllGenresAsync()
     {
         var genres = await _genreRepository.GetAllAsync();
-        return genres.Select(g => g.MapToDto());
+        return genres.Select(g => g.MapToDto()).ToList();
     }
 
     #endregion

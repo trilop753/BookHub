@@ -73,7 +73,7 @@ namespace BL.Services
         public async Task<Result<IEnumerable<OrderDto>>> GetAllAsync()
         {
             var orders = await _orderRepository.GetAllDetailedAsync();
-            return Result.Ok(orders.Select(o => o.MapToOrderDto()));
+            return Result.Ok<IEnumerable<OrderDto>>(orders.Select(o => o.MapToOrderDto()).ToList());
         }
 
         public async Task<Result<OrderDto>> GetByIdAsync(int id)
@@ -90,7 +90,7 @@ namespace BL.Services
         public async Task<Result<IEnumerable<OrderDto>>> GetOrdersByUserIdAsync(int userId)
         {
             var orders = await _orderRepository.GetOrdersByUserIdAsync(userId);
-            return Result.Ok(orders.Select(o => o.MapToOrderDto()));
+            return Result.Ok<IEnumerable<OrderDto>>(orders.Select(o => o.MapToOrderDto()).ToList());
         }
 
         public async Task<Result<OrderDto>> UpdateOrderPaymentStatusAsync(
