@@ -79,7 +79,6 @@ namespace WebMVC.Controllers
             return RedirectToAction("Detail", "Book", new { id = res.Value.Book.Id });
         }
 
-        // ---------- EDIT ----------
         [HttpGet]
         public async Task<IActionResult> Edit(int id, int? bookId = null)
         {
