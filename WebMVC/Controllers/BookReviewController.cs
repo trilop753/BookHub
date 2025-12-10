@@ -32,7 +32,7 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> Create(int bookId)
         {
             var identityUser = await _userManager.GetUserAsync(User);
-            if (identityUser?.User == null)
+            if (identityUser == null || identityUser.User == null)
             {
                 return View("InternalServerError");
             }
@@ -56,7 +56,7 @@ namespace WebMVC.Controllers
             }
 
             var identityUser = await _userManager.GetUserAsync(User);
-            if (identityUser?.User == null)
+            if (identityUser == null || identityUser.User == null)
             {
                 return View("InternalServerError");
             }
@@ -84,7 +84,7 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> Edit(int id, int? bookId = null)
         {
             var identityUser = await _userManager.GetUserAsync(User);
-            if (identityUser?.User == null)
+            if (identityUser == null || identityUser.User == null)
             {
                 return View("InternalServerError");
             }
@@ -128,7 +128,7 @@ namespace WebMVC.Controllers
             }
 
             var identityUser = await _userManager.GetUserAsync(User);
-            if (identityUser?.User == null)
+            if (identityUser == null || identityUser.User == null)
             {
                 return View("InternalServerError");
             }
@@ -179,7 +179,7 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> Delete(int id, int? bookId = null)
         {
             var identityUser = await _userManager.GetUserAsync(User);
-            if (identityUser?.User == null)
+            if (identityUser == null || identityUser.User == null)
             {
                 return View("InternalServerError");
             }
