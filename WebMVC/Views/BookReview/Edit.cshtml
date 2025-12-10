@@ -1,34 +1,31 @@
 ﻿@model WebMVC.Models.Book.BookReviewUpdateViewModel
 
-<div class="container mt-4" style="max-width: 720px;">
-    <h2>Edit Review</h2>
 
-    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+<div asp-validation-summary="All" class="text-danger mb-3"></div>
+<h2>Edit Review</h2>
+<form asp-controller="BookReview"
+      asp-action="Edit"
+      asp-route-id="@Model.Id"
+      method="post">
+    @Html.AntiForgeryToken()
 
-    <form asp-controller="BookReview"
-          asp-action="Edit"
-          asp-route-id="@Model.Id"
-          method="post">
-        @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="BookId" />
 
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" asp-for="BookId" />
+    <div class="mb-3">
+        <label asp-for="Stars" class="form-label"></label>
+        <input asp-for="Stars" class="form-control" type="number" min="1" max="5" />
+        <span asp-validation-for="Stars" class="text-danger"></span>
+    </div>
 
-        <div class="mb-3">
-            <label asp-for="Stars" class="form-label"></label>
-            <input asp-for="Stars" class="form-control" type="number" min="1" max="5" />
-            <span asp-validation-for="Stars" class="text-danger"></span>
-        </div>
+    <div class="mb-3">
+        <label asp-for="Body" class="form-label"></label>
+        <textarea asp-for="Body" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Body" class="text-danger"></span>
+    </div>
 
-        <div class="mb-3">
-            <label asp-for="Body" class="form-label"></label>
-            <textarea asp-for="Body" class="form-control" rows="5"></textarea>
-            <span asp-validation-for="Body" class="text-danger"></span>
-        </div>
-
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a asp-controller="Book" asp-action="Detail" asp-route-id="@Model.BookId" class="btn btn-secondary">Cancel</a>
-        </div>
-    </form>
-</div>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-controller="Book" asp-action="Detail" asp-route-id="@Model.BookId" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
