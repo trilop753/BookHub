@@ -1,5 +1,6 @@
 ﻿@using WebMVC.Constants
 @model WebMVC.Models.Book.BookDetailViewModel
+@using System.Security.Claims
 
 <div class="container mt-5">
 
@@ -127,7 +128,9 @@
                             <span class="text-muted">@review.Stars / 5 ★</span>
                         </div>
 
-                        @if (User.IsInRole(Roles.Admin) || User.Identity?.Name == review.User?.Username)
+                        @if (User.IsInRole(Roles.Admin) ||
+                             (review.User != null &&
+                              User.FindFirstValue(ClaimTypes.NameIdentifier) == review.User.Id.ToString()))
                         {
                             <div class="d-flex gap-2">
                                 <a asp-controller="BookReview"
