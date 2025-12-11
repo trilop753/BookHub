@@ -32,7 +32,7 @@ public class AuthorService : IAuthorService
     public async Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync()
     {
         var authors = await _authorRepository.GetAllWithBooksAsync();
-        return authors.Select(a => a.MapToDto());
+        return authors.Select(a => a.MapToDto()).ToList();
     }
 
     #endregion

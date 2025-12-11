@@ -18,10 +18,39 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background: linear-gradient(135deg, #f5d5ec, #f5d5d5, #f5e5d5);
+    color: #000000;
+    margin-bottom: 60px;
 }
 
 .genre-select option:checked {
     background-color: #0d6efd;
     color: #fff;
+}
+
+table {
+    background-color: #444;
+    color: #f8f9fa;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #cfcfcf;
+}
+
+.table thead {
+    background-color: #222;
+    color: #ffffff;
+}
+
+.table-cover {
+    width: 60px;
+    height: 90px;
+    object-fit: contain;
+    display: block;
 }

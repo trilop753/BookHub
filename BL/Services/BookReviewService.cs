@@ -70,13 +70,13 @@ namespace BL.Services
         public async Task<IEnumerable<BookReviewDto>> GetAllAsync()
         {
             var reviews = await _repository.GetAllAsync();
-            return reviews.Select(r => r.MapToDto());
+            return reviews.Select(r => r.MapToDto()).ToList();
         }
 
         public async Task<IEnumerable<BookReviewDto>> GetAllByBookIdAsync(int bookId)
         {
             var reviews = await _repository.GetByBookIdAsync(bookId);
-            return reviews.Select(r => r.MapToDto());
+            return reviews.Select(r => r.MapToDto()).ToList();
         }
     }
 }
