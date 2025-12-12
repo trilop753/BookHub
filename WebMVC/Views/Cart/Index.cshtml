@@ -12,7 +12,7 @@
 }
 else
 {
-    <form asp-action="Update" method="post">
+    <form id="cartForm" asp-action="Update" method="post">
         @Html.AntiForgeryToken()
 
         <table class="table table-striped">
@@ -51,7 +51,8 @@ else
                             <input asp-for="Items[i].Quantity"
                                    type="number"
                                    min="0"
-                                   class="form-control" />
+                                   class="form-control js-auto-submit" />
+
 
                         </td>
                         <td>
@@ -79,12 +80,24 @@ else
             @total.ToString("C")
         </h4>
 
-        <button type="submit" class="btn btn-primary">
-            Update cart
-        </button>
-
-        <a asp-controller="Order" asp-action="Purchase" class="btn btn-success ms-2">
+        <button type="submit"
+                name="action"
+                value="purchase"
+                class="btn btn-success ms-2">
             Purchase
-        </a>
+        </button>
     </form>
 }
+
+<script>
+  const form = document.getElementById('cartForm');
+
+  document.querySelectorAll('.js-auto-submit').forEach(input => {
+    input.addEventListener('change', () => {
+      if (form.dataset.submitting === '1') return;
+      form.dataset.submitting = '1';
+      form.requestSubmit();
+    });
+  });
+</script>
+
