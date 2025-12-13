@@ -91,14 +91,14 @@ public class CartController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Update(CartViewModel model, int? removeId)
+    public async Task<IActionResult> Update(CartViewModel model, int? removeId, string? action)
     {
         var identityUser = await _userManager.GetUserAsync(User);
         if (identityUser == null || identityUser.User == null)
         {
             return View("InternalServerError");
         }
-        
+
         if (removeId.HasValue)
         {
             await _cartFacade.DeleteCartItemByIdAsync(removeId.Value);
@@ -106,7 +106,7 @@ public class CartController : Controller
             return RedirectToAction(nameof(Index));
         }
 
-        if (!ModelState.IsValid) // should not happen
+        if (!ModelState.IsValid)
         {
             return RedirectToAction(nameof(Index));
         }
@@ -122,7 +122,14 @@ public class CartController : Controller
                 await _cartFacade.UpdateItemQuantityAsync(item.Id, item.Quantity);
             }
         }
+
         _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
+
+        if (string.Equals(action, "purchase", StringComparison.OrdinalIgnoreCase))
+        {
+            return RedirectToAction("Purchase", "Order");
+        }
+
         return RedirectToAction(nameof(Index));
     }
 }
