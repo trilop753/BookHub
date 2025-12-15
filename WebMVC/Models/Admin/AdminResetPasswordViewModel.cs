@@ -6,7 +6,7 @@ public class AdminResetPasswordViewModel
 {
     public string? Query { get; set; }
 
-    public List<UserOptionVm> Results { get; set; } = [];
+    public List<UserOptionViewModel> Results { get; set; } = [];
 
     [Required]
     public string? SelectedUserId { get; set; }
@@ -25,7 +25,7 @@ public class AdminResetPasswordViewModel
     public string ConfirmPassword { get; set; } = string.Empty;
 }
 
-public class UserOptionVm
+public class UserOptionViewModel
 {
     public string Id { get; set; } = string.Empty;
     public string? UserName { get; set; }

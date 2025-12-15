@@ -2,9 +2,9 @@ using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebMVC.Constants;
 using WebMVC.Models.Admin;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebMVC.Controllers;
 
@@ -75,32 +75,32 @@ public class AdminController : Controller
     {
         return View();
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> ResetUserPassword(string? query, string? selectedUserId)
     {
         var model = new AdminResetPasswordViewModel
         {
             Query = query,
-            SelectedUserId = selectedUserId
+            SelectedUserId = selectedUserId,
         };
 
         if (!string.IsNullOrWhiteSpace(query))
         {
             var q = query.Trim();
 
-            model.Results = await _userManager.Users
-                .Where(u =>
-                    (u.Email != null && u.Email.Contains(q)) ||
-                    (u.UserName != null && u.UserName.Contains(q))
+            model.Results = await _userManager
+                .Users.Where(u =>
+                    (u.Email != null && u.Email.Contains(q))
+                    || (u.UserName != null && u.UserName.Contains(q))
                 )
                 .OrderBy(u => u.UserName)
                 .Take(20)
-                .Select(u => new UserOptionVm
+                .Select(u => new UserOptionViewModel
                 {
                     Id = u.Id,
                     UserName = u.UserName,
-                    Email = u.Email
+                    Email = u.Email,
                 })
                 .ToListAsync();
         }
@@ -125,18 +125,18 @@ public class AdminController : Controller
             {
                 var q = model.Query.Trim();
 
-                model.Results = await _userManager.Users
-                    .Where(u =>
-                        (u.Email != null && u.Email.Contains(q)) ||
-                        (u.UserName != null && u.UserName.Contains(q))
+                model.Results = await _userManager
+                    .Users.Where(u =>
+                        (u.Email != null && u.Email.Contains(q))
+                        || (u.UserName != null && u.UserName.Contains(q))
                     )
                     .OrderBy(u => u.UserName)
                     .Take(20)
-                    .Select(u => new UserOptionVm
+                    .Select(u => new UserOptionViewModel
                     {
                         Id = u.Id,
                         UserName = u.UserName,
-                        Email = u.Email
+                        Email = u.Email,
                     })
                     .ToListAsync();
             }
