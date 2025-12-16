@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebMVC.Models.Book.BookViewModel>
+﻿@model WebMVC.Models.Book.PaginatedResultModel<WebMVC.Models.Book.BookViewModel>
 
 @{
 ViewData["Title"] = "Books";
@@ -30,53 +30,71 @@ ViewData["Title"] = "Books";
 
 <div class="container p-1 border rounded-3 shadow-sm bg-light" style="max-width: 1100px">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-2">
-        @foreach (var book in Model)
+        @foreach (var book in Model.Items)
         {
-        <div class="col book-item"
-             data-title="@book.Title"
-             data-author="@book.AuthorName"
-             data-publisher="@book.PublisherName"
-             data-genres="@string.Join(" ", book.Genres.Select(g => g.GenreName))">
+            <div class="col book-item"
+                 data-title="@book.Title"
+                 data-author="@book.AuthorName"
+                 data-publisher="@book.PublisherName"
+                 data-genres="@string.Join(" ", book.Genres.Select(g => g.GenreName))">
 
-            <div class="card h-100 border rounded-3 shadow-sm book-card">
-                <a asp-controller="Book"
-                   asp-action="Detail"
-                   asp-route-id="@book.Id"
-                   class="text-decoration-none text-dark">
+                <div class="card h-100 border rounded-3 shadow-sm book-card">
+                    <a asp-controller="Book"
+                       asp-action="Detail"
+                       asp-route-id="@book.Id"
+                       class="text-decoration-none text-dark">
                     
-                    <div class="card-img-wrapper pt-1 px-1">
-                        <img src="~/cover-images/@book.CoverImageName"
-                             class="book-cover"
-                             alt="failed to load cover image"/>
-                    </div>
+                        <div class="card-img-wrapper pt-1 px-1">
+                            <img src="~/cover-images/@book.CoverImageName"
+                                 class="book-cover"
+                                 alt="failed to load cover image"/>
+                        </div>
 
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title mb-2">@book.Title</h5>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-2">@book.Title</h5>
 
-                        <p class="card-text mb-0">
-                            <span class="fw-semibold"></span> @book.AuthorName
-                        </p>
+                            <p class="card-text mb-0">
+                                <span class="fw-semibold"></span> @book.AuthorName
+                            </p>
 
-                        <p class="card-text mb-2">
-                            <strong>@book.Price.ToString("C")</strong>
-                        </p>
+                            <p class="card-text mb-2">
+                                <strong>@book.Price.ToString("C")</strong>
+                            </p>
 
-                        <p class="card-text mb-2 small">
-                            @Html.Raw(string.Join(", ", book.Genres.Select(g =>
-                                g.IsPrimary
-                                    ? $"<span style='font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>"
-                                    : $"<span style='color:#555; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>")))
-                        </p>
+                            <p class="card-text mb-2 small">
+                                @Html.Raw(string.Join(", ", book.Genres.Select(g =>
+                                    g.IsPrimary
+                                        ? $"<span style='font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>"
+                                        : $"<span style='color:#555; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>")))
+                            </p>
 
-                        <p class="card-text mb-1 small text-muted">
-                            <span class="fw-semibold"></span> @book.PublisherName
-                        </p>
-                    </div>
-                </a>
+                            <p class="card-text mb-1 small text-muted">
+                                <span class="fw-semibold"></span> @book.PublisherName
+                            </p>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
         }
     </div>
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="mt-4 d-flex justify-content-center" aria-label="Books pagination">
+            <ul class="pagination mb-0">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" asp-route-pageSize="@Model.PageSize">Prev</a>
+                </li>
+
+                <li class="page-item disabled">
+                    <span class="page-link">Page @Model.PageIndex / @Model.TotalPages</span>
+                </li>
+
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" asp-route-pageSize="@Model.PageSize">Next</a>
+                </li>
+            </ul>
+        </nav>
+    }
 </div>
 
 @section Scripts {
