@@ -18,21 +18,23 @@ namespace WebMVC.Controllers
             _cache = cache;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 4, string? q = null)
         {
             page = page < 1 ? 1 : page;
             pageSize = (pageSize < 1 || pageSize > 96) ? 24 : pageSize;
+            q = string.IsNullOrWhiteSpace(q) ? null : q.Trim();
 
             var booksRes = await _cache.GetOrCreateAsync(
-                CacheKeys.BookPage(page, pageSize),
-                () => _bookService.GetAllBooksAsync(page: page, pageSize: pageSize)
+                CacheKeys.BookPage(page, pageSize, q),
+                () => _bookService.GetAllBooksAsync(q: q, page: page, pageSize: pageSize)
             );
 
             if (booksRes.IsFailed)
             {
                 return View("InternalServerError");
             }
+
+            ViewData["Q"] = q;
 
             var model = new PaginatedResultModel<BookViewModel>
             {
