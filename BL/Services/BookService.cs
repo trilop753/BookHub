@@ -1,4 +1,5 @@
 ﻿using BL.DTOs.BookDTOs;
+using BL.DTOs.UtilityDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
 using DAL.Models;
@@ -43,13 +44,17 @@ public class BookService : IBookService
     public async Task<Result<IEnumerable<BookDto>>> GetBooksByIdsAsync(int[] ids)
     {
         var books = await _bookRepository.GetBooksAsync(bookIds: ids);
-        return Result.Ok<IEnumerable<BookDto>>(books.Select(b => b.MapToDto()).ToList());
+        return Result.Ok<IEnumerable<BookDto>>(books.Items.Select(b => b.MapToDto()).ToList());
     }
 
-    public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
+    public async Task<PaginatedResult<BookDto>> GetAllBooksAsync(int? page = null, int pageSize = 4)
     {
-        var books = await _bookRepository.GetBooksAsync();
-        return books.Select(b => b.MapToDto()).ToList();
+        var books = await _bookRepository.GetBooksAsync(page: page, pageSize: pageSize);
+        return new PaginatedResult<BookDto>
+        {
+            Items = books.Items.Select(b => b.MapToDto()).ToList(),
+            TotalCount = books.TotalCount,
+        };
     }
 
     public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(

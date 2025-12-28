@@ -91,7 +91,7 @@ public class GenreService : IGenreService
             return Result.Fail($"Genre with id {id} does not exist.");
         }
 
-        var books = await _bookRepository.GetBooksAsync();
+        var books = (await _bookRepository.GetBooksAsync()).Items;
         var hasBooks =
             (genre.Books != null && genre.Books.Any())
             || books.Any(b => b.Genres.Any(gb => gb.GenreId == id));

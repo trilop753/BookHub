@@ -94,7 +94,7 @@ public class PublisherService : IPublisherService
             return Result.Fail($"Publisher with id {id} does not exist.");
         }
 
-        var books = await _bookRepository.GetBooksAsync();
+        var books = (await _bookRepository.GetBooksAsync()).Items;
         var hasBooks =
             (publisher.Books != null && publisher.Books.Any())
             || books.Any(b => b.PublisherId == id);

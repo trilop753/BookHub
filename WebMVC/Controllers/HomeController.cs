@@ -18,16 +18,15 @@ namespace WebMVC.Controllers
             _cache = cache;
         }
 
-        // Page size can be updated, 4 is for development purposes
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 4)
         {
             page = page < 1 ? 1 : page;
-            pageSize = pageSize is < 1 or > 96 ? 24 : pageSize;
+            pageSize = (pageSize < 1 || pageSize > 96) ? 24 : pageSize;
 
             var booksRes = await _cache.GetOrCreateAsync(
-                CacheKeys.BookAll(),
-                () => _bookService.GetAllBooksAsync()
+                CacheKeys.BookPage(page, pageSize),
+                () => _bookService.GetAllBooksAsync(page: page, pageSize: pageSize)
             );
 
             if (booksRes.IsFailed)
@@ -35,23 +34,12 @@ namespace WebMVC.Controllers
                 return View("InternalServerError");
             }
 
-            var all = booksRes.Value
-                .Select(b => b.MapToView())
-                .ToList();
-
-            var totalCount = all.Count;
-
-            var items = all
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
             var model = new PaginatedResultModel<BookViewModel>
             {
-                Items = items,
+                Items = booksRes.Value.Items.Select(b => b.MapToView()),
                 PageIndex = page,
                 PageSize = pageSize,
-                TotalCount = totalCount
+                TotalCount = booksRes.Value.TotalCount,
             };
 
             return View(model);

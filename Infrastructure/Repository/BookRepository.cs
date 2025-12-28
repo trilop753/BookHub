@@ -11,19 +11,17 @@ namespace Infrastructure.Repository
         public BookRepository(BookHubDbContext context)
             : base(context) { }
 
-        public async Task<IEnumerable<Book>> GetBooksAsync(
+        public async Task<PaginatedResult<Book>> GetBooksAsync(
             int[]? bookIds = null,
-            bool includeAuthor = true,
-            bool includePublisher = true,
-            bool includeGenres = true,
-            bool includeReviews = true
+            int? page = null,
+            int pageSize = 4
         )
         {
             IQueryable<Book> query = GetBasicQuery(
-                includeAuthor,
-                includePublisher,
-                includeGenres,
-                includeReviews
+                includeAuthor: true,
+                includePublisher: true,
+                includeGenres: true,
+                includeReviews: true
             );
 
             if (bookIds != null)
@@ -31,7 +29,19 @@ namespace Infrastructure.Repository
                 query = query.Where(b => bookIds.Contains(b.Id));
             }
 
-            return await query.ToListAsync();
+            int totalCount = await query.CountAsync();
+            IEnumerable<Book> books = new List<Book>();
+
+            if (page != null)
+            {
+                books = await query.Skip(((int)page - 1) * pageSize).Take(pageSize).ToListAsync();
+            }
+            else
+            {
+                books = await query.ToListAsync();
+            }
+
+            return new PaginatedResult<Book> { Items = books, TotalCount = totalCount };
         }
 
         public async Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria)
@@ -44,7 +54,6 @@ namespace Infrastructure.Repository
                 includeGenres: true,
                 includeReviews: false
             );
-
 
             if (searchCriteria.LowPrice.HasValue)
             {
@@ -105,11 +114,14 @@ namespace Infrastructure.Repository
             else
             {
                 query = query.Where(b =>
-                    (hasTitle && EF.Functions.Like(b.Title, $"%{title}%")) ||
-                    (hasDesc && EF.Functions.Like(b.Description, $"%{desc}%")) ||
-                    (hasGenres && b.Genres.Any(gb => searchCriteria.GenreIds!.Contains(gb.Genre.Id))) ||
-                    (hasAuthor && b.AuthorId == searchCriteria.AuthorId!.Value) ||
-                    (hasPublisher && b.PublisherId == searchCriteria.PublisherId!.Value)
+                    (hasTitle && EF.Functions.Like(b.Title, $"%{title}%"))
+                    || (hasDesc && EF.Functions.Like(b.Description, $"%{desc}%"))
+                    || (
+                        hasGenres
+                        && b.Genres.Any(gb => searchCriteria.GenreIds!.Contains(gb.Genre.Id))
+                    )
+                    || (hasAuthor && b.AuthorId == searchCriteria.AuthorId!.Value)
+                    || (hasPublisher && b.PublisherId == searchCriteria.PublisherId!.Value)
                 );
             }
 
@@ -125,7 +137,6 @@ namespace Infrastructure.Repository
 
             return value.Trim();
         }
-
 
         public async Task<Book?> GetBookByIdWithGenresIncludedAsync(int bookId)
         {
