@@ -8,7 +8,8 @@ namespace BL.Services.Interfaces
     {
         public Task<Result<BookDto>> GetBookByIdAsync(int id);
         public Task<Result<IEnumerable<BookDto>>> GetBooksByIdsAsync(int[] id);
-        public Task<PaginatedResult<BookDto>> GetAllBooksAsync(int? page = null, int pageSize = 4);
+        public Task<PaginatedResult<BookDto>> GetAllBooksAsync(string? q, int? page = null, int pageSize = 4);
+
         public Task<Result<BookDto>> CreateBookAsync(BookCreateDto dto);
         public Task<Result> UpdateBookAsync(int id, BookUpdateDto dto);
         public Task<Result<string>> DeleteBookAsync(int id);
