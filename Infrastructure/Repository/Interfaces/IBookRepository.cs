@@ -7,9 +7,11 @@ namespace Infrastructure.Repository.Interfaces
     {
         public Task<PaginatedResult<Book>> GetBooksAsync(
             int[]? bookIds = null,
+            string? q = null,
             int? page = null,
             int pageSize = 4
         );
+
 
         public Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria);
 

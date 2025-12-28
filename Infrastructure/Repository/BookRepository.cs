@@ -13,6 +13,7 @@ namespace Infrastructure.Repository
 
         public async Task<PaginatedResult<Book>> GetBooksAsync(
             int[]? bookIds = null,
+            string? q = null,
             int? page = null,
             int pageSize = 4
         )
@@ -29,16 +30,32 @@ namespace Infrastructure.Repository
                 query = query.Where(b => bookIds.Contains(b.Id));
             }
 
-            int totalCount = await query.CountAsync();
-            IEnumerable<Book> books = new List<Book>();
+            q = Normalize(q);
 
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                query = Queryable.Where(query, b =>
+                    EF.Functions.Like(b.Title, $"%{q}%")
+                    || (b.Author != null && EF.Functions.Like(b.Author.Name, $"%{q}%"))
+                    || (b.Publisher != null && EF.Functions.Like(b.Publisher.Name, $"%{q}%"))
+                    || b.Genres.Any(gb => EF.Functions.Like(gb.Genre.Name, $"%{q}%"))
+                );
+            }
+
+            var totalCount = await query.CountAsync();
+
+            List<Book> books;
             if (page != null)
             {
-                books = await query.Skip(((int)page - 1) * pageSize).Take(pageSize).ToListAsync();
+                books = await query
+                    .OrderBy(b => b.Title)
+                    .Skip(((int)page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
             }
             else
             {
-                books = await query.ToListAsync();
+                books = await query.OrderBy(b => b.Title).ToListAsync();
             }
 
             return new PaginatedResult<Book> { Items = books, TotalCount = totalCount };
