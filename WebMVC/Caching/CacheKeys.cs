@@ -14,11 +14,11 @@ public static class CacheKeys
         return "Book:All";
     }
 
-    public static string BookPage(int page, int pageSize)
-    {
-        return $"Book:{page}|{pageSize}";
-    }
-
+    public static string BookPage(int page, int pageSize, string? q)
+        => q is null
+            ? $"books:p={page}:s={pageSize}"
+            : $"books:p={page}:s={pageSize}:q={q.ToLowerInvariant()}";
+    
     #endregion
 
     #region Giftcard
