@@ -91,7 +91,7 @@ public class GenreService : IGenreService
             return Result.Fail($"Genre with id {id} does not exist.");
         }
 
-        var books = (await _bookRepository.GetBooksAsync()).Items;
+        var books = await _bookRepository.GetAllAsync();
         var hasBooks =
             (genre.Books != null && genre.Books.Any())
             || books.Any(b => b.Genres.Any(gb => gb.GenreId == id));
@@ -105,5 +105,12 @@ public class GenreService : IGenreService
         await _genreRepository.SaveChangesAsync();
 
         return Result.Ok();
+    }
+
+    public async Task<IEnumerable<GenreDto>> GetGenresByNameAsync(string query)
+    {
+        var genres = await _genreRepository.GetManyByNameAsync(query);
+
+        return genres.Select(g => g.MapToDto());
     }
 }

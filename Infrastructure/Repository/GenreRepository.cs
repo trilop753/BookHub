@@ -17,6 +17,13 @@ namespace Infrastructure.Repository
                 .FirstOrDefaultAsync(g => g.Name.ToLower() == name.ToLower());
         }
 
+        public async Task<IEnumerable<Genre>> GetManyByNameAsync(string query)
+        {
+            return await _dbSet
+                .Where(g => g.Name.ToLower().Contains(query.ToLower()))
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Genre>> GetAllWithBooksAsync()
         {
             return await _dbSet

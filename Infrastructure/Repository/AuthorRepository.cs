@@ -29,5 +29,15 @@ namespace Infrastructure.Repository
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Author>> GetByNameAsync(string query)
+        {
+            return await _dbSet
+                .Where(a =>
+                    a.Name.ToLower().Contains(query.ToLower())
+                    || a.Surname.ToLower().Contains(query.ToLower())
+                )
+                .ToListAsync();
+        }
     }
 }

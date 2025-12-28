@@ -7,6 +7,7 @@ namespace BL.Services.Interfaces
     {
         Task<Result<PublisherDto>> GetPublisherByIdAsync(int id);
         Task<IEnumerable<PublisherDto>> GetAllPublishersAsync();
+        Task<IEnumerable<PublisherDto>> GetPublishersByNameAsync(string query);
         Task<Result<PublisherDto>> CreatePublisherAsync(PublisherCreateDto dto);
         Task<Result> UpdatePublisherAsync(int id, PublisherUpdateDto dto);
         Task<Result> DeletePublisherAsync(int id);

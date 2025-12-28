@@ -1,7 +1,6 @@
 ﻿using BL.DTOs.PublisherDTOs;
 using BL.Services.Interfaces;
 using DAL.Models;
-using DAL.UtilityModels;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
@@ -282,10 +281,10 @@ namespace BL.Tests.Services
                 Name = "ToDelete",
                 Books = new List<Book>(),
             };
-            var books = new PaginatedResult<Book>();
+            var books = new List<Book>();
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Publisher?>(publisher));
-            bookRepository.GetBooksAsync().Returns(Task.FromResult<PaginatedResult<Book>>(books));
+            bookRepository.GetAllAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
             repository.SaveChangesAsync().Returns(Task.CompletedTask);
 
             var serviceProvider = _serviceProviderBuilder
@@ -344,8 +343,8 @@ namespace BL.Tests.Services
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Publisher?>(publisher));
             bookRepository
-                .GetBooksAsync()
-                .Returns(Task.FromResult<PaginatedResult<Book>>(new PaginatedResult<Book>()));
+                .GetAllAsync()
+                .Returns(Task.FromResult<IEnumerable<Book>>(new List<Book>()));
 
             var serviceProvider = _serviceProviderBuilder
                 .AddScoped<IPublisherRepository>(repository)
@@ -376,17 +375,13 @@ namespace BL.Tests.Services
                 Name = "ToDelete",
                 Books = new List<Book>(),
             };
-            var books = new PaginatedResult<Book>()
+            var books = new List<Book>()
             {
-                Items = new List<Book>()
-                {
-                    new Book() { Title = "Ref", PublisherId = id },
-                },
-                TotalCount = 1,
+                new Book() { Title = "Ref", PublisherId = id },
             };
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Publisher?>(publisher));
-            bookRepository.GetBooksAsync().Returns(Task.FromResult<PaginatedResult<Book>>(books));
+            bookRepository.GetAllAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
 
             var serviceProvider = _serviceProviderBuilder
                 .AddScoped<IPublisherRepository>(repository)

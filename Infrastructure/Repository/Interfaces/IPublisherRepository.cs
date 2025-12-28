@@ -6,5 +6,6 @@ namespace Infrastructure.Repository.Interfaces
     {
         Task<Publisher?> GetByNameAsync(string name);
         Task<IEnumerable<Publisher>> GetAllWithBooksAsync();
+        Task<IEnumerable<Publisher>> GetManyByNameAsync(string query);
     }
 }
