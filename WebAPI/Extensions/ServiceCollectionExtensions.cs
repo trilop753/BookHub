@@ -76,6 +76,7 @@ namespace WebAPI.Extensions
             services.AddScoped<ICartFacade, CartFacade>();
             services.AddScoped<IOrderFacade, OrderFacade>();
             services.AddScoped<IGiftcardFacade, GiftcardFacade>();
+            services.AddScoped<ISearchFacade, SearchFacade>();
             return services;
         }
 

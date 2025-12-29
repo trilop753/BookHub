@@ -55,7 +55,7 @@ namespace BL.Mappers
                 GenreIds = model.GenreIds,
                 AuthorId = model.AuthorId,
                 PublisherId = model.PublisherId,
-                SearchMode = model.SearchMode,
+                SearchMode = (BookSearchMode)model.SearchMode,
                 Query = model.Query,
             };
         }

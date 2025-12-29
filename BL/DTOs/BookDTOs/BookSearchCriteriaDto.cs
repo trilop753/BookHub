@@ -1,4 +1,4 @@
-﻿using DAL.UtilityModels;
+﻿using BL.DTOs.UtilityDTOs;
 
 namespace BL.DTOs.BookDTOs
 {
@@ -32,7 +32,7 @@ namespace BL.DTOs.BookDTOs
         /// <summary>
         /// How multiple criteria are combined.
         /// </summary>
-        public BookSearchMode SearchMode { get; set; } = BookSearchMode.And;
+        public SearchMode SearchMode { get; set; } = SearchMode.And;
 
         /// <summary>
         /// Convenience full-text query.
