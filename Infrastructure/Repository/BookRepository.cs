@@ -34,11 +34,13 @@ namespace Infrastructure.Repository
 
             if (!string.IsNullOrWhiteSpace(q))
             {
-                query = Queryable.Where(query, b =>
-                    EF.Functions.Like(b.Title, $"%{q}%")
-                    || (b.Author != null && EF.Functions.Like(b.Author.Name, $"%{q}%"))
-                    || (b.Publisher != null && EF.Functions.Like(b.Publisher.Name, $"%{q}%"))
-                    || b.Genres.Any(gb => EF.Functions.Like(gb.Genre.Name, $"%{q}%"))
+                query = Queryable.Where(
+                    query,
+                    b =>
+                        EF.Functions.Like(b.Title, $"%{q}%")
+                        || (b.Author != null && EF.Functions.Like(b.Author.Name, $"%{q}%"))
+                        || (b.Publisher != null && EF.Functions.Like(b.Publisher.Name, $"%{q}%"))
+                        || b.Genres.Any(gb => EF.Functions.Like(gb.Genre.Name, $"%{q}%"))
                 );
             }
 

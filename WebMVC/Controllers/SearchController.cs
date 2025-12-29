@@ -1,6 +1,5 @@
-using BL.DTOs.BookDTOs;
-using BL.Services.Interfaces;
-using DAL.UtilityModels;
+using BL.DTOs.UtilityDTOs;
+using BL.Facades.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Caching;
 using WebMVC.Constants;
@@ -9,24 +8,12 @@ namespace WebMVC.Controllers;
 
 public class SearchController : Controller
 {
-    private readonly IBookService _bookService;
-    private readonly IAuthorService _authorService;
-    private readonly IPublisherService _publisherService;
-    private readonly IGenreService _genreService;
+    private readonly ISearchFacade _searchFacade;
     private readonly IAppCache _cache;
 
-    public SearchController(
-        IBookService bookService,
-        IAuthorService authorService,
-        IPublisherService publisherService,
-        IGenreService genreService,
-        IAppCache cache
-    )
+    public SearchController(ISearchFacade searchFacade, IAppCache cache)
     {
-        _bookService = bookService;
-        _authorService = authorService;
-        _publisherService = publisherService;
-        _genreService = genreService;
+        _searchFacade = searchFacade;
         _cache = cache;
     }
 
@@ -57,11 +44,10 @@ public class SearchController : Controller
 
     private async Task<object> BuildSuggestionsAsync(string q)
     {
-        // BOOKS: DB-side OR search via your updated repository logic
-        var criteria = new BookSearchCriteriaDto { Query = q, SearchMode = BookSearchMode.Or };
+        var res = await _searchFacade.QuerySearch(q, SearchMode.Or);
 
-        var titles = (await _bookService.GetFilteredAsync(criteria))
-            .Take(6)
+        var titles = res
+            .Books.Take(6)
             .Select(b => new
             {
                 id = b.Id,
@@ -70,18 +56,15 @@ public class SearchController : Controller
             })
             .ToList();
 
-        var genres = (await _genreService.GetGenresByNameAsync(q))
-            .Take(6)
-            .Select(g => new { text = g.Name })
-            .ToList();
+        var genres = res.Genres.Take(6).Select(g => new { text = g.Name }).ToList();
 
-        var authors = (await _authorService.GetAuthorsByNameAsync(q))
-            .Take(3)
+        var authors = res
+            .Authors.Take(3)
             .Select(a => new { text = $"{a.Name} {a.Surname}", kind = "author" })
             .ToList();
 
-        var publishers = (await _publisherService.GetPublishersByNameAsync(q))
-            .Take(3)
+        var publishers = res
+            .Publishers.Take(3)
             .Select(p => new { text = p.Name, kind = "publisher" })
             .ToList();
 
