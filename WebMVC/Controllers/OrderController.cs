@@ -107,6 +107,7 @@ namespace WebMVC.Controllers
             }
 
             _cache.Remove(CacheKeys.OrderAll(identityUser.User.Id));
+            _cache.Remove(CacheKeys.OrderDetail(id));
             return View("Detail", res.Value.MapToView());
         }
 
