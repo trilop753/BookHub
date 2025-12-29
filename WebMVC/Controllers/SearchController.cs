@@ -20,7 +20,8 @@ public class SearchController : Controller
         IAuthorService authorService,
         IPublisherService publisherService,
         IGenreService genreService,
-        IAppCache cache)
+        IAppCache cache
+    )
     {
         _bookService = bookService;
         _authorService = authorService;
@@ -36,12 +37,14 @@ public class SearchController : Controller
 
         if (q.Length < 2)
         {
-            return Json(new
-            {
-                titles = Array.Empty<object>(),
-                genres = Array.Empty<object>(),
-                authorPublishers = Array.Empty<object>()
-            });
+            return Json(
+                new
+                {
+                    titles = Array.Empty<object>(),
+                    genres = Array.Empty<object>(),
+                    authorPublishers = Array.Empty<object>(),
+                }
+            );
         }
 
         var suggestions = await _cache.GetOrCreateAsync(
@@ -55,57 +58,38 @@ public class SearchController : Controller
     private async Task<object> BuildSuggestionsAsync(string q)
     {
         // BOOKS: DB-side OR search via your updated repository logic
-        var criteria = new BookSearchCriteriaDto
-        {
-            Query = q,
-            SearchMode = BookSearchMode.Or
-        };
+        var criteria = new BookSearchCriteriaDto { Query = q, SearchMode = BookSearchMode.Or };
 
-        var books = (await _bookService.GetFilteredAsync(criteria))
-            .Take(30)
-            .ToList();
-
-        var titles = books
-            .Where(b => ContainsCi(b.Title, q))
+        var titles = (await _bookService.GetFilteredAsync(criteria))
             .Take(6)
             .Select(b => new
             {
                 id = b.Id,
                 text = b.Title,
-                meta = $"{b.AuthorName} • {b.PublisherName}"
+                meta = $"{b.AuthorName} • {b.PublisherName}",
             })
             .ToList();
 
-        // GENRES/AUTHORS/PUBLISHERS: independent of books (even if 0 books)
-        var genres = (await _genreService.GetAllGenresAsync())
-            .Select(g => g.Name)
-            .Where(name => !string.IsNullOrWhiteSpace(name) && ContainsCi(name, q))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
+        var genres = (await _genreService.GetGenresByNameAsync(q))
             .Take(6)
-            .Select(name => new { text = name })
+            .Select(g => new { text = g.Name })
             .ToList();
 
-        var authors = (await _authorService.GetAllAuthorsAsync())
-            .Select(a => $"{a.Name} {a.Surname}".Trim())
-            .Where(full => !string.IsNullOrWhiteSpace(full) && ContainsCi(full, q))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
+        var authors = (await _authorService.GetAuthorsByNameAsync(q))
             .Take(3)
-            .Select(full => new { text = full, kind = "author" })
+            .Select(a => new { text = $"{a.Name} {a.Surname}", kind = "author" })
             .ToList();
 
-        var publishers = (await _publisherService.GetAllPublishersAsync())
-            .Select(p => p.Name)
-            .Where(name => !string.IsNullOrWhiteSpace(name) && ContainsCi(name, q))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
+        var publishers = (await _publisherService.GetPublishersByNameAsync(q))
             .Take(3)
-            .Select(name => new { text = name, kind = "publisher" })
+            .Select(p => new { text = p.Name, kind = "publisher" })
             .ToList();
 
         return new
         {
             titles,
             genres,
-            authorPublishers = authors.Concat(publishers).Take(6).ToList()
+            authorPublishers = authors.Concat(publishers).ToList(),
         };
     }
 
@@ -118,15 +102,5 @@ public class SearchController : Controller
             q = q.Replace("  ", " ");
         }
         return q;
-    }
-
-    private static bool ContainsCi(string? haystack, string needle)
-    {
-        if (string.IsNullOrWhiteSpace(haystack))
-        {
-            return false;
-        }
-
-        return haystack.Contains(needle, StringComparison.OrdinalIgnoreCase);
     }
 }

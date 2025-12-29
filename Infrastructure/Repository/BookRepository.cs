@@ -11,19 +11,18 @@ namespace Infrastructure.Repository
         public BookRepository(BookHubDbContext context)
             : base(context) { }
 
-        public async Task<IEnumerable<Book>> GetBooksAsync(
+        public async Task<PaginatedResult<Book>> GetBooksAsync(
             int[]? bookIds = null,
-            bool includeAuthor = true,
-            bool includePublisher = true,
-            bool includeGenres = true,
-            bool includeReviews = true
+            string? q = null,
+            int? page = null,
+            int pageSize = 4
         )
         {
             IQueryable<Book> query = GetBasicQuery(
-                includeAuthor,
-                includePublisher,
-                includeGenres,
-                includeReviews
+                includeAuthor: true,
+                includePublisher: true,
+                includeGenres: true,
+                includeReviews: true
             );
 
             if (bookIds != null)
@@ -31,7 +30,35 @@ namespace Infrastructure.Repository
                 query = query.Where(b => bookIds.Contains(b.Id));
             }
 
-            return await query.ToListAsync();
+            q = Normalize(q);
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                query = Queryable.Where(query, b =>
+                    EF.Functions.Like(b.Title, $"%{q}%")
+                    || (b.Author != null && EF.Functions.Like(b.Author.Name, $"%{q}%"))
+                    || (b.Publisher != null && EF.Functions.Like(b.Publisher.Name, $"%{q}%"))
+                    || b.Genres.Any(gb => EF.Functions.Like(gb.Genre.Name, $"%{q}%"))
+                );
+            }
+
+            var totalCount = await query.CountAsync();
+
+            List<Book> books;
+            if (page != null)
+            {
+                books = await query
+                    .OrderBy(b => b.Title)
+                    .Skip(((int)page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+            else
+            {
+                books = await query.OrderBy(b => b.Title).ToListAsync();
+            }
+
+            return new PaginatedResult<Book> { Items = books, TotalCount = totalCount };
         }
 
         public async Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria)
@@ -44,7 +71,6 @@ namespace Infrastructure.Repository
                 includeGenres: true,
                 includeReviews: false
             );
-
 
             if (searchCriteria.LowPrice.HasValue)
             {
@@ -105,11 +131,14 @@ namespace Infrastructure.Repository
             else
             {
                 query = query.Where(b =>
-                    (hasTitle && EF.Functions.Like(b.Title, $"%{title}%")) ||
-                    (hasDesc && EF.Functions.Like(b.Description, $"%{desc}%")) ||
-                    (hasGenres && b.Genres.Any(gb => searchCriteria.GenreIds!.Contains(gb.Genre.Id))) ||
-                    (hasAuthor && b.AuthorId == searchCriteria.AuthorId!.Value) ||
-                    (hasPublisher && b.PublisherId == searchCriteria.PublisherId!.Value)
+                    (hasTitle && EF.Functions.Like(b.Title, $"%{title}%"))
+                    || (hasDesc && EF.Functions.Like(b.Description, $"%{desc}%"))
+                    || (
+                        hasGenres
+                        && b.Genres.Any(gb => searchCriteria.GenreIds!.Contains(gb.Genre.Id))
+                    )
+                    || (hasAuthor && b.AuthorId == searchCriteria.AuthorId!.Value)
+                    || (hasPublisher && b.PublisherId == searchCriteria.PublisherId!.Value)
                 );
             }
 
@@ -125,7 +154,6 @@ namespace Infrastructure.Repository
 
             return value.Trim();
         }
-
 
         public async Task<Book?> GetBookByIdWithGenresIncludedAsync(int bookId)
         {

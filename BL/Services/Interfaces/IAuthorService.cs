@@ -7,6 +7,7 @@ namespace BL.Services.Interfaces
     {
         Task<Result<AuthorDto>> GetAuthorByIdAsync(int id);
         Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync();
+        Task<IEnumerable<AuthorDto>> GetAuthorsByNameAsync(string query);
         Task<Result<AuthorDto>> CreateAuthorAsync(AuthorCreateDto dto);
         Task<Result> UpdateAuthorAsync(int id, AuthorUpdateDto dto);
         Task<Result> DeleteAuthorAsync(int id);

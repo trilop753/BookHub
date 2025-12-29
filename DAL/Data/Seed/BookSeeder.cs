@@ -54,7 +54,7 @@ namespace DAL.Data.Seed
                 .RuleFor(b => b.EditCount, f => f.Random.Int(0, 10))
                 .RuleFor(b => b.LastEditedById, f => f.Random.Int(1, 5));
 
-            return faker.Generate(4);
+            return faker.Generate(32);
         }
     }
 }

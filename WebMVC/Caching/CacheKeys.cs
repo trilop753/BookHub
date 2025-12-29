@@ -14,6 +14,11 @@ public static class CacheKeys
         return "Book:All";
     }
 
+    public static string BookPage(int page, int pageSize, string? q)
+        => q is null
+            ? $"books:p={page}:s={pageSize}"
+            : $"books:p={page}:s={pageSize}:q={q.ToLowerInvariant()}";
+    
     #endregion
 
     #region Giftcard
@@ -79,7 +84,7 @@ public static class CacheKeys
     {
         return $"Cart:All:{userId}";
     }
-    
+
     public static string BookSearchSuggestions(string query)
     {
         return $"Book:Search:Suggestions:{query}";

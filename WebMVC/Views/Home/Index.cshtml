@@ -1,7 +1,8 @@
-﻿@model IEnumerable<WebMVC.Models.Book.BookViewModel>
+﻿@model WebMVC.Models.Book.PaginatedResultModel<WebMVC.Models.Book.BookViewModel>
 
 @{
-ViewData["Title"] = "Books";
+    ViewData["Title"] = "Books";
+    var currentQ = ViewData["Q"] as string ?? "";
 }
 
 <h1 class="display-4 text-center mb-4">Books</h1>
@@ -13,7 +14,8 @@ ViewData["Title"] = "Books";
                type="text"
                class="form-control"
                placeholder="Search by title, genre, author or publisher…"
-               autocomplete="off" />
+               autocomplete="off"
+               value="@currentQ" />
         <button id="clear" type="button" class="btn btn-outline-secondary">✕</button>
     </div>
 
@@ -30,53 +32,79 @@ ViewData["Title"] = "Books";
 
 <div class="container p-1 border rounded-3 shadow-sm bg-light" style="max-width: 1100px">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-2">
-        @foreach (var book in Model)
+        @foreach (var book in Model.Items)
         {
-        <div class="col book-item"
-             data-title="@book.Title"
-             data-author="@book.AuthorName"
-             data-publisher="@book.PublisherName"
-             data-genres="@string.Join(" ", book.Genres.Select(g => g.GenreName))">
+            <div class="col book-item">
+                <div class="card h-100 border rounded-3 shadow-sm book-card">
+                    <a asp-controller="Book"
+                       asp-action="Detail"
+                       asp-route-id="@book.Id"
+                       class="text-decoration-none text-dark">
 
-            <div class="card h-100 border rounded-3 shadow-sm book-card">
-                <a asp-controller="Book"
-                   asp-action="Detail"
-                   asp-route-id="@book.Id"
-                   class="text-decoration-none text-dark">
-                    
-                    <div class="card-img-wrapper pt-1 px-1">
-                        <img src="~/cover-images/@book.CoverImageName"
-                             class="book-cover"
-                             alt="failed to load cover image"/>
-                    </div>
+                        <div class="card-img-wrapper pt-1 px-1">
+                            <img src="~/cover-images/@book.CoverImageName"
+                                 class="book-cover"
+                                 alt="failed to load cover image" />
+                        </div>
 
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title mb-2">@book.Title</h5>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-2">@book.Title</h5>
 
-                        <p class="card-text mb-0">
-                            <span class="fw-semibold"></span> @book.AuthorName
-                        </p>
+                            <p class="card-text mb-0">
+                                @book.AuthorName
+                            </p>
 
-                        <p class="card-text mb-2">
-                            <strong>@book.Price.ToString("C")</strong>
-                        </p>
+                            <p class="card-text mb-2">
+                                <strong>@book.Price.ToString("C")</strong>
+                            </p>
 
-                        <p class="card-text mb-2 small">
-                            @Html.Raw(string.Join(", ", book.Genres.Select(g =>
-                                g.IsPrimary
-                                    ? $"<span style='font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>"
-                                    : $"<span style='color:#555; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>")))
-                        </p>
+                            <p class="card-text mb-2 small">
+                                @Html.Raw(string.Join(", ", book.Genres.Select(g =>
+                                    g.IsPrimary
+                                        ? $"<span style='font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>"
+                                        : $"<span style='color:#555; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>")))
+                            </p>
 
-                        <p class="card-text mb-1 small text-muted">
-                            <span class="fw-semibold"></span> @book.PublisherName
-                        </p>
-                    </div>
-                </a>
+                            <p class="card-text mb-1 small text-muted">
+                                @book.PublisherName
+                            </p>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
         }
     </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="mt-4 d-flex justify-content-center" aria-label="Books pagination">
+            <ul class="pagination mb-0">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(Model.PageIndex - 1)"
+                       asp-route-pageSize="@Model.PageSize"
+                       asp-route-q="@currentQ">
+                        Prev
+                    </a>
+                </li>
+
+                <li class="page-item disabled">
+                    <span class="page-link">Page @Model.PageIndex / @Model.TotalPages</span>
+                </li>
+
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-page="@(Model.PageIndex + 1)"
+                       asp-route-pageSize="@Model.PageSize"
+                       asp-route-q="@currentQ">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
 </div>
 
 @section Scripts {
@@ -87,7 +115,6 @@ ViewData["Title"] = "Books";
         const dd = document.getElementById("dropdown");
         const ddInner = document.getElementById("dropdownInner");
 
-        const items = Array.from(document.querySelectorAll(".book-item"));
         let timer = null;
 
         const esc = (s) => (s ?? "").toString()
@@ -98,65 +125,56 @@ ViewData["Title"] = "Books";
         const show = () => dd.style.display = "block";
         const hide = () => dd.style.display = "none";
 
-        const applyFilterToGrid = (q) => {
-            const needle = (q ?? "").trim().toLowerCase();
+        const goSearch = (value) => {
+            const q = (value ?? "").trim();
+            const url = new URL(window.location.href);
 
-            if (!needle) {
-                items.forEach(i => i.style.display = "");
-                return;
-            }
+            if (q.length) url.searchParams.set("q", q);
+            else url.searchParams.delete("q");
 
-            items.forEach(i => {
-                const hay = (
-                    (i.dataset.title || "") + " " +
-                    (i.dataset.author || "") + " " +
-                    (i.dataset.publisher || "") + " " +
-                    (i.dataset.genres || "")
-                ).toLowerCase();
-
-                i.style.display = hay.includes(needle) ? "" : "none";
-            });
+            url.searchParams.set("page", "1");
+            window.location.href = url.toString();
         };
 
         const renderSection = (label, itemsHtml) => `
-                <div class="px-3 pt-3 pb-2 small text-uppercase text-muted fw-semibold">${esc(label)}</div>
-                ${itemsHtml || `<div class="px-3 pb-2 text-muted small">None</div>`}
-            `;
+            <div class="px-3 pt-3 pb-2 small text-uppercase text-muted fw-semibold">${esc(label)}</div>
+            ${itemsHtml || `<div class="px-3 pb-2 text-muted small">None</div>`}
+        `;
 
         const render = (data) => {
             const titles = (data.titles || []).map(x => `
-                    <a class="item d-block text-decoration-none text-dark px-3 py-2"
-                       href="/Book/Detail/${x.id}">
-                        <div class="fw-semibold">${esc(x.text)}</div>
-                        <div class="text-muted small">${esc(x.meta)}</div>
-                    </a>
-                `).join("");
+                <a class="item d-block text-decoration-none text-dark px-3 py-2"
+                   href="/Book/Detail/${x.id}">
+                    <div class="fw-semibold">${esc(x.text)}</div>
+                    <div class="text-muted small">${esc(x.meta)}</div>
+                </a>
+            `).join("");
 
             const genres = (data.genres || []).map(x => `
-                    <button type="button"
-                            class="item w-100 text-start border-0 bg-white px-3 py-2"
-                            data-filter="${esc(x.text)}">
-                        <div class="fw-semibold">${esc(x.text)}</div>
-                        <div class="text-muted small">Genre</div>
-                    </button>
-                `).join("");
+                <button type="button"
+                        class="item w-100 text-start border-0 bg-white px-3 py-2"
+                        data-filter="${esc(x.text)}">
+                    <div class="fw-semibold">${esc(x.text)}</div>
+                    <div class="text-muted small">Genre</div>
+                </button>
+            `).join("");
 
             const ap = (data.authorPublishers || []).map(x => `
-                    <button type="button"
-                            class="item w-100 text-start border-0 bg-white px-3 py-2"
-                            data-filter="${esc(x.text)}">
-                        <div class="fw-semibold">${esc(x.text)}</div>
-                        <div class="text-muted small">${esc(x.kind === "publisher" ? "Publisher" : "Author")}</div>
-                    </button>
-                `).join("");
+                <button type="button"
+                        class="item w-100 text-start border-0 bg-white px-3 py-2"
+                        data-filter="${esc(x.text)}">
+                    <div class="fw-semibold">${esc(x.text)}</div>
+                    <div class="text-muted small">${esc(x.kind === "publisher" ? "Publisher" : "Author")}</div>
+                </button>
+            `).join("");
 
             return `
-                    ${renderSection("Books", titles)}
-                    <div class="border-top"></div>
-                    ${renderSection("Genres", genres)}
-                    <div class="border-top"></div>
-                    ${renderSection("Autor / Publisher", ap)}
-                `;
+                ${renderSection("Books", titles)}
+                <div class="border-top"></div>
+                ${renderSection("Genres", genres)}
+                <div class="border-top"></div>
+                ${renderSection("Autor / Publisher", ap)}
+            `;
         };
 
         const wireFilterButtons = () => {
@@ -165,8 +183,7 @@ ViewData["Title"] = "Books";
                     const value = btn.getAttribute("data-filter") || "";
                     input.value = value;
                     hide();
-                    applyFilterToGrid(value);
-                    input.focus();
+                    goSearch(value);
                 });
             });
         };
@@ -211,21 +228,19 @@ ViewData["Title"] = "Books";
             if (e.key === "Escape") {
                 input.value = "";
                 hide();
-                applyFilterToGrid("");
             }
 
             if (e.key === "Enter") {
                 e.preventDefault();
-                applyFilterToGrid(input.value);
                 hide();
+                goSearch(input.value);
             }
         });
 
         clearBtn.addEventListener("click", () => {
             input.value = "";
             hide();
-            applyFilterToGrid("");
-            input.focus();
+            goSearch("");
         });
 
         document.addEventListener("click", (e) => {
@@ -252,9 +267,9 @@ ViewData["Title"] = "Books";
         object-fit: contain;
         margin: 0 auto;
     }
+
     .book-card {
         max-width: 280px;
         width: 100%;
     }
-
 </style>
