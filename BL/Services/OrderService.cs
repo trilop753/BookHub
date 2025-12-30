@@ -119,6 +119,11 @@ namespace BL.Services
                 return Result.Fail("Order not found.");
             }
 
+            if (order.GiftcardCodeId != null)
+            {
+                return Result.Fail("This order already has active discount code.");
+            }
+
             var code = await _giftcardRepository.GetCodeByIdAsync(giftcardCodeId);
             if (code == null)
             {
