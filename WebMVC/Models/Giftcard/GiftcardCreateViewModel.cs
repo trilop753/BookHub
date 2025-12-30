@@ -10,7 +10,7 @@ namespace WebMVC.Models.Giftcard
 
         [Required]
         [Range(1, 100000, ErrorMessage = "Amount must be greater than 0.")]
-        [Display(Name = "Discount Amount (CZK)")]
+        [Display(Name = "Discount Amount (£)")]
         public decimal Amount { get; set; }
 
         [Required]
