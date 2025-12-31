@@ -138,6 +138,8 @@ namespace WebMVC.Controllers
             }
 
             TempData["Success"] = "Giftcard applied successfully.";
+            _cache.Remove(CacheKeys.OrderDetail(orderId));
+            _cache.Remove(CacheKeys.GiftcardDetail(codeRes.Value.GiftcardId));
             return RedirectToAction("Detail", new { id = orderId });
         }
     }
