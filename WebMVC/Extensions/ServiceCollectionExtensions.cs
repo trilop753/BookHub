@@ -72,9 +72,6 @@ namespace WebMVC.Extensions
         public static IServiceCollection AddFacades(this IServiceCollection services)
         {
             services.AddScoped<IWishlistFacade, WishlistFacade>();
-            services.AddScoped<IAuthorFacade, AuthorFacade>();
-            services.AddScoped<IGenreFacade, GenreFacade>();
-            services.AddScoped<IPublisherFacade, PublisherFacade>();
             services.AddScoped<IBookReviewFacade, BookReviewFacade>();
             services.AddScoped<ICartFacade, CartFacade>();
             services.AddScoped<IOrderFacade, OrderFacade>();

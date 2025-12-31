@@ -6,14 +6,10 @@ namespace BL.Facades.Interfaces
 {
     public interface IWishlistFacade
     {
-        public Task<Result<WishlistItemDto>> WishlistBookAsync(WishlistItemCreateDto wishlistItem);
-
-        public Task<Result<WishlistItemDto>> RemoveFromWishlistAsync(int userId, int bookId);
-
-        public Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByUserIdAsync(int userId);
-
-        public Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByBookIdAsync(int userId);
-
-        public Task<Result<IEnumerable<BookDto>>> GetAllWishlistedBooksByUserIdAsync(int userId);
+        Task<Result<WishlistItemDto>> WishlistBookAsync(WishlistItemCreateDto wishlistItem);
+        Task<Result<WishlistItemDto>> RemoveFromWishlistAsync(int userId, int bookId);
+        Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByUserIdAsync(int userId);
+        Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByBookIdAsync(int userId);
+        Task<Result<IEnumerable<BookDto>>> GetAllWishlistedBooksByUserIdAsync(int userId);
     }
 }
