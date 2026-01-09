@@ -1,4 +1,5 @@
-﻿using DAL.Data;
+﻿using BL.Middlewares;
+using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Middlewares;
 
@@ -25,7 +26,7 @@ namespace WebAPI.Extensions
 
             app.UseAuthorization();
 
-            app.UseMiddleware<LoggingMiddleware>();
+            app.UseRequestLogging("API");
             app.UseMiddleware<AuthenticationMiddleware>();
             app.UseMiddleware<ResponseFormatMiddleware>();
             return app;

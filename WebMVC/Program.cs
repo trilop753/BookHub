@@ -1,3 +1,4 @@
+using BL.Middlewares;
 using Microsoft.AspNetCore.Identity;
 using WebMVC.Caching;
 using WebMVC.Constants;
@@ -49,6 +50,8 @@ namespace WebMVC
 
             app.ApplyStaticFilesManagement();
             app.UseRouting();
+
+            app.UseRequestLogging("MVC");
 
             app.UseAuthorization();
 
