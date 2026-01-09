@@ -14,8 +14,9 @@ namespace WebMVC.Middlewares
             _next = next;
 
             var folder = Environment.SpecialFolder.LocalApplicationData;
-            var connString = config.GetConnectionString("LogDatabase")
-                             ?? throw new Exception("LogDatabase connection missing.");
+            var connString =
+                config.GetConnectionString("LogDatabase")
+                ?? throw new Exception("LogDatabase connection missing.");
 
             _dbPath = Path.Combine(Environment.GetFolderPath(folder), connString);
         }
@@ -34,7 +35,7 @@ namespace WebMVC.Middlewares
                 Path = context.Request.Path,
                 StatusCode = context.Response.StatusCode,
                 DurationMs = sw.Elapsed.TotalMilliseconds,
-                Source = "MVC"
+                Source = "MVC",
             };
 
             using var db = new LiteDatabase(new ConnectionString { Filename = _dbPath });

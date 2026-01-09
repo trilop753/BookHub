@@ -172,7 +172,6 @@ namespace WebMVC.Controllers
             return RedirectToAction("Detail", "Book", new { id = bookId });
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, int? bookId = null)

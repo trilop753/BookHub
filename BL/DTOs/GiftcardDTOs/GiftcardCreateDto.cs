@@ -9,5 +9,5 @@ namespace BL.DTOs.GiftcardDTOs
         public DateTime ValidTo { get; set; }
 
         public int NumberOfCodes { get; set; }
-    }  
+    }
 }

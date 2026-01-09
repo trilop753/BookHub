@@ -89,7 +89,7 @@ namespace WebMVC.Controllers
             }
 
             TempData["SuccessMessage"] = "Giftcard was deleted.";
-            
+
             _cache.Remove(CacheKeys.GiftcardAll());
             _cache.Remove(CacheKeys.GiftcardDetail(id));
             return RedirectToAction(nameof(Index));

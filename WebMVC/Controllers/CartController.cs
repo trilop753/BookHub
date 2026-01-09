@@ -18,7 +18,11 @@ public class CartController : Controller
     private readonly UserManager<LocalIdentityUser> _userManager;
     private readonly IAppCache _cache;
 
-    public CartController(ICartFacade cartFacade, UserManager<LocalIdentityUser> userManager,  IAppCache cache)
+    public CartController(
+        ICartFacade cartFacade,
+        UserManager<LocalIdentityUser> userManager,
+        IAppCache cache
+    )
     {
         _cartFacade = cartFacade;
         _userManager = userManager;
@@ -45,7 +49,7 @@ public class CartController : Controller
         {
             return View("InternalServerError");
         }
-        
+
         _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
         return RedirectToAction("Detail", "Book", new { id = bookId });
     }
@@ -64,7 +68,7 @@ public class CartController : Controller
         {
             return View("InternalServerError");
         }
-        
+
         _cache.Remove(CacheKeys.UserCartAll(identityUser.User.Id));
         return RedirectToAction("Detail", "Book", new { id = bookId });
     }

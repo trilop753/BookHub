@@ -4,7 +4,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="6.0.0-prerelease.73" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
@@ -13,7 +12,6 @@
     </PackageReference>
     <PackageReference Include="System.Runtime.Caching" Version="10.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DAL.WebMVC.Migrations\DAL.WebMVC.Migrations.csproj" />

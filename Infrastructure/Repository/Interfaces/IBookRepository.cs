@@ -12,7 +12,6 @@ namespace Infrastructure.Repository.Interfaces
             int pageSize = 4
         );
 
-
         public Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria);
 
         public Task<Book?> GetBookByIdWithGenresIncludedAsync(int bookId);

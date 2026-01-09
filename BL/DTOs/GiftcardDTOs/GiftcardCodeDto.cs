@@ -6,5 +6,5 @@ namespace BL.DTOs.GiftcardDTOs
         public string Code { get; set; } = null!;
         public bool IsUsed { get; set; }
         public int? OrderId { get; set; }
-    }  
+    }
 }

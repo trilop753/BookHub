@@ -31,13 +31,10 @@ public class LoggingMiddleware
             Path = context.Request.Path,
             StatusCode = context.Response.StatusCode,
             DurationMs = sw.Elapsed.TotalMilliseconds,
-            Source = "API"
+            Source = "API",
         };
 
-        using var db = new LiteDatabase(new ConnectionString
-        {
-            Filename = _dbPath
-        });
+        using var db = new LiteDatabase(new ConnectionString { Filename = _dbPath });
 
         var col = db.GetCollection<LogEntry>("logs");
         col.Insert(entry);

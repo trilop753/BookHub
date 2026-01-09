@@ -47,10 +47,14 @@ public class BookService : IBookService
         return Result.Ok<IEnumerable<BookDto>>(books.Items.Select(b => b.MapToDto()).ToList());
     }
 
-    public Task<PaginatedResult<BookDto>> GetAllBooksAsync(int? page = null, int pageSize = 4)
-        => GetAllBooksAsync(q: null, page: page, pageSize: pageSize);
+    public Task<PaginatedResult<BookDto>> GetAllBooksAsync(int? page = null, int pageSize = 4) =>
+        GetAllBooksAsync(q: null, page: page, pageSize: pageSize);
 
-    public async Task<PaginatedResult<BookDto>> GetAllBooksAsync(string? q, int? page = null, int pageSize = 4)
+    public async Task<PaginatedResult<BookDto>> GetAllBooksAsync(
+        string? q,
+        int? page = null,
+        int pageSize = 4
+    )
     {
         q = string.IsNullOrWhiteSpace(q) ? null : q.Trim();
 
@@ -62,7 +66,6 @@ public class BookService : IBookService
             TotalCount = books.TotalCount,
         };
     }
-
 
     public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(
         BookSearchCriteriaDto searchCriteria
