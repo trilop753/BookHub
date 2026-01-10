@@ -12,7 +12,9 @@ namespace BL.Mappers
                 Id = author.Id,
                 Name = author.Name,
                 Surname = author.Surname,
-                Books = author.Books.Select(b => b.MapToSummaryDto()).ToList(),
+                Books = (author.Books ?? new List<Book>())
+                    .Select(b => b.MapToSummaryDto())
+                    .ToList(),
             };
         }
 

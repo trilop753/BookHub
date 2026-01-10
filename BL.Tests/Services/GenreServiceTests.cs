@@ -1,6 +1,7 @@
 ﻿using BL.DTOs.GenreDTOs;
 using BL.Services.Interfaces;
 using DAL.Models;
+using DAL.UtilityModels;
 using Infrastructure.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
@@ -266,12 +267,12 @@ namespace BL.Tests.Services
             {
                 Id = id,
                 Name = "History",
-                Books = new List<Book>(),
+                Books = new List<GenreBook>(),
             };
-            var books = new List<Book>();
+            var books = new PaginatedResult<Book>();
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Genre?>(genre));
-            bookRepository.GetBooksAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
+            bookRepository.GetBooksAsync().Returns(Task.FromResult<PaginatedResult<Book>>(books));
             repository.SaveChangesAsync().Returns(Task.CompletedTask);
 
             var serviceProvider = _serviceProviderBuilder
@@ -323,13 +324,16 @@ namespace BL.Tests.Services
             {
                 Id = id,
                 Name = "Romance",
-                Books = new List<Book>() { new Book() { Title = "Existing Book" } },
+                Books = new List<GenreBook>()
+                {
+                    new GenreBook() { GenreId = id, BookId = 5 },
+                },
             };
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Genre?>(genre));
             bookRepository
                 .GetBooksAsync()
-                .Returns(Task.FromResult<IEnumerable<Book>>(new List<Book>()));
+                .Returns(Task.FromResult<PaginatedResult<Book>>(new PaginatedResult<Book>()));
 
             var serviceProvider = _serviceProviderBuilder
                 .AddScoped<IGenreRepository>(repository)
@@ -353,26 +357,37 @@ namespace BL.Tests.Services
             var bookRepository = Substitute.For<IBookRepository>();
 
             var id = 1;
+
+            var bookId = 5;
+            var books = new PaginatedResult<Book>
+            {
+                Items = new List<Book>()
+                {
+                    new Book
+                    {
+                        Id = bookId,
+                        Title = "Book with genre",
+                        Genres = new List<GenreBook>
+                        {
+                            new GenreBook { Id = id, BookId = bookId },
+                        },
+                    },
+                },
+                TotalCount = 1,
+            };
+
             var genre = new Genre()
             {
                 Id = id,
                 Name = "Action",
-                Books = new List<Book>(),
-            };
-            var books = new List<Book>
-            {
-                new Book
+                Books = new List<GenreBook>()
                 {
-                    Title = "Book with genre",
-                    Genres = new List<Genre>
-                    {
-                        new Genre { Id = id, Name = "Action" },
-                    },
+                    new GenreBook() { GenreId = id, BookId = bookId },
                 },
             };
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Genre?>(genre));
-            bookRepository.GetBooksAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
+            bookRepository.GetBooksAsync().Returns(Task.FromResult<PaginatedResult<Book>>(books));
 
             var serviceProvider = _serviceProviderBuilder
                 .AddScoped<IGenreRepository>(repository)

@@ -1,40 +1,55 @@
-using System.Diagnostics;
 using BL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using WebMVC.Caching;
+using WebMVC.Constants;
 using WebMVC.Mappers;
-using WebMVC.Models;
+using WebMVC.Models.Book;
 
 namespace WebMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IBookService _bookService;
+        private readonly IAppCache _cache;
 
-        public HomeController(IBookService bookService)
+        public HomeController(IBookService bookService, IAppCache cache)
         {
             _bookService = bookService;
+            _cache = cache;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 4, string? q = null)
         {
-            var books = await _bookService.GetAllBooksAsync();
-            return View(books.Select(b => b.MapToView()));
+            page = page < 1 ? 1 : page;
+            pageSize = (pageSize < 1 || pageSize > 96) ? 24 : pageSize;
+            q = string.IsNullOrWhiteSpace(q) ? null : q.Trim();
+
+            var booksRes = await _cache.GetOrCreateAsync(
+                CacheKeys.BookPage(page, pageSize, q),
+                () => _bookService.GetAllBooksAsync(q: q, page: page, pageSize: pageSize)
+            );
+
+            if (booksRes.IsFailed)
+            {
+                return View("InternalServerError");
+            }
+
+            ViewData["Q"] = q;
+
+            var model = new PaginatedResultModel<BookViewModel>
+            {
+                Items = booksRes.Value.Items.Select(b => b.MapToView()),
+                PageIndex = page,
+                PageSize = pageSize,
+                TotalCount = booksRes.Value.TotalCount,
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(
-                new ErrorViewModel
-                {
-                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
-                }
-            );
         }
     }
 }

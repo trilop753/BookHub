@@ -10,9 +10,34 @@ namespace Infrastructure.Repository
         public OrderRepository(BookHubDbContext context)
             : base(context) { }
 
+        public async Task<Order?> GetDetailByIdAsync(int id)
+        {
+            return await _dbSet
+                .Include(o => o.User)
+                .Include(o => o.Items)
+                .Include(o => o.GiftcardCode)
+                .ThenInclude(gc => gc.Giftcard)
+                .FirstOrDefaultAsync(o => o.Id == id);
+        }
+
+        public async Task<IEnumerable<Order>> GetAllDetailedAsync()
+        {
+            return await _dbSet
+                .Include(o => o.User)
+                .Include(o => o.Items)
+                .Include(o => o.GiftcardCode)
+                .ThenInclude(gc => gc.Giftcard)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId)
         {
-            return await _dbSet.Where(o => o.UserId == userId).ToListAsync();
+            return await _dbSet
+                .Where(o => o.UserId == userId)
+                .Include(o => o.Items)
+                .Include(o => o.GiftcardCode)
+                .ThenInclude(gc => gc.Giftcard)
+                .ToListAsync();
         }
     }
 }

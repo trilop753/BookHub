@@ -1,0 +1,17 @@
+@model WebMVC.Models.Publisher.PublisherUpdateViewModel
+
+<form asp-controller="Publisher" asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <input asp-for="Id" type="hidden" />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+    <a asp-controller="Publisher" asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+</form>

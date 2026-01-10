@@ -46,7 +46,7 @@ namespace BL.Tests.Services
                         Description = "Test desc",
                         ISBN = "1234567890",
                         Price = 10,
-                        Genres = new List<Genre>(),
+                        Genres = new List<GenreBook>(),
                         Publisher = new Publisher { Id = 1, Name = "Test Publisher" },
                         Author = new Author
                         {
@@ -101,7 +101,7 @@ namespace BL.Tests.Services
                     Description = "Desc",
                     ISBN = "1234567890",
                     Price = 10,
-                    Genres = new List<Genre>(),
+                    Genres = new List<GenreBook>(),
                     Publisher = new Publisher { Id = 1, Name = "Pub" },
                     Author = new Author
                     {
@@ -182,7 +182,7 @@ namespace BL.Tests.Services
                         Description = "Desc",
                         ISBN = "1111111111",
                         Price = 10,
-                        Genres = new List<Genre>(),
+                        Genres = new List<GenreBook>(),
                         Publisher = new Publisher { Id = 1, Name = "Pub" },
                         Author = new Author
                         {
@@ -211,7 +211,7 @@ namespace BL.Tests.Services
                         Description = "Desc",
                         ISBN = "1111111111",
                         Price = 10,
-                        Genres = new List<Genre>(),
+                        Genres = new List<GenreBook>(),
                         Publisher = new Publisher { Id = 1, Name = "Pub" },
                         Author = new Author
                         {
@@ -292,7 +292,7 @@ namespace BL.Tests.Services
                         Description = "Desc 1",
                         ISBN = "1111111111",
                         Price = 12,
-                        Genres = new List<Genre>(),
+                        Genres = new List<GenreBook>(),
                         Publisher = new Publisher { Id = 1, Name = "Pub1" },
                         Author = new Author
                         {
@@ -321,7 +321,7 @@ namespace BL.Tests.Services
                         Description = "Desc 2",
                         ISBN = "2222222222",
                         Price = 20,
-                        Genres = new List<Genre>(),
+                        Genres = new List<GenreBook>(),
                         Publisher = new Publisher { Id = 2, Name = "Pub2" },
                         Author = new Author
                         {

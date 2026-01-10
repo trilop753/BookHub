@@ -17,9 +17,9 @@ namespace BL.Mappers
                 Price = book.Price,
                 Publisher = book.Publisher.MapToSummaryDto(),
                 Author = book.Author.MapToSummaryDto(),
-                Genres = book.Genres.Select(g => g.MapToSummaryDto()).ToList(),
+                Genres = book.Genres.Select(gb => gb.MapToSummaryDto()).ToList(),
                 Reviews = book.Reviews?.Select(r => r.MapToNoBookDto()).ToList() ?? [],
-                CoverImageUrl = book.CoverImageUrl,
+                CoverImageName = book.CoverImageName,
                 EditCount = book.EditCount,
                 LastEditedBy = book.LastEditedBy?.MapToSummaryDto(),
             };
@@ -35,15 +35,17 @@ namespace BL.Mappers
                 ISBN = book.ISBN,
                 Price = book.Price,
                 PublisherName = book.Publisher.Name,
-                AuthorName = book.Author.Name,
-                Genres = book.Genres.Select(g => g.Name).ToList(),
+                AuthorName = $"{book.Author?.Name} {book.Author?.Surname}".Trim(),
+                Genres = book.Genres.Select(gb => gb.MapToSummaryDto()).ToList(),
                 AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Stars) : null,
-                CoverImageUrl = book.CoverImageUrl,
+                CoverImageName = book.CoverImageName,
             };
         }
 
         public static BookSearchCriteria MapToBookSearchCriteria(this BookSearchCriteriaDto model)
         {
+            model ??= new BookSearchCriteriaDto();
+
             return new BookSearchCriteria
             {
                 Title = model.Title,
@@ -53,6 +55,8 @@ namespace BL.Mappers
                 GenreIds = model.GenreIds,
                 AuthorId = model.AuthorId,
                 PublisherId = model.PublisherId,
+                SearchMode = (BookSearchMode)model.SearchMode,
+                Query = model.Query,
             };
         }
     }

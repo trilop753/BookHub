@@ -1,5 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using BL.DTOs.BookDTOs;
+﻿using BL.DTOs.BookDTOs;
+using BL.DTOs.UtilityDTOs;
 using BL.Mappers;
 using BL.Services.Interfaces;
 using DAL.Models;
@@ -12,19 +12,21 @@ public class BookService : IBookService
     private readonly IGenreRepository _genreRepository;
     private readonly IAuthorRepository _authorRepository;
     private readonly IPublisherRepository _publisherRepository;
-    private const string ImageUrlRegex = @"^https?:\/\/[^\s]+?\.(?:jpe?g|png)$";
+    private readonly IUserRepository _userRepository;
 
     public BookService(
         IBookRepository bookRepository,
         IGenreRepository genreRepository,
         IAuthorRepository authorRepository,
-        IPublisherRepository publisherRepository
+        IPublisherRepository publisherRepository,
+        IUserRepository userRepository
     )
     {
         _bookRepository = bookRepository;
         _genreRepository = genreRepository;
         _authorRepository = authorRepository;
         _publisherRepository = publisherRepository;
+        _userRepository = userRepository;
     }
 
     #region Get
@@ -39,21 +41,43 @@ public class BookService : IBookService
         return Result.Ok(book.MapToDto());
     }
 
-    public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
+    public async Task<Result<IEnumerable<BookDto>>> GetBooksByIdsAsync(int[] ids)
     {
-        var books = await _bookRepository.GetBooksAsync();
-        return books.Select(b => b.MapToDto());
+        var books = await _bookRepository.GetBooksAsync(bookIds: ids);
+        return Result.Ok<IEnumerable<BookDto>>(books.Items.Select(b => b.MapToDto()).ToList());
+    }
+
+    public Task<PaginatedResult<BookDto>> GetAllBooksAsync(int? page = null, int pageSize = 4) =>
+        GetAllBooksAsync(q: null, page: page, pageSize: pageSize);
+
+    public async Task<PaginatedResult<BookDto>> GetAllBooksAsync(
+        string? q,
+        int? page = null,
+        int pageSize = 4
+    )
+    {
+        q = string.IsNullOrWhiteSpace(q) ? null : q.Trim();
+
+        var books = await _bookRepository.GetBooksAsync(q: q, page: page, pageSize: pageSize);
+
+        return new PaginatedResult<BookDto>
+        {
+            Items = books.Items.Select(b => b.MapToDto()).ToList(),
+            TotalCount = books.TotalCount,
+        };
     }
 
     public async Task<IEnumerable<BookSummaryDto>> GetFilteredAsync(
         BookSearchCriteriaDto searchCriteria
     )
     {
+        searchCriteria ??= new BookSearchCriteriaDto();
+
         var books = await _bookRepository.GetFilteredAsync(
             searchCriteria.MapToBookSearchCriteria()
         );
 
-        return books.Select(b => b.MapToSummaryDto());
+        return books.Select(b => b.MapToSummaryDto()).ToList();
     }
 
     #endregion
@@ -75,21 +99,16 @@ public class BookService : IBookService
 
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
-        if (!dto.GenreIds.All(allGenresIds.Contains))
+        if (!dto.Genres.Select(gb => gb.GenreId).All(allGenresIds.Contains))
         {
             result.WithError(
-                $"Genres with ids {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist."
+                $"Genres with ids {string.Join(", ", dto.Genres.Select(gb => gb.GenreId).Except(allGenresIds))} do not exist."
             );
         }
 
-        var uri = new Uri(dto.CoverImageUrl);
-        if (
-            !Uri.IsWellFormedUriString(dto.CoverImageUrl, UriKind.Absolute)
-            || !(uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
-            || !Regex.IsMatch(dto.CoverImageUrl, ImageUrlRegex)
-        )
+        if (dto.Genres.Where(gb => gb.IsPrimary).Count() > 1)
         {
-            result.WithError($"Invalid url.");
+            result.WithError("Book cannot have multiple primary genres.");
         }
 
         if (result.IsFailed)
@@ -97,7 +116,7 @@ public class BookService : IBookService
             return result;
         }
 
-        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedGenres = dto.Genres.Select(gb => gb.GenreId).Distinct().ToHashSet();
         var wantedExistingGenres = allGenres
             .Where(genre => wantedGenres.Contains(genre.Id))
             .ToList();
@@ -110,8 +129,17 @@ public class BookService : IBookService
             Price = dto.Price,
             Author = author,
             Publisher = publisher,
-            Genres = wantedExistingGenres,
-            CoverImageUrl = dto.CoverImageUrl,
+            Genres = dto
+                .Genres.Where(gb => wantedExistingGenres.Any(g => g.Id == gb.GenreId))
+                .GroupBy(gb => gb.GenreId)
+                .Select(g => g.OrderByDescending(x => x.IsPrimary).First())
+                .Select(gb => new GenreBook { GenreId = gb.GenreId, IsPrimary = gb.IsPrimary })
+                .ToList(),
+            /*
+             * Selecting valid distinct genres while
+             * prioritizing genres with IsPrimary = true
+             */
+            CoverImageName = dto.CoverImageName,
         };
 
         await _bookRepository.AddAsync(newBook);
@@ -142,27 +170,22 @@ public class BookService : IBookService
         var allGenres = (await _genreRepository.GetAllAsync()).ToList();
 
         var allGenresIds = allGenres.Select(genre => genre.Id).ToHashSet();
-        if (!dto.GenreIds.All(allGenresIds.Contains))
+        if (!dto.Genres.All(gb => allGenresIds.Contains(gb.GenreId)))
         {
             result.WithError(
-                $"Genres with ids: {string.Join(", ", dto.GenreIds.Except(allGenresIds))} do not exist"
+                $"Genres with ids: {string.Join(", ", dto.Genres.Where(gb => !allGenresIds.Contains(gb.GenreId)))} do not exist"
             );
         }
 
-        var editor = await _authorRepository.GetByIdAsync(dto.LastEditedById);
+        var editor = await _userRepository.GetByIdAsync(dto.LastEditedById);
         if (editor == null)
         {
             result.WithError($"User with id {dto.LastEditedById} does not exist.");
         }
 
-        var uri = new Uri(dto.CoverImageUrl);
-        if (
-            !Uri.IsWellFormedUriString(dto.CoverImageUrl, UriKind.Absolute)
-            || !(uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
-            || !Regex.IsMatch(dto.CoverImageUrl, ImageUrlRegex)
-        )
+        if (dto.Genres.Where(gb => gb.IsPrimary).Count() > 1)
         {
-            result.WithError($"Invalid url.");
+            result.WithError("Book cannot have multiple primary genres.");
         }
 
         if (result.IsFailed)
@@ -170,7 +193,7 @@ public class BookService : IBookService
             return result;
         }
 
-        var wantedGenres = dto.GenreIds.Distinct().ToHashSet();
+        var wantedGenres = dto.Genres.Select(gb => gb.GenreId).Distinct().ToHashSet();
         var wantedExistingGenres = allGenres
             .Where(genre => wantedGenres.Contains(genre.Id))
             .ToList();
@@ -181,25 +204,36 @@ public class BookService : IBookService
         book.Price = dto.Price;
         book.AuthorId = dto.AuthorId;
         book.PublisherId = dto.PublisherId;
-        book.Genres = wantedExistingGenres; // this may be a bug
+        book.Genres = dto
+            .Genres.Where(gb => wantedExistingGenres.Any(g => g.Id == gb.GenreId))
+            .GroupBy(gb => gb.GenreId)
+            .Select(g => g.OrderByDescending(x => x.IsPrimary).First())
+            .Select(gb => new GenreBook { GenreId = gb.GenreId, IsPrimary = gb.IsPrimary })
+            .ToList();
+        /*
+         * Selecting valid distinct genres while
+         * prioritizing genres with IsPrimary = true
+         */
         book.EditCount += 1;
         book.LastEditedById = dto.LastEditedById;
-        book.CoverImageUrl = dto.CoverImageUrl;
+        book.CoverImageName = dto.CoverImageName;
 
         await _bookRepository.SaveChangesAsync();
+
         return Result.Ok();
     }
 
-    public async Task<Result> DeleteBookAsync(int id)
+    public async Task<Result<string>> DeleteBookAsync(int id)
     {
         var existing = await _bookRepository.GetByIdAsync(id);
         if (existing == null)
         {
             return Result.Fail($"Book with id {id} does not exist.");
         }
+        var coverImageName = existing.CoverImageName;
 
         _bookRepository.Delete(existing);
         await _bookRepository.SaveChangesAsync();
-        return Result.Ok();
+        return Result.Ok(coverImageName);
     }
 }

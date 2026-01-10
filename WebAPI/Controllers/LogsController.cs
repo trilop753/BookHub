@@ -12,11 +12,12 @@ namespace WebAPI.Controllers
 
         public LogsController(IConfiguration config)
         {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
             var connectionString =
                 config.GetConnectionString("LogDatabase")
-                ?? throw new Exception("LogDatabase DbString not found in appsettings.");
-
-            _dbPath = Environment.ExpandEnvironmentVariables(connectionString);
+                ?? throw new Exception("LogDatabase name not found in appsettings.");
+            var path = Path.Combine(Environment.GetFolderPath(folder), connectionString);
+            _dbPath = path;
         }
 
         [HttpGet]

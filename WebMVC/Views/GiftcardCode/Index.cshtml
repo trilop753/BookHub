@@ -1,0 +1,72 @@
+﻿@model WebMVC.Models.Giftcard.GiftcardCodesViewModel
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold">
+            Codes for Gift Card: <span class="text-primary">@Model.GiftcardName</span>
+        </h1>
+
+        <a asp-controller="Giftcard"
+           asp-action="Detail"
+           asp-route-id="@Model.GiftcardId"
+           class="btn btn-secondary">
+            Back to Gift Card
+        </a>
+    </div>
+
+    @if (!Model.Codes.Any())
+    {
+        <div class="alert alert-info">
+            No codes created for this gift card.
+        </div>
+    }
+    else
+    {
+        <table class="table table-sm table-striped align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Code</th>
+                    <th>Used</th>
+                    <th>Order</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var _code in Model.Codes)
+                {
+                    <tr>
+                        <td>@_code.Code</td>
+
+                        <td>
+                            @if (_code.IsUsed)
+                            {
+                                <span class="badge bg-danger">Used</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Available</span>
+                            }
+                        </td>
+
+                        <td>
+                            @if (_code.OrderId != null)
+                            {
+                                <a asp-controller="Order"
+                                   asp-action="Detail"
+                                   asp-route-id="@_code.OrderId"
+                                   class="text-decoration-none">
+                                    Order #@_code.OrderId
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

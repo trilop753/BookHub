@@ -11,75 +11,150 @@ namespace Infrastructure.Repository
         public BookRepository(BookHubDbContext context)
             : base(context) { }
 
-        public async Task<IEnumerable<Book>> GetBooksAsync(
+        public async Task<PaginatedResult<Book>> GetBooksAsync(
             int[]? bookIds = null,
-            bool includeAuthor = true,
-            bool includePublisher = true,
-            bool includeGenres = true,
-            bool includeReviews = true
+            string? q = null,
+            int? page = null,
+            int pageSize = 4
         )
         {
             IQueryable<Book> query = GetBasicQuery(
-                includeAuthor,
-                includePublisher,
-                includeGenres,
-                includeReviews
+                includeAuthor: true,
+                includePublisher: true,
+                includeGenres: true,
+                includeReviews: true
             );
 
-            if (bookIds != null && bookIds.Length > 0)
+            if (bookIds != null)
             {
-                query.Where(b => bookIds.Contains(b.Id));
+                query = query.Where(b => bookIds.Contains(b.Id));
+            }
+
+            q = Normalize(q);
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                query = Queryable.Where(
+                    query,
+                    b =>
+                        EF.Functions.Like(b.Title, $"%{q}%")
+                        || (b.Author != null && EF.Functions.Like(b.Author.Name, $"%{q}%"))
+                        || (b.Publisher != null && EF.Functions.Like(b.Publisher.Name, $"%{q}%"))
+                        || b.Genres.Any(gb => EF.Functions.Like(gb.Genre.Name, $"%{q}%"))
+                );
+            }
+
+            var totalCount = await query.CountAsync();
+
+            List<Book> books;
+            if (page != null)
+            {
+                books = await query
+                    .OrderBy(b => b.Title)
+                    .Skip(((int)page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+            else
+            {
+                books = await query.OrderBy(b => b.Title).ToListAsync();
+            }
+
+            return new PaginatedResult<Book> { Items = books, TotalCount = totalCount };
+        }
+
+        public async Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria)
+        {
+            searchCriteria ??= new BookSearchCriteria();
+
+            IQueryable<Book> query = GetBasicQuery(
+                includeAuthor: true,
+                includePublisher: true,
+                includeGenres: true,
+                includeReviews: false
+            );
+
+            if (searchCriteria.LowPrice.HasValue)
+            {
+                query = query.Where(b => b.Price > searchCriteria.LowPrice.Value);
+            }
+
+            if (searchCriteria.HighPrice.HasValue)
+            {
+                query = query.Where(b => b.Price <= searchCriteria.HighPrice.Value);
+            }
+
+            var title = Normalize(searchCriteria.Title);
+            var desc = Normalize(searchCriteria.Description);
+            var q = Normalize(searchCriteria.Query);
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                title ??= q;
+                desc ??= q;
+            }
+
+            var hasTitle = !string.IsNullOrWhiteSpace(title);
+            var hasDesc = !string.IsNullOrWhiteSpace(desc);
+            var hasGenres = searchCriteria.GenreIds is { Length: > 0 };
+            var hasAuthor = searchCriteria.AuthorId.HasValue;
+            var hasPublisher = searchCriteria.PublisherId.HasValue;
+
+            if (searchCriteria.SearchMode == BookSearchMode.And)
+            {
+                if (hasTitle)
+                {
+                    query = query.Where(b => EF.Functions.Like(b.Title, $"%{title}%"));
+                }
+
+                if (hasDesc)
+                {
+                    query = query.Where(b => EF.Functions.Like(b.Description, $"%{desc}%"));
+                }
+
+                if (hasGenres)
+                {
+                    var ids = searchCriteria.GenreIds!;
+                    query = query.Where(b => b.Genres.Any(gb => ids.Contains(gb.Genre.Id)));
+                }
+
+                if (hasAuthor)
+                {
+                    var authorId = searchCriteria.AuthorId!.Value;
+                    query = query.Where(b => b.AuthorId == authorId);
+                }
+
+                if (hasPublisher)
+                {
+                    var publisherId = searchCriteria.PublisherId!.Value;
+                    query = query.Where(b => b.PublisherId == publisherId);
+                }
+            }
+            else
+            {
+                query = query.Where(b =>
+                    (hasTitle && EF.Functions.Like(b.Title, $"%{title}%"))
+                    || (hasDesc && EF.Functions.Like(b.Description, $"%{desc}%"))
+                    || (
+                        hasGenres
+                        && b.Genres.Any(gb => searchCriteria.GenreIds!.Contains(gb.Genre.Id))
+                    )
+                    || (hasAuthor && b.AuthorId == searchCriteria.AuthorId!.Value)
+                    || (hasPublisher && b.PublisherId == searchCriteria.PublisherId!.Value)
+                );
             }
 
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<Book>> GetFilteredAsync(BookSearchCriteria searchCriteria)
+        private static string? Normalize(string? value)
         {
-            IQueryable<Book> query = _dbSet;
-
-            if (searchCriteria.Title != null)
+            if (string.IsNullOrWhiteSpace(value))
             {
-                query = query.Where(b =>
-                    b.Title.ToLower().Contains(searchCriteria.Title.ToLower())
-                );
+                return null;
             }
 
-            if (searchCriteria.Description != null)
-            {
-                query = query.Where(b =>
-                    b.Description.ToLower().Contains(searchCriteria.Description.ToLower())
-                );
-            }
-
-            if (searchCriteria.LowPrice != null)
-            {
-                query = query.Where(b => b.Price > searchCriteria.LowPrice);
-            }
-
-            if (searchCriteria.HighPrice != null)
-            {
-                query = query.Where(b => b.Price <= searchCriteria.HighPrice);
-            }
-
-            if (searchCriteria.GenreIds != null)
-            {
-                query = query.Where(b =>
-                    b.Genres.Select(g => g.Id).Intersect(searchCriteria.GenreIds).Any()
-                );
-            }
-
-            if (searchCriteria.AuthorId != null)
-            {
-                query = query.Where(b => b.AuthorId == searchCriteria.AuthorId);
-            }
-
-            if (searchCriteria.PublisherId != null)
-            {
-                query = query.Where(b => b.PublisherId == searchCriteria.PublisherId);
-            }
-
-            return await query.ToListAsync();
+            return value.Trim();
         }
 
         public async Task<Book?> GetBookByIdWithGenresIncludedAsync(int bookId)

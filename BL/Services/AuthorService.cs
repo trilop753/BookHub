@@ -32,7 +32,7 @@ public class AuthorService : IAuthorService
     public async Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync()
     {
         var authors = await _authorRepository.GetAllWithBooksAsync();
-        return authors.Select(a => a.MapToDto());
+        return authors.Select(a => a.MapToDto()).ToList();
     }
 
     #endregion
@@ -92,7 +92,7 @@ public class AuthorService : IAuthorService
             return Result.Fail($"Author with id {id} does not exist.");
         }
 
-        var books = await _bookRepository.GetBooksAsync();
+        var books = await _bookRepository.GetAllAsync();
         var hasBooks =
             (author.Books != null && author.Books.Any()) || books.Any(b => b.AuthorId == id);
 
@@ -107,5 +107,12 @@ public class AuthorService : IAuthorService
         await _authorRepository.SaveChangesAsync();
 
         return Result.Ok();
+    }
+
+    public async Task<IEnumerable<AuthorDto>> GetAuthorsByNameAsync(string query)
+    {
+        var authors = await _authorRepository.GetByNameAsync(query);
+
+        return authors.Select(a => a.MapToDto());
     }
 }

@@ -1,4 +1,5 @@
-﻿using BL.Facades;
+﻿using System.Diagnostics;
+using BL.Facades;
 using BL.Facades.Interfaces;
 using BL.Services;
 using BL.Services.Interfaces;
@@ -18,18 +19,19 @@ namespace WebMVC.Extensions
             IConfiguration config
         )
         {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
             var connectionString =
                 config.GetConnectionString("DefaultConnection")
-                ?? throw new Exception("DbString not found in appsettings.");
-
-            connectionString = Environment.ExpandEnvironmentVariables(connectionString);
+                ?? throw new Exception("Database name not found in appsettings.");
+            var path = Path.Combine(Environment.GetFolderPath(folder), connectionString);
+            connectionString = $"DataSource={path}";
 
             var migrationAssembly = config.GetValue<string>("MigrationProject");
 
             services.AddDbContext<BookHubDbContext>(options =>
                 options
                     .UseSqlite(connectionString, x => x.MigrationsAssembly(migrationAssembly))
-                    .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
+                    .LogTo(s => Debug.WriteLine(s))
                     .UseLazyLoadingProxies()
             );
 
@@ -47,6 +49,7 @@ namespace WebMVC.Extensions
             services.AddScoped<IBookReviewRepository, BookReviewRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IGiftcardRepository, GiftcardRepository>();
             return services;
         }
 
@@ -61,6 +64,8 @@ namespace WebMVC.Extensions
             services.AddScoped<IBookReviewService, BookReviewService>();
             services.AddScoped<ICartItemService, CartItemService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICoverImageService, CoverImageService>();
+            services.AddScoped<IGiftcardService, GiftcardService>();
             return services;
         }
 
@@ -70,6 +75,8 @@ namespace WebMVC.Extensions
             services.AddScoped<IBookReviewFacade, BookReviewFacade>();
             services.AddScoped<ICartFacade, CartFacade>();
             services.AddScoped<IOrderFacade, OrderFacade>();
+            services.AddScoped<IGiftcardFacade, GiftcardFacade>();
+            services.AddScoped<ISearchFacade, SearchFacade>();
             return services;
         }
 

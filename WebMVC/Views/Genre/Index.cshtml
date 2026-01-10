@@ -1,0 +1,76 @@
+@model IEnumerable<WebMVC.Models.Genre.GenreViewModel>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Raw(TempData["ErrorMessage"])
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <h1 class="display-6 text-center mb-4">Genres</h1>
+
+    <table class="table table-sm table-striped align-middle text-center">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th style="width: 1%; white-space: nowrap;">
+                Actions
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var genre in Model)
+        {
+            <tr>
+                <td>@genre.Name</td>
+
+                <td style="width: 1%; white-space: nowrap;">
+
+                    <a asp-controller="Genre"
+                       asp-action="Edit"
+                       asp-route-genreId="@genre.Id"
+                       class="btn btn-sm btn-warning"
+                       title="Edit">
+                        edit
+                    </a>
+
+                    <form asp-controller="Genre"
+                          asp-action="Delete"
+                          asp-route-genreId="@genre.Id"
+                          method="post"
+                          onsubmit="return confirm('Are you sure you want to delete this genre?');"
+                          class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit"
+                                class="btn btn-sm btn-danger"
+                                title="Delete">
+                            delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div class="d-flex justify-content-end mt-3">
+        <a asp-controller="Genre"
+           asp-action="Create"
+           class="btn btn-success">
+            Create Genre
+        </a>
+    </div>
+</div>

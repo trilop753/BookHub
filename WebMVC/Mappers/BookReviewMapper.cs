@@ -26,5 +26,10 @@ namespace WebMVC.Mappers
                 UserId = review.UserId,
             };
         }
+
+        public static BookReviewUpdateDto MapToUpdateDto(this BookReviewUpdateViewModel review)
+        {
+            return new BookReviewUpdateDto { Body = review.Body, Stars = review.Stars };
+        }
     }
 }

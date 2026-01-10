@@ -1,4 +1,6 @@
-﻿namespace BL.DTOs.BookDTOs
+﻿using BL.DTOs.GenreBookDTOs;
+
+namespace BL.DTOs.BookDTOs
 {
     public class BookCreateDto
     {
@@ -14,8 +16,8 @@
 
         public int AuthorId { get; set; }
 
-        public IEnumerable<int> GenreIds { get; set; }
+        public IEnumerable<GenreBookCreateDto> Genres { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public string CoverImageName { get; set; }
     }
 }

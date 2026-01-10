@@ -1,15 +1,16 @@
-﻿@using WebMVC.Models.Book
-@model BookDetailViewModel
+﻿@using WebMVC.Constants
+@model WebMVC.Models.Book.BookDetailViewModel
+@using System.Security.Claims
 
 <div class="container mt-5">
 
     <div class="row g-4">
         <div class="col-md-4">
             <div class="shadow-sm rounded overflow-hidden">
-                <img src="@Model.CoverImageUrl"
-                     alt="@Model.Title Cover"
+                <img src="~/cover-images/@Model.CoverImageName"
+                     alt="failed to load cover image"
                      class="w-100"
-                     style="height:600px; object-fit:cover;" />
+                     style="height:600px; object-fit:cover;"/>
             </div>
         </div>
 
@@ -21,7 +22,7 @@
             </p>
 
             <div class="d-flex gap-4 mt-3">
-                <p><strong>Author:</strong> @Model.Author?.Name</p>
+                <p><strong>Author:</strong> @Model.Author?.Name @Model.Author?.Surname</p>
                 <p><strong>Publisher:</strong> @Model.Publisher?.Name</p>
             </div>
 
@@ -57,13 +58,24 @@
                     </form>
                 }
 
-                <a asp-controller="TODO"
-                   asp-action="TODO"
-                   asp-route-id="TODO"
-                   class="btn btn-success btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white"
-                   style="transition: all 0.2s ease-in-out;">
-                    🛒 Add to Cart
-                </a>
+                @if (!Model.IsInCart)
+                {
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline">
+                        <input type="hidden" name="BookId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white">
+                            🛒 Add to Cart @*there is a shopping cart emoji before Add*@
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="Cart" asp-action="Remove" method="post" class="d-inline">
+                        <input type="hidden" name="BookId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-secondary btn-lg rounded-pill shadow-sm px-4 fw-semibold text-white">
+                            🛒 Remove from Cart @*there is a shopping cart emoji before Remove*@
+                        </button>
+                    </form>
+                }
             </div>
 
             <hr />
@@ -72,10 +84,14 @@
             <p>@Model.Description</p>
 
             <h4 class="fw-semibold">Genres</h4>
-            <ul>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; gap:6px;">
                 @foreach (var genre in Model.Genres)
                 {
-                    <li>@genre.Name</li>
+                    <li style="@(genre.IsPrimary
+                                    ? "font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;"
+                                    : "color:#555; padding:2px 6px; border-radius:4px;")">
+                    @genre.GenreName
+                    </li>
                 }
             </ul>
 
@@ -95,17 +111,52 @@
     <hr class="my-5" />
 
     <h3 class="fw-bold mb-3">Reviews</h3>
-    @if (Model.Reviews != null && Model.Reviews.Any())
+
+    @{
+        var hasReviews = Model.Reviews != null && Model.Reviews.Any();
+    }
+
+    @if (hasReviews)
     {
-        foreach (var review in Model.Reviews)
+        foreach (var review in Model.Reviews!)
         {
             <div class="card shadow-sm mb-3 border-0">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h5 class="card-title mb-1">@review.User?.Username</h5>
-                        <span class="text-muted">@review.Stars / 5 ★</span>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title mb-1">@review.User?.Username</h5>
+                            <span class="text-muted">@review.Stars / 5 ★</span>
+                        </div>
+
+                        @if (User.IsInRole(Roles.Admin) ||
+                             (review.User != null &&
+                              User.FindFirstValue(ClaimTypes.NameIdentifier) == review.User.Id.ToString()))
+                        {
+                            <div class="d-flex gap-2">
+                                <a asp-controller="BookReview"
+                                   asp-action="Edit"
+                                   asp-route-id="@review.Id"
+                                   asp-route-bookId="@Model.Id"
+                                   class="btn btn-sm btn-outline-warning">
+                                    Edit
+                                </a>
+
+                                <form asp-controller="BookReview"
+                                      asp-action="Delete"
+                                      asp-route-id="@review.Id"
+                                      asp-route-bookId="@Model.Id"
+                                      method="post"
+                                      onsubmit="return confirm('Delete this review?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        }
                     </div>
-                    <p class="mt-2">@review.Body</p>
+
+                    <p class="mt-2 mb-0">@review.Body</p>
                 </div>
             </div>
         }
@@ -113,5 +164,32 @@
     else
     {
         <p class="text-muted">No reviews available.</p>
+    }
+    
+    @if (User.IsInRole(Roles.Admin))
+    {
+        <hr class="my-4" />
+        <h4 class="fw-semibold text-end mb-3">Admin Section</h4>
+
+        <div class="d-flex justify-content-end gap-2">
+            <a asp-controller="Book"
+               asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-warning">
+                Edit Book
+            </a>
+
+            <form asp-controller="Book"
+                  asp-action="Delete"
+                  asp-route-bookId="@Model.Id"
+                  method="post"
+                  onsubmit=
+                  "return confirm('Are you sure you want to delete this book? This action is irreversible.');">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">
+                    Delete Book
+                </button>
+            </form>
+        </div>
     }
 </div>

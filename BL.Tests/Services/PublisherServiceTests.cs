@@ -284,7 +284,7 @@ namespace BL.Tests.Services
             var books = new List<Book>();
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Publisher?>(publisher));
-            bookRepository.GetBooksAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
+            bookRepository.GetAllAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
             repository.SaveChangesAsync().Returns(Task.CompletedTask);
 
             var serviceProvider = _serviceProviderBuilder
@@ -343,7 +343,7 @@ namespace BL.Tests.Services
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Publisher?>(publisher));
             bookRepository
-                .GetBooksAsync()
+                .GetAllAsync()
                 .Returns(Task.FromResult<IEnumerable<Book>>(new List<Book>()));
 
             var serviceProvider = _serviceProviderBuilder
@@ -381,7 +381,7 @@ namespace BL.Tests.Services
             };
 
             repository.GetByIdAsync(id).Returns(Task.FromResult<Publisher?>(publisher));
-            bookRepository.GetBooksAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
+            bookRepository.GetAllAsync().Returns(Task.FromResult<IEnumerable<Book>>(books));
 
             var serviceProvider = _serviceProviderBuilder
                 .AddScoped<IPublisherRepository>(repository)

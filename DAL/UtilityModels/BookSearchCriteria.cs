@@ -26,5 +26,9 @@
         public int? AuthorId { get; set; }
 
         public int? PublisherId { get; set; }
+
+        public BookSearchMode SearchMode { get; set; } = BookSearchMode.And;
+
+        public string? Query { get; set; }
     }
 }

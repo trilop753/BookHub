@@ -33,7 +33,7 @@ namespace BL.Services
         {
             var users = await _userRepository.GetAllAsync();
 
-            return users.Select(u => u.MapToDto());
+            return users.Select(u => u.MapToDto()).ToList();
         }
 
         public async Task<Result<UserDto>> GetUserByIdAsync(int id)

@@ -17,12 +17,21 @@ namespace Infrastructure.Repository
                 .FirstOrDefaultAsync(g => g.Name.ToLower() == name.ToLower());
         }
 
+        public async Task<IEnumerable<Genre>> GetManyByNameAsync(string query)
+        {
+            return await _dbSet
+                .Where(g => g.Name.ToLower().Contains(query.ToLower()))
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Genre>> GetAllWithBooksAsync()
         {
             return await _dbSet
                 .Include(g => g.Books)
+                .ThenInclude(gb => gb.Book)
                 .ThenInclude(b => b.Author)
                 .Include(g => g.Books)
+                .ThenInclude(gb => gb.Book)
                 .ThenInclude(b => b.Publisher)
                 .AsNoTracking()
                 .ToListAsync();

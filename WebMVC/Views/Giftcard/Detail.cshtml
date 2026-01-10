@@ -1,0 +1,105 @@
+﻿@model WebMVC.Models.Giftcard.GiftcardDetailViewModel
+
+<div class="container mt-5">
+
+    <h1 class="fw-bold mb-4">Gift Card Details</h1>
+
+    <div class="row g-4">
+
+        <div class="col-md-5">
+            <div class="p-4 shadow-sm rounded bg-light">
+                <h3 class="fw-semibold">@Model.Name</h3>
+
+                <p class="mt-3 mb-1 text-muted small">Discount Amount</p>
+                <h4 class="fw-bold">@Model.Amount.ToString("C")</h4>
+
+                <hr />
+
+                <p class="fw-semibold mb-1">Validity</p>
+                <p>
+                    <strong>From:</strong> @Model.ValidFrom.ToString("yyyy-MM-dd") <br />
+                    <strong>To:</strong> @Model.ValidTo.ToString("yyyy-MM-dd")
+                </p>
+
+                <hr />
+
+                <p class="fw-semibold mb-1">Gift Card Codes</p>
+                <p>
+                    <strong>Total:</strong> @Model.TotalCodes <br />
+                    <strong>Used:</strong> @Model.UsedCodes
+                </p>
+
+                <div class="mt-4 d-flex gap-3 flex-wrap">
+                    <a asp-controller="GiftcardCode"
+                       asp-action="Index"
+                       asp-route-giftcardId="@Model.Id"
+                       class="btn btn-primary">
+                        View Codes
+                    </a>
+
+                    <a asp-controller="Giftcard"
+                       asp-action="Index"
+                       class="btn btn-secondary">
+                        Back to List
+                    </a>
+
+                    <form asp-controller="Giftcard"
+                          asp-action="Delete"
+                          asp-route-id="@Model.Id"
+                          method="post"
+                          onsubmit="return confirm('Are you sure you want to delete this gift card?');"
+                          class="d-inline">
+                        <button type="submit" class="btn btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <h4 class="fw-semibold mb-3">Code Overview</h4>
+
+            @if (Model.Codes != null && Model.Codes.Count > 0)
+            {
+                <table class="table table-sm table-striped align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Code</th>
+                            <th>Used</th>
+                            <th>Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var _code in Model.Codes)
+                        {
+                            <tr>
+                                <td>@_code.Code</td>
+                                <td>@(_code.IsUsed ? "Yes" : "No")</td>
+                                <td>
+                                    @if (_code.OrderId != null)
+                                    {
+                                        <a asp-controller="Order"
+                                           asp-action="Detail"
+                                           asp-route-id="@_code.OrderId">
+                                            Order #@_code.OrderId
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">—</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">No codes available for this gift card.</p>
+            }
+        </div>
+
+    </div>
+</div>

@@ -12,7 +12,11 @@ namespace BL.Mappers
                 Id = order.Id,
                 Date = order.Date,
                 User = order.User.MapToSummaryDto(),
-                Items = order.Items.Select(i => i.MapToOrderItemDto()) ?? [],
+                Items = order.Items?.Select(i => i.MapToOrderItemDto()) ?? [],
+                PaymentStatus = order.PaymentStatus,
+                TotalPrice = order.TotalPrice,
+                FinalPrice = order.FinalPrice,
+                GiftcardCode = order.GiftcardCode?.Code,
             };
         }
 
@@ -21,8 +25,12 @@ namespace BL.Mappers
             return new OrderItemDto()
             {
                 Id = item.Id,
-                Book = item.Book.MapToSummaryDto(),
                 Quantity = item.Quantity,
+                BookTitle = item.BookTitle,
+                BookISBN = item.BookISBN,
+                BookPrice = item.BookPrice,
+                BookAuthor = item.BookAuthor,
+                BookPublisher = item.BookPublisher,
             };
         }
     }

@@ -1,0 +1,103 @@
+@model WebMVC.Models.Cart.CartViewModel
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h2>Your cart</h2>
+
+@if (Model?.Items == null || !Model.Items.Any())
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <form id="cartForm" asp-action="Update" method="post">
+        @Html.AntiForgeryToken()
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                <th></th> @* remove button column *@
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Items.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/cover-images/@Model.Items[i].Book.CoverImageName"
+                                 class="table-cover"
+                             alt="failed to load cover image"/>
+                        </td>
+                        <td>
+                            <a asp-controller="Book"
+                               asp-action="Detail"
+                               asp-route-id="@Model.Items[i].Book.Id">
+                                @Model.Items[i].Book.Title
+                            </a>
+                        </td>
+                        <td>
+                            @Model.Items[i].Book.Price.ToString("C")
+                        </td>
+                        <td>
+                            <input asp-for="Items[i].Id" type="hidden" />
+
+                            <input asp-for="Items[i].Quantity"
+                                   type="number"
+                                   min="0"
+                                   class="form-control js-auto-submit" />
+
+
+                        </td>
+                        <td>
+                            @((Model.Items[i].Book.Price * Model.Items[i].Quantity).ToString("C"))
+                        </td>
+                        <td class="text-end">
+                            <button type="submit"
+                                    name="removeId"
+                                    value="@Model.Items[i].Id"
+                                    class="btn btn-sm btn-danger"
+                                    title="Remove from cart">
+                                &times;
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h4>
+            Total Price:
+            @{
+                decimal total = Model.Items.Sum(i => i.Book.Price * i.Quantity);
+            }
+            @total.ToString("C")
+        </h4>
+
+        <button type="submit"
+                name="action"
+                value="purchase"
+                class="btn btn-success ms-2">
+            Purchase
+        </button>
+    </form>
+}
+
+<script>
+  const form = document.getElementById('cartForm');
+
+  document.querySelectorAll('.js-auto-submit').forEach(input => {
+    input.addEventListener('change', () => {
+      if (form.dataset.submitting === '1') return;
+      form.dataset.submitting = '1';
+      form.requestSubmit();
+    });
+  });
+</script>
+

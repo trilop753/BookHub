@@ -8,12 +8,19 @@ namespace DAL.Models
 
         public int OrderId { get; set; }
 
-        public int BookId { get; set; }
-
         [ForeignKey(nameof(OrderId))]
         public virtual Order Order { get; set; }
 
-        [ForeignKey(nameof(BookId))]
-        public virtual Book Book { get; set; }
+        // Duplicate Book data to be independent
+        // from Book table updates/deletes
+        public string BookTitle { get; set; }
+
+        public string BookISBN { get; set; }
+
+        public decimal BookPrice { get; set; }
+
+        public string BookPublisher { get; set; }
+
+        public string BookAuthor { get; set; }
     }
 }

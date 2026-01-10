@@ -11,7 +11,7 @@ namespace BL.Mappers
             {
                 Id = genre.Id,
                 Name = genre.Name,
-                Books = genre.Books.Select(b => b.MapToSummaryDto()).ToList(),
+                Books = genre.Books.Select(gb => gb.Book.MapToSummaryDto()).ToList(),
             };
         }
 

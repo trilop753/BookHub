@@ -1,0 +1,32 @@
+﻿@using WebMVC.Models.Order
+@model IEnumerable<OrderViewModel>
+
+<h2>Orders</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Total Price</th>
+            <th>Payment Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.Date.ToString("dd.MM. yyyy")</td>
+                <td>@order.TotalPrice.ToString("C")</td>
+                <td>@order.PaymentStatus.ToString()</td>
+                <td>
+                    <a asp-controller="Order" asp-action="Detail" asp-route-id="@order.Id" class="btn btn-primary btn-sm">
+                        View
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

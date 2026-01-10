@@ -41,7 +41,21 @@ namespace BL.Services
             return Result.Ok(item.MapToDto());
         }
 
-        public async Task<Result> DeleteCartItemAsync(int id)
+        public async Task<Result> DeleteCartItemAsync(int userId, int bookId)
+        {
+            var item = await _repository.GetByUserIdAndBookIdAsync(userId, bookId);
+            if (item == null)
+            {
+                return Result.Fail(
+                    $"CartItem with userId {userId} and bookId {bookId} does not exist."
+                );
+            }
+            _repository.Delete(item);
+            await _repository.SaveChangesAsync();
+            return Result.Ok();
+        }
+
+        public async Task<Result> DeleteCartItemByIdAsync(int id)
         {
             var item = await _repository.GetByIdAsync(id);
 
@@ -78,7 +92,7 @@ namespace BL.Services
         public async Task<Result<IEnumerable<CartItemDto>>> GetCartItemsByUserIdAsync(int userId)
         {
             var items = await _repository.GetByUserIdAsync(userId);
-            return Result.Ok(items.Select(i => i.MapToDto()));
+            return Result.Ok<IEnumerable<CartItemDto>>(items.Select(i => i.MapToDto()).ToList());
         }
 
         public async Task<Result<CartItemDto>> UpdateItemQuantityAsync(int id, int quantity)

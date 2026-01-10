@@ -1,0 +1,86 @@
+@model WebMVC.Models.Wishlist.WishlistViewModel
+
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<h2>Your wishlist</h2>
+
+@if (Model?.Items == null || !Model.Items.Any())
+{
+    <p>Your wishlist is empty.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Cover</th>
+            <th>Title</th>
+            <th>Genres</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Price</th>
+            <th></th> @* remove button *@
+        </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < Model.Items.Count; i++)
+        {
+            var book = Model.Items[i].Book;
+
+            <tr>
+                <td>
+                    <img src="~/cover-images/@Model.Items[i].Book.CoverImageName"
+                         class="table-cover"
+                         alt="failed to load cover image"/>
+                </td>
+                <td>
+                    <a asp-controller="Book"
+                       asp-action="Detail"
+                       asp-route-id="@book.Id">
+                        @book.Title
+                    </a>
+                </td>
+                <td>
+                    @if (book.Genres != null && book.Genres.Any())
+                    {
+                        @Html.Raw(string.Join(", ", book.Genres.Select(g =>
+                            g.IsPrimary
+                                ? $"<span style='font-weight:bold; color:#d32f2f; background-color:#ffe5e5; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>"
+                                : $"<span style='color:#555; padding:2px 6px; border-radius:4px;'>{g.GenreName}</span>")))
+                    }
+                    else
+                    {
+                        <span class="text-muted">–</span>
+                    }
+                </td>
+                <td>
+                    @book.AuthorName
+                </td>
+                <td>
+                    @book.PublisherName
+                </td>
+                <td>
+                    @book.Price.ToString("0.00")
+                </td>
+                <td class="text-end">
+                    <form asp-controller="Wishlist"
+                          asp-action="Remove"
+                          asp-route-bookId="@book.Id"
+                          asp-route-returnUrl="@Url.Action("Index", "Wishlist")"
+                          method="post"
+                          class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit"
+                                class="btn btn-sm btn-danger"
+                                title="Remove from wishlist">
+                            &times;
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

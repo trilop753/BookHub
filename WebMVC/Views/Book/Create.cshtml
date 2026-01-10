@@ -1,0 +1,94 @@
+@model WebMVC.Models.Book.BookCreateViewModel
+<form asp-controller="Book" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control"/>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <input asp-for="Description" class="form-control"/>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="ISBN" class="form-label"></label>
+        <input asp-for="ISBN" class="form-control"/>
+        <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control"/>
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="AuthorId" class="form-label"></label>
+        <select asp-for="AuthorId" asp-items="Model.Authors" class="form-select">
+            <option value="">-- Select author --</option>
+        </select>
+        <span asp-validation-for="AuthorId" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="PublisherId" class="form-label"></label>
+        <select asp-for="PublisherId" asp-items="Model.Publishers" class="form-select">
+            <option value="">-- Select publisher --</option>
+        </select>
+        <span asp-validation-for="PublisherId" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+            <label class="form-label" style="margin:0;">Genres</label>
+            <span style="font-size:0.9rem; color:#555;">Primary</span>
+        </div>
+        @foreach (var genre in Model.Genres)
+        {
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+                <input type="checkbox" class="genre-checkbox" name="GenreIds" value="@genre.Value" id="chk-@genre.Value" @(Model.GenreIds.Contains(int.Parse(genre.Value)) ? "checked" : "") />
+                <label for="chk-@genre.Value" style="margin:0;">@genre.Text</label>
+
+                <div style="margin-left:auto;">
+                    <input type="radio" name="PrimaryGenreId" value="@genre.Value" id="rad-@genre.Value" disabled @(Model.PrimaryGenreId.ToString() == genre.Value ? "checked" : "") />
+                </div>
+            </div>
+        }
+        <span asp-validation-for="GenreIds" class="text-danger"></span>
+        <span asp-validation-for="PrimaryGenreId" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="CoverImageFile" class="form-label"></label>
+        <input asp-for="CoverImageFile" class="form-control" type="file" />
+        <span asp-validation-for="CoverImageFile" class="text-danger"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+</form>
+
+<script>
+    function syncRadios() {
+        document.querySelectorAll('.genre-checkbox').forEach(function (chk) {
+            const rad = document.getElementById('rad-' + chk.value);
+            rad.disabled = !chk.checked;
+
+            if (chk.checked && rad.hasAttribute("checked")) {
+                rad.disabled = false;
+            }
+        });
+    }
+
+    syncRadios();
+
+    document.querySelectorAll('.genre-checkbox').forEach(function (chk) {
+        chk.addEventListener('change', function () {
+            syncRadios();
+        });
+    });
+</script>

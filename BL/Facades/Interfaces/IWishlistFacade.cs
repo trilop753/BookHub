@@ -1,4 +1,5 @@
-﻿using BL.DTOs.WishlistItemDTOs;
+﻿using BL.DTOs.BookDTOs;
+using BL.DTOs.WishlistItemDTOs;
 using FluentResults;
 
 namespace BL.Facades.Interfaces
@@ -9,5 +10,6 @@ namespace BL.Facades.Interfaces
         Task<Result<WishlistItemDto>> RemoveFromWishlistAsync(int userId, int bookId);
         Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByUserIdAsync(int userId);
         Task<Result<IEnumerable<WishlistItemDto>>> GetAllWishlistedByBookIdAsync(int userId);
+        Task<Result<IEnumerable<BookDto>>> GetAllWishlistedBooksByUserIdAsync(int userId);
     }
 }

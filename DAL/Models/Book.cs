@@ -12,7 +12,7 @@ namespace DAL.Models
 
         public decimal Price { get; set; }
 
-        public virtual IEnumerable<Genre> Genres { get; set; } = new HashSet<Genre>();
+        public virtual IEnumerable<GenreBook> Genres { get; set; } = new HashSet<GenreBook>();
 
         public int PublisherId { get; set; }
 
@@ -26,7 +26,7 @@ namespace DAL.Models
 
         public virtual IEnumerable<BookReview> Reviews { get; set; }
 
-        public string? CoverImageUrl { get; set; }
+        public string? CoverImageName { get; set; }
 
         public int EditCount { get; set; } = 0;
 

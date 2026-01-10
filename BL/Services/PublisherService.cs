@@ -35,7 +35,7 @@ public class PublisherService : IPublisherService
     public async Task<IEnumerable<PublisherDto>> GetAllPublishersAsync()
     {
         var publishers = await _publisherRepository.GetAllWithBooksAsync();
-        return publishers.Select(p => p.MapToDto());
+        return publishers.Select(p => p.MapToDto()).ToList();
     }
 
     #endregion
@@ -94,7 +94,7 @@ public class PublisherService : IPublisherService
             return Result.Fail($"Publisher with id {id} does not exist.");
         }
 
-        var books = await _bookRepository.GetBooksAsync();
+        var books = await _bookRepository.GetAllAsync();
         var hasBooks =
             (publisher.Books != null && publisher.Books.Any())
             || books.Any(b => b.PublisherId == id);
@@ -110,5 +110,11 @@ public class PublisherService : IPublisherService
         await _publisherRepository.SaveChangesAsync();
 
         return Result.Ok();
+    }
+
+    public async Task<IEnumerable<PublisherDto>> GetPublishersByNameAsync(string query)
+    {
+        var publishers = await _publisherRepository.GetManyByNameAsync(query);
+        return publishers.Select(p => p.MapToDto());
     }
 }

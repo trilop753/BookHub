@@ -1,6 +1,7 @@
 ﻿using BL.DTOs.OrderDTOs;
 using BL.Facades.Interfaces;
 using BL.Services.Interfaces;
+using DAL.UtilityModels;
 using FluentResults;
 
 namespace BL.Facades
@@ -42,6 +43,11 @@ namespace BL.Facades
             return await _orderService.GetAllAsync();
         }
 
+        public async Task<Result<OrderDto>> GetByIdAsync(int id)
+        {
+            return await _orderService.GetByIdAsync(id);
+        }
+
         public async Task<Result<IEnumerable<OrderDto>>> GetOrdersByUserIdAsync(int userId)
         {
             var userRes = await ValidateUserAsync(userId);
@@ -54,6 +60,14 @@ namespace BL.Facades
             return await _orderService.GetOrdersByUserIdAsync(userId);
         }
 
+        public async Task<Result<OrderDto>> UpdateOrderPaymentStatusAsync(
+            int id,
+            PaymentStatus status
+        )
+        {
+            return await _orderService.UpdateOrderPaymentStatusAsync(id, status);
+        }
+
         private async Task<Result> ValidateUserAsync(int userId)
         {
             var userRes = await _userService.GetUserByIdAsync(userId);
@@ -63,6 +77,11 @@ namespace BL.Facades
                 return Result.Fail(userRes.Errors);
             }
             return Result.Ok();
+        }
+
+        public Task<Result> AssignGiftcardCodeAsync(int orderId, int giftcardCodeId)
+        {
+            return _orderService.AssignGiftcardCodeAsync(orderId, giftcardCodeId);
         }
     }
 }

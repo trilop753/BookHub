@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+
+    <h1 class="fw-bold mb-4 text-center">Admin Dashboard</h1>
+
+    <div class="d-flex flex-wrap justify-content-center gap-4">
+
+        <a asp-controller="Book"
+           asp-action="Create"
+           class="btn btn-success btn-lg px-4 py-3 shadow-sm rounded">
+            Create Book
+        </a>
+        
+        <a asp-controller="Genre"
+           asp-action="Index"
+           class="btn btn-primary btn-lg px-4 py-3 shadow-sm rounded">
+            Manage Genres
+        </a>
+
+        <a asp-controller="Publisher"
+           asp-action="Index"
+           class="btn btn-primary btn-lg px-4 py-3 shadow-sm rounded">
+            Manage Publishers
+        </a>
+
+        <a asp-controller="Author"
+           asp-action="Index"
+           class="btn btn-primary btn-lg px-4 py-3 shadow-sm rounded">
+            Manage Authors
+        </a>
+
+        <a asp-controller="GiftCard"
+           asp-action="Index"
+           class="btn btn-primary btn-lg px-4 py-3 shadow-sm rounded">
+            Manage Gift Cards
+        </a>
+        
+        <a asp-controller="Admin"
+           asp-action="ResetUserPassword"
+           class="btn btn-warning btn-lg px-4 py-3 shadow-sm rounded">
+            Reset User Password
+        </a>
+
+    </div>
+
+</div>

@@ -18,9 +18,9 @@ namespace WebAPI.Controllers
         #region Get
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetAll(int page = 1, int pageSize = 4)
         {
-            var books = await _bookService.GetAllBooksAsync();
+            var books = await _bookService.GetAllBooksAsync(page: page, pageSize: pageSize);
             return Ok(books);
         }
 

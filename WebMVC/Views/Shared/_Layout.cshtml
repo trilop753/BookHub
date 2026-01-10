@@ -1,5 +1,6 @@
-﻿@using DAL.Models;
-@using Microsoft.AspNetCore.Identity;
+﻿@using DAL.Models
+@using Microsoft.AspNetCore.Identity
+@using WebMVC.Constants
 @inject SignInManager<LocalIdentityUser> SignInManager
 @inject UserManager<LocalIdentityUser> UserManager
 
@@ -30,6 +31,65 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                            
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-controller="Wishlist"
+                               asp-action="Index">
+                                Wishlist
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-controller="Cart"
+                               asp-action="Index">
+                                Cart
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-controller="Order"
+                               asp-action="List">
+                                Orders
+                            </a>
+                        </li>
+                        
+                        @if (!User.IsInRole(Roles.Admin))
+                        {
+                            <li class="nav-item border-start ps-3 ms-3">
+                                <form asp-controller="Admin" asp-action="AddAdminRole" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button class="nav-link btn btn-link text-dark" type="submit">
+                                        Become admin
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item border-start ps-3 ms-3">
+                                <form asp-controller="Admin" asp-action="RemoveAdminRole" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button class="nav-link btn btn-link text-dark" type="submit">
+                                        Lose admin
+                                    </button>
+                                </form>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                   asp-area=""
+                                   asp-controller="Admin"
+                                   asp-action="Dashboard">
+                                    Admin Dashboard
+                                </a>
+                            </li>
+                        }
                     </ul>
 
                     <ul class="navbar-nav">
@@ -66,7 +126,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted">
         <div class="container">
             &copy; 2025 - WebMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

@@ -1,3 +1,7 @@
+using BL.Middlewares;
+using Microsoft.AspNetCore.Identity;
+using WebMVC.Caching;
+using WebMVC.Constants;
 using WebMVC.Extensions;
 
 namespace WebMVC
@@ -12,6 +16,10 @@ namespace WebMVC
             builder.Services.AddRepositories();
             builder.Services.AddBusinessServices();
             builder.Services.AddFacades();
+
+            builder.Services.AddMemoryCache();
+            builder.Services.AddSingleton<IAppCache, AppCache>();
+
             builder.Services.AddCorsPolicy();
 
             builder.Services.AddLocalIdentityProvider();
@@ -22,6 +30,16 @@ namespace WebMVC
 
             app.ApplyMigrations();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                if (!roleManager.RoleExistsAsync(Roles.Admin).Result)
+                {
+                    roleManager.CreateAsync(new IdentityRole(Roles.Admin));
+                }
+            }
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -29,9 +47,11 @@ namespace WebMVC
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
+            app.ApplyStaticFilesManagement();
             app.UseRouting();
+
+            app.UseRequestLogging("MVC");
 
             app.UseAuthorization();
 
