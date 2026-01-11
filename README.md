@@ -13,6 +13,8 @@ BookHub is a digital platform for online book sales across various genres. It al
 
 <img width="1859" height="989" alt="image" src="https://github.com/user-attachments/assets/41dab6d6-ed87-4d29-8ac8-414424671cd6" />
 
+<img width="1859" height="1311" alt="image" src="https://github.com/user-attachments/assets/7b7fa51f-46ea-45be-af60-1fa59ffbef3f" />
+
 ---
 
 ## Project Information
