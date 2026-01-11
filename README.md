@@ -1,10 +1,10 @@
-# PV179_BookHub | Seminar 3 | Team 8
+# PV179_BookHub
 
 ## Team members:
 
-- xmackov1
-- xpavlik9
-- xkala
+- Maroš Pavlík
+- Martin Mackovič
+- Adam Kala
 
 # BookHub
 
@@ -24,11 +24,6 @@ BookHub is a digital platform for online book sales across various genres. It al
 - Repository pattern
 - Middleware for authentication and logging
 - GitLab CI/CD for merge requests
-
-**Repository:**
-The project is hosted on _GitLab_ with **Internal** visibility.  
-All changes are made through separate branches and merged via Merge Requests after approval from another team member.
-
 ---
 
 ## Features
@@ -143,14 +138,6 @@ This project's pipeline:
 ## Running the Project
 
 ### 1. Clone the repository
-
-```bash
-git clone https://gitlab.fi.muni.cz/xmackov1/pv179_bookhub
-```
-
-```bash
-cd pv179_bookhub
-```
 
 ### 2. Configure the database connection
 
