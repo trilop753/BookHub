@@ -10,6 +10,9 @@
 
 BookHub is a digital platform for online book sales across various genres. It allows users to easily browse, filter, and purchase books by author, publisher, and genre. Registered users can manage their accounts, write reviews, create wishlists, and view their order history. Administrators have extended privileges — they can manage books, prices, and user accounts.
 
+
+<img width="1859" height="989" alt="image" src="https://github.com/user-attachments/assets/41dab6d6-ed87-4d29-8ac8-414424671cd6" />
+
 ---
 
 ## Project Information
@@ -142,16 +145,15 @@ This project's pipeline:
 ### 2. Configure the database connection
 
 The project uses a SQLite database.
-By default, the connection string in `appsettings.json` points to a local database stored in your user directory:
+By default, the connection string in `appsettings.json` is a name of a database that will be created in your user directory (.local/share):
 
 ```json
-"ConnectionStrings": {
-    "DefaultConnection": "Data Source=%LocalAppData%\\bookhub.db"
-},
+  "ConnectionStrings": {
+    "DefaultConnection": "bookhub-mvc.db",
+    "LogDatabase": "bookhub-logs-litedb.db"
+  },
+  "CoverImageStorage": "bookhub-cover-image-storage",
 ```
-
-You can modify the path or file name in the connection string if you want to store the database elsewhere.
-
 ### 3. Run the project
 
 #### In Visual Studio
